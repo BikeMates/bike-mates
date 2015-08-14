@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{941E9FBC-0DDD-4846-BA8F-046902DB0952}</ProjectGuid>
+    <ProjectGuid>{52F9B14E-FE26-4ECE-AF33-E0537BFD2134}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BikeMates.BLL</RootNamespace>
