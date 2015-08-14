@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeMates", "BikeMatess\BikeMates.csproj", "{F1F48382-2E72-45B6-A4AC-D4ED671E04EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeMates.Web", "BikeMatess\BikeMates.Web.csproj", "{F1F48382-2E72-45B6-A4AC-D4ED671E04EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeMates.DAL", "BikeMates.DAL\BikeMates.DAL.csproj", "{171A7DEA-CE95-4AD8-BA26-9B918A67FD7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeMates.BLL", "BikeMates.BLL\BikeMates.BLL.csproj", "{941E9FBC-0DDD-4846-BA8F-046902DB0952}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{F1F48382-2E72-45B6-A4AC-D4ED671E04EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1F48382-2E72-45B6-A4AC-D4ED671E04EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1F48382-2E72-45B6-A4AC-D4ED671E04EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{171A7DEA-CE95-4AD8-BA26-9B918A67FD7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{171A7DEA-CE95-4AD8-BA26-9B918A67FD7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{171A7DEA-CE95-4AD8-BA26-9B918A67FD7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{171A7DEA-CE95-4AD8-BA26-9B918A67FD7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941E9FBC-0DDD-4846-BA8F-046902DB0952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941E9FBC-0DDD-4846-BA8F-046902DB0952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941E9FBC-0DDD-4846-BA8F-046902DB0952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941E9FBC-0DDD-4846-BA8F-046902DB0952}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
