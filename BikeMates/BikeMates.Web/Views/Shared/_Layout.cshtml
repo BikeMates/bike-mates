@@ -13,29 +13,37 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+
+
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img src="http://www.autoexpert.in.ua/files/auto_life/velosiped/velosiped_gucci_bianchi_16_01_12_001.jpg" align="left" width="128" height="60" />
+                @Html.ActionLink("BikeMates", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+                    <form>
+                        <p style="position: absolute; top:20px; left:800px; width:500px; height:100px">
+                            <input type="search" name="q" size="30" placeholder="Пошук на сайті">
+                            <input type="submit" value="Знайти">
+                        </p>
+                    </form>   
+                   
+</div>
+
+                    
+                    <p style="position: absolute; top:920px; left:860px; width:500px; height:25px"> @Html.ActionLink("About", "About", "Home") </p>
+                    <p style="position: absolute; top:920px; left:920px; width:500px; height:25px">@Html.ActionLink("Contact", "Contact", "Home")</p>
+                </ul >
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+
     </div>
+ 
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
