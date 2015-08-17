@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using BikeMates.Web.Models;
+using BikeMates.DataAccess;
+using BikeMates.DataAccess.Entity;
 
 namespace BikeMates.Web
 {

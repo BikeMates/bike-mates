@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using BikeMates.Web.Models;
+using BikeMates.DataAccess;
+using BikeMates.DataAccess.Entity;
 
 namespace BikeMates.Web
 {
