@@ -15,6 +15,7 @@ namespace BikeMates.Contracts
         void Delete(ApplicationUser entity);
         IEnumerable<ApplicationUser> GetAll();
         ApplicationUser Get(string id);
+        void Edit(ApplicationUser entity);
         void SaveChanges(); //TODO: Remove this method. Use it inside each methods like Add, Delete, etc.
     }
 }
