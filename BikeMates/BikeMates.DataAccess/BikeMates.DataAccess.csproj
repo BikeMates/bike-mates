@@ -57,14 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="App_Repository\UserRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Migrations\201508171420149_InitialCreate.cs" />
     <Compile Include="Migrations\201508171420149_InitialCreate.Designer.cs">
       <DependentUpon>201508171420149_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508171435394_InitialCreate1.cs" />
-    <Compile Include="Migrations\201508171435394_InitialCreate1.Designer.cs">
-      <DependentUpon>201508171435394_InitialCreate1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,9 +72,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201508171420149_InitialCreate.resx">
       <DependentUpon>201508171420149_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508171435394_InitialCreate1.resx">
-      <DependentUpon>201508171435394_InitialCreate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

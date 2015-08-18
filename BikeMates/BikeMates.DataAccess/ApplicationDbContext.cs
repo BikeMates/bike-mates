@@ -1,4 +1,4 @@
-﻿using BikeMates.DataAccess.Entity;
+﻿using BikeMates.DataAccess.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -9,19 +9,18 @@ using System.Threading.Tasks;
 
 namespace BikeMates.DataAccess
 {
-    //TODO: Use more specific name - BikeMatesDbContext
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class BikeMatesDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext()
+        public BikeMatesDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
         public DbSet<Route> Routes { get; set; }
 
-        public static ApplicationDbContext Create()
+        public static BikeMatesDbContext Create()
         {
-            return new ApplicationDbContext();
+            return new BikeMatesDbContext();
         }
     }
 }

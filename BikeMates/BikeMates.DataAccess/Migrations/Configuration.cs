@@ -5,7 +5,7 @@ namespace BikeMates.DataAccess.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BikeMates.DataAccess.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<BikeMates.DataAccess.BikeMatesDbContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@ namespace BikeMates.DataAccess.Migrations
             ContextKey = "BikeMates.DataAccess.ApplicationDbContext";
         }
 
-        protected override void Seed(BikeMates.DataAccess.ApplicationDbContext context)
+        protected override void Seed(BikeMates.DataAccess.BikeMatesDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

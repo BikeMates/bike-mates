@@ -1,5 +1,6 @@
 ﻿using BikeMates.Contracts;
-using BikeMates.DataAccess.Entity;
+using BikeMates.Contracts.Repositories;
+using BikeMates.DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,22 +11,21 @@ namespace BikeMates.Application.Services
 {
     public class UserService:IUserService
     {
-        //TODO: Rename to userRepository
-        private IUserRepository repository;
+        private IUserRepository userRepository;
 
-        public UserService(IUserRepository repository)//TODO: Rename to userRepository
+        public UserService(IUserRepository repository)
         {
-            this.repository = repository;
+            this.userRepository = repository;
         }
-        public ApplicationUser GetUser(string Id)
+        public User GetUser(string Id)
         {
-            return this.repository.Get(Id);
+            return this.userRepository.Get(Id);
         }
 
         public void Delete(string id)
         {
             var user = GetUser(id);
-            repository.Delete(user);
+            userRepository.Delete(user);
         }
     }
 }

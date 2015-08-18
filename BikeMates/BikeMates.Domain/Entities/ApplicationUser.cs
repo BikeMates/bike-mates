@@ -7,12 +7,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 
-namespace BikeMates.DataAccess.Entity //TODO: Use plural form: Rename folder and namespace Entity -> to Entities
+namespace BikeMates.DataAccess.Entities
 {
-    //TODO: Rename to User
-    public class ApplicationUser : IdentityUser
+    public class User : IdentityUser
     {
-        public ApplicationUser() { Id = Guid.NewGuid().ToString(); }
+        public User() { Id = Guid.NewGuid().ToString(); }
         public string FirstName { get; set; }
         public string SecondName {get; set;}
         public string Picture {get; set;}
@@ -20,7 +19,7 @@ namespace BikeMates.DataAccess.Entity //TODO: Use plural form: Rename folder and
 
         public virtual ICollection<Route> Routes { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

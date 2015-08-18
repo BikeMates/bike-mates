@@ -1,4 +1,4 @@
-﻿using BikeMates.DataAccess.Entity;
+﻿using BikeMates.DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Contracts
 {
-    //TODO: Create folder Services and move this interface into it
     public interface IUserService
     {
-        ApplicationUser GetUser(string Id);
+        User GetUser(string Id);
         void Delete(string Id);
 
     }

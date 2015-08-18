@@ -4,38 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BikeMates.Contracts;
-using BikeMates.DataAccess.Entity;
+using BikeMates.DataAccess.Entities;
+using BikeMates.Contracts.Repositories;
 
-namespace BikeMates.DataAccess.App_Repository //TODO: Rename folder and namespace to Repositories
+namespace BikeMates.DataAccess.Repository
 {
     class UserRepository : IUserRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly BikeMatesDbContext context;
 
-        public UserRepository(ApplicationDbContext context)
+        public UserRepository(BikeMatesDbContext context)
         {
             this.context = context;
         }
-        public void Add(ApplicationUser entity)
+        public void Add(User entity)
         {
             //this.context.Set<ApplicationUser>().Add(entity);
             //SaveChanges();
         }
 
-        public void Delete(ApplicationUser entity)
+        public void Delete(User entity)
         {
-            this.context.Set<ApplicationUser>().Remove(entity);
+            this.context.Set<User>().Remove(entity);
             SaveChanges();
         }
 
-        public IEnumerable<ApplicationUser> GetAll()
+        public IEnumerable<User> GetAll()
         {
             return this.context.Users.ToList();
         }
 
-        public ApplicationUser Get(string id)
+        public User Get(string id)
         {
-           return this.context.Set<ApplicationUser>().Find(id);
+           return this.context.Set<User>().Find(id);
         }
 
         public void SaveChanges()
