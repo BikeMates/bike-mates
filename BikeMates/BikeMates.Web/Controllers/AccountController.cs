@@ -232,6 +232,19 @@ namespace BikeMates.Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult Profile()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult EditProfile()
+        {
+            return View();
+        }
+
+
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
