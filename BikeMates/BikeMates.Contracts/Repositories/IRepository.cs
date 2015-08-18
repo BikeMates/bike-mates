@@ -11,5 +11,7 @@ namespace BikeMates.Contracts.Repositories
         void Add(T entity);
         void Delete(T entity);
         IEnumerable<T> GetAll();
+        T Get(string id);
+        void Edit(T entity);
     }
 }

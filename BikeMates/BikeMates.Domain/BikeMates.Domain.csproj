@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Route.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
