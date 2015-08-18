@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="BikeMatesDbContext.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Migrations\201508171420149_InitialCreate.cs" />
     <Compile Include="Migrations\201508171420149_InitialCreate.Designer.cs">
