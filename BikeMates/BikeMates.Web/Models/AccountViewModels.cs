@@ -65,7 +65,7 @@ namespace BikeMates.Web.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
+        [EmailAddress] //TODO: EmailAddress? rly?
         [Display(Name = "Name")]
         public string FirstName { get; set; }
 

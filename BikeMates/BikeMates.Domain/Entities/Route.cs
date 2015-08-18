@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikeMates.DataAccess.Entities
+namespace BikeMates.DataAccess.Entities //TODO: fix namespace -> BikeMates.Domain.Entities
 {
     public class Route
     {

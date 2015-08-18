@@ -12,7 +12,9 @@
         <fieldset>
             <legend>
                 Sign up
-                <img src="~/Content/Pictures/1439922997_add_user.png" style="margin-bottom:15px" />
+                <img src="~/Content/Pictures/1439922997_add_user.png" style="margin-bottom: 15px"/>
+                <!-- TODO: rename folder /Pictures/ -> /Images/ -->
+                <!-- TODO: rename image 1439922997_add_user.png -> add_user.png -->
             </legend>
 
             @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -62,7 +64,7 @@
                 </div>
             </div>
         </fieldset>
-    </div>
+    </div><!-- TODO: move elements style(with >1 attributes) inside site.css (use classes) -->
 }
 
             @section Scripts {

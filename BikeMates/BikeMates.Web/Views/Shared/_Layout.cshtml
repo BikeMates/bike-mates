@@ -16,7 +16,9 @@
 
 
                 </button>
-                <img src="http://www.autoexpert.in.ua/files/auto_life/velosiped/velosiped_gucci_bianchi_16_01_12_001.jpg" align="left" width="128" height="60" />
+                <!-- TODO: remove empty lines-->
+
+                <img src="http://www.autoexpert.in.ua/files/auto_life/velosiped/velosiped_gucci_bianchi_16_01_12_001.jpg" align="left" width="128" height="60" /><!-- TODO: save image into Content/Images/logo710x473.jpg-->
                 @Html.ActionLink("BikeMates", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
@@ -33,8 +35,13 @@
                     
                     <p style="position: absolute; top:920px; left:860px; width:500px; height:25px"> @Html.ActionLink("About", "About", "Home") </p>
                     <p style="position: absolute; top:920px; left:920px; width:500px; height:25px">@Html.ActionLink("Contact", "Contact", "Home")</p>
-                </ul >
-                @Html.Partial("_LoginPartial")
+            </ul >
+            <!-- TODO: all elements inside <ul> tag should be inside <li> element-->
+            <!-- TODO: fix html formatting-->
+            <!-- TODO: only english-->
+            <!-- TODO: move elements style(with >1 attributes) inside site.css (use classes) -->
+
+            @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
