@@ -7,8 +7,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 
-namespace BikeMates.DataAccess.Entity
+namespace BikeMates.DataAccess.Entity //TODO: Use plural form: Rename folder and namespace Entity -> to Entities
 {
+    //TODO: Rename to User
     public class ApplicationUser : IdentityUser
     {
         public ApplicationUser() { Id = Guid.NewGuid().ToString(); }

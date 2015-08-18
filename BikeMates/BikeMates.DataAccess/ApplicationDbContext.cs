@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace BikeMates.DataAccess
 {
+    //TODO: Use more specific name - BikeMatesDbContext
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

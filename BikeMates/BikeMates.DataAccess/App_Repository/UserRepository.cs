@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BikeMates.Contracts;
 using BikeMates.DataAccess.Entity;
 
-namespace BikeMates.DataAccess.App_Repository
+namespace BikeMates.DataAccess.App_Repository //TODO: Rename folder and namespace to Repositories
 {
     class UserRepository : IUserRepository
     {

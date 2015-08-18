@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Contracts
 {
+    //TODO: Create folder Services and move this interface into it
     public interface IUserService
     {
         ApplicationUser GetUser(string Id);

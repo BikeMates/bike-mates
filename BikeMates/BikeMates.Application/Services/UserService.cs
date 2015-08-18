@@ -10,9 +10,10 @@ namespace BikeMates.Application.Services
 {
     public class UserService:IUserService
     {
+        //TODO: Rename to userRepository
         private IUserRepository repository;
 
-        public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository)//TODO: Rename to userRepository
         {
             this.repository = repository;
         }
