@@ -32,5 +32,10 @@ namespace BikeMates.Application.Services
         {
             this.userRepository.Update(entity);
          }
+
+        //public bool Create(User entity)
+        //{
+        //    return this.userRepository.Add(entity);
+        //}
     }
 }

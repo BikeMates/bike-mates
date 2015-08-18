@@ -9,6 +9,7 @@ namespace BikeMates.Contracts
 {
     public interface IUserService
     {
+        //bool Create(User entity);
         User GetUser(string Id);
         void Delete(string Id);
         void Update(User entity);
