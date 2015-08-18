@@ -27,5 +27,10 @@ namespace BikeMates.Application.Services
             var user = GetUser(id);
             userRepository.Delete(user);
         }
+
+        public void Update(User entity)
+        {
+            this.userRepository.Update(entity);
+         }
     }
 }
