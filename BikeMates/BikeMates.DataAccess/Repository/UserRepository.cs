@@ -43,5 +43,10 @@ namespace BikeMates.DataAccess.Repository
         {
             this.context.SaveChanges();
         }
+
+        public void Update(User entity)
+        {
+            this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+        }
     }
 }
