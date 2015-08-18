@@ -11,6 +11,7 @@ namespace BikeMates.Contracts
     {
         User GetUser(string Id);
         void Delete(string Id);
+        void Update(User entity);
 
     }
 }
