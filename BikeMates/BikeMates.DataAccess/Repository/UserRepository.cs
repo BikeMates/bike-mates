@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using BikeMates.Contracts;
 using BikeMates.DataAccess.Entities;
 using BikeMates.Contracts.Repositories;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BikeMates.DataAccess.Repository
 {
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly BikeMatesDbContext context;
 
@@ -19,8 +21,14 @@ namespace BikeMates.DataAccess.Repository
         }
         public void Add(User entity)
         {
-            //this.context.Set<ApplicationUser>().Add(entity);
-            //SaveChanges();
+            //var um = new UserManager<User>(new UserStore<User>(context));
+
+            //var password = entity.About;
+            //entity.About = null;
+
+            //var idResult = um.Create(entity, password);
+
+            //return idResult.Succeeded;
         }
 
         public void Delete(User entity)

@@ -12,6 +12,10 @@ using BikeMates.Web.Models;
 using BikeMates.DataAccess.Entities;
 
 
+using BikeMates.Contracts;
+using BikeMates.Application.Services;
+using BikeMates.DataAccess.Repository;
+using BikeMates.DataAccess;
 namespace BikeMates.Web.Controllers
 {
     [Authorize]
@@ -19,9 +23,11 @@ namespace BikeMates.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IUserService userService = new UserService(new UserRepository(new BikeMatesDbContext()));
 
         public AccountController()
         {
+           
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -153,10 +159,12 @@ namespace BikeMates.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email,About = model.Password };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
+                //var result = userService.Create(user);
                 if (result.Succeeded)
+                //if(result)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -168,7 +176,7 @@ namespace BikeMates.Web.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                AddErrors(result);
+                //AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -394,7 +402,7 @@ namespace BikeMates.Web.Controllers
                         return RedirectToLocal(returnUrl);
                     }
                 }
-                AddErrors(result);
+                //AddErrors(result);
             }
 
             ViewBag.ReturnUrl = returnUrl;

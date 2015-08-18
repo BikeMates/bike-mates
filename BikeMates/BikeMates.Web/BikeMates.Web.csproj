@@ -173,6 +173,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Pictures\1439922997_add_user.png" />
+    <Content Include="Content\Pictures\1439927601_circle_help_question-mark.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -240,6 +241,14 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BikeMates.Application\BikeMates.Application.csproj">
+      <Project>{ce334495-a9e4-46b2-b689-7fa0b44252b2}</Project>
+      <Name>BikeMates.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikeMates.Contracts\BikeMates.Contracts.csproj">
+      <Project>{4eb44564-f9f1-47bf-a30e-ec3b57b820cb}</Project>
+      <Name>BikeMates.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikeMates.DataAccess\BikeMates.DataAccess.csproj">
       <Project>{c286cef0-4df6-4215-86e5-69825f2aaa27}</Project>
       <Name>BikeMates.DataAccess</Name>

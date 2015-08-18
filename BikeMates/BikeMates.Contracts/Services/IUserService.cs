@@ -9,6 +9,7 @@ namespace BikeMates.Contracts //TODO: fix namespace
 {
     public interface IUserService
     {
+        //bool Create(User entity);
         User GetUser(string Id);
         void Delete(string Id); //TODO: all argument names should start with small letter
         void Update(User entity);

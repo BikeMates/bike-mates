@@ -10,5 +10,6 @@ namespace BikeMates.Contracts.Repositories
     public interface IUserRepository : IRepository<User>
     {
         User Get(string id);
+        //bool Register(User entity, string password);
     }
 }
