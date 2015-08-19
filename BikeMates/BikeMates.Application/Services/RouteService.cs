@@ -1,0 +1,40 @@
+﻿using BikeMates.Contracts;
+using BikeMates.Contracts.Repositories;
+using BikeMates.Contracts.Services;
+using BikeMates.Domain.Entities;
+using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BikeMates.Application.Services
+{
+    public class RouteService : IRouteService
+    {
+        private IRouteRepository routeRepository;
+        public void Add(Route entity)
+        {
+            this.routeRepository.Add(entity);
+        }
+        public RouteService(IRouteRepository repository)
+        {
+            this.routeRepository = repository;
+        }
+        public Route GetRoute(int id)
+        {
+            return this.routeRepository.Get(id);
+        }
+        public void Delete(int id)
+        {
+            var user = GetRoute(id);
+            routeRepository.Delete(user);
+        }
+
+        public void Update(Route entity)
+        {
+            this.routeRepository.Update(entity);
+        }
+    }
+}
