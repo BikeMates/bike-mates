@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BikeMates.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,13 @@ namespace BikeMates.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly BikeMatesDbContext context;
         public ActionResult Index()
         {
-            return View();
+            HomeRouteListRepository routelist = new HomeRouteListRepository();
+            var allRoutes = routelist.GetAllRoutes().ToList();
+
+            return View(allRoutes);
         }
 
         public ActionResult About()
