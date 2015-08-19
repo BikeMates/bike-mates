@@ -69,6 +69,10 @@ namespace BikeMates.Web.Models
         public string FirstName { get; set; }
 
         [Required]
+        [Display(Name = "Surname")]
+        public string SecondName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

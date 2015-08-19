@@ -15,6 +15,7 @@ using BikeMates.DataAccess.Repository;
 using BikeMates.DataAccess;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
+using System.Threading;
 namespace BikeMates.Web.Controllers
 {
     [Authorize]
@@ -158,7 +159,7 @@ namespace BikeMates.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, SecondName = "", About = "", Picture = ""};
 
                 var result = userService.Register(user, model.Password);
                 if (result.Succeeded)
@@ -179,6 +180,8 @@ namespace BikeMates.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
 
         //
         // GET: /Account/ConfirmEmail
