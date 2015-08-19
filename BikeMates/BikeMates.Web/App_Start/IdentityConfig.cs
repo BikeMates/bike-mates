@@ -12,7 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using BikeMates.Web.Models;
 using BikeMates.DataAccess;
-using BikeMates.DataAccess.Entities;
+using BikeMates.Domain.Entities;
 
 namespace BikeMates.Web
 {

@@ -1,6 +1,8 @@
 ﻿using BikeMates.Contracts;
 using BikeMates.Contracts.Repositories;
-using BikeMates.DataAccess.Entities;
+using BikeMates.Contracts.Services;
+using BikeMates.Domain.Entities;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,9 +35,9 @@ namespace BikeMates.Application.Services
             this.userRepository.Update(entity);
          }
 
-        //public bool Create(User entity)
-        //{
-        //    return this.userRepository.Add(entity);
-        //}
+        public IdentityResult Register(User entity, string password)
+        {
+            return this.userRepository.Register(entity, password);
+        }
     }
 }

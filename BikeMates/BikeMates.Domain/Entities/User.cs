@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 
-namespace BikeMates.DataAccess.Entities //TODO: fix namespace -> BikeMates.Domain.Entities
+namespace BikeMates.Domain.Entities 
 {
     public class User : IdentityUser
     {

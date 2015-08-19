@@ -22,3 +22,32 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.register-form{
+    background-color:#e8e8e8;
+    width:550px;
+}
+
+.register-form-position{
+    margin-top:80px;
+    margin-left:280px;
+}
+
+.register-form-content{
+    margin-left:20px;
+    width:950px;
+}
+
+.login-form{
+    background-color: #e8e8e8;
+    width:450px;
+}
+
+.login-form-position{
+    margin-top:100px;
+    margin-left:320px;
+}
+
+.login-form-content {
+    width:700px;
+}

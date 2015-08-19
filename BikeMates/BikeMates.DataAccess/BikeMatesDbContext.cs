@@ -1,4 +1,4 @@
-﻿using BikeMates.DataAccess.Entities;
+﻿using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;

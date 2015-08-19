@@ -9,13 +9,12 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BikeMates.Web.Models;
-using BikeMates.DataAccess.Entities;
-
-
 using BikeMates.Contracts;
 using BikeMates.Application.Services;
 using BikeMates.DataAccess.Repository;
 using BikeMates.DataAccess;
+using BikeMates.Contracts.Services;
+using BikeMates.Domain.Entities;
 namespace BikeMates.Web.Controllers
 {
     [Authorize]
@@ -159,12 +158,10 @@ namespace BikeMates.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email,About = model.Password };
+                var user = new User { UserName = model.Email, Email = model.Email };
 
-                var result = await UserManager.CreateAsync(user, model.Password);
-                //var result = userService.Create(user);
+                var result = userService.Register(user, model.Password);
                 if (result.Succeeded)
-                //if(result)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -176,7 +173,7 @@ namespace BikeMates.Web.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                //AddErrors(result);
+                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form

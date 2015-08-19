@@ -1,17 +1,18 @@
-﻿using BikeMates.DataAccess.Entities;
+﻿using BikeMates.Domain.Entities;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BikeMates.Contracts //TODO: fix namespace
+namespace BikeMates.Contracts.Services
 {
     public interface IUserService
     {
-        //bool Create(User entity);
-        User GetUser(string Id);
-        void Delete(string Id); //TODO: all argument names should start with small letter
+        IdentityResult Register(User entity, string password);
+        User GetUser(string id);
+        void Delete(string id);
         void Update(User entity);
 
     }

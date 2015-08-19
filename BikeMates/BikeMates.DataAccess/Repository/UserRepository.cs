@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BikeMates.Contracts;
-using BikeMates.DataAccess.Entities;
 using BikeMates.Contracts.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using BikeMates.Domain.Entities;
 
 namespace BikeMates.DataAccess.Repository
 {
@@ -21,14 +21,7 @@ namespace BikeMates.DataAccess.Repository
         }
         public void Add(User entity)
         {
-            //var um = new UserManager<User>(new UserStore<User>(context));
 
-            //var password = entity.About;
-            //entity.About = null;
-
-            //var idResult = um.Create(entity, password);
-
-            //return idResult.Succeeded;
         }
 
         public void Delete(User entity)
@@ -55,6 +48,14 @@ namespace BikeMates.DataAccess.Repository
         public void Update(User entity)
         {
             this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+        }
+
+        public IdentityResult Register(User entity, string password)
+        {
+            var um = new UserManager<User>(new UserStore<User>(context));
+            var idResult = um.Create(entity, password);
+
+            return idResult;
         }
     }
 }
