@@ -73,10 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Models\UserProfileViewModel.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -93,8 +95,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BikeMates.Application\BikeMates.Application.csproj">
+      <Project>{ce334495-a9e4-46b2-b689-7fa0b44252b2}</Project>
+      <Name>BikeMates.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikeMates.Contracts\BikeMates.Contracts.csproj">
+      <Project>{4eb44564-f9f1-47bf-a30e-ec3b57b820cb}</Project>
+      <Name>BikeMates.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikeMates.DataAccess\BikeMates.DataAccess.csproj">
+      <Project>{c286cef0-4df6-4215-86e5-69825f2aaa27}</Project>
+      <Name>BikeMates.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikeMates.Domain\BikeMates.Domain.csproj">
+      <Project>{517147ec-1559-4488-9c73-7fc31fdc4c26}</Project>
+      <Name>BikeMates.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

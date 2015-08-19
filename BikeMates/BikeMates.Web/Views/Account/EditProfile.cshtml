@@ -16,19 +16,19 @@
 
 
     <div class="form-group">
-        <label for="usr">First name:</label>
-        <input type="text" class="form-control" id="usrname" value="Nazar">
+        <label for="usrname">First name:</label>
+        <input type="text" class="form-control" id="usrname" value="Nazar" data-bind="value: FirsName ">
     </div>
 
     <div class="form-group">
-        <label for="usr">Second name:</label>
-        <input type="text" class="form-control" id="usrs" value="Popkov">
+        <label for="usrscname">Second name:</label>
+        <input type="text" class="form-control" id="usrscname" value="Popkov" data-bind="value: SecondName">
     </div>
 
     <hr />
     <p> Change password </p>
     <div class="form-group">
-        <label for="pwd">Old password:</label>
+        <label for="opwd">Old password:</label>
         <input type="password" class="form-control" id="opwd">
     </div>
 
@@ -50,7 +50,7 @@
 
     <div class="form-group">
         <label for="comment">About myself:</label>
-        <textarea class="form-control" rows="5" id="comment">Basically cycling is a part of my soul .Like to to it with my friends and just like everyone else - it really makes me happy
+        <textarea class="form-control" rows="5" id="comment" data-bind="value: About">Basically cycling is a part of my soul .Like to to it with my friends and just like everyone else - it really makes me happy
         </textarea>
     </div>
 

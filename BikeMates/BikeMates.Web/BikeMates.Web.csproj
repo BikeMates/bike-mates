@@ -261,6 +261,10 @@
       <Project>{517147ec-1559-4488-9c73-7fc31fdc4c26}</Project>
       <Name>BikeMates.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BikeMates.Service\BikeMates.Service.csproj">
+      <Project>{f570322d-1ca8-485e-97ac-9aba3407251a}</Project>
+      <Name>BikeMates.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
