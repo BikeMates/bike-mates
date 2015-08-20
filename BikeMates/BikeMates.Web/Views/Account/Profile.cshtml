@@ -2,29 +2,32 @@
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <link rel="stylesheet" href="~/Content/ProfilePage.css">
+<link rel="stylesheet" href="~/Content/ProfilePage.css">
+
+
+<script src="~/Scripts/knockout-3.3.0.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/App_Scripts/ProfileScript.js"></script>
 
 
 <h2>Profile</h2>
 
 <div id="profile _section" >
     <div class="form-group">
-        <img src="~/Content/Images/avatar-big.png" alt="Smiley face" height="150" width="150">
+        <img  alt="Smiley face" height="150" width="150" data-bind="attr: {src: imagePath}" />
 
-
-
-
-        <h1>Nazar Popkov</h1>
-
+      
+      
+        <h1> <strong data-bind="text: fullName" >FullName</strong></h1>
     </div>
 
 
     <div class="form-group">
-        <label for="usr">About myself :</label>
+        <label for="usr" >About myself :</label>
 
     </div>
 
-    <p>
+    <p data-bind="text: about">
         Basically cycling is a part of my soul . Like to to it with my friends
         and just like everyone else - it really makes me happy
     </p>
