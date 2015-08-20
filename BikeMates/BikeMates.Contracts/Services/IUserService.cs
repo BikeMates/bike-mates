@@ -10,6 +10,7 @@ namespace BikeMates.Contracts.Services
 {
     public interface IUserService
     {
+        //TODO: Rename entity to user. 
         IdentityResult Register(User entity, string password);
         User GetUser(string id);
         void Delete(string id);

@@ -11,6 +11,6 @@ namespace BikeMates.Contracts.Repositories
     public interface IUserRepository : IRepository<User>
     {
         User Get(string id);
-        IdentityResult Register(User entity, string password);
+        IdentityResult Register(User entity, string password); //TODO: Rename entity to user. 
     }
 }
