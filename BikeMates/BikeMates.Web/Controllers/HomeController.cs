@@ -19,6 +19,7 @@ namespace BikeMates.Web.Controllers
         public ActionResult Index(int? page)
         {
             allRoutes = routelist.GetAllRoutes().ToList();
+            
             int pageNumber = page ?? 1;
             int pageSize = 3;
             return View(allRoutes.ToPagedList(pageNumber,pageSize));
