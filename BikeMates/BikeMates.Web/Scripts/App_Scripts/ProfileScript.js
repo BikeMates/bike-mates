@@ -1,25 +1,18 @@
-﻿function AppViewModel() {
-    this.firstName = ko.observable("Volodymyr");
-    this.lastName = ko.observable("Zavayko");
-    this.about = ko.observable("Wow Im in the BikeMates!");
-    this.imagePath = ko.observable('http://localhost:51949/Content/Images/avatar-big.png');
+﻿$(document).ready(function () {
+
+function AppViewModel() {
+
+    var self = this;
+    self.FirstName = ko.observable("");
+    self.SecondName = ko.observable("");
+    self.About = ko.observable("");
+    self.Picture = ko.observable("");
     
 
-    this.fullName = ko.computed(function () {
-        return this.firstName() + " " + this.lastName();
+    self.fullName = ko.computed(function () {
+        return self.FirstName() + " " + self.SecondName();
     }, this);
 
-      
-
-}
-
-
-
-// Activates knockout.js
-$(document).ready(function () {
-
-    // bind view model to referring view
-    ko.applyBindings(new AppViewModel());
 
 
       
@@ -28,7 +21,12 @@ $(document).ready(function () {
             contentType: "text/json",
             type: "GET",
             success: function (data) {
-                alert("success")
+              
+                self.FirstName(data.FirstName);
+                self.SecondName(data.SecondName);
+                self.About(data.About);
+                self.Picture(data.Picture);
+
             },
             error: function (data) {
                 alert("error occured");
@@ -36,8 +34,14 @@ $(document).ready(function () {
         });
 
 
+
+
+}
+    // Activates knockout.js
+
+
+    // bind view model to referring view
+        ko.applyBindings(new AppViewModel());
+
 });  
-
-
-
 
