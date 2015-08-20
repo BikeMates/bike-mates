@@ -14,10 +14,12 @@ namespace BikeMates.DataAccess.Repository
     public class UserRepository : IUserRepository
     {
         private readonly BikeMatesDbContext context;
+        private readonly UserManager<User> userManager;
 
         public UserRepository(BikeMatesDbContext context)
         {
             this.context = context;
+            userManager = new UserManager<User>(new UserStore<User>(context));
         }
         public void Add(User entity)
         {
@@ -52,10 +54,15 @@ namespace BikeMates.DataAccess.Repository
 
         public IdentityResult Register(User entity, string password)
         {
-            var um = new UserManager<User>(new UserStore<User>(context));
-            var idResult = um.Create(entity, password);
+            var idResult = userManager.Create(entity, password);
 
             return idResult;
+        }
+
+        public User Login(string email, string password)
+        {
+            User user = userManager.Find(email, password);
+            return user;
         }
     }
 }

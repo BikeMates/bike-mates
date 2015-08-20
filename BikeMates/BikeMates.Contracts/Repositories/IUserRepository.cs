@@ -12,5 +12,6 @@ namespace BikeMates.Contracts.Repositories
     {
         User Get(string id);
         IdentityResult Register(User entity, string password); //TODO: Rename entity to user. 
+        User Login(string email, string password);
     }
 }

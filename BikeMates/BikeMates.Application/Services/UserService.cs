@@ -39,5 +39,11 @@ namespace BikeMates.Application.Services
         {
             return this.userRepository.Register(entity, password);
         }
+
+
+        public User Login(string email, string password)
+        {
+            return this.userRepository.Login(email, password);
+        }
     }
 }
