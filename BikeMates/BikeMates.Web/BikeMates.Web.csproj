@@ -182,6 +182,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\App_Scripts\EditProfileScript.js" />
+    <Content Include="Scripts\App_Scripts\ProfileScript.js" />
     <Content Include="Scripts\App_Scripts\RegistrationScript.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
