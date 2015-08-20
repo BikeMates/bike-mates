@@ -18,6 +18,7 @@ namespace BikeMates.Web.Controllers
             var allRoutes = routelist.GetAllRoutes().ToList();
 
             return View(allRoutes);
+            return View();
         }
 
         public string GetInfo()
