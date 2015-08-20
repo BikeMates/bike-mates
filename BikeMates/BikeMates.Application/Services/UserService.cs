@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Application.Services
 {
-    public class UserService:IUserService
+    public class UserService: IUserService
     {
         private IUserRepository userRepository;
 

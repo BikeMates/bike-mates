@@ -15,24 +15,24 @@ using BikeMates.DataAccess;
 // why not working ?
 //The type 'Microsoft.AspNet.Identity.EntityFramework.IdentityUser' is defined in an assembly that is not referenced. You must add a reference to assembly 'Microsoft.AspNet.Identity.EntityFramework
 
-//namespace BikeMates.Service.Controllers
-//{
-//    public class ProfileController : ApiController
-//    {
-//        private IUserService userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+namespace BikeMates.Service.Controllers
+{
+    public class ProfileController : ApiController
+    {
+        private IUserService userService = new UserService(new UserRepository(new BikeMatesDbContext()));
 
-//        public User Get(string id)
-//        {
+        public User Get(string id)
+       {
 
-//            return userService.GetUser(id);
-//        }
+           return userService.GetUser(id);
+        }
 
-//        public void Update(User user)
-//        {
-//            userService.Update(user);
-//        }
+        public void Update(User user)
+        {
+            userService.Update(user);
+        }
 
 
 
-//    }
-//}
+    }
+}
