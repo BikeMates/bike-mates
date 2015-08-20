@@ -10,8 +10,8 @@ namespace BikeMates.Domain.Entities
     public class Route
     {
         [Key]
-        public int Id { get; set; }
-        public virtual User User { get; set; }
+        //public int Id { get; set; }
+       // public virtual User User { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string MeetingPlace { get; set; }
@@ -23,7 +23,7 @@ namespace BikeMates.Domain.Entities
         /// Total route length in meters
         /// </summary>
         public int Distance { get; set; }
-        public bool IsBanned { get; set; }
+       // public bool IsBanned { get; set; }
 
     }
 }

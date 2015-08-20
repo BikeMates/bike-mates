@@ -6,18 +6,22 @@ using System.Security.Claims;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using BikeMates.Domain.Entities;
 
 namespace BikeMates.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly BikeMatesDbContext context;
-        public ActionResult Index()
+        private DataAccess.Repository.HomeRouteListRepository routelist = new DataAccess.Repository.HomeRouteListRepository();
+        private List<Route> allRoutes;
+        public ActionResult Index(int? page)
         {
-            HomeRouteListRepository routelist = new HomeRouteListRepository();
-            var allRoutes = routelist.GetAllRoutes().ToList();
-
-            return View(allRoutes);
+            allRoutes = routelist.GetAllRoutes().ToList();
+            int pageNumber = page ?? 1;
+            int pageSize = 3;
+            return View(allRoutes.ToPagedList(pageNumber,pageSize));
         }
 
         public string GetInfo()

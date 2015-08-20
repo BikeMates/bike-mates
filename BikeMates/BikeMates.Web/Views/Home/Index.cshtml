@@ -1,6 +1,11 @@
-﻿@{
+﻿@*@model PagedList.IPagedList<BikeMates.DataAccess.Repository.HomeRouteListRepository>*@
+@model PagedList.IPagedList<BikeMates.Domain.Entities.Route>
+@using PagedList.Mvc
+@{
     ViewBag.Title = "BikeMates";
 }
+<link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet"
+      type="text/css" />
 <div class="jumbotron">
     <p>
         <select id="sort_order" onchange="CallActionList($(this).val()); return false;"
@@ -54,5 +59,44 @@
         }
     </style>
 
+
+    <table height="40">
+
+        @foreach (var item in Model)
+        {
+
+            <tr bgcolor=" #DCDCDC" style=" align-content:center">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                    Distance: @Html.DisplayFor(modelItem => item.Distance)
+                    <hr />
+                </td>
+               
+                <td>
+                    Date: @Html.DisplayFor(modelItem => item.Start);
+                    Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);
+                    Participants:  @Html.DisplayFor(modelItem => item.ParticipantsCount)
+                    <hr />
+                </td>
+                <td>
+                    Description
+                    @Html.DisplayFor(modelItem => item.Description);
+                    <hr />
+                </td>
+            </tr>
+        }
+    </table>
 </div>
+
+<div style="text-align:center;">
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+
+        new PagedListRenderOptions { LinkToFirstPageFormat = "<<",
+        LinkToPreviousPageFormat = "Back",
+        LinkToNextPageFormat = "Next",
+        LinkToLastPageFormat = ">>" })
+
+</div>
+
 
