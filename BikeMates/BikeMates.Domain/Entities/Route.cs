@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Domain.Entities
 {
-    public class Route
+    public class Route //TODO: Please create a base class for Entity with Id property
     {
         [Key]
         public int Id { get; set; }
@@ -16,13 +16,15 @@ namespace BikeMates.Domain.Entities
         public string Description { get; set; }
         public string MeetingPlace { get; set; }
         public DateTime Start { get; set; }
-        //Do we need this field?
+
+        //TODO: Remove comments
+        //Do we need this field? 
         //public DateTime End { get; set; }
-        public int ParticipantsCount { get; set; }
+        public int ParticipantsCount { get; set; }  //TODO: Remove this field, we will calculate this in the query
         /// <summary>
         /// Total route length in meters
         /// </summary>
-        public int Distance { get; set; }
+        public int Distance { get; set; } //TODO: Use double type, probably we will have a decimal part
         public bool IsBanned { get; set; }
 
     }
