@@ -9,13 +9,12 @@ using System.Threading.Tasks;
 namespace BikeMates.Contracts.Services
 {
     public interface IUserService
-    {
-        //TODO: Rename entity to user. 
-        IdentityResult Register(User entity, string password);
+    { 
+        IdentityResult Register(User user, string password);
         User Login(string email, string password);
         User GetUser(string id);
         void Delete(string id);
-        void Update(User entity);
+        void Update(User user);
 
     }
 }
