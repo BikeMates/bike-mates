@@ -9,11 +9,11 @@ namespace BikeMates.Contracts.Services
 {
    public interface ISearchService
     {
-       List<Route> Distance(List<Route> entity, string dis_start, string dis_end);
-       List<Route> Location(List<Route> entity, string NameLocal);
-       List<Route> Date(List<Route> entity, string dis_start, string dis_end);
-       List<Route> NameRoute(List<Route> entity, string NameRoute);
-       List<Route> Participants(List<Route> entity, string participants);
+       List<Route> Distance(string dis_start, string dis_end);
+       List<Route> Location( string NameLocal);
+       List<Route> Date(string dis_start, string dis_end);
+       List<Route> NameRoute(string NameRoute);
+       List<Route> Participants(string participants);
        
        
     }

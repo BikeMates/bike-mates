@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    function AppViewModel() {
+    function SearchViewModel() {
 
         var self = this;
         self.Location = ko.observable("");
@@ -10,7 +10,7 @@
         self.Distance2 = ko.observable("");
 
         $.ajax({
-            url: "http://localhost:51952/api/home",
+            url: "http://localhost:51952/api/search",
             contentType: "text/json",
             type: "GET",
             success: function (data) {
@@ -27,12 +27,30 @@
         });
 
 
+        $("#Search").button().click(function () {
+            $.ajax({
+                url: "http://localhost:51952/api/search",
+                contentType: "application/json",
+                type: "POST",
+                dataType: 'json',
+                data: ko.toJSON(self),
+                success: function (data) {
 
+                    alert("success");
+
+                },
+                error: function (data) {
+                    alert("error occured");
+                }
+            });
+
+
+        });
 
     }
     // Activates knockout.js
     // bind view model to referring view
-    ko.applyBindings(new AppViewModel());
+    ko.applyBindings(new SearchViewModel());
 
 });
 
