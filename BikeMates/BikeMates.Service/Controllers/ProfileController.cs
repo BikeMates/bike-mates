@@ -11,14 +11,19 @@ using BikeMates.Domain.Entities;
 using BikeMates.Contracts.Services;
 using BikeMates.DataAccess.Repository;
 using BikeMates.DataAccess;
+using BikeMates.Service.Models;
 
 namespace BikeMates.Service.Controllers
 {
     public class ProfileController : ApiController
-    {
-        private IUserService userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+    {   
+        private UserService userService;
 
-
+        public ProfileController()
+        {
+            userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+        }
+        
         // GET api/user
         public User Get()
         {
@@ -32,9 +37,12 @@ namespace BikeMates.Service.Controllers
         }
 
         // POST api/user
-        public void Update(User user)
+        public void Update( EditProfileViewModel user)
         {
-           userService.Update(user);
+
+           // user.About = "wooo";
+
+           //userService.Update(user);
         }
 
 
