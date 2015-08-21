@@ -11,30 +11,61 @@ namespace BikeMates.Application.Services
    
   public  class SearchHome: ISearchService
     {
-      private List<Route> allroute = new List<Route>();
+      
         public List<Route> Distance(List<Route> entity, string dis_start,string dis_end)
         {
-            if (dis_start != null && dis_end != null) {
-                foreach (Route rot in allroute) { 
-                if(rot.Distance < Convert.ToInt32(dis_start) && rot.Distance > Convert.ToInt32(dis_end)){
-                    allroute.Remove(rot);
-                }
+            List<Route> list_distance = new List<Route>();
+            foreach (Route rot in entity)
+            {
+                if (rot.Distance >= Convert.ToInt32(dis_start) && rot.Distance <= Convert.ToInt32(dis_end)) {
+                    list_distance.Add(rot);
                 }
             }
-            return allroute;
+            return list_distance;
         }
 
         public List<Route> Location(List<Route> entity, string NameLocal)
         {
-            throw new NotImplementedException();
+            
+            List<Route> list_local = new List<Route>();
+            foreach (Route rot in entity)
+            {
+                if (rot.MeetingPlace.Contains(NameLocal))
+                {
+                    list_local.Add(rot);
+                }
+            }
+            return list_local;
         }
 
-        public List<Route> Date(List<Route> entity)
+        public List<Route> Date(List<Route> entity, string dis_start, string dis_end)
         {
-            throw new NotImplementedException();
+            List<Route> list_Date = new List<Route>();
+            foreach (Route rot in entity)
+            {
+                if (rot.Start >= Convert.ToDateTime(dis_start) && rot.Start <= Convert.ToDateTime(dis_end))
+                {
+                    list_Date.Add(rot);
+                }
+            }
+            return list_Date;
         }
 
-        public List<Route> NameRoute(List<Route> entity)
+
+        public List<Route> NameRoute(List<Route> entity, string NameRoute)
+        {
+            List<Route> list_name = new List<Route>();
+            foreach (Route rot in entity)
+            {
+                if (rot.Name.Contains(NameRoute))
+                {
+                    list_name.Add(rot);
+                }
+            }
+            return list_name;
+        }
+
+        public List<Route> Participants(List<Route> entity, string participants)
         {
             throw new NotImplementedException();
         }

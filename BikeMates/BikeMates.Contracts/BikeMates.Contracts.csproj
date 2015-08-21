@@ -60,6 +60,7 @@
     <Compile Include="Repositories\IRouteRepository.cs" />
     <Compile Include="Services\IRouteService.cs" />
     <Compile Include="Services\ISearchService.cs" />
+    <Compile Include="Services\ISortService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
