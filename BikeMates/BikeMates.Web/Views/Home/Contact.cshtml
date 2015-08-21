@@ -5,7 +5,18 @@
 <h3>@ViewBag.Message</h3>
 
 <address>
-    Sigma<br />
 
+    <form action="http://localhost:51952/api/account/register" method="post">
+        <input name="FirstName" value="TestUser" />
+        <input name="Email" value="testUser@test.com" />
+        <input name="Password" value="Qwerty1#" />
+        <input name="ConfirmPassword" value="Qwerty1#" />
+        <input type="submit" name="Register" />
+    </form>
+
+    <form action="http://localhost:51952/token" method="post">
+        <input name="Email" value="testUser@test.com" />
+        <input name="Password" value="Qwerty1#" />
+        <input type="submit" name="Login" />
+    </form>
 </address>
-
