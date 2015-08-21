@@ -9,32 +9,36 @@
 <script src="~/Scripts/App_Scripts/ProfileScript.js"></script>
 
 
-<h2>Profile</h2>
+<h2></h2>
+
 
 <div id="profile _section" >
-    <div class="form-group">
-        <img src="~/Content/Images/avatar-big.png" alt="Smiley face" height="150" width="150" data-bind="attr: {src: Picture}" />
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3 text-center">
+                <img src="~/Content/Images/avatar-big.png" alt="Smiley face" height="150" width="150" data-bind="attr: {src: Picture}" />
+            </div>
 
-      
-      
-        <h1> <strong data-bind="text: fullName" >FullName</strong></h1>
+          
+        </div>
+        <div class="col-md-4 ">
+            <h1> <strong data-bind="text: fullName">FullName</strong></h1>
+            <div class="form-group" id="json">
+                <label for="usr">About myself :</label>
+
+            </div>
+
+            <p data-bind="text: About">
+                Basically cycling is a part of my soul . Like to to it with my friends
+                and just like everyone else - it really makes me happy
+            </p>
+            <hr />
+            <p>If you desire, you can tie your social profile </p>
+            <button>
+                <img src="~/Content/Images/google-plus.png" alt="G+" height="50" width="50"
+                     style="vertical-align: middle">
+            </button>
+            </div>
+        </div>
     </div>
-
-
-    <div class="form-group" id="json">
-        <label for="usr" >About myself :</label>
-
-    </div>
-
-    <p data-bind="text: About">
-        Basically cycling is a part of my soul . Like to to it with my friends
-        and just like everyone else - it really makes me happy
-    </p>
-    <hr />
-    <p >If you desire, you can tie your social profile </p>
-    <button >
-        <img src="~/Content/Images/google-plus.png" alt="G+" height="50" width="50"
-             style="vertical-align: middle">
-    </button>
-</div>
 

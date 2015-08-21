@@ -34,12 +34,6 @@
             }
         });
         
-
-
-
-
-
-
         $("#save_btn").button().click(function () {
             $.ajax({
                 url: "http://localhost:51952/api/profile",
@@ -60,25 +54,7 @@
 
         });
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-   
-
-
 
     // Activates knockout.js
 
@@ -87,3 +63,66 @@
 
 });
 
+
+
+
+
+
+
+var KnockoutDemoNamespace = {};
+
+// View model declaration
+KnockoutDemoNamespace.initViewModel = function (customer) {
+    var customerViewModel = {
+        CustomerID: ko.observable(customer.CustomerID),
+        FirstName: ko.observable(customer.FirstName),
+        LastName: ko.observable(customer.LastName),
+        IsMale: ko.observable(customer.IsMale)
+    };
+    return customerViewModel;
+}
+
+// Bind the customer
+KnockoutDemoNamespace.bindData = function (customer) {
+    // Create the view model
+    var viewModel = KnockoutDemoNamespace.initViewModel(customer);
+
+    ko.applyBindings(viewModel);
+}
+
+KnockoutDemoNamespace.getCustomer = function (customerID) {
+
+    $.ajax({
+        url: "/Home/Get/",
+        type: 'post',
+        data: "{'customerID':'1' }",
+        contentType: 'application/json',
+        success: function (result) {
+            KnockoutDemoNamespace.bindData(result);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            var errorMessage = '';
+            $('#message').html(jqXHR.responseText);
+        }
+    });
+}
+
+KnockoutDemoNamespace.addCustomer = function () {
+    $.ajax({
+        url: "/Home/Add/",
+        type: 'post',
+        data: ko.toJSON(this),
+        contentType: 'application/json',
+        success: function (result) {
+
+            $('#message').html(result);
+        }
+    });
+}
+
+
+$(document).ready(function ()
+{
+    KnockoutDemoNamespace.getCustomer(1);
+
+});
