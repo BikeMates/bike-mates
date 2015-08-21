@@ -18,14 +18,14 @@ function AppViewModel() {
       
         $.ajax({
             url: "http://localhost:51952/api/profile",
-            contentType: "text/json",
+            contentType: "application/json",
             type: "GET",
             success: function (data) {
-              
-                self.FirstName(data.FirstName);
-                self.SecondName(data.SecondName);
-                self.About(data.About);
-                self.Picture(data.Picture);
+               
+                self.FirstName(data.firstName);
+                self.SecondName(data.secondName);
+                self.About(data.about);
+                self.Picture(data.picture);
 
             },
             error: function (data) {

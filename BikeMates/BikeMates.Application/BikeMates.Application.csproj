@@ -59,12 +59,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\RouteService.cs" />
     <Compile Include="Services\SearchHome.cs" />
+    <Compile Include="Services\SortService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BikeMates.Contracts\BikeMates.Contracts.csproj">
       <Project>{4eb44564-f9f1-47bf-a30e-ec3b57b820cb}</Project>
       <Name>BikeMates.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikeMates.DataAccess\BikeMates.DataAccess.csproj">
+      <Project>{c286cef0-4df6-4215-86e5-69825f2aaa27}</Project>
+      <Name>BikeMates.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikeMates.Domain\BikeMates.Domain.csproj">
       <Project>{517147ec-1559-4488-9c73-7fc31fdc4c26}</Project>
