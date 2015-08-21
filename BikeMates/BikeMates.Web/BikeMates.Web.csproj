@@ -208,10 +208,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\App_Scripts\SortRoute.js" />
     <Content Include="Scripts\App_Scripts\EditProfileScript.js" />
     <Content Include="Scripts\App_Scripts\LoginScript.js" />
     <Content Include="Scripts\App_Scripts\ProfileScript.js" />
     <Content Include="Scripts\App_Scripts\RegistrationScript.js" />
+    <Content Include="Scripts\App_Scripts\Search.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

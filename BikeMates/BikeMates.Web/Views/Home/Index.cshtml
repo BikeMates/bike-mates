@@ -6,7 +6,11 @@
 }
 <link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet"
       type="text/css" />
-<div class="jumbotron">
+<script src="~/Scripts/knockout-3.3.0.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/App_Scripts/Search.js"></script>
+
+<div class=" jumbotron">
     <p>
         <select id="sort_order" onchange="CallActionList($(this).val()); return false;"
                 <option>select</option>
@@ -19,43 +23,43 @@
         <ul class="nav navbar-nav">
 
             <li align="left" style="position: absolute; top:100px; left:1100px; ">
-                <input type="submit" value="By Date">
-                <input type="submit" value="By Title">
-                <input type="submit" value="By Participants">
+                <input type="submit" value="By Date" id="ByDate">
+                <input type="submit" value="By Title" id="ByTitle">
+                <input type="submit" value="By Participants" id="ByParticipants">
             </li>
         </ul>
     </div>
 </div>
 
-<form method="post" action="">
-    <input type="hidden" value="???" name="???" />
+
     <table>
         <tr>
             <td><h4>Location </h4></td>
-            <td><input type="text" size="26" value="@ViewBag.Location" name="Location" /> </td>
+            <td><input type="text" size="26" id="Location"  name="Location" data-bind=Location /> </td>
         </tr>
         <tr>
             <td><h4>Date</h4></td>
             <td>
-                <input type="text" size="10" name="Date" />
-                <input type="text" size="10" name="Date" />
+                <input type="text" size="10" id="Date1" name="Date"  data-bind=Date1 />
+                <input type="text" size="10" id="Date2" name="Date"  data-bind=Date2 />
             </td>
         </tr>
         <tr>
             <td><h4>Distance</h4></td>
             <td>
-                <input type="text" size="10" name="Distance" />
-                <input type="text" size="10" name="Distance" />
+                <input type="text" size="10" id="Distance1" name="Distance"  data-bind=Distance1 />
+                <input type="text" size="10" id="Distance2" name="Distance" data-bind=Distance2 />
             </td>
         </tr>
     </table>
-</form>
+    <button type="button" id="Search">SEARCH</button>
+
 
 <div class="row">
     <style>
         d {
-            border: 1px solid black;
-            padding: 10px;
+        border: 1px solid black;
+        padding: 10px;
         }
     </style>
     <!--table style="margin-left: 305px; height="40"-->
@@ -65,22 +69,22 @@
                 <!--td style='text-decoration: underline;'-->
         <p style='border: 1px solid black; padding: 10px; margin-left: 350px;'>
             @Html.DisplayFor(modelItem => item.Name)
-            Distance: @Html.DisplayFor(modelItem => item.Distance)
+        Distance: @Html.DisplayFor(modelItem => item.Distance)
             <!--/td-->
             <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->
-            Date: @Html.DisplayFor(modelItem => item.Start);
-            Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);
-            Participants:  @Html.DisplayFor(modelItem => item.ParticipantsCount)
-            <br />
-            <!--/td-->
-            <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->
-            Description:
-            @Html.DisplayFor(modelItem => item.Description);
-        </p>
+        Date: @Html.DisplayFor(modelItem => item.Start);
+    Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);
+    Participants:  @Html.DisplayFor(modelItem => item.ParticipantsCount)
+        <br />
+        <!--/td-->
+        <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->
+        Description:
+    @Html.DisplayFor(modelItem => item.Description);
+    </p>
                 <!--/td-->
             <!--/tr-->
     }
-    <!--/table-->
+<!--/table-->
 </div>
 
 
@@ -97,3 +101,4 @@
         })
 
 </div>
+
