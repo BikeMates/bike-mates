@@ -7,16 +7,19 @@
 <address>
 
     <form action="http://localhost:51952/api/account/register" method="post">
-        <input name="FirstName" value="TestUser" />
-        <input name="Email" value="testUser@test.com" />
-        <input name="Password" value="Qwerty1#" />
-        <input name="ConfirmPassword" value="Qwerty1#" />
-        <input type="submit" name="Register" />
+        <input id="FirstName" value="TestUser" />
+        <input id="EmailReg" value="testUser@test.com" />
+        <input id="PasswordReg" value="Qwerty1#" />
+        <input id="ConfirmPassword" value="Qwerty1#" />
+        <input type="button" id="Register" value="Register" />
     </form>
 
     <form action="http://localhost:51952/token" method="post">
-        <input name="Email" value="testUser@test.com" />
-        <input name="Password" value="Qwerty1#" />
-        <input type="submit" name="Login" />
+        <input id="Email" value="testUser@test.com" />
+        <input id="Password" value="Qwerty1#" />
+        <input type="button" id ="Login" value="Login"/>
     </form>
 </address>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/App_Scripts/RegistrationScript.js"></script>
+<script src="~/Scripts/App_Scripts/LoginScript.js"></script>
