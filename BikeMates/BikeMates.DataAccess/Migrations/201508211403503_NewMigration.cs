@@ -3,7 +3,7 @@ namespace BikeMates.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class NewMigration : DbMigration
+    public partial class NewMigration : DbMigration //TODO: Use more specific names for migrations. Describe changes for database
     {
         public override void Up()
         {
