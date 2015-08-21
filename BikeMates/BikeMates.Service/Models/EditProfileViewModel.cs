@@ -9,6 +9,9 @@ namespace BikeMates.Service.Models
     public class EditProfileViewModel
     {
         [Required]
+        public string Id { get; set; }
+
+        [Required]
         public string Picture { get; set; }
 
         [Required]
