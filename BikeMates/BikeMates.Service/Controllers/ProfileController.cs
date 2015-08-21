@@ -22,7 +22,7 @@ namespace BikeMates.Service.Controllers
         // GET api/user
         public User Get()
         {
-            return new User() { FirstName = "Vasya", About = "I like cuclimg", Id = "vasua123", Email = "vasya@google.com", SecondName = "Vasyonov", Picture = "http://localhost:51949/Content/Images/avatar-big.png" };
+            return new User() { FirstName = "Vasya", About = "I like cycling", Id = "vasua123", Email = "vasya@google.com", SecondName = "Vasyonov", Picture = "http://localhost:51949/Content/Images/avatar-big.png" };
         }
 
         // GET api/user/1
