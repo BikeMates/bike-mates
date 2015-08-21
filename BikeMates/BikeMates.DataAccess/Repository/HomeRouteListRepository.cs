@@ -13,7 +13,7 @@ using BikeMates.DataAccess;
 
 namespace BikeMates.DataAccess.Repository
 {
-    public class HomeRouteListRepository
+    public class HomeRouteListRepository//TODO: Remove this service. Move query and sort logic for routes into the IRouteRepository
     {
         private readonly BikeMatesDbContext context;
 

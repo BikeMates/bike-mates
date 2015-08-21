@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Contracts.Services
 {
-   public interface ISearchService
+    public interface ISearchService//TODO: Remove this service. Move query and sort logic for route into the IRouteService
     {
        List<Route> Distance(string dis_start, string dis_end);
        List<Route> Location( string NameLocal);

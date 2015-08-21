@@ -11,8 +11,8 @@ using BikeMates.DataAccess.Repository;
 
 namespace BikeMates.Application.Services
 {
-   
-  public  class SearchHome: ISearchService
+
+    public class SearchHome : ISearchService //TODO: Remove this service. Move query and sort logic for route into the IRouteService
     {
       private DataAccess.Repository.HomeRouteListRepository routelist = new DataAccess.Repository.HomeRouteListRepository();
       private List<Route> allRoutes;
@@ -20,9 +20,11 @@ namespace BikeMates.Application.Services
           allRoutes=routelist.GetAllRoutes();
           return allRoutes;
       }
-    
+
+       //TODO: Remove all methods below and create a one Searchh method in the IRouteService. Use LINQ queries in this method to find and sort Routes.
         public List<Route> Distance( string dis_start,string dis_end)
-        {
+    {
+          
             List<Route> list_distance = new List<Route>();
             foreach (Route rot in get())
             {

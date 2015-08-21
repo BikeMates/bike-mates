@@ -14,11 +14,11 @@ namespace BikeMates.Application.Services
     public class RouteService : IRouteService
     {
         private IRouteRepository routeRepository;
-        public void Add(Route entity)
+        public void Add(Route entity) //TODO: Place this method after constructor
         {
             this.routeRepository.Add(entity);
         }
-        public RouteService(IRouteRepository repository)
+        public RouteService(IRouteRepository repository) //TODO: rename to routeRepository
         {
             this.routeRepository = repository;
         }
@@ -28,7 +28,7 @@ namespace BikeMates.Application.Services
         }
         public void Delete(int id)
         {
-            var user = GetRoute(id);
+            var user = GetRoute(id);//TODO: Move this logic into repository. You should not load Route from database for delete operation
             routeRepository.Delete(user);
         }
 

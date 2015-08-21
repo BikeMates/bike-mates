@@ -15,18 +15,18 @@ namespace BikeMates.Application.Services
     {
         private IUserRepository userRepository;
 
-        public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository) //TODO: Rename repository to UserRepository
         {
             this.userRepository = repository;
         }
-        public User GetUser(string Id)
+        public User GetUser(string Id) //TODO: Rename to id
         {
             return this.userRepository.Get(Id);
         }
 
         public void Delete(string id)
         {
-            var user = GetUser(id);
+            var user = GetUser(id); //TODO: Move this logic into repository. You should not load user from database for delete operation
             userRepository.Delete(user);
         }
 

@@ -42,7 +42,7 @@ namespace BikeMates.DataAccess.Repository
            return this.context.Set<User>().Find(id);
         }
 
-        public void SaveChanges()
+        public void SaveChanges() //TODO: Remove this method
         {
             this.context.SaveChanges();
         }
@@ -55,7 +55,7 @@ namespace BikeMates.DataAccess.Repository
 
         public IdentityResult Register(User entity, string password)
         {
-            var idResult = userManager.Create(entity, password);
+            var idResult = userManager.Create(entity, password); 
 
             return idResult;
         }

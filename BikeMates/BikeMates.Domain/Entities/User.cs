@@ -19,14 +19,14 @@ namespace BikeMates.Domain.Entities
 
         public virtual ICollection<Route> Routes { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager) //TODO: Remove this method as you are using SimpleAuthorizationServerProvider for generating claims
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             userIdentity.AddClaim(new Claim("FirstName", this.FirstName));
             userIdentity.AddClaim(new Claim("SecondName", this.SecondName));
-            userIdentity.AddClaim(new Claim("Picture", this.Picture));
+            userIdentity.AddClaim(new Claim("Picture", this.Picture)); 
             userIdentity.AddClaim(new Claim("About", this.About));
 
             return userIdentity;

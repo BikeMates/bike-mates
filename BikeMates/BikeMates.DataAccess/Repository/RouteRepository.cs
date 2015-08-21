@@ -12,7 +12,7 @@ using BikeMates.Domain.Entities;
 
 namespace BikeMates.DataAccess.Repository
 {
-    public class RouteRepository : IRouteRepository
+    public class RouteRepository : IRouteRepository //TODO: Create a base Repository class and move common logic into it
     {
         private readonly BikeMatesDbContext context;
 
@@ -31,7 +31,7 @@ namespace BikeMates.DataAccess.Repository
                 this.context.Set<Route>().Add(entity);
                 this.context.SaveChanges();
             }
-            catch (DbEntityValidationException dbEx)
+            catch (DbEntityValidationException dbEx) //TODO: Remove duplicated code. Follow DRY principle
             {
                 string errorMessage = string.Empty;
                 foreach (var validationErrors in dbEx.EntityValidationErrors)
@@ -42,7 +42,7 @@ namespace BikeMates.DataAccess.Repository
                         validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
                     }
                 }
-                throw new Exception(errorMessage, dbEx);
+                throw new Exception(errorMessage, dbEx); //TODO: Do not throw general exceptions. Remove this code or create custom Exception class
             }
         }
 

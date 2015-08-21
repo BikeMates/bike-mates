@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Application.Services
 {
-    public class SortService : ISortService
+    public class SortService : ISortService //TODO: Remove this service. Move query and sort logic for route into the IRouteService
     {
 
         public List<Route> Date(List<Route> entity)

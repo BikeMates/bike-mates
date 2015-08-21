@@ -37,7 +37,7 @@ namespace BikeMates.Service.Controllers
             {
                 UserName = userModel.Email,
                 FirstName = userModel.FirstName,
-                SecondName = "",
+                SecondName = "", //TODO: Remove lines with empty strings assignment
                 About = "",
                 Picture = "",
                 Email = userModel.Email
