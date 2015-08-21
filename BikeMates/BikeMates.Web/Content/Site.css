@@ -38,6 +38,15 @@ textarea {
     width:950px;
 }
 
+.register-form-button {
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-left: 37.33333333333333%;
+}
+
+
 .login-form{
     background-color: #e8e8e8;
     width:450px;

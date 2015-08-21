@@ -21,25 +21,25 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @data_bind="textInput: firstName"}) 
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.SecondName, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.SecondName, new { @class = "form-control", @data_bind = "textInput: secondName" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @data_bind = "textInput: email" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @data_bind = "textInput: password" })
                         </div>
                     </div>
                     <div class="form-group" style=" white-space: nowrap">
@@ -50,7 +50,9 @@
                     </div>
                    
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
+                        <div class="register-form-button">
+                            @*web api registration
+                            <input type="button" id="submitButton" class="btn btn-default" value="Sign Up" data-bind="click: register" />*@
                             <input type="submit" id="submitButton" class="btn btn-default" value="Sign Up" />
                         </div>
                     </div>
@@ -65,4 +67,5 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/knockout-3.3.0.js"></script>
 <script src="~/Scripts/App_Scripts/RegistrationScript.js"></script>
