@@ -10,8 +10,8 @@ namespace BikeMates.Domain.Entities
     public class Route //TODO: Please create a base class for Entity with Id property
     {
         [Key]
-        //public int Id { get; set; }
-       // public virtual User User { get; set; }
+        public int Id { get; set; }
+        public virtual User User { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string MeetingPlace { get; set; }
@@ -25,7 +25,7 @@ namespace BikeMates.Domain.Entities
         /// Total route length in meters
         /// </summary>
         public int Distance { get; set; } //TODO: Use double type, probably we will have a decimal part
-       // public bool IsBanned { get; set; }
+        public bool IsBanned { get; set; }
 
     }
 }
