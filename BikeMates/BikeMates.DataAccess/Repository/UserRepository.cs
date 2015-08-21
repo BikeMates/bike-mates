@@ -50,6 +50,7 @@ namespace BikeMates.DataAccess.Repository
         public void Update(User entity)
         {
             this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            this.context.SaveChanges();
         }
 
         public IdentityResult Register(User entity, string password)
