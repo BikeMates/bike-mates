@@ -24,6 +24,13 @@ namespace BikeMates.Service.Controllers
 
         }
 
+        [Authorize]
+        [Route("Test")]
+        public IHttpActionResult Test()
+        {
+            return Ok("work");
+        }
+
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -37,9 +44,7 @@ namespace BikeMates.Service.Controllers
             {
                 UserName = userModel.Email,
                 FirstName = userModel.FirstName,
-                SecondName = "", //TODO: Remove lines with empty strings assignment
-                About = "",
-                Picture = "",
+                SecondName = userModel.SecondName, 
                 Email = userModel.Email
 
             };
@@ -55,32 +60,6 @@ namespace BikeMates.Service.Controllers
             return Ok();
         }
 
-
-        // POST api/Account/Login
-        [AllowAnonymous]
-        [Route("Login")]
-        [HttpPost]
-        public async Task<IHttpActionResult> Login(LoginViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = userService.Login(model.Email, model.Password);
-            if (result != null)
-            {
-                //await SignInManager.SignInAsync(result, false, false);
-                return Ok();
-            }
-            else
-            {
-                ModelState.AddModelError("", "Invalid login attempt.");
-                return BadRequest();
-            }
-        }
 
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

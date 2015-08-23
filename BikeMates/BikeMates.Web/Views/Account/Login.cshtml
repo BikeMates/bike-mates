@@ -44,10 +44,10 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
-
-                                        @*get token from web api authorization
-                                        <input type="submit" value="Sign in" id="Login" class="btn btn-default" data-bind="click: login" />*@
-                                        <input type="submit" value="Sign in" id="Login" class="btn btn-default"/>
+                                        @*for simple authorization*@
+                                        @*<input type="submit" value="Sign in" id="Login" class="btn btn-default"/>*@
+                                        
+                                        <input type="submit" value="Sign in" id="Login" class="btn btn-default" data-bind="click: login" />
                                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
                                     </div>
                                 </div>

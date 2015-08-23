@@ -24,17 +24,7 @@ namespace BikeMates.Web.Controllers
             int pageSize = 3;
             return View(allRoutes.ToPagedList(pageNumber,pageSize));
         }
-
-        public string GetInfo() //TODO: Remove this method or move to the Service if it is needed
-        {
-            var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
-            var email = HttpContext.User.Identity.Name;
-            var firstName = identity.Claims.Where(c => c.Type == "FirstName").Select(c => c.Value).SingleOrDefault();
-            var secondName = identity.Claims.Where(c => c.Type == "SecondName").Select(c => c.Value).SingleOrDefault();
-            var picture = identity.Claims.Where(c => c.Type == "Picture").Select(c => c.Value).SingleOrDefault();
-            var about = identity.Claims.Where(c => c.Type == "About").Select(c => c.Value).SingleOrDefault();
-            return "<p>Email: " + email + "</p><p>FirstName:" + firstName + "</p><p> SecondName:" + secondName + "</p><p> Picture:" + picture + "</p><p> About:" + about + "</p>";
-        }
+        [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -21,15 +21,15 @@ namespace BikeMates.DataAccess.Repository
             this.context = context;
             userManager = new UserManager<User>(new UserStore<User>(context));
         }
-        public void Add(User entity)
+        public void Add(User user)
         {
 
         }
 
-        public void Delete(User entity)
+        public void Delete(User user)
         {
-            this.context.Set<User>().Remove(entity);
-            SaveChanges();
+            this.context.Set<User>().Remove(user);
+            context.SaveChanges();
         }
 
         public IEnumerable<User> GetAll()
@@ -42,20 +42,16 @@ namespace BikeMates.DataAccess.Repository
            return this.context.Set<User>().Find(id);
         }
 
-        public void SaveChanges() //TODO: Remove this method
+
+        public void Update(User user)
         {
+            this.context.Entry(user).State = System.Data.Entity.EntityState.Modified;
             this.context.SaveChanges();
         }
 
-        public void Update(User entity)
+        public IdentityResult Register(User user, string password)
         {
-            this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            this.context.SaveChanges();
-        }
-
-        public IdentityResult Register(User entity, string password)
-        {
-            var idResult = userManager.Create(entity, password); 
+            var idResult = userManager.Create(user, password); 
 
             return idResult;
         }

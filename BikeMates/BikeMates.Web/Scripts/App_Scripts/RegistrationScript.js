@@ -6,21 +6,61 @@
         this.secondName = ko.observable("");
         this.email = ko.observable("");
         this.password = ko.observable("");
+        this.confirmPassword = ko.observable("");
 
         this.register = function () {
             $.ajax({
                 url: 'http://localhost:51952/api/account/register',
                 type: 'POST',
                 contentType: 'application/x-www-form-urlencoded',
-                data: { Email: this.email, Password: this.password, ConfirmPassword: this.password, FirstName: this.firstName, SecondName: this.secondName },
+                data:
+                    {
+                        Email: this.email,
+                        Password: this.password,
+                        ConfirmPassword: this.confirmPassword,
+                        FirstName: this.firstName,
+                        SecondName: this.secondName
+                    },
                 success: function (data) {
-                    alert('Registration successful');
+                    $("#success_message").show();
+
+                    $("#error_message").hide();
+                    $(".validation-summary-errors").hide();
+
+                    startTimer();
                 },
                 error: function (data) {
-                    alert('Registration failed');
+                    var errors = [];
+
+                    $("#error_message").hide();
+                    $(".validation-summary-errors").show();
+
+                    var response = JSON.parse(data.responseText);
+                    for (key in response.modelState)
+                    {
+                        for (var i = 0; i < response.modelState[key].length; i++)
+                        {
+                            errors.push(response.modelState[key][i]);
+                        }
+                    }
+
+                    $("#error_details").text(" "+errors.join(" "));
+
+                    if (errors.length > 0) {
+                        $("#error_message").show();
+                        $(".validation-summary-errors").hide();
+                    }
                 }
             });
         }
+    }
+
+    var startTimer = function () {
+        var timer = setTimeout(function () {
+            clearTimeout(timer);
+            window.location.href = "/Account/Login";
+        }, 2000);
+           
     }
 
     ko.applyBindings(new RegisterViewModel());

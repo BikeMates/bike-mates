@@ -15,13 +15,13 @@ namespace BikeMates.Application.Services
     {
         private IUserRepository userRepository;
 
-        public UserService(IUserRepository repository) //TODO: Rename repository to UserRepository
+        public UserService(IUserRepository userRepository) 
         {
-            this.userRepository = repository;
+            this.userRepository = userRepository;
         }
-        public User GetUser(string Id) //TODO: Rename to id
+        public User GetUser(string id) 
         {
-            return this.userRepository.Get(Id);
+            return this.userRepository.Get(id);
         }
 
         public void Delete(string id)
