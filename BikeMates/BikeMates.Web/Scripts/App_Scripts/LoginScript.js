@@ -18,12 +18,17 @@
                         Password: this.password
                     },
                 success: function (data) {
+                    $("#error_message").hide();
+
                     sessionStorage.setItem(tokenKey, data.access_token);
                     alert('Your token: ' + sessionStorage.getItem(tokenKey));
                     window.location.href = "/Home/Index";
                 },
                 error: function (data) {
-                    alert("Error! Data:" + data);
+                    var response = JSON.parse(data.responseText);
+
+                    $("#error_details").text(response.error_description)
+                    $("#error_message").show();
                 }
             });
         }

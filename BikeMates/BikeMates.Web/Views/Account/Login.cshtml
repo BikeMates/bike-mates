@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", @data_bind = "submit: login" }))
             {
                 @Html.AntiForgeryToken()
 
@@ -17,9 +17,13 @@
                             Login
                         </legend>
                         <div class="login-form">
+                            <div class="alert alert-dismissible alert-danger" hidden="hidden" id="error_message">
+                                <strong id="error_details"></strong>
+                            </div>
                             <div class="login-form-content">
                                 <br />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                               
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                                     <div class="col-md-10">
@@ -44,11 +48,9 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
-                                        @*for simple authorization*@
-                                        @*<input type="submit" value="Sign in" id="Login" class="btn btn-default"/>*@
-                                        
-                                        <input type="submit" value="Sign in" id="Login" class="btn btn-default" data-bind="click: login" />
                                         @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                        <input type="submit" value="Sign in" id="Login" class="btn btn-default" style="margin-left:60px" />
+                                        
                                     </div>
                                 </div>
                                 <br />
