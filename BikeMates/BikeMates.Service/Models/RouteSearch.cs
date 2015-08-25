@@ -22,5 +22,6 @@ namespace BikeMates.Service.Models
 
         [Required]
         public string Distance2 { get; set; }
+
     }
 }

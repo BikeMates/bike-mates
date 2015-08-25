@@ -16,34 +16,31 @@ namespace BikeMates.Service.Controllers
     {
         private RouteService RouteService;
         private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository();
-        private List<Route> allRoutes;
+        public List<Route> allRoutes;
         public SearchController()
         {
             allRoutes = routelist.GetAllRoutes().ToList();
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
 
         }
-        // POST api/user
-        public void Update(RouteSearch routelist)
+       
+        public List<Route> Sort(RouteSort routesort)
         {
-
-            routelist.Location = "wololo";
-            routelist.Date1 = "wololo";
-            routelist.Date2 = "wololo";
-            routelist.Distance1 = "wololo";
-            routelist.Distance2 = "wololo";
-            foreach (Route rot in allRoutes)
-            {
-                rot.Name = "SuccessEvent";
-                rot.ParticipantsCount = 200;
-            }
+            routesort.ByParticipants = true;
+            return RouteService.Sort(allRoutes,routesort.ByDate,routesort.ByName,routesort.ByParticipants);
         }
+       /* public List<Route> Search(RouteSearch routelist) {
 
-        public List<Route> Get()
+            return RouteService.Find(allRoutes, routelist.Location, routelist.Distance1, routelist.Distance2, routelist.Date1, routelist.Date2);
+        }*/
+ 
+       public List<Route> Get()
         {
+            //return allRoutes;
             return allRoutes;
+             // return  RouteService.Sort(allRoutes,false,false,true);
         }
-
+        
 
     }
 }
