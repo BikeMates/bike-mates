@@ -109,6 +109,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Coordinate.cs" />
+    <Compile Include="Entities\MapData.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Route.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

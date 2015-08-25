@@ -11,20 +11,13 @@ namespace BikeMates.Domain.Entities
     {
         [Key]
         public int Id { get; set; }
-        public virtual User User { get; set; }
-        public string Name { get; set; }
+        public string Title { get; set; }
+        public MapData MapData { get; set; }
         public string Description { get; set; }
         public string MeetingPlace { get; set; }
         public DateTime Start { get; set; }
-
-        //TODO: Remove comments
-        //Do we need this field? 
-        //public DateTime End { get; set; }
-        public int ParticipantsCount { get; set; }  //TODO: Remove this field, we will calculate this in the query
-        /// <summary>
-        /// Total route length in meters
-        /// </summary>
-        public int Distance { get; set; } //TODO: Use double type, probably we will have a decimal part
+        public double Distance { get; set; }
+        public List<User> Participants { get; set; }
         public bool IsBanned { get; set; }
 
     }

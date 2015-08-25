@@ -37,8 +37,7 @@ namespace BikeMates.Service.Controllers
             //string userID = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2" ; 
           //  var currentUser = Membership.GetUser(User.Identity.Name);
            // var id = currentUser.ProviderUserKey;
-            //string username = currentUser.UserName; //** get UserName
-            // string userID = HttpContext.Current.User.Identity.GetUserId();
+            //string username = currentUser.UserName; //** get UserName// string userID = HttpContext.Current.User.Identity.GetUserId();
 
            // MembershipUser myObject = Membership.GetUser();
            // string userID = myObject.ProviderUserKey.ToString();
