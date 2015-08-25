@@ -1,5 +1,4 @@
-﻿@*@model PagedList.IPagedList<BikeMates.DataAccess.Repository.HomeRouteListRepository>*@
-@model PagedList.IPagedList<BikeMates.Domain.Entities.Route>
+﻿@model PagedList.IPagedList<BikeMates.Domain.Entities.Route>
 @using PagedList.Mvc
 @{
     ViewBag.Title = "BikeMates";
@@ -32,27 +31,30 @@
 </div>
 
 
-    <table>
-        <tr>
-            <td><h4>Location </h4></td>
-            <td><input type="text" size="26" id="Location"  name="Location" data-bind=Location /> </td>
-        </tr>
-        <tr>
-            <td><h4>Date</h4></td>
-            <td>
-                <input type="text" size="10" id="Date1" name="Date"  data-bind=Date1 />
-                <input type="text" size="10" id="Date2" name="Date"  data-bind=Date2 />
-            </td>
-        </tr>
-        <tr>
-            <td><h4>Distance</h4></td>
-            <td>
-                <input type="text" size="10" id="Distance1" name="Distance"  data-bind=Distance1 />
-                <input type="text" size="10" id="Distance2" name="Distance" data-bind=Distance2 />
-            </td>
-        </tr>
-    </table>
-    <button type="button" id="Search">SEARCH</button>
+<table style='margin-bottom: -155px;'>
+    <tr>
+        <td><h4>Location </h4></td>
+        <td><input type="text" size="26" id="Location" name="Location" data-bind="valueUpdate: Location" /> </td>
+    </tr>
+    <tr>
+        <td><h4>Date</h4></td>
+        <td>
+            <input type="text" size="10" id="Date1" name="Date" data-bind="value: Date1" />
+            <input type="text" size="10" id="Date2" name="Date" data-bind="value: Date2" />
+        </td>
+    </tr>
+    <tr>
+        <td><h4>Distance</h4></td>
+        <td>
+            <input type="text" size="10" id="Distance1" name="Distance" data-bind="value: Distance1" />
+            <input type="text" size="10" id="Distance2" name="Distance" data-bind="value: Distance2" />
+        </td>
+    </tr>
+    <tr>
+        <td><button type="button" id="Search">SEARCH</button></td>
+    </tr>
+</table>
+<!--button type="button" id="Search">SEARCH</!--button>
 
 
 <div class="row">
@@ -63,27 +65,27 @@
         }
     </style>
     <!--table style="margin-left: 305px; height="40"-->
-    @foreach (var item in Model)
-    {
+@foreach (var item in Model)
+{
             <!--tr bgcolor=" #DCDCDC" style=" align-content:center"-->
                 <!--td style='text-decoration: underline;'-->
-        <p style='border: 1px solid black; padding: 10px; margin-left: 350px;'>
-            @Html.DisplayFor(modelItem => item.Name)
+    <p style='border: 1px solid black; padding: 10px; margin-left: 500px; margin-top: 1px;'>
+        @Html.DisplayFor(modelItem => item.Name)
         Distance: @Html.DisplayFor(modelItem => item.Distance)
-            <!--/td-->
-            <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->
+        <!--/td-->
+        <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->
         Date: @Html.DisplayFor(modelItem => item.Start);
-    Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);
-    Participants:  @Html.DisplayFor(modelItem => item.ParticipantsCount)
+        Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);
+        Participants:  @Html.DisplayFor(modelItem => item.ParticipantsCount)
         <br />
         <!--/td-->
         <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->
         Description:
-    @Html.DisplayFor(modelItem => item.Description);
+        @Html.DisplayFor(modelItem => item.Description);
     </p>
                 <!--/td-->
             <!--/tr-->
-    }
+}
 <!--/table-->
 </div>
 
@@ -101,4 +103,3 @@
         })
 
 </div>
-

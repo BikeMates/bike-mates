@@ -8,22 +8,22 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using BikeMates.Domain.Entities;
+using BikeMates.Service.Controllers;
 
 namespace BikeMates.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly BikeMatesDbContext context;
-        private DataAccess.Repository.HomeRouteListRepository routelist = new DataAccess.Repository.HomeRouteListRepository(); 
-        private List<Route> allRoutes;
+        private SearchController search = new SearchController();
+
         public ActionResult Index(int? page)
         {
-            allRoutes = routelist.GetAllRoutes().ToList(); //TODO: Move this logic into WebAPI Service and take data from it using Knockout.
-            
+            // allRoutes = routelist.GetAllRoutes().ToList(); //TODO: Move this logic into WebAPI Service and take data from it using Knockout.
+
             int pageNumber = page ?? 1;
             int pageSize = 3;
-            return View(allRoutes.ToPagedList(pageNumber,pageSize));
-        }
+            return View(search.Get().ToPagedList(pageNumber, pageSize));
+        } 
         [Authorize]
         public ActionResult About()
         {

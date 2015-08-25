@@ -26,8 +26,7 @@ namespace BikeMates.Application.Services
 
         public void Delete(string id)
         {
-            var user = GetUser(id); //TODO: Move this logic into repository. You should not load user from database for delete operation
-            userRepository.Delete(user);
+            userRepository.Delete(id);
         }
 
         public void Update(User entity)
@@ -44,6 +43,12 @@ namespace BikeMates.Application.Services
         public User Login(string email, string password)
         {
             return this.userRepository.Login(email, password);
+        }
+
+
+        public void ConfirmPassword(string id)
+        {
+
         }
     }
 }

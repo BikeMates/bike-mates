@@ -7,6 +7,10 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -34,11 +38,11 @@ namespace BikeMates.Service.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterViewModel userModel)
+        public async Task<HttpResponseMessage> Register(RegisterViewModel userModel)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return await this.BadRequest(this.ModelState).ExecuteAsync(new CancellationToken());
             }
             User user = new User
             {
@@ -54,13 +58,53 @@ namespace BikeMates.Service.Controllers
 
             if (errorResult != null)
             {
-                return errorResult;
+                return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
             }
-
-            return Ok();
+            var userLoginModel = new LoginViewModel
+            {
+                Email = userModel.Email,
+                Password = userModel.Password
+            };
+            var resultLogin = await Login(userLoginModel);
+            return resultLogin;
         }
 
+        [AllowAnonymous]
+        [Route("Login")]
+        public async Task<HttpResponseMessage> Login(LoginViewModel userModel)
+        {
+            var request = HttpContext.Current.Request;
+            var tokenServiceUrl = request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath + "/token";
+            using (var client = new HttpClient())
+            {
+                var requestParams = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("grant_type", "password"),
+                new KeyValuePair<string, string>("username", userModel.Email),
+                new KeyValuePair<string, string>("password", userModel.Password)
+            };
+                var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
+                var tokenServiceResponse = await client.PostAsync(tokenServiceUrl, requestParamsFormUrlEncoded);
+                var responseString = await tokenServiceResponse.Content.ReadAsStringAsync();
+                var responseCode = tokenServiceResponse.StatusCode;
+                var responseMsg = new HttpResponseMessage(responseCode)
+                {
+                    Content = new StringContent(responseString, Encoding.UTF8, "application/json")
+                };
+                return responseMsg;
+            }
+        }
+        [HttpGet]
+        [Route("ConfirmEmail")]
+        public  string ConfirmEmail()
+        {
+            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
+
+
+            return userId;
+        }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {
