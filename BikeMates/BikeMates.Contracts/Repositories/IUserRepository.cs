@@ -10,7 +10,7 @@ namespace BikeMates.Contracts.Repositories
 {
     public interface IUserRepository : IRepository<User, string>
     {
-        User Get(string id);
+        User Get(string id); //TODO: Move to the base IRepository interface
         IdentityResult Register(User user, string password); 
         User Login(string email, string password);
         void ConfirmPassword(string id);

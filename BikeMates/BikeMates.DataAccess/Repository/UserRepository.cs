@@ -53,14 +53,14 @@ namespace BikeMates.DataAccess.Repository
 
         public IdentityResult Register(User user, string password)
         {
-            var idResult = userManager.Create(user, password); 
+            var idResult = userManager.Create(user, password); //TODO: Replace with: return userManager.Create(user, password);
 
             return idResult;
         }
 
         public User Login(string email, string password)
         {
-            User user = userManager.Find(email, password);
+            User user = userManager.Find(email, password); //TODO: Replace with: return userManager.Find(email, password);
             return user;
         }
 

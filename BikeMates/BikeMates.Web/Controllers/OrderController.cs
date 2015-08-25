@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace BikeMates.Web.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController : Controller //TODO: Remove this controller
     {
         // GET: Order
         [Authorize]

@@ -21,7 +21,7 @@ namespace BikeMates.DataAccess.Repository
             this.context = context;
         }
 
-        public RouteRepository()
+        public RouteRepository() //TODO: Remove this constructor. Do not create instances inside constructor
         {
             this.context = new BikeMatesDbContext();
         }
@@ -41,7 +41,7 @@ namespace BikeMates.DataAccess.Repository
 
         public IEnumerable<Route> GetAll()
         {
-            return this.context.Routes.ToList();
+            return this.context.Routes.ToList(); //TODO: Remove ToList()
         }
 
         public Route Get(int id)
@@ -49,7 +49,7 @@ namespace BikeMates.DataAccess.Repository
             return this.context.Set<Route>().Find(id);
         }
 
-        public void SaveChanges()
+        public void SaveChanges() //TODO: Remove this method
         {
             this.context.SaveChanges();
         }

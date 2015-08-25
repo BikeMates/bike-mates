@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace BikeMates.Web.Controllers
 {
-    public class RouteController : Controller
+    public class RouteController : Controller //TODO: Remove this controller
     {
 
         private RouteService routeService;
@@ -25,7 +25,7 @@ namespace BikeMates.Web.Controllers
             var route = new Web.Models.Route();
             return View(route);
         }
-        public void Save(BikeMates.Web.Models.Route route, FormCollection form)
+        public void Save(BikeMates.Web.Models.Route route, FormCollection form) //TODO: Move this logic to the WebApi controller
         {
             route.MapData = JsonConvert.DeserializeObject<BikeMates.Domain.Entities.MapData>(form["MapData"]);
             route.Start = DateTime.Now;

@@ -58,7 +58,7 @@ namespace BikeMates.Service.Controllers
         // POST api/user
         public void Update( EditProfileViewModel user)
         {
-            User _user = userService.GetUser(user.Id);
+            User _user = userService.GetUser(user.Id); //TODO: use this.user instead of _user
             
             
             _user.FirstName = user.FirstName;

@@ -17,7 +17,7 @@ namespace BikeMates.Domain.Entities
         public string MeetingPlace { get; set; }
         public DateTime Start { get; set; }
         public double Distance { get; set; }
-        public List<User> Participants { get; set; }
+        public List<User> Participants { get; set; } //TODO: Use virtual ICollection<User>
         public bool IsBanned { get; set; }
 
     }

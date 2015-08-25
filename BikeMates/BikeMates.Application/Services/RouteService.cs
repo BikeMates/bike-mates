@@ -36,7 +36,10 @@ namespace BikeMates.Application.Services
         {
             this.routeRepository.Update(entity);
         }
-        public List<Route> Find(List<Route> entity,string Location,string Dist1,string Dist2,string Date1,string Date2) {
+
+        //TODO: Replace Find and Sort methods with one method SearchRoutes(RoutesSearchParameters routesSearchParameters), where RoutesSearchParameters contains all needed search and sort fields.
+        //TODO: Use LINQ query to get all routes and sort them. 
+        public List<Route> Find(List<Route> entity,string Location,string Dist1,string Dist2,string Date1,string Date2) { 
             //List<Route> results;
            
             //results=entity.FindAll(
