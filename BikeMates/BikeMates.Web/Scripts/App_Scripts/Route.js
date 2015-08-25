@@ -1,7 +1,4 @@
-﻿//$( document ).ready(function() {
-//    $("#datepicker").datepicker();
-//});
-var map, service, renderer;
+﻿var map, service, renderer;
 var data = {};
 var start, end;
 
@@ -97,20 +94,6 @@ function saveRoute() {
         success: function (response) { }
     });
     return false;
-    //var xmlhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    //xmlhttp.open('POST', '/route/save');
-    //xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    //xmlhttp.send('mapdata=' + stringifiedData);
-    //xmlhttp.onreadystatechange = function () {
-    //    if (xmlhttp.readyState == 4) {
-    //        if (xmlhttp.responseText.indexOf('bien') + 1) {
-    //            alert('Updated');
-    //        }
-    //        else {
-    //            alert(xmlhttp.responseText);
-    //        }
-    //    }
-    //}
 }
 
 function loadRoute(route) {
@@ -201,7 +184,5 @@ function clearMap() {
     end = null;
     data = {};
 }
-
-//$('#SaveRouteButton').click(function (e) { saveRoute(); });
 
 $('#ClearMapButton').click(function (e) { clearMap(); });
