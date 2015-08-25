@@ -8,13 +8,13 @@
         this.login = function()
         {
             $.ajax({
-                url: 'http://localhost:51952/token',
+                url: 'http://localhost:51952/api/account/login',
                 type: 'POST',
                 contentType: 'application/x-www-form-urlencoded',
                 data:
                     {
                         grant_type: 'password',
-                        username: this.username,
+                        email: this.username,
                         Password: this.password
                     },
                 success: function (data) {
