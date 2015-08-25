@@ -20,6 +20,7 @@ function AppViewModel() {
             url: "http://localhost:51952/api/profile",
             contentType: "application/json",
             type: "GET",
+            header:{"Authorization" : "Bearer "+ sessionStorage.getItem(tokenKey) },
             success: function (data) {
                
                 self.FirstName(data.firstName);
