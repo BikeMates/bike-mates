@@ -8,6 +8,7 @@ using BikeMates.Contracts.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using BikeMates.Domain.Entities;
+using System.Security.Policy;
 
 namespace BikeMates.DataAccess.Repository
 {
@@ -61,6 +62,15 @@ namespace BikeMates.DataAccess.Repository
         {
             User user = userManager.Find(email, password);
             return user;
+        }
+
+
+        public void ConfirmPassword(string id)
+        {
+            //string code = userManager.GenerateEmailConfirmationToken(id);
+            ////string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+            //var callbackUrl = ""; //= Url.Action("ConfirmEmail", "Account", new { userId = id, code = code }, protocol: Request.Url.Scheme);
+            //userManager.SendEmail(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
         }
     }
 }

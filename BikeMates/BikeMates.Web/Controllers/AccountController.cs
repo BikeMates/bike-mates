@@ -186,14 +186,19 @@ namespace BikeMates.Web.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail()
         {
-            if (userId == null || code == null)
-            {
-                return View("Error");
-            }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            string id = "d0c1d19c-9c7d-4483-bbdf-6b010638fc4e";
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(id);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = id, code = code }, protocol: Request.Url.Scheme);
+            await UserManager.SendEmailAsync(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            return RedirectToAction("Index", "Home");
+            //if (userId == null || code == null)
+            //{
+            //    return View("Error");
+            //}
+            //var result = await UserManager.ConfirmEmailAsync(userId, code);
+            //return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //

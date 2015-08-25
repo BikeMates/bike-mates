@@ -44,5 +44,11 @@ namespace BikeMates.Application.Services
         {
             return this.userRepository.Login(email, password);
         }
+
+
+        public void ConfirmPassword(string id)
+        {
+
+        }
     }
 }

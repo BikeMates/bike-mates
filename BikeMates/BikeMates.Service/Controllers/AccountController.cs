@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -92,6 +93,17 @@ namespace BikeMates.Service.Controllers
                 };
                 return responseMsg;
             }
+        }
+        [HttpGet]
+        [Route("ConfirmEmail")]
+        public  string ConfirmEmail()
+        {
+            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+
+
+
+            return userId;
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
