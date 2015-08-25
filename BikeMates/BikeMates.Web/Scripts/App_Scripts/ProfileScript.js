@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
 
+    var tokenKey = sessionStorage.getItem()
 function AppViewModel() {
 
     var self = this;
@@ -17,10 +18,10 @@ function AppViewModel() {
 
       
         $.ajax({
-            url: "http://localhost:51952/api/profile",
+            url: "api/profile",
             contentType: "application/json",
             type: "GET",
-            header:{"Authorization" : "Bearer "+ sessionStorage.getItem(tokenKey) },
+            header: {"Authorization " : " Bearer " + sessionStorage.getItem(tokenKey) }, //  + sessionStorage.getItem(tokenKey)
             success: function (data) {
                
                 self.FirstName(data.firstName);
