@@ -18,11 +18,10 @@ namespace BikeMates.Web.Controllers
 
         public ActionResult Index(int? page)
         {
-            // allRoutes = routelist.GetAllRoutes().ToList(); //TODO: Move this logic into WebAPI Service and take data from it using Knockout.
-
+           
             int pageNumber = page ?? 1;
             int pageSize = 3;
-            return View(search.Get().ToPagedList(pageNumber, pageSize));
+            return View(new SearchController().allRoutes.ToPagedList(pageNumber, pageSize));
         } 
         [Authorize]
         public ActionResult About()

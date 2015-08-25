@@ -35,7 +35,8 @@
                 dataType: 'json',
                 data: ko.toJSON(self),
                 success: function (data) {
-
+                    console.log(data);
+                    
                     alert("success");
 
                 },

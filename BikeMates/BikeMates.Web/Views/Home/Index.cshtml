@@ -8,6 +8,7 @@
 <script src="~/Scripts/knockout-3.3.0.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/App_Scripts/Search.js"></script>
+<script src="~/Scripts/App_Scripts/SortRoute.js"></script>
 
 <div class=" jumbotron">
     <p>
@@ -22,9 +23,9 @@
         <ul class="nav navbar-nav">
 
             <li align="left" style="position: absolute; top:100px; left:1100px; ">
-                <input type="submit" value="By Date" id="ByDate">
-                <input type="submit" value="By Title" id="ByTitle">
-                <input type="submit" value="By Participants" id="ByParticipants">
+                <input type="submit" value="By Date" id="ByDate" data-bind="valueUpdate: ByDate" >
+                <input type="submit" value="By Name" id="ByName" data-bind="valueUpdate: ByName">
+                <input type="submit" value="By Participants" id="ByParticipants" data-bind="valueUpdate: ByParticipants">
             </li>
         </ul>
     </div>
@@ -71,6 +72,7 @@
                 <!--td style='text-decoration: underline;'-->
     <p style='border: 1px solid black; padding: 10px; margin-left: 500px; margin-top: 1px;'>
         @Html.DisplayFor(modelItem => item.Name)
+
         Distance: @Html.DisplayFor(modelItem => item.Distance)
         <!--/td-->
         <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->

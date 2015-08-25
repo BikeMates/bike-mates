@@ -134,13 +134,28 @@ namespace BikeMates.DataAccess.Repository
                      Start=rot.Start,
                      ParticipantsCount=rot.ParticipantsCount*/
                     Name = "Route Name",
-                    MeetingPlace = "Lviv st. Patona",
+                    MeetingPlace = "Lviv st. Patona"+rot,
                     Distance = 20,
                     Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                     Start = new DateTime(26 / 07 / 2015),
                     ParticipantsCount = 5
                 });
             }
+            RouteViewList.Add(new Route()
+            {
+                /* Name=rot.Name,
+                 MeetingPlace=rot.MeetingPlace,
+                 Distance=rot.Distance,
+                 Description=rot.Description,
+                 Start=rot.Start,
+                 ParticipantsCount=rot.ParticipantsCount*/
+                Name = "ARoute Name",
+                MeetingPlace = "ALviv st. Patona",
+                Distance = 20,
+                Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                Start = new DateTime(26 / 07 / 2015),
+                ParticipantsCount = 3
+            });
             return RouteViewList;
         }
     }
