@@ -26,8 +26,9 @@ namespace BikeMates.DataAccess.Repository
 
         }
 
-        public void Delete(User user)
+        public void Delete(string id)
         {
+            var user = Get(id);
             this.context.Set<User>().Remove(user);
             context.SaveChanges();
         }

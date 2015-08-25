@@ -51,8 +51,9 @@ namespace BikeMates.DataAccess.Repository
             }
         }
 
-        public void Delete(Route entity)
+        public void Delete(int id)
         {
+            var entity = Get(id);
             try
             {
                 if (entity == null)
