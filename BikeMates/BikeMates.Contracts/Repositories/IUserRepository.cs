@@ -8,10 +8,11 @@ using BikeMates.Domain.Entities;
 
 namespace BikeMates.Contracts.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<User, string>
     {
         User Get(string id);
         IdentityResult Register(User user, string password); 
         User Login(string email, string password);
+        void ConfirmPassword(string id);
     }
 }

@@ -28,8 +28,7 @@ namespace BikeMates.Application.Services
         }
         public void Delete(int id)
         {
-            var user = GetRoute(id);//TODO: Move this logic into repository. You should not load Route from database for delete operation
-            routeRepository.Delete(user);
+            routeRepository.Delete(id);
         }
 
         public void Update(Route entity)

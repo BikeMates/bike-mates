@@ -12,6 +12,7 @@ namespace BikeMates.Contracts.Services
     { 
         IdentityResult Register(User user, string password);
         User Login(string email, string password);
+        void ConfirmPassword(string id);
         User GetUser(string id);
         void Delete(string id);
         void Update(User user);

@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    var tokenKey = "tokenInfo";
+
     function RegisterViewModel() {
 
         this.firstName = ko.observable("");
@@ -21,13 +23,16 @@
                         FirstName: this.firstName,
                         SecondName: this.secondName
                     },
-                success: function (data) {
-                    $("#success_message").show();
 
+                success: function (data) {
                     $("#error_message").hide();
                     $(".validation-summary-errors").hide();
 
-                    startTimer();
+                    sessionStorage.setItem(tokenKey, data.access_token);
+                    alert('Your token: ' + sessionStorage.getItem(tokenKey));
+
+                    window.location.href = "/Home/Index";
+
                 },
                 error: function (data) {
                     var errors = [];
@@ -55,13 +60,6 @@
         }
     }
 
-    var startTimer = function () {
-        var timer = setTimeout(function () {
-            clearTimeout(timer);
-            window.location.href = "/Account/Login";
-        }, 2000);
-           
-    }
 
     ko.applyBindings(new RegisterViewModel());
 });

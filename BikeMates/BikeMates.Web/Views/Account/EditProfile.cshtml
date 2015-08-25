@@ -5,7 +5,6 @@
 }
 
 <link rel="stylesheet" href="~/Content/EditProfilePage.css">
-
 <script src="~/Scripts/knockout-3.3.0.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/App_Scripts/EditProfileScript.js"></script>
@@ -17,13 +16,38 @@
     <h2></h2>
     <div class="row">
         <div class="col-md-3 text-center">
+
             <img src="~/Content/Images/avatar-big.png" alt="Smiley face" height="150" width="150" data-bind="attr: {src: Picture}">
             <h2></h2>
-            <button type="button" class="btn btn-default" id="change_ava_btn">Change avatar</button>
-            <hr />
-        </div>
+           
+            <form action="http://localhost:51952/api/profilepicture" method="post" enctype="multipart/form-data">
+                <div class="form-inline">
+                    <label for="somefile">File</label>
+                    <input name="somefile" type="file" multiple />
+                </div>
+                <input type="submit" value="Submit" />
+               
+            </form>
+            <hr/>
+            <form action="http://localhost:51952/api/profilepicture" method="post" enctype="multipart/form-data">
+                <input id="file" type="file" name="file" />
+                <div id="response"></div>
+            </form>
+                <button type="button" class="btn btn-default pull-right" id="upload_btn">Save</button>
+
+
+                <hr />
+
+
+
+
+
+
+
+</div>
         <div class="col-md-4 ">
-            <h1> <strong data-bind="text: fullName">FullName</strong></h1>
+            <h1> <strong data-bind="text: fullName">FullName</strong> 
+             </h1>
 
             <div class="form-group">
                 <label for="usrname">First name:</label>
@@ -66,10 +90,23 @@
             </div>
 
 
+           
+
+
             
                 <button type="button" class="btn btn-default pull-right" id="save_btn">Save</button>
             
         </div>
 
+    
+
     </div>
+
+
+   
+
     </div>
+
+
+
+

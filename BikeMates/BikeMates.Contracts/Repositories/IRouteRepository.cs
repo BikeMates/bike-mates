@@ -8,7 +8,7 @@ using BikeMates.Domain.Entities;
 
 namespace BikeMates.Contracts.Repositories
 {
-    public interface IRouteRepository : IRepository<Route>
+    public interface IRouteRepository : IRepository<Route, int>
     {
         Route Get(int id);
         List<Route> GetAllRoutes();
