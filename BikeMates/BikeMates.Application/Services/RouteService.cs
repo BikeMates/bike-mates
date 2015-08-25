@@ -36,5 +36,8 @@ namespace BikeMates.Application.Services
         {
             this.routeRepository.Update(entity);
         }
+        public List<Route> Find(List<Route> entity) { return null; }
+        public List<Route> Sort(List<Route> entity) { return null; }
+
     }
 }

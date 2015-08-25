@@ -15,6 +15,8 @@ namespace BikeMates.Contracts.Services
         Route GetRoute(int id);
         void Delete(int id);
         void Update(Route entity);
+        List<Route> Find(List<Route> entity);
+        List<Route> Sort(List<Route> entity);
 
     }
 }

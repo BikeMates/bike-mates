@@ -11,5 +11,6 @@ namespace BikeMates.Contracts.Repositories
     public interface IRouteRepository : IRepository<Route>
     {
         Route Get(int id);
+        List<Route> GetAllRoutes();
     }
 }

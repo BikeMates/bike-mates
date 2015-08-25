@@ -20,6 +20,11 @@ namespace BikeMates.DataAccess.Repository
         {
             this.context = context;
         }
+
+        public RouteRepository()
+        {
+            // TODO: Complete member initialization
+        }
         public void Add(Route entity)
         {
             try
@@ -110,6 +115,32 @@ namespace BikeMates.DataAccess.Repository
                 }
                 throw new Exception(errorMessage, dbEx);
             }
+        }
+        public List<Route> GetAllRoutes()
+        {
+            List<Route> RouteViewList = new List<Route>();
+
+            //List<Route> allRoutes = context.Routes.ToList();
+
+            for (int rot = 0; rot <= 10; rot++)
+            {
+                RouteViewList.Add(new Route()
+                {
+                    /* Name=rot.Name,
+                     MeetingPlace=rot.MeetingPlace,
+                     Distance=rot.Distance,
+                     Description=rot.Description,
+                     Start=rot.Start,
+                     ParticipantsCount=rot.ParticipantsCount*/
+                    Name = "Route Name",
+                    MeetingPlace = "Lviv st. Patona",
+                    Distance = 20,
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    Start = new DateTime(26 / 07 / 2015),
+                    ParticipantsCount = 5
+                });
+            }
+            return RouteViewList;
         }
     }
 }
