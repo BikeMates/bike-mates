@@ -213,6 +213,7 @@
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\RouteSearch.cs" />
     <Compile Include="Models\RouteSort.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />

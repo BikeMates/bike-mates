@@ -43,7 +43,8 @@ namespace BikeMates.Service.Controllers
             //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
             var user = userService.getUserByEmail(model.Email);
-            return Ok(user.Id);
+            UserModel userModel = new UserModel() { Id = user.Id, FirstName = user.FirstName, SecondName = user.SecondName, Picture = user.Picture, About = user.About };
+            return Ok(userModel);
         }
 
         // POST api/Account/Register
