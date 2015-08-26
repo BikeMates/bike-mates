@@ -212,6 +212,11 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\RouteSearch.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Models\RouteSort.cs" />
+    <Compile Include="Models\UserModel.cs" />
+>>>>>>> 10138930e0725ad25e0ba036ce29ee89b20971ee
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
