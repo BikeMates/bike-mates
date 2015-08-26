@@ -202,7 +202,7 @@
     <Content Include="Content\Images\add_user.png" />
     <Content Include="Content\Images\avatar-big.png" />
     <Content Include="Content\Images\google-plus.png" />
-    <Content Include="Content\Images\velosiped_gucci_bianchi_16_01_12_001.jpg" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\ProfilePage.css" />
     <Content Include="Content\Route.css" />
@@ -276,6 +276,7 @@
     <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Route\Add.cshtml" />
     <Content Include="Views\Route\_Layout.cshtml" />
+    <Content Include="Views\Home\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

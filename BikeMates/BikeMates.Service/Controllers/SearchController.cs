@@ -16,12 +16,12 @@ namespace BikeMates.Service.Controllers
     public class SearchController : ApiController
     {
         private RouteService RouteService;
-        private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
+        private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository();
         public List<Route> allRoutes;
         private RoutesSearchParameters routesSearchParameters;
         public SearchController()
         {
-            //allRoutes = routelist.GetAllRoutes().ToList();
+            allRoutes = routelist.GetAllRoutes().ToList();
             routesSearchParameters.entity = routelist.GetAllRoutes().ToList();
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
 

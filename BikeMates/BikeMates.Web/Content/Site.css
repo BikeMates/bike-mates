@@ -61,3 +61,77 @@ textarea {
     width:450px;
     margin-left:30px;
 }
+.navbar-brand{
+     color: #E2E2E2!important;
+     font-size: 20px;
+     text-transform: uppercase;
+     font-style: italic;
+     padding: 15px 30px;
+     line-height: 30px;
+}
+.navbar-brand:hover{
+    color:#fff;
+}
+#registerLink, #loginLink{
+    background:#127FDA;
+    color:#fff;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+#registerLink:hover, #loginLink:hover{
+    background:rgba(18, 127, 218, 0.91);
+}
+#registerLink{
+      border-radius: 3px 0 0 3px;
+}
+#loginLink{
+      border-radius: 0 3px 3px 0;
+}
+.nav.navbar-nav.navbar-right{
+    margin: 10px 0 0 0;
+}
+.logo{
+     margin: 3px 0 0 0;
+}
+.search-body{
+  width: 300px;
+  margin: 4px 30px 0 0;
+}
+#ByParticipants, #ByTitle, #ByDate{
+   background-color: #127FDA;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 15px;
+}
+#sort_order{
+  float: left;
+  margin: 11px 10px 0 0;
+}
+.filter_menu {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.filter-btn{
+  float: left;
+  width: 290px;
+  color:#fff;
+  background-color: rgba(18, 127, 218, 0.56);
+}
+.filter-btn:hover{
+    background:#127FDA;
+    color:#fff;
+}
+.filter-inpt{
+    border-radius:3px;
+    border:1px solid rgba(34, 34, 34, 0.31);
+}
+.result-filter-row{
+      margin-top: -120px;
+}
+.result-silter-itm{
+  border: 1px solid rgb(203, 203, 203);
+  padding: 10px;
+  border-radius: 3px;
+  margin-left: 350px;
+}
