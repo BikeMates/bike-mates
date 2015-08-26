@@ -14,14 +14,14 @@ namespace BikeMates.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private SearchController search = new SearchController();
-
+        DataAccess.Repository.RouteRepository rot = new DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
+        List<Route> r = new List<Route>();
         public ActionResult Index(int? page)
         {
-           
+           r=rot.GetAllRoutes().ToList();
             int pageNumber = page ?? 1;
             int pageSize = 3;
-            return View(new SearchController().allRoutes.ToPagedList(pageNumber, pageSize)); //TODO: Remove SearchController from here. Use Knockout to search routes
+            return View(r.ToPagedList(pageNumber, pageSize)); //TODO: Remove SearchController from here. Use Knockout to search routes
         } 
         [Authorize]
         public ActionResult About()

@@ -55,7 +55,7 @@ namespace BikeMates.DataAccess.Repository
         }
         public List<Route> GetAllRoutes()
         {
-           /* List<Route> rot = new List<Route>();
+            List<Route> rot = new List<Route>();
             for (int i = 0; i < 10; i++)
             {
                 rot.Add(new Route()
@@ -71,8 +71,8 @@ namespace BikeMates.DataAccess.Repository
 
                 });
             }
-               return rot.ToList();*/
-            return context.Routes.ToList();
+               return rot.ToList();
+            //return context.Routes.ToList();
         }
     }
 }
