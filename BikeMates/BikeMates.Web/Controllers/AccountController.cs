@@ -22,7 +22,6 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using WebApplication4.Models;
 using System.Net;
 namespace BikeMates.Web.Controllers
 {
