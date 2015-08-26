@@ -20,11 +20,6 @@ namespace BikeMates.DataAccess.Repository
         {
             this.context = context;
         }
-
-        public RouteRepository() //TODO: Remove this constructor. Do not create instances inside constructor
-        {
-            this.context = new BikeMatesDbContext();
-        }
         public void Add(Route entity)
         {
 
@@ -41,7 +36,7 @@ namespace BikeMates.DataAccess.Repository
 
         public IEnumerable<Route> GetAll()
         {
-            return this.context.Routes.ToList(); //TODO: Remove ToList()
+            return this.context.Routes;
         }
 
         public Route Get(int id)
