@@ -13,6 +13,8 @@ using Microsoft.Owin.Security;
 using BikeMates.Web.Models;
 using BikeMates.DataAccess;
 using BikeMates.Domain.Entities;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace BikeMates.Web
 {
@@ -20,7 +22,6 @@ namespace BikeMates.Web
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
             return Task.FromResult(0);
         }
     }

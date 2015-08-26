@@ -46,7 +46,7 @@ namespace BikeMates.Application.Services
         }
 
 
-        public void ConfirmPassword(string id)
+        public void resetPassword(string id)
         {
 
         }

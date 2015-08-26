@@ -19,7 +19,7 @@ namespace BikeMates.Service.Controllers
         public List<Route> allRoutes;
         public SearchController()
         {
-            allRoutes = routelist.GetAllRoutes().ToList();
+            //allRoutes = routelist.GetAllRoutes().ToList();
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
 
         }

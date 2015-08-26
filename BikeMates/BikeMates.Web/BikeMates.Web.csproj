@@ -185,7 +185,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -212,6 +211,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\App_Scripts\GetUserIdWebApi.js" />
     <Content Include="Scripts\App_Scripts\SortRoute.js" />
     <Content Include="Scripts\App_Scripts\EditProfileScript.js" />
     <Content Include="Scripts\App_Scripts\LoginScript.js" />

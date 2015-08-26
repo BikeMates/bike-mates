@@ -10,6 +10,7 @@ namespace BikeMates.Contracts.Repositories
     {
         void Add(T entity);
         void Delete(TKey entity);
+        T Get(TKey id);
         IEnumerable<T> GetAll();
         void Update(T entity);
     }
