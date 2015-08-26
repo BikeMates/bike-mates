@@ -31,7 +31,7 @@ namespace BikeMates.DataAccess.Repository
         {
             var entity = Get(id);
             this.context.Set<Route>().Remove(entity);
-            SaveChanges();
+            this.context.SaveChanges();
         }
 
         public IEnumerable<Route> GetAll()
@@ -42,11 +42,6 @@ namespace BikeMates.DataAccess.Repository
         public Route Get(int id)
         {
             return this.context.Set<Route>().Find(id);
-        }
-
-        public void SaveChanges() //TODO: Remove this method
-        {
-            this.context.SaveChanges();
         }
 
         public void Update(Route entity)
