@@ -6,9 +6,9 @@ using System.Linq;
 using System.Web;
 using BikeMates.Domain.Entities;
 
-namespace BikeMates.Web.Models
+namespace BikeMates.Contracts.Models
 {
-    public class Route //TODO: Move to the Service project
+    public class Route
     {
         [Key]
         public int Id { get; set; }
@@ -39,7 +39,7 @@ namespace BikeMates.Web.Models
 
         public double Distance { get; set; }
 
-        public List<User> Participants { get; set; }
+        public virtual List<User> Participants { get; set; }
 
         public bool IsBanned { get; set; }
 
@@ -59,7 +59,7 @@ namespace BikeMates.Web.Models
             };
             return _route;
         }
-        public BikeMates.Domain.Entities.Route MapToDomain(BikeMates.Web.Models.Route route)
+        public BikeMates.Domain.Entities.Route MapToDomain(BikeMates.Contracts.Models.Route route)
         {
             BikeMates.Domain.Entities.Route _route = new BikeMates.Domain.Entities.Route
             {

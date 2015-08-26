@@ -32,20 +32,26 @@ namespace BikeMates.Service.Controllers
         }
         
         // GET api/user
-        public User Get()
+        public ProfileViewModel Get()
         {
-            //string userID = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2" ; 
-          //  var currentUser = Membership.GetUser(User.Identity.Name);
-           // var id = currentUser.ProviderUserKey;
-            //string username = currentUser.UserName; //** get UserName// string userID = HttpContext.Current.User.Identity.GetUserId();
+           
 
-           // MembershipUser myObject = Membership.GetUser();
-           // string userID = myObject.ProviderUserKey.ToString();
+            //ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
-           // string userID = HttpContext.Current.User.Identity.GetUserId();
-          // var usr =  RequestContext.Principal.Identity;
-            //   string userID = Membership.GetUser().ProviderUserKey.ToString();
-            return userService.GetUser("749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2");//"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
+
+
+            User _user = userService.GetUser("749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2");//"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
+            var profile = new ProfileViewModel();
+            profile.about = _user.About;
+            profile.firstName = _user.FirstName;
+            profile.secondName = _user.SecondName;
+            profile.picture = _user.Picture;
+
+            return profile;
+
+
+              //"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
            // return new User() { FirstName = "Vasya", About = "I like cycling", Id = "vasua123", Email = "vasya@google.com", SecondName = "Vasyonov", Picture = "http://localhost:51949/Content/Images/avatar-big.png" };
         }
 

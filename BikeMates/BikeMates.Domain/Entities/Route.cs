@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Domain.Entities
 {
-    public class Route //TODO: Please create a base class for Entity with Id property
+    public class Route : Entity
     {
-        [Key]
-        public int Id { get; set; }
         public string Title { get; set; }
         public MapData MapData { get; set; }
         public string Description { get; set; }
         public string MeetingPlace { get; set; }
         public DateTime Start { get; set; }
         public double Distance { get; set; }
-        public List<User> Participants { get; set; } //TODO: Use virtual ICollection<User>
+        public virtual ICollection<User> Participants { get; set; }
         public bool IsBanned { get; set; }
 
     }

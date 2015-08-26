@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Coordinate.cs" />
+    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\MapData.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Route.cs" />

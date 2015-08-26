@@ -18,10 +18,10 @@ function AppViewModel() {
 
       
         $.ajax({
-            url: "api/profile",
+            url: "http://localhost:51952/api/profile",
             contentType: "application/json",
             type: "GET",
-            header: {"Authorization " : " Bearer " + sessionStorage.getItem(tokenKey) }, //  + sessionStorage.getItem(tokenKey)
+            headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) }, //  + sessionStorage.getItem(tokenKey)
             success: function (data) {
                
                 self.FirstName(data.firstName);
