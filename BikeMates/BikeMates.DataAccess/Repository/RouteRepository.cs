@@ -55,24 +55,7 @@ namespace BikeMates.DataAccess.Repository
         }
         public List<Route> GetAllRoutes()
         {
-            List<Route> rot = new List<Route>();
-            for (int i = 0; i < 10; i++)
-            {
-                rot.Add(new Route()
-                {
-                    Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    Distance = 20,
-                    IsBanned = false,
-                    Id = 3425423,
-                    MeetingPlace = "st. Patona",
-                    Participants = null,
-                    Start = new DateTime(23 / 04 / 2015),
-                    Title = "Greed"
-
-                });
-            }
-               return rot.ToList();
-            //return context.Routes.ToList();
+            return context.Routes.ToList();
         }
     }
 }
