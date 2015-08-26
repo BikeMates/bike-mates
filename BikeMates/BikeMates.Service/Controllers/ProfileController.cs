@@ -35,9 +35,9 @@ namespace BikeMates.Service.Controllers
         public User Get()
         {
            
-            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            string userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-            return userService.GetUser(userId);//"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
+           // ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            //string userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+            return userService.GetUser("749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2");//"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
          //  return new User() { FirstName = "Vasya", About = "I like cycling", Id = "vasua123", Email = "vasya@google.com", SecondName = "Vasyonov", Picture = "C:/Users/user/Source/Repos/bike-mates/BikeMates/BikeMates.Service/App_Data/749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2.jpeg" };
         }
 

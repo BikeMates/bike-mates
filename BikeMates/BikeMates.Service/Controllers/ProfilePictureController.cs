@@ -33,7 +33,7 @@ namespace BikeMates.Service.Controllers
         {
             userService = new UserService(new UserRepository(new BikeMatesDbContext()));
         }
-        
+
 
 
         //POST api/profilepicture
@@ -46,39 +46,67 @@ namespace BikeMates.Service.Controllers
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            string root = HttpContext.Current.Server.MapPath("~/Resources");
             var provider = new MultipartFormDataStreamProvider(root);
 
             try
             {
                 // Read the form data.
                 await Request.Content.ReadAsMultipartAsync(provider);
+                            
+                string id = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";
+                string path = "";
 
                 // This illustrates how to get the file names.
                 foreach (MultipartFileData file in provider.FileData)
                 {
 
-                    //Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+                     //Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+                 //  if ( System.IO.File.Exists(); )
+                  //  { System.IO.File.Delete(); }
+                   
                     file.Headers.ContentDisposition.FileName = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";
                     FileInfo currentFile = new FileInfo(file.LocalFileName);
 
-                    currentFile.MoveTo(currentFile.Directory.FullName + "\\" + "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"+".jpeg");
-                
+                    currentFile.MoveTo(currentFile.Directory.FullName + "\\" + "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2" + ".jpeg");
+                    path = currentFile.FullName;
+                    
                 }
-                
 
-               return Request.CreateResponse(HttpStatusCode.OK);
+                string fileName = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2" + ".jpeg";
+                string pathr = Server.MapPath(String.Format("~/App_Data/uploads/{0}", fileName));
+                if (System.IO.File.Exists(path))
+                {
+                    return File(pathr, "application/pdf");
+                }
 
-                
+
+                path.Replace("\\" , "//");
+                User user = userService.GetUser(id);
+                user.Picture = path;
+                userService.Update(user);
+               
+
+                //Bad way to get to the page - but still works 
+                var response = Request.CreateResponse(HttpStatusCode.Moved);
+                response.Headers.Location = new Uri("http://localhost:51949/Account/Profile");
+                return response;
+
+
+
+
+
+
+
             }
             catch (System.Exception e)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
 
-          
+
 
         }
-        
+
     }
 }

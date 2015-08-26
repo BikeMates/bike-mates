@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    var tokenKey = sessionStorage.getItem()
+    var tokenKey = "tokenInfo";
 function AppViewModel() {
 
     var self = this;
