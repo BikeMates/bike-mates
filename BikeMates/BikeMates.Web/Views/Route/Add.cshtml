@@ -12,9 +12,11 @@
 
 @section Styles{
 @Styles.Render("~/Content/Route.css")
+@Styles.Render("~/Content/jquery-ui.css")
 }
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery-ui.js")
     <script src="~/Scripts/App_Scripts/Route.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
 }
@@ -30,14 +32,14 @@
         <div class="center">
             <div class="form-inline">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Start, new { @class = "col-md-5 control-label" })
-                    <div class="col-md-7">
-                        @Html.EditorFor(m => m.Start, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.LabelFor(m => m.Start, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Start, htmlAttributes: new { @class = "form-control", @id = "datepicker" } )
                     </div>
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(m => m.Distance, "Total Distance:", new { @class = "col-md-5 control-label" })
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         @Html.TextBoxFor(m => m.Distance, new {@class = "form-control", @id = "totalDistance"}) <span >km</span>
                     </div>
                 </div>

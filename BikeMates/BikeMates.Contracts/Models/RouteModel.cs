@@ -34,7 +34,7 @@ namespace BikeMates.Contracts.Models
         [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Start { get; set; }
 
         public double Distance { get; set; }
