@@ -10,7 +10,6 @@ namespace BikeMates.DataAccess.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "BikeMates.DataAccess.ApplicationDbContext";
         }
 
         protected override void Seed(BikeMates.DataAccess.BikeMatesDbContext context)

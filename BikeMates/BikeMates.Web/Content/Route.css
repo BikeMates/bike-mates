@@ -1,0 +1,73 @@
+﻿
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+
+        #panel {
+            position: absolute;
+            top: 10px;
+            left: 25%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+        }
+        #panel, .panel {
+            font-family: 'Roboto', 'sans-serif';
+            line-height: 30px;
+            padding-left: 10px;
+        }
+
+        #panel select, #panel input, .panel select, .panel input {
+            font-size: 15px;
+        }
+
+        #panel select, .panel select {
+            width: 100%;
+        }
+
+        #panel i, .panel i {
+            font-size: 12px;
+        }
+
+        #routeForm {
+            padding-left: auto;
+            padding-right: auto;
+        }
+
+        .panel {
+            height: 100%;
+            overflow: auto;
+        }
+
+        .inline {
+            display: inline-block;
+        }
+
+        .form-inline .form-group {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        .form-inline {
+            padding-bottom: 15px;
+        }
+
+        .center {
+            margin: 0 auto;
+            width: 700px;
+            padding-left: auto;
+            padding-right: auto;
+            white-space: nowrap;
+        }
+        #map {
+            margin: 0 auto;
+             width: 63%;
+            height: 60%;
+        }

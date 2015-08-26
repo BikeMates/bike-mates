@@ -35,6 +35,17 @@ namespace BikeMates.Service.Controllers
             return Ok("work");
         }
 
+        [HttpPost]
+        [Route("GetUserByEmail")]
+        public IHttpActionResult GetUserByEmail(ForgotPasswordModel model)
+        {
+            //ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+
+            var user = userService.getUserByEmail(model.Email);
+            return Ok(user.Id);
+        }
+
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -75,14 +86,15 @@ namespace BikeMates.Service.Controllers
         {
             var request = HttpContext.Current.Request;
             var tokenServiceUrl = request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath + "/token";
+            
             using (var client = new HttpClient())
             {
                 var requestParams = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("grant_type", "password"),
-                new KeyValuePair<string, string>("username", userModel.Email),
-                new KeyValuePair<string, string>("password", userModel.Password)
-            };
+                {
+                    new KeyValuePair<string, string>("grant_type", "password"),
+                    new KeyValuePair<string, string>("username", userModel.Email),
+                    new KeyValuePair<string, string>("password", userModel.Password)
+                };
                 var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
                 var tokenServiceResponse = await client.PostAsync(tokenServiceUrl, requestParamsFormUrlEncoded);
                 var responseString = await tokenServiceResponse.Content.ReadAsStringAsync();
@@ -93,17 +105,6 @@ namespace BikeMates.Service.Controllers
                 };
                 return responseMsg;
             }
-        }
-        [HttpGet]
-        [Route("ConfirmEmail")]
-        public  string ConfirmEmail()
-        {
-            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-
-
-
-            return userId;
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

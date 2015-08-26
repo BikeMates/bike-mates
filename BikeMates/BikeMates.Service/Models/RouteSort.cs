@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BikeMates.Service.Models
 {
-    public class RouteSort
+    public class RouteSort //TODO: Combine this class with RouteSearch class and use a one class
     {
         [Required]
         public bool ByName { get; set; }

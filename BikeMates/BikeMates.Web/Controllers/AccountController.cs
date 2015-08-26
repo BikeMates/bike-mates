@@ -16,6 +16,12 @@ using BikeMates.DataAccess;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using System.Threading;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json;
 namespace BikeMates.Web.Controllers
 {
     [Authorize]
@@ -188,10 +194,10 @@ namespace BikeMates.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail()
         {
-            string id = "d0c1d19c-9c7d-4483-bbdf-6b010638fc4e";
-            string code = await UserManager.GenerateEmailConfirmationTokenAsync(id);
-            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = id, code = code }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            //string id = "d0c1d19c-9c7d-4483-bbdf-6b010638fc4e";
+            //string code = await UserManager.GenerateEmailConfirmationTokenAsync(id);
+            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = id, code = code }, protocol: Request.Url.Scheme);
+            //await UserManager.SendEmailAsync(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
             return RedirectToAction("Index", "Home");
             //if (userId == null || code == null)
             //{
@@ -218,19 +224,48 @@ namespace BikeMates.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                string userId;
+
+                var ServiceUrl = "http://localhost:51952/api/account/GetUserByEmail";
+                using (var client = new HttpClient())
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    var requestParams = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("email", model.Email),
+                    };
+
+                    var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
+                    var ServiceResponse = await client.PostAsync(ServiceUrl, requestParamsFormUrlEncoded);
+                    var responseString = await ServiceResponse.Content.ReadAsStringAsync();
+
+                    var responseCode = ServiceResponse.StatusCode;
+                    var responseMsg = new HttpResponseMessage(responseCode)
+                    {
+                        Content = new StringContent(responseString, Encoding.UTF8, "application/json")
+                    };
+
+                    userId = JsonConvert.DeserializeObject<string>(responseString);
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(userId);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = userId, code = code }, protocol: Request.Url.Scheme);
+
+                var html = "Please reset your password by clicking <a href=\"" + callbackUrl + "\">Reset Password</a><br/>";
+                html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + callbackUrl);
+
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("BikeMatesUkraine@gmail.com");
+                msg.To.Add(new MailAddress(model.Email));
+                msg.Subject = "Reset Password";
+                msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
+                msg.IsBodyHtml = true;
+
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
+                System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("BikeMatesUkraine@gmail.com", "Qwerty1#");
+                smtpClient.Credentials = credentials;
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(msg);
+
             }
 
             // If we got this far, something failed, redisplay form

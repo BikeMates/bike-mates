@@ -21,7 +21,7 @@ namespace BikeMates.Web.Controllers
            
             int pageNumber = page ?? 1;
             int pageSize = 3;
-            return View(new SearchController().allRoutes.ToPagedList(pageNumber, pageSize));
+            return View(new SearchController().allRoutes.ToPagedList(pageNumber, pageSize)); //TODO: Remove SearchController from here. Use Knockout to search routes
         } 
         [Authorize]
         public ActionResult About()

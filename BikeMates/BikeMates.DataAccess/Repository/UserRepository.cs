@@ -44,6 +44,7 @@ namespace BikeMates.DataAccess.Repository
            return this.context.Set<User>().Find(id);
         }
 
+        
 
         public void Update(User user)
         {
@@ -53,24 +54,27 @@ namespace BikeMates.DataAccess.Repository
 
         public IdentityResult Register(User user, string password)
         {
-            var idResult = userManager.Create(user, password); 
-
-            return idResult;
+            return userManager.Create(user, password); 
         }
 
         public User Login(string email, string password)
         {
-            User user = userManager.Find(email, password);
-            return user;
+            return userManager.Find(email, password); 
         }
 
 
-        public void ConfirmPassword(string id)
+        public void resetPassword(string id)
         {
             //string code = userManager.GenerateEmailConfirmationToken(id);
             ////string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
             //var callbackUrl = ""; //= Url.Action("ConfirmEmail", "Account", new { userId = id, code = code }, protocol: Request.Url.Scheme);
             //userManager.SendEmail(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+        }
+
+
+        public User getUserByEmail(string email)
+        {
+            return userManager.FindByEmail(email);
         }
     }
 }

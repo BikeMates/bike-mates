@@ -19,12 +19,12 @@ namespace BikeMates.Service.Controllers
         public List<Route> allRoutes;
         public SearchController()
         {
-            allRoutes = routelist.GetAllRoutes().ToList();
+            //allRoutes = routelist.GetAllRoutes().ToList();
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
 
         }
        
-        public List<Route> Sort(RouteSort routesort)
+        public List<Route> Sort(RouteSort routesort)//TODO: Use only one method Seacrh which will receive both search and sort options
         {
             routesort.ByParticipants = true;
             return RouteService.Sort(allRoutes,routesort.ByDate,routesort.ByName,routesort.ByParticipants);
