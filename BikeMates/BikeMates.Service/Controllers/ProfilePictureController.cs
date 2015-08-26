@@ -74,16 +74,12 @@ namespace BikeMates.Service.Controllers
                 }
 
                 string fileName = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2" + ".jpeg";
-                string pathr = Server.MapPath(String.Format("~/App_Data/uploads/{0}", fileName));
-                if (System.IO.File.Exists(path))
-                {
-                    return File(pathr, "application/pdf");
-                }
+                string pathr = HttpContext.Current.Server.MapPath(String.Format("~/Resources/{0}", fileName));
+             
 
-
-                path.Replace("\\" , "//");
+                //path.Replace("\\" , "//");
                 User user = userService.GetUser(id);
-                user.Picture = path;
+                user.Picture = "~/Resources/"+fileName;
                 userService.Update(user);
                
 

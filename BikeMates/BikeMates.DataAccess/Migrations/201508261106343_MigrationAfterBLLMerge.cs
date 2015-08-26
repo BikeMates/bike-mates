@@ -3,7 +3,7 @@ namespace BikeMates.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class MigrationAfterBLLMerge : DbMigration
     {
         public override void Up()
         {
@@ -42,13 +42,10 @@ namespace BikeMates.DataAccess.Migrations
                         Distance = c.Double(nullable: false),
                         IsBanned = c.Boolean(nullable: false),
                         MapData_Id = c.Int(),
-                        User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.MapDatas", t => t.MapData_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.MapData_Id)
-                .Index(t => t.User_Id);
+                .Index(t => t.MapData_Id);
             
             CreateTable(
                 "dbo.MapDatas",
@@ -123,11 +120,25 @@ namespace BikeMates.DataAccess.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.UserRoutes",
+                c => new
+                    {
+                        User_Id = c.String(nullable: false, maxLength: 128),
+                        Route_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.User_Id, t.Route_Id })
+                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Routes", t => t.Route_Id, cascadeDelete: true)
+                .Index(t => t.User_Id)
+                .Index(t => t.Route_Id);
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Routes", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.UserRoutes", "Route_Id", "dbo.Routes");
+            DropForeignKey("dbo.UserRoutes", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
@@ -135,16 +146,18 @@ namespace BikeMates.DataAccess.Migrations
             DropForeignKey("dbo.MapDatas", "Start_Id", "dbo.Coordinates");
             DropForeignKey("dbo.MapDatas", "End_Id", "dbo.Coordinates");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.UserRoutes", new[] { "Route_Id" });
+            DropIndex("dbo.UserRoutes", new[] { "User_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.MapDatas", new[] { "Start_Id" });
             DropIndex("dbo.MapDatas", new[] { "End_Id" });
-            DropIndex("dbo.Routes", new[] { "User_Id" });
             DropIndex("dbo.Routes", new[] { "MapData_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.UserRoutes");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
