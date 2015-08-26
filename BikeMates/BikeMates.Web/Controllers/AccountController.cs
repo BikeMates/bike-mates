@@ -18,6 +18,10 @@ using BikeMates.Domain.Entities;
 using System.Threading;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Net.Http;
+using System.Collections.Generic;
+using System.Text;
+using Newtonsoft.Json;
 namespace BikeMates.Web.Controllers
 {
     [Authorize]
@@ -220,17 +224,33 @@ namespace BikeMates.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null )
+                string userId;
+
+                var ServiceUrl = "http://localhost:51952/api/account/GetUserByEmail";
+                using (var client = new HttpClient())
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    var requestParams = new List<KeyValuePair<string, string>>
+                    {
+                        new KeyValuePair<string, string>("email", model.Email),
+                    };
+
+                    var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
+                    var ServiceResponse = await client.PostAsync(ServiceUrl, requestParamsFormUrlEncoded);
+                    var responseString = await ServiceResponse.Content.ReadAsStringAsync();
+
+                    var responseCode = ServiceResponse.StatusCode;
+                    var responseMsg = new HttpResponseMessage(responseCode)
+                    {
+                        Content = new StringContent(responseString, Encoding.UTF8, "application/json")
+                    };
+
+                    userId = JsonConvert.DeserializeObject<string>(responseString);
                 }
 
-                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                string code = await UserManager.GeneratePasswordResetTokenAsync(userId);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = userId, code = code }, protocol: Request.Url.Scheme);
 
-                var html = "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a><br/>";
+                var html = "Please reset your password by clicking <a href=\"" + callbackUrl + "\">Reset Password</a><br/>";
                 html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + callbackUrl);
 
                 MailMessage msg = new MailMessage();
@@ -246,12 +266,6 @@ namespace BikeMates.Web.Controllers
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(msg);
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                //return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
