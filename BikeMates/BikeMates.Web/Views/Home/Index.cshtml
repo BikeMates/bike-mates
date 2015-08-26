@@ -55,41 +55,20 @@
         <td><button type="button" id="Search">SEARCH</button></td>
     </tr>
 </table>
-<!--button type="button" id="Search">SEARCH</!--button>
 
-
-<div class="row">
-    <style>
-        d {
-        border: 1px solid black;
-        padding: 10px;
-        }
-    </style>
-    <!--table style="margin-left: 305px; height="40"-->
 @foreach (var item in Model)
 {
-            <!--tr bgcolor=" #DCDCDC" style=" align-content:center"-->
-                <!--td style='text-decoration: underline;'-->
+    
     <p style='border: 1px solid black; padding: 10px; margin-left: 500px; margin-top: 1px;'>
         @Html.DisplayFor(modelItem => item.Title)
-
-        Distance: @Html.DisplayFor(modelItem => item.Distance)
-        <!--/td-->
-        <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->
+        Distance: @Html.DisplayFor(modelItem => item.Distance)     
         Date: @Html.DisplayFor(modelItem => item.Start);
-        Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);
-        @*<AddRoute> - <Route entity had been changed. Please look for it at Domain.Entities.>*@
-        @*Participants:  @Html.DisplayFor(modelItem => item.ParticipantsCount)*@ 
-        <br />
-        <!--/td-->
-        <!--td style='padding: 5px;  border: 1px solid #a52a2a;'-->
-        Description:
+        Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);    
+        <br />    
+       Description:
         @Html.DisplayFor(modelItem => item.Description);
     </p>
-                <!--/td-->
-            <!--/tr-->
 }
-<!--/table-->
 </div>
 
 

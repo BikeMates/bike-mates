@@ -60,6 +60,18 @@ namespace BikeMates.DataAccess.Repository
         }
         public List<Route> GetAllRoutes()
         {
+            context.Routes.Add(new Route()
+            {
+                Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                Distance=20,
+                IsBanned=false,
+                Id=3425423,
+                MeetingPlace="st. Patona",
+                Participants=null,
+                Start=new DateTime(23/04/2015),
+                Title="Greed"
+                
+            });
             return context.Routes.ToList();
         }
     }
