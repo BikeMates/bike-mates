@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using System.IO;
 
 //wsmu -why so many using
 using BikeMates.Application.Services;
@@ -74,12 +74,16 @@ namespace BikeMates.Service.Controllers
                 }
 
                 string fileName = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2" + ".jpeg";
-                string pathr = HttpContext.Current.Server.MapPath(String.Format("~/Resources/{0}", fileName));
-             
+                string pathr = HttpContext.Current.Server.MapPath(String.Format("~/App_Data/{0}", fileName));
+                //if (System.IO.File.Exists(path))
+                //{
+                //    return File(pathr, "application/pdf");
+                //}
 
-                //path.Replace("\\" , "//");
+
+                path.Replace("\\" , "//");
                 User user = userService.GetUser(id);
-                user.Picture = "~/Resources/"+fileName;
+                user.Picture = path;
                 userService.Update(user);
                
 

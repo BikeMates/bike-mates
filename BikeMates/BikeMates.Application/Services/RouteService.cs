@@ -39,57 +39,60 @@ namespace BikeMates.Application.Services
 
         //TODO: Replace Find and Sort methods with one method SearchRoutes(RoutesSearchParameters routesSearchParameters), where RoutesSearchParameters contains all needed search and sort fields.
         //TODO: Use LINQ query to get all routes and sort them. 
-        public List<Route> Find(List<Route> entity,string Location,string Dist1,string Dist2,string Date1,string Date2) { 
-            //List<Route> results;
-           
-            //results=entity.FindAll(
-            //    delegate (Route rot){
-                   
-            //        return String.Equals(rot.MeetingPlace, Location);
-            //}
-            //        );
-            //results = entity.FindAll(
-            //    delegate(Route rot)
-            //    {
+        public List<Route> Find(RoutesSearchParameters routesSearchParameters)
+        {
+            List<Route> results;
 
-            //        return (rot.Distance >= Convert.ToInt32(Dist1) && rot.Distance <=Convert.ToInt32( Dist2));
-            //    }
-            //        );
+            results = routesSearchParameters.entity.FindAll(
+                delegate(Route rot)
+                {
 
-            //results = entity.FindAll(
-            //    delegate(Route rot)
-            //    {
+                    return String.Equals(rot.MeetingPlace, routesSearchParameters.Location);
+                }
+                    );
+            results = routesSearchParameters.entity.FindAll(
+                delegate(Route rot)
+                {
 
-            //        return (rot.Start >=Convert.ToDateTime( Date1) && rot.Start <= Convert.ToDateTime(Date2));
-            //    }
-            //        );
-            //if (Location == null || Dist1 == 0 || Dist2 == 0 || Date1 == new DateTime() || Date2 == new DateTime()) { return results; }
-            return entity;
+                    return (rot.Distance >= Convert.ToInt32(routesSearchParameters.Dist1) && rot.Distance <= Convert.ToInt32(routesSearchParameters.Dist2));
+                }
+                    );
+
+            results = routesSearchParameters.entity.FindAll(
+                delegate(Route rot)
+                {
+
+                    return (rot.Start >= Convert.ToDateTime(routesSearchParameters.Date1) && rot.Start <= Convert.ToDateTime(routesSearchParameters.Date2));
+                }
+                    );
+
+            if (routesSearchParameters.Name)
+            {
+
+                routesSearchParameters.entity.Sort(delegate(Route x, Route y)
+                {
+                    return x.Title.CompareTo(y.Title);
+                });
+            }
+
+           /* if (routesSearchParameters.Participants)
+            {
+                routesSearchParameters.entity.Sort(delegate(Route x, Route y)
+                {
+                    return x.Participants.CompareTo(y.Participants);
+                });
+            }*/
+            if (routesSearchParameters.Date)
+            {
+                routesSearchParameters.entity.Sort(delegate(Route x, Route y)
+                {
+                    return x.Start.CompareTo(y.Start);
+                });
+            }
+            return routesSearchParameters.entity;
         }
-        public List<Route> Sort(List<Route> entity, bool Date,bool Name,bool Participants) { 
-            //    if (Name)
-            //{
 
-            //    entity.Sort(delegate(Route x, Route y) {
-            //        return x.Name.CompareTo(y.Name);
-            //    });
-            //}
 
-            //    if (Participants)
-            //    {
-            //        entity.Sort(delegate(Route x, Route y)
-            //        {
-            //            return x.ParticipantsCount.CompareTo(y.ParticipantsCount);
-            //        });
-            //    }
-            //    if (Date)
-            //    {
-            //        entity.Sort(delegate(Route x, Route y)
-            //        {
-            //            return x.Start.CompareTo(y.Start);
-            //        });
-            //    }
-            return entity; }
 
     }
 }
