@@ -34,24 +34,20 @@ namespace BikeMates.Service.Controllers
         // GET api/user
         public ProfileViewModel Get()
         {
-           
-
-            //ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+           ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
 
 
-            User _user = userService.GetUser("749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2");//"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
+           User _user = userService.GetUser(userId);//"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
             var profile = new ProfileViewModel();
             profile.about = _user.About;
             profile.firstName = _user.FirstName;
             profile.secondName = _user.SecondName;
             profile.picture = _user.Picture;
+            profile.id = _user.Id;
 
-            return profile;
-
-
-              //"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
+            return profile;   
            // return new User() { FirstName = "Vasya", About = "I like cycling", Id = "vasua123", Email = "vasya@google.com", SecondName = "Vasyonov", Picture = "http://localhost:51949/Content/Images/avatar-big.png" };
         }
 
@@ -62,17 +58,21 @@ namespace BikeMates.Service.Controllers
         }
 
         // POST api/user
-        public void Update( EditProfileViewModel user)
+        public void Update( EditProfileViewModel UserViewModel)
         {
-            User _user = userService.GetUser(user.Id); //TODO: use this.user instead of _user
+            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+
+
+            User user = userService.GetUser(userId); //TODO: use this.user instead of _user
+
+
+            user.FirstName = UserViewModel.FirstName;
+            user.About = UserViewModel.About;
+            user.SecondName = UserViewModel.SecondName;
+            user.Picture = UserViewModel.Picture;
             
-            
-            _user.FirstName = user.FirstName;
-            _user.About = user.About;
-            _user.SecondName = user.SecondName;
-            _user.Picture = user.Picture;
-            
-           userService.Update(_user);
+           userService.Update(user);
         }
 
 
