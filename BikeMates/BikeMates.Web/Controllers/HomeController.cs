@@ -35,5 +35,11 @@ namespace BikeMates.Web.Controllers
 
             return View();
         }
+        public ActionResult RouteView()
+        {
+            ViewBag.Message = "Route View";
+
+            return View();
+        }
     }
 }

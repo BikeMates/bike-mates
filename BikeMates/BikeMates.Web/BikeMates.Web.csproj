@@ -241,6 +241,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="index.html" />
+    <Content Include="Scripts\App_Scripts\RouteView.js" />
     <Content Include="Scripts\crossroads\crossroads.js" />
     <Content Include="Scripts\crossroads\crossroads.min.js" />
     <Content Include="Scripts\crossroads\hasher.js" />
@@ -319,6 +320,7 @@
     <Content Include="Views\Route\Add.cshtml" />
     <Content Include="Views\Route\_Layout.cshtml" />
     <Content Include="Views\Home\_Layout.cshtml" />
+    <Content Include="Views\Home\RouteView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\components\" />
