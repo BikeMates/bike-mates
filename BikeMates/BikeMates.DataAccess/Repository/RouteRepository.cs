@@ -20,11 +20,6 @@ namespace BikeMates.DataAccess.Repository
         {
             this.context = context;
         }
-
-        public RouteRepository() //TODO: Remove this constructor. Do not create instances inside constructor
-        {
-            this.context = new BikeMatesDbContext();
-        }
         public void Add(Route entity)
         {
 
@@ -36,12 +31,12 @@ namespace BikeMates.DataAccess.Repository
         {
             var entity = Get(id);
             this.context.Set<Route>().Remove(entity);
-            SaveChanges();
+            this.context.SaveChanges();
         }
 
         public IEnumerable<Route> GetAll()
         {
-            return this.context.Routes.ToList(); //TODO: Remove ToList()
+            return this.context.Routes;
         }
 
         public Route Get(int id)
@@ -49,29 +44,12 @@ namespace BikeMates.DataAccess.Repository
             return this.context.Set<Route>().Find(id);
         }
 
-        public void SaveChanges() //TODO: Remove this method
-        {
-            this.context.SaveChanges();
-        }
-
         public void Update(Route entity)
         {
             this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
         }
-        public List<Route> GetAllRoutes()
+        public List<Route> GetAllRoutes() //TODO: remove method
         {
-            context.Routes.Add(new Route()
-            {
-                Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                Distance=20,
-                IsBanned=false,
-                Id=3425423,
-                MeetingPlace="st. Patona",
-                Participants=null,
-                Start=new DateTime(23/04/2015),
-                Title="Greed"
-                
-            });
             return context.Routes.ToList();
         }
     }

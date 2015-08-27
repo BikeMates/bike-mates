@@ -221,8 +221,12 @@
     <Content Include="Content\Images\add_user.png" />
     <Content Include="Content\Images\avatar-big.png" />
     <Content Include="Content\Images\google-plus.png" />
+<<<<<<< HEAD
     <Content Include="Content\Images\logo.png" />
+=======
+    <Content Include="Content\Images\velosiped_gucci_bianchi_16_01_12_001.jpg" />
     <Content Include="Content\jquery-ui.css" />
+>>>>>>> Datepicker fix on add route page
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\ProfilePage.css" />
     <Content Include="Content\Route.css" />

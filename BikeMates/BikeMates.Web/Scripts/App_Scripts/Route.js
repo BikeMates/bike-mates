@@ -186,3 +186,6 @@ function clearMap() {
 }
 
 $('#ClearMapButton').click(function (e) { clearMap(); });
+
+
+$("#datepicker").datepicker();

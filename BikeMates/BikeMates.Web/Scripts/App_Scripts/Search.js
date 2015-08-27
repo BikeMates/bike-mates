@@ -49,8 +49,6 @@
         });
 
     }
-    // Activates knockout.js
-    // bind view model to referring view
     ko.applyBindings(new SearchViewModel());
 
 });

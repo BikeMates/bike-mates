@@ -1,7 +1,7 @@
-﻿alert("d");
+﻿alert("d"); //TODO: <- ???
 
     $("#Login").on('click', function () {
-        alert("d");
+        alert("d"); //TODO: remove alerts - if you need it so, use console.log
         $.ajax({
             url: 'http://localhost:51952/api/account/confirmEmail',
             type: 'GET',
@@ -12,10 +12,11 @@
             //},
             success: function (data) {
                 alert(data);
-
+                //TODO: remove alerts - if you need it so, use console.log
             },
             error: function (data) {
                 alert(data);
+                //TODO: remove alerts - if you need it so, use console.log
             }
         });
     });

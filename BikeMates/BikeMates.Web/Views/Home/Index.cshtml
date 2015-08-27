@@ -3,77 +3,74 @@
 @{
     ViewBag.Title = "BikeMates";
 }
-<link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet"
-      type="text/css" />
+<link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/knockout-3.3.0.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/App_Scripts/Search.js"></script>
-<script src="~/Scripts/App_Scripts/SortRoute.js"></script>
+<script src="~/Scripts/App_Scripts/js.Search"></script>
 
-<div class=" jumbotron">
-    <p>
-        <select id="sort_order" onchange="CallActionList($(this).val()); return false;"
-                <option>select</option>
-                <option value="All Routes">All Routes</option>
-                <option value="My Routes">My Routes</option>
-                <option value="Subscription">Subscription</option>
-            </select>
-    </p>
+<div class="jumbotron filter_menu">
     <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
+        <select id="sort_order" onchange="CallActionList($(this).val()); return false;">
+            <option>select</option>
+            <option value="All Routes">All Routes</option>
+            <option value="My Routes">My Routes</option>
+            <option value="Subscription">Subscription</option>
+        </select>
 
-            <li align="left" style="position: absolute; top:100px; left:1100px; ">
-                <input type="submit" value="By Date" id="ByDate" data-bind="valueUpdate: ByDate" >
-                <input type="submit" value="By Name" id="ByName" data-bind="valueUpdate: ByName">
-                <input type="submit" value="By Participants" id="ByParticipants" data-bind="valueUpdate: ByParticipants">
+        <ul class="nav navbar-nav">
+            <li>
+                <input type="submit" value="By Date" id="ByDate" />
+            </li>
+            <li>
+                <input type="submit" value="By Title" id="ByTitle" />
+            </li>
+            <li>
+                <input type="submit" value="By Participants" id="ByParticipants" />
             </li>
         </ul>
     </div>
 </div>
 
-
-<table style='margin-bottom: -155px;'>
+<table>
     <tr>
         <td><h4>Location </h4></td>
-        <td><input type="text" size="26" id="Location" name="Location" data-bind="valueUpdate: Location" /> </td>
+        <td><input type="text" size="26" class="filter-inpt" id="Location" name="Location" data-bind=Location /> </td>
     </tr>
     <tr>
         <td><h4>Date</h4></td>
         <td>
-            <input type="text" size="10" id="Date1" name="Date" data-bind="value: Date1" />
-            <input type="text" size="10" id="Date2" name="Date" data-bind="value: Date2" />
+            <input type="text" size="10" class="filter-inpt" id="Date1" name="Date" data-bind=Date1 />
+            <input type="text" size="10" class="filter-inpt" id="Date2" name="Date" data-bind=Date2 />
         </td>
     </tr>
     <tr>
         <td><h4>Distance</h4></td>
         <td>
-            <input type="text" size="10" id="Distance1" name="Distance" data-bind="value: Distance1" />
-            <input type="text" size="10" id="Distance2" name="Distance" data-bind="value: Distance2" />
+            <input type="text" size="10" class="filter-inpt" id="Distance1" name="Distance" data-bind=Distance1 />
+            <input type="text" size="10" class="filter-inpt" id="Distance2" name="Distance" data-bind=Distance2 />
         </td>
     </tr>
-    <tr>
-        <td><button type="button" id="Search">SEARCH</button></td>
-    </tr>
 </table>
+<button type="button" class="btn btn-default filter-btn" id="Search">SEARCH</button>
 
-@foreach (var item in Model)
-{
-    
-    <p style='border: 1px solid black; padding: 10px; margin-left: 500px; margin-top: 1px;'>
-        @Html.DisplayFor(modelItem => item.Title)
-        Distance: @Html.DisplayFor(modelItem => item.Distance)     
-        Date: @Html.DisplayFor(modelItem => item.Start);
-        Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);    
-        <br />    
-       Description:
-        @Html.DisplayFor(modelItem => item.Description);
-    </p>
-}
+<div class="row result-filter-row">
+    @foreach (var item in Model)
+    {
+        <p class="result-silter-itm">
+            @Html.DisplayFor(modelItem => item.Title)
+            Distance: @Html.DisplayFor(modelItem => item.Distance)
+
+            Date: @Html.DisplayFor(modelItem => item.Start);
+            Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);
+            Participants:  @Html.DisplayFor(modelItem => item.Participants.Count)
+            <br />
+            Description:
+            @Html.DisplayFor(modelItem => item.Description);
+        </p>
+    }
 </div>
 
-
-<div style="text-align:center;">
-
+<div class="text-center">
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
 
         new PagedListRenderOptions
@@ -83,5 +80,4 @@
             LinkToNextPageFormat = "Next",
             LinkToLastPageFormat = ">>"
         })
-
 </div>

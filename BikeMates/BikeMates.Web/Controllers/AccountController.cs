@@ -22,6 +22,7 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using System.Net;
 namespace BikeMates.Web.Controllers
 {
     [Authorize]
@@ -222,7 +223,19 @@ namespace BikeMates.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            //TODO: too many code for one method - split into several methods (may put as helpers in helpers folder)
+            var response = Request["g-recaptcha-response"];
+            //secret that was generated in key value pair
+            const string secret = "6LdnvQsTAAAAAGM8ZQ8kr46eAalzSBzH_BpnYoN3";
+
+            var webClient = new WebClient();
+            var reply =
+                webClient.DownloadString(
+                    string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response));
+            var captchaResponse = JsonConvert.DeserializeObject<CaptchaModel>(reply);
+            
+
+            if (ModelState.IsValid&&captchaResponse.Success)
             {
                 string userId;
 
@@ -244,7 +257,8 @@ namespace BikeMates.Web.Controllers
                         Content = new StringContent(responseString, Encoding.UTF8, "application/json")
                     };
 
-                    userId = JsonConvert.DeserializeObject<string>(responseString);
+                    var user = JsonConvert.DeserializeObject<User>(responseString);
+                    userId = user.Id;
                 }
 
                 string code = await UserManager.GeneratePasswordResetTokenAsync(userId);
@@ -265,11 +279,11 @@ namespace BikeMates.Web.Controllers
                 smtpClient.Credentials = credentials;
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(msg);
-
-            }
-
+                }
+            
+        
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction( "ForgotPasswordConfirmation","Account");
         }
 
         //

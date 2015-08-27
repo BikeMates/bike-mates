@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Domain.Entities
 {
-    public class Coordinate
+    public class Coordinate : Entity
     {
-        [Key]
-        public int Id { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
     }
