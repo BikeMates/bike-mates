@@ -225,7 +225,6 @@ namespace BikeMates.Web.Controllers
         {
             //TODO: too many code for one method - split into several methods (may put as helpers in helpers folder)
             var response = Request["g-recaptcha-response"];
-            //secret that was generated in key value pair
             const string secret = "6LdnvQsTAAAAAGM8ZQ8kr46eAalzSBzH_BpnYoN3";
 
             var webClient = new WebClient();
