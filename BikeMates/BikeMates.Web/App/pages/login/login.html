@@ -1,3 +1,37 @@
-﻿<div>
-    <h2>Login</h2>
-</div>
+﻿
+<form action="#" data-bind="submit: login" class="form-horizontal" method="post">
+
+    <div class="login-form-position">
+        <fieldset>
+            <legend>
+                Sign in
+            </legend>
+
+            <div class="login-form">
+                <div class="alert alert-dismissible alert-danger" hidden="hidden" id="error_message">
+                    <strong id="error_details"></strong>
+                </div>
+                <div class="login-form-content">
+                    <br />
+
+                    <div class="form-group">
+                        <label for="Email">Email:</label>
+                        <input type="email" class="form-control" id="Email" data-bind="textInput: username" placeholder="Required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Password">Password:</label>
+                        <input type="password" class="form-control" id="Password" data-bind="textInput: password" placeholder="Required">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="register-form-button">
+                            <input type="submit" id="submitButton" class="btn btn-default" value="Sign In" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</form>
