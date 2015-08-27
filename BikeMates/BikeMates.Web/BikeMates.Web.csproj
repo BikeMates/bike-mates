@@ -220,6 +220,8 @@
     <Content Include="App\boot\startup.js" />
     <Content Include="App\pages\home\home.html" />
     <Content Include="App\pages\home\home.js" />
+    <Content Include="App\pages\login\login.html" />
+    <Content Include="App\pages\login\login.js" />
     <Content Include="App\pages\register\register.html" />
     <Content Include="App\pages\register\register.js" />
     <Content Include="Content\bootstrap.css" />

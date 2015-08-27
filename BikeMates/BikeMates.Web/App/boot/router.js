@@ -4,7 +4,8 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
     return new Router({
         routes: [
             { url: '', params: { page: 'home' } },
-            { url: 'register', params: { page: 'register' } }
+            { url: 'register', params: { page: 'register' } },
+            { url: 'login', params: { page: 'login' } }
         ]
     });
 

@@ -4,5 +4,7 @@
 
     ko.components.register('register', { require: 'App/pages/register/register' });
 
+    ko.components.register('login', { require: 'App/pages/login/login' });
+
     ko.applyBindings({ route: router.currentRoute });
 });
