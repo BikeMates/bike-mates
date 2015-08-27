@@ -1,0 +1,54 @@
+﻿
+<form action="http://localhost:51952/api/account/register" data-bind="submit: register" class="form-horizontal" method="post">
+
+    <div class="register-form-position">
+        <fieldset>
+            <legend>
+                Sign up
+            </legend>
+
+            <div class="register-form">
+                <div class="alert alert-dismissible alert-danger" hidden="hidden" id="error_message">
+                    <strong id="error_details"></strong>
+                </div>
+                <div class="alert alert-dismissible alert-success" hidden="hidden" id="success_message">
+                    <strong>User has been registered successfully, you will be redirected to login page in 2 seconds</strong>.
+                </div>
+                <div class="register-form-content">
+                    <br />
+                    <div class="form-group">
+                        <label for="FirstName">First name:</label>
+                        <input type="text" class="form-control" id="FirstName" data-bind="textInput: firstName" placeholder="Required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="SecondName">Second Name:</label>
+                        <input type="text" class="form-control" id="SecondName" data-bind="textInput: secondName" placeholder="Required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Email">Email:</label>
+                        <input type="email" class="form-control" id="Email" data-bind="textInput: email" placeholder="Required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Password">Password:</label>
+                        <input type="password" class="form-control" id="Password" data-bind="textInput: password" placeholder="Required">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ConfirmPassword">Confirm Password:</label>
+                        <input type="password" class="form-control" id="Password" data-bind="textInput: confirmPassword" placeholder="Required">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="register-form-button">
+                            <input type="submit" id="submitButton" class="btn btn-default" value="Sign Up" />
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</form>

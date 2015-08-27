@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dipping your feet into KnockoutJS Components</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+   <!-- <link href="Content/bootstrap-theme.css" rel="stylesheet" />-->
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="/">BikeMates</a>
+
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#register">Register</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="page1" class="container" style="padding-top:50px" data-bind="component: { name: route().page, params: route }"></div>
+
+    <script src="App/boot/require.config.js"></script>
+    <script data-main="App/boot/startup" src="Scripts/require/require.js"></script>
+</body>
+</html>

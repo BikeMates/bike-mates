@@ -21,7 +21,6 @@
                     $("#error_message").hide();
 
                     sessionStorage.setItem(tokenKey, data.access_token);
-                    alert('Your token: ' + sessionStorage.getItem(tokenKey));
                     window.location.href = "/Home/Index";
                 },
                 error: function (data) {
