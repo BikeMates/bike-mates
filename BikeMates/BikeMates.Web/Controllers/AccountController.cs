@@ -223,6 +223,7 @@ namespace BikeMates.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            //TODO: too many code for one method - split into several methods (may put as helpers in helpers folder)
             var response = Request["g-recaptcha-response"];
             //secret that was generated in key value pair
             const string secret = "6LdnvQsTAAAAAGM8ZQ8kr46eAalzSBzH_BpnYoN3";

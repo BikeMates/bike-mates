@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BikeMates.Service.Models
 {
-    public class RouteSearch
+    public class RouteSearch //TODO: rename fields like in RoutesSearchParameters
     {
         [Required]
         public string Location { get; set; }

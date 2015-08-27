@@ -20,6 +20,9 @@ using System.Security.Claims;
 using System.Web.Security;
 using System.Web;
 
+//TODO: remove unused usings
+//TODO: format code (spaces/tabs, remove blank lines) use - ctrl k, d
+
 namespace BikeMates.Service.Controllers
 {
     public class ProfileController : ApiController

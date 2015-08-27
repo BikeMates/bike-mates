@@ -32,6 +32,8 @@ function AppViewModel() {
             },
             error: function (data) {
                 alert("error occured");
+                //TODO: remove alerts - if you need it so, use console.log
+                //TODO: format code (spaces/tabs, remove blank lines) use - ctrl k, d
             }
         });
 

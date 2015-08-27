@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Web.Http;
 using System.IO;
 
-//wsmu -why so many using
 using BikeMates.Application.Services;
 using BikeMates.Domain.Entities;
 using BikeMates.Contracts.Services;
@@ -19,8 +18,9 @@ using System.Web;
 using BikeMates.Service.Helpers;
 using System.IO;
 using System.Diagnostics;
-
-
+//TODO: remove unused usings
+//TODO: format code (spaces/tabs, remove blank lines) use - ctrl k, d
+        
 
 
 namespace BikeMates.Service.Controllers
@@ -40,6 +40,7 @@ namespace BikeMates.Service.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> PostFormData()
         {
+            //TODO: clean code. very hard to read
 
             if (!Request.Content.IsMimeMultipartContent())
             {
