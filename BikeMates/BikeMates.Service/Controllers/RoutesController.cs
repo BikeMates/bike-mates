@@ -12,20 +12,19 @@ using System.Web.Http;
 
 namespace BikeMates.Service.Controllers
 {
-    public class RouteController : ApiController
+    public class RoutesController : ApiController
     {
-
-        [RoutePrefix("api/Route")]
-        public class AccountController : ApiController
-        {
+        // [RoutePrefix("api/Route")]
+       
             private RouteService routeService;
-            public AccountController()
+            public RoutesController()
             {
                 routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
 
             }
-
-            public Route Get() {
+            [HttpGet]
+            public Route Get()
+            {
                 Route rot = new Route();
                 rot.Title = routeService.GetRoute(1).Title;
                 rot.Start = routeService.GetRoute(1).Start;
@@ -35,15 +34,14 @@ namespace BikeMates.Service.Controllers
             }
 
             [HttpPost]
-            [Route("GetRoute")]
+           // [Route("GetRoute")]
             public IHttpActionResult GetRoute(RouteViewModel model)
             {
                 model.Title = routeService.GetRoute(1).Title;
                 model.Start = routeService.GetRoute(1).Start;
                 model.MeetingPlace = routeService.GetRoute(1).MeetingPlace;
-                model.Distance = routeService.GetRoute(1).Distance;          
+                model.Distance = routeService.GetRoute(1).Distance;
                 return Ok(model);
             }
         }
     }
-}
