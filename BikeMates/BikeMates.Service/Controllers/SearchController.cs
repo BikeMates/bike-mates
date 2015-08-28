@@ -29,6 +29,7 @@ namespace BikeMates.Service.Controllers
        
         public List<Route> Search(RouteSearch routesearch)//TODO: Use only one method Seacrh which will receive both search and sort options
         {
+           
             routesSearchParameters.Participants = routesearch.ByParticipants;
             routesSearchParameters.Name = routesearch.ByName;
             routesSearchParameters.Date = routesearch.ByDate;

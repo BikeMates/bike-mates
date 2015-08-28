@@ -38,16 +38,15 @@ namespace BikeMates.Service.Controllers
         public ProfileViewModel Get()
         {   //get logged user id
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-           var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-           // var userId = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";
-
-            User _user = userService.GetUser(userId);
+             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+          
+            User user = userService.GetUser(userId);
             var profile = new ProfileViewModel();
-            profile.about = _user.About;
-            profile.firstName = _user.FirstName;
-            profile.secondName = _user.SecondName;
-            profile.picture = _user.Picture;
-            profile.id = _user.Id;
+            profile.about = user.About;
+            profile.firstName = user.FirstName;
+            profile.secondName = user.SecondName;
+            profile.picture = user.Picture;
+            profile.id = user.Id;
 
             return profile;
         }
@@ -56,13 +55,13 @@ namespace BikeMates.Service.Controllers
         [HttpGet]
         public ProfileViewModel Get(string id)
         {
-            User _user = userService.GetUser(id);
+            User user = userService.GetUser(id);
             var profile = new ProfileViewModel();
-            profile.about = _user.About;
-            profile.firstName = _user.FirstName;
-            profile.secondName = _user.SecondName;
-            profile.picture = _user.Picture;
-            profile.id = _user.Id;
+            profile.about = user.About;
+            profile.firstName = user.FirstName;
+            profile.secondName = user.SecondName;
+            profile.picture = user.Picture;
+            profile.id = user.Id;
 
             return profile;
         }
@@ -71,14 +70,9 @@ namespace BikeMates.Service.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> Update(EditProfileViewModel UserViewModel)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return await this.BadRequest(this.ModelState).ExecuteAsync(new CancellationToken());
-            //}
-
+          
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-           // var userId = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";
 
             User user = userService.GetUser(userId);
             user.FirstName = UserViewModel.FirstName;
@@ -92,14 +86,13 @@ namespace BikeMates.Service.Controllers
             
             if (errorResult != null)
             {
+                HttpResponseMessage ia = await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
                 return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
             }
 
-
+            var responsemsg = new HttpResponseMessage(HttpStatusCode.BadRequest);
             var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
             return responseMsg;
-
-
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
