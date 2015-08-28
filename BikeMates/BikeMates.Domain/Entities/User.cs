@@ -16,8 +16,6 @@ namespace BikeMates.Domain.Entities
         public string SecondName {get; set;}
         public string Picture {get; set;}
         public string About {get; set;}
-
         public virtual ICollection<Route> Routes { get; set; }
-
     }
 }

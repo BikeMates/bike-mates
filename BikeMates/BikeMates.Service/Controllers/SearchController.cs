@@ -21,7 +21,7 @@ namespace BikeMates.Service.Controllers
         private RoutesSearchParameters routesSearchParameters;
         public SearchController()
         {
-            allRoutes = routelist.GetAllRoutes();
+            allRoutes = routelist.GetAll().ToList();
           //  routesSearchParameters.entity = routelist.GetAllRoutes();
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
 

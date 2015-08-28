@@ -57,9 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BikeMatesDbContext.cs" />
-    <Compile Include="Migrations\201508261106343_MigrationAfterBLLMerge.cs" />
-    <Compile Include="Migrations\201508261106343_MigrationAfterBLLMerge.Designer.cs">
-      <DependentUpon>201508261106343_MigrationAfterBLLMerge.cs</DependentUpon>
+    <Compile Include="Migrations\201508281149116_BikeMatesDB.cs" />
+    <Compile Include="Migrations\201508281149116_BikeMatesDB.Designer.cs">
+      <DependentUpon>201508281149116_BikeMatesDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\RouteRepository.cs" />
@@ -81,8 +81,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508261106343_MigrationAfterBLLMerge.resx">
-      <DependentUpon>201508261106343_MigrationAfterBLLMerge.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508281149116_BikeMatesDB.resx">
+      <DependentUpon>201508281149116_BikeMatesDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

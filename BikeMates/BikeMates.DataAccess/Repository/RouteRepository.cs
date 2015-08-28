@@ -48,9 +48,5 @@ namespace BikeMates.DataAccess.Repository
         {
             this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
         }
-        public List<Route> GetAllRoutes() //TODO: remove method
-        {
-            return context.Routes.ToList();
-        }
     }
 }
