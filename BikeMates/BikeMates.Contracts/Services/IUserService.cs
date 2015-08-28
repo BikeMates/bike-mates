@@ -11,6 +11,7 @@ namespace BikeMates.Contracts.Services
     public interface IUserService
     { 
         IdentityResult Register(User user, string password);
+        IdentityResult changePassword(string oldPass, string newPass, string newPassConfirmation, string id);
         User Login(string email, string password);
         void resetPassword(string id);
         User getUserByEmail(string email);

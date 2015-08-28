@@ -14,5 +14,6 @@ namespace BikeMates.Contracts.Repositories
         User Login(string email, string password);
         User getUserByEmail(string email);
         void resetPassword(string id);
+        IdentityResult changePassword(string oldPass, string newPass, string id);
     }
 }
