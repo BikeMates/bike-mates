@@ -8,6 +8,7 @@
         self.Date2 = ko.observable("");
         self.Distance1 = ko.observable("");
         self.Distance2 = ko.observable("");
+        self.Id = ko.observable();
 
         $.ajax({
             url: "http://localhost:51952/api/search",

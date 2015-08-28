@@ -35,6 +35,9 @@ namespace BikeMates.Service.Models
         [Compare("NewPass", ErrorMessage = "The password and confirmation password do not match.")]
         public string NewPass2 { get; set; } //TODO: Rename to ConfirmationPassword
 
+   
+
+
     }
 }
 

@@ -15,17 +15,22 @@ namespace BikeMates.Service.Controllers
     public class RoutesController : ApiController
     {
         // [RoutePrefix("api/Route")]
-       
+            private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
+            public List<Route> allRoutes;
             private RouteService routeService;
             public RoutesController()
             {
                 routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
-
+                allRoutes = routelist.GetAllRoutes();
             }
             [HttpGet]
             public Route Get()
             {
+                
                 Route rot = new Route();
+                //rot.MapData.Start = routeService.GetRoute(1).MapData.Start;
+               // rot.MapData.End = routeService.GetRoute(1).MapData.End;
+                rot.Participants = routeService.GetRoute(1).Participants;
                 rot.Title = routeService.GetRoute(1).Title;
                 rot.Start = routeService.GetRoute(1).Start;
                 rot.MeetingPlace = routeService.GetRoute(1).MeetingPlace;
@@ -35,13 +40,14 @@ namespace BikeMates.Service.Controllers
 
             [HttpPost]
            // [Route("GetRoute")]
-            public IHttpActionResult GetRoute(RouteViewModel model) //TODO: Use HttpPost methods to update Routes. And HttpGet to Get information about routes. So remove this method
+            public RouteViewModel GetRoute(RouteViewModel model)
             {
+                
                 model.Title = routeService.GetRoute(1).Title;
                 model.Start = routeService.GetRoute(1).Start;
                 model.MeetingPlace = routeService.GetRoute(1).MeetingPlace;
                 model.Distance = routeService.GetRoute(1).Distance;
-                return Ok(model);
+                return model;
             }
         }
     }
