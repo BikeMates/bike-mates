@@ -28,7 +28,7 @@ namespace BikeMates.Application.Services
 
         public void Delete(string id)
         {
-            userRepository.Delete(id);
+            this.userRepository.Delete(id);
         }
 
         public void Update(User entity)
@@ -36,9 +36,9 @@ namespace BikeMates.Application.Services
             this.userRepository.Update(entity);
         }
 
-        public IdentityResult Register(User entity, string password)
+        public IdentityResult Register(User user, string password)
         {
-            return this.userRepository.Register(entity, password);
+            return this.userRepository.Register(user, password);
         }
 
 
