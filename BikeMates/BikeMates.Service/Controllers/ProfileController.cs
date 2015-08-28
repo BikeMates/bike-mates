@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Text;
 // project reffrerences
 using BikeMates.Application.Services;
 using BikeMates.Domain.Entities;
@@ -13,9 +14,10 @@ using BikeMates.Service.Models;
 //for identifiying user
 using System.Security.Claims;
 using Microsoft.AspNet.Identity;
+//for async methods 
 using System.Threading;
 using System.Threading.Tasks;
-using System.Text;
+
 
 //TODO: format code (spaces/tabs, remove blank lines) use - ctrl k, d
 
@@ -32,11 +34,12 @@ namespace BikeMates.Service.Controllers
         }
 
         // GET api/user
-        
+        [HttpGet]
         public ProfileViewModel Get()
         {   //get logged user id
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+           var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+           // var userId = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";
 
             User _user = userService.GetUser(userId);
             var profile = new ProfileViewModel();
@@ -50,6 +53,7 @@ namespace BikeMates.Service.Controllers
         }
 
         // GET api/user/1
+        [HttpGet]
         public ProfileViewModel Get(string id)
         {
             User _user = userService.GetUser(id);
@@ -64,15 +68,17 @@ namespace BikeMates.Service.Controllers
         }
 
         // POST api/user
+        [HttpPost]
         public async Task<HttpResponseMessage> Update(EditProfileViewModel UserViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return await this.BadRequest(this.ModelState).ExecuteAsync(new CancellationToken());
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return await this.BadRequest(this.ModelState).ExecuteAsync(new CancellationToken());
+            //}
 
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+           // var userId = "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";
 
             User user = userService.GetUser(userId);
             user.FirstName = UserViewModel.FirstName;
@@ -83,7 +89,7 @@ namespace BikeMates.Service.Controllers
 
             IdentityResult result = userService.changePassword(UserViewModel.OldPass, UserViewModel.NewPass, UserViewModel.NewPass2, userId);
             IHttpActionResult errorResult = GetErrorResult(result);
-
+            
             if (errorResult != null)
             {
                 return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
@@ -92,7 +98,7 @@ namespace BikeMates.Service.Controllers
 
             var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
             return responseMsg;
-            
+
 
         }
 
