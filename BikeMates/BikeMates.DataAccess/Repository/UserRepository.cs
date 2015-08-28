@@ -61,8 +61,7 @@ namespace BikeMates.DataAccess.Repository
         {
             return userManager.Find(email, password); 
         }
-
-
+        
         public void resetPassword(string id)
         {
             //string code = userManager.GenerateEmailConfirmationToken(id);
@@ -71,7 +70,11 @@ namespace BikeMates.DataAccess.Repository
             //userManager.SendEmail(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
         }
 
-
+        public IdentityResult changePassword(string oldPass, string newPass, string id)
+        {
+            return userManager.ChangePassword(id, oldPass, newPass);
+        }
+        
         public User getUserByEmail(string email)
         {
             return userManager.FindByEmail(email);

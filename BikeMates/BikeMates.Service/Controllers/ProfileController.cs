@@ -4,45 +4,41 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
-//wsmu -why so many using
+// project reffrerences
 using BikeMates.Application.Services;
 using BikeMates.Domain.Entities;
-using BikeMates.Contracts.Services;
 using BikeMates.DataAccess.Repository;
 using BikeMates.DataAccess;
 using BikeMates.Service.Models;
-
 //for identifiying user
-using Microsoft.AspNet.Identity;
 using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Text;
 
-using System.Web.Security;
-using System.Web;
-
-//TODO: remove unused usings
 //TODO: format code (spaces/tabs, remove blank lines) use - ctrl k, d
 
 namespace BikeMates.Service.Controllers
 {
+    [RoutePrefix("api/Profile")]
     public class ProfileController : ApiController
-    {   
+    {
         private UserService userService;
 
         public ProfileController()
         {
             userService = new UserService(new UserRepository(new BikeMatesDbContext()));
         }
-        
+
         // GET api/user
+        
         public ProfileViewModel Get()
-        {
-           ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+        {   //get logged user id
+            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
-
-
-           User _user = userService.GetUser(userId);//"749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2"
+            User _user = userService.GetUser(userId);
             var profile = new ProfileViewModel();
             profile.about = _user.About;
             profile.firstName = _user.FirstName;
@@ -50,36 +46,84 @@ namespace BikeMates.Service.Controllers
             profile.picture = _user.Picture;
             profile.id = _user.Id;
 
-            return profile;   
-           // return new User() { FirstName = "Vasya", About = "I like cycling", Id = "vasua123", Email = "vasya@google.com", SecondName = "Vasyonov", Picture = "http://localhost:51949/Content/Images/avatar-big.png" };
+            return profile;
         }
 
         // GET api/user/1
-        public User Get(string id)
+        public ProfileViewModel Get(string id)
         {
-           return userService.GetUser(id);
+            User _user = userService.GetUser(id);
+            var profile = new ProfileViewModel();
+            profile.about = _user.About;
+            profile.firstName = _user.FirstName;
+            profile.secondName = _user.SecondName;
+            profile.picture = _user.Picture;
+            profile.id = _user.Id;
+
+            return profile;
         }
 
         // POST api/user
-        public void Update( EditProfileViewModel UserViewModel)
+        public async Task<HttpResponseMessage> Update(EditProfileViewModel UserViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return await this.BadRequest(this.ModelState).ExecuteAsync(new CancellationToken());
+            }
+
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
-
-            User user = userService.GetUser(userId); //TODO: use this.user instead of _user
-
-
+            User user = userService.GetUser(userId);
             user.FirstName = UserViewModel.FirstName;
             user.About = UserViewModel.About;
             user.SecondName = UserViewModel.SecondName;
             user.Picture = UserViewModel.Picture;
+            userService.Update(user);
+
+            IdentityResult result = userService.changePassword(UserViewModel.OldPass, UserViewModel.NewPass, UserViewModel.NewPass2, userId);
+            IHttpActionResult errorResult = GetErrorResult(result);
+
+            if (errorResult != null)
+            {
+                return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
+            }
+
+
+            var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
+            return responseMsg;
             
-           userService.Update(user);
+
         }
 
+        private IHttpActionResult GetErrorResult(IdentityResult result)
+        {
+            if (result == null)
+            {
+                return InternalServerError();
+            }
 
+            if (!result.Succeeded)
+            {
+                if (result.Errors != null)
+                {
+                    foreach (string error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
+                }
 
+                if (ModelState.IsValid)
+                {
+                    // No ModelState errors are available to send, so just return an empty BadRequest.
+                    return BadRequest();
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return null;
+        }
 
     }
 }

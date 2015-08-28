@@ -8,35 +8,29 @@ namespace BikeMates.Service.Models
 {
     public class EditProfileViewModel
     {
-        [Required]
         public string Id { get; set; }
 
-        [Required]
         public string Picture { get; set; }
 
-        [Required]
         public string FirstName { get; set; }
-
-        [Required]
+        
         public string SecondName { get; set; }
 
-        [Required]
         public string About { get; set; }
-
        
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        //[DataType(DataType.Password)] 
-        [Display(Name = "OldPass")]
+        [DataType(DataType.Password)] 
+        [Display(Name = "Old Password")]
         public string OldPass { get; set; }
 
        
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        //[DataType(DataType.Password)] 
-        [Display(Name = "NewPass")]
+        [DataType(DataType.Password)] 
+        [Display(Name = "New Password")]
         public string NewPass { get; set; }
 
        
-       //[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         [Display(Name = "Re-type password")]
         [Compare("NewPass", ErrorMessage = "The password and confirmation password do not match.")]
         public string NewPass2 { get; set; }

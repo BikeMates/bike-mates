@@ -3,10 +3,33 @@ $(document).ready(function () {
 
     var tokenKey = "tokenInfo";
     var api_link = "aaa";
-    var usrid = "nnn";
+    var usr_id = "nnn";
+
+    $('#image_form')
+      .submit(function (e) {
+
+          var data = new FormData(jQuery('#image_form')[0]);
+          e.preventDefault();
+
+          $.ajax({
+              url: 'http://localhost:51952/api/profilepicture',
+              type: 'POST',
+              data: data,
+              headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+              contentType: false,
+              processData: false,
+              success: function (data) {
+
+                  api_link = "http://localhost:51952/api/profilepicture/";
+                  $('#avatar').attr('src', $('#avatar').attr('src') + '?' + Math.random());
+
+              },
+          });
+
+      });
 
     function AppViewModel() {
-      
+
         var self = this;
         self.FirstName = ko.observable("");
         self.SecondName = ko.observable("");
@@ -16,14 +39,10 @@ $(document).ready(function () {
         self.NewPass = ko.observable("");
         self.NewPass2 = ko.observable("");
         self.Id = ko.observable("");
-       
 
         self.fullName = ko.computed(function () {
             return self.FirstName() + " " + self.SecondName();
         }, this);
-
-    
-     
 
         $.ajax({
             url: "http://localhost:51952/api/profile",
@@ -39,51 +58,55 @@ $(document).ready(function () {
                 self.Id(data.id);
                 usrid = data.id;
                 api_link = "http://localhost:51952/api/profilepicture/";
-                $('#ava_img').html('<img src=' + api_link + data.id + ' alt="Smiley face" height="150" width="150"  />');
-
+                usr_id = data.id;
+                $("#avatar").attr("src", api_link + usr_id);
             },
             error: function (data) {
-                alert("error occured");
+
             }
 
-
         });
-        
-
-     
 
         $("#save_btn").button().click(function () {
             $.ajax({
                 url: "http://localhost:51952/api/profile",
-                contentType: "application/json",
+                //contentType: "application/json",
                 type: "POST",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-                dataType: 'json',
+               // dataType: 'json',
                 data: ko.toJSON(self),
                 success: function (data) {
 
-                    alert("success");
+                    $("#error_message").hide();
+                    $(".validation-summary-errors").hide();
+                    window.location = "http://localhost:51952/api/profile";
+                    },
 
-                },
                 error: function (data) {
-                    alert("error occured");
+                 
+                    var errors = [];
+                    var response = JSON.parse(data.responseText);
+                    $("#error_details").text(response.error_description)
+                    $("#error_message").show();
+
+                    for (key in response.modelState) {
+                        for (var i = 0; i < response.modelState[key].length; i++) {
+                            errors.push(response.modelState[key][i]);
+                        }
+                    }
+                    $("#error_details").text(" " + errors.join(" "));
+
+                    if (errors.length > 0) {
+                        $("#error_message").show();
+                        $(".validation-summary-errors").hide();
+                    }
                 }
             });
-     
-
         });
-
-     
-        
     }
     // Activates knockout.js
-
     // bind view model to referring view
     ko.applyBindings(new AppViewModel());
-
-   
-    
-
 });
 
 
