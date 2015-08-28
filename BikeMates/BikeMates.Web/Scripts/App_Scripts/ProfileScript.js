@@ -4,7 +4,7 @@
     $("#properties_btn").click(function () {
         window.location = "http://localhost:51949/Account/EditProfile";
     });
-    
+
     function AppViewModel() {
 
         var self = this;
@@ -16,7 +16,7 @@
             return self.FirstName() + " " + self.SecondName();
         }, this);
 
-              $.ajax({
+        $.ajax({
             url: "http://localhost:51952/api/profile",
             contentType: "application/json",
             type: "GET",
