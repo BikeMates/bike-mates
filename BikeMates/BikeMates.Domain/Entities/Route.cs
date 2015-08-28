@@ -9,6 +9,7 @@ namespace BikeMates.Domain.Entities
 {
     public class Route : Entity
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public MapData MapData { get; set; }
         public string Description { get; set; }
