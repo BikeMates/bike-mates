@@ -8,6 +8,7 @@ namespace BikeMates.Service.Models
 {
     public class RouteViewModel
     {
+       
         public string Title { get; set; }
         public MapData MapData { get; set; }
         public string Description { get; set; }

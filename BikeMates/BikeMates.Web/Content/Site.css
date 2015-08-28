@@ -67,6 +67,31 @@ textarea {
     width:450px;
     margin-left:30px;
 }
+
+.login-form-button{
+      color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+   display: inline-block;
+  padding: 6px 12px;
+  margin-left: 57.33333333333333%;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+
+}
 .navbar-brand{
      color: #E2E2E2!important;
      font-size: 20px;
