@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    function AppViewModel() { //TODO: Rename to RouteViewModel
+    function RouteViewModel() { //TODO: Rename to RouteViewModel
 
         var self = this;
         self.title = ko.observable("");
@@ -28,7 +28,7 @@
             }
         });
     }
-    ko.applyBindings(new AppViewModel());
+    ko.applyBindings(new RouteViewModel());
 
 });
 
