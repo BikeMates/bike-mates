@@ -52,6 +52,12 @@ textarea {
     width:450px;
 }
 
+.forgot-password-button {
+        margin-top: 20%;
+        margin-left: 61%;
+}
+
+
 .login-form-position{
     margin-top:100px;
     margin-left:320px;

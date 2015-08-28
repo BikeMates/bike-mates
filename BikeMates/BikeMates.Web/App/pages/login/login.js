@@ -1,12 +1,12 @@
-﻿$(document).ready(function () {
+﻿define(["knockout", "text!./login.html"], function (ko, loginTemplate) {
 
     var tokenKey = "tokenInfo";
 
-    function LoginViewModel() {
-        this.username = ko.observable("");
-        this.password = ko.observable("");
-        this.login = function()
-        {
+    function LoginViewModel(params) {
+        var self = this;
+        self.username = ko.observable("");
+        self.password = ko.observable("");
+        self.login = function () {
             $.ajax({
                 url: 'http://localhost:51952/api/account/login',
                 type: 'POST',
@@ -21,7 +21,7 @@
                     $("#error_message").hide();
 
                     sessionStorage.setItem(tokenKey, data.access_token);
-                    window.location.href = "/Home/Index";
+                    window.location.href = "/index.html";
                 },
                 error: function (data) {
                     var response = JSON.parse(data.responseText);
@@ -31,8 +31,7 @@
                 }
             });
         }
+        return self;
     }
-
-    ko.applyBindings(new LoginViewModel());
-  });
-
+    return { viewModel: LoginViewModel, template: loginTemplate };
+});

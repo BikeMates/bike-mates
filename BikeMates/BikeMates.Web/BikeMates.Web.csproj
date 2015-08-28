@@ -215,6 +215,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\boot\require.config.js" />
+    <Content Include="App\boot\router.js" />
+    <Content Include="App\boot\startup.js" />
+    <Content Include="App\pages\home\home.html" />
+    <Content Include="App\pages\home\home.js" />
+    <Content Include="App\pages\login\login.html" />
+    <Content Include="App\pages\login\login.js" />
+    <Content Include="App\pages\register\register.html" />
+    <Content Include="App\pages\register\register.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EditProfilePage.css" />
@@ -231,7 +240,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="index.html" />
+    <Content Include="Scripts\App_Scripts\RouteView.js" />
+    <Content Include="Scripts\crossroads\crossroads.js" />
+    <Content Include="Scripts\crossroads\crossroads.min.js" />
+    <Content Include="Scripts\crossroads\hasher.js" />
+    <Content Include="Scripts\crossroads\hasher.min.js" />
+    <Content Include="Scripts\crossroads\signals.js" />
+    <Content Include="Scripts\crossroads\signals.min.js" />
     <Content Include="Scripts\App_Scripts\GetUserIdWebApi.js" />
+    <Content Include="Scripts\require\text.js" />
     <Content Include="Scripts\App_Scripts\SortRoute.js" />
     <Content Include="Scripts\App_Scripts\EditProfileScript.js" />
     <Content Include="Scripts\App_Scripts\LoginScript.js" />
@@ -253,7 +271,11 @@
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\knockout-delegatedEvents.js" />
     <Content Include="Scripts\knockout-delegatedEvents.min.js" />
+    <Content Include="Scripts\knockout-projections.js" />
+    <Content Include="Scripts\knockout-projections.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\require\r.js" />
+    <Content Include="Scripts\require\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\App_Scripts\Route.js" />
@@ -298,8 +320,10 @@
     <Content Include="Views\Route\Add.cshtml" />
     <Content Include="Views\Route\_Layout.cshtml" />
     <Content Include="Views\Home\_Layout.cshtml" />
+    <Content Include="Views\Home\RouteView.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\components\" />
     <Folder Include="App_Data\" />
     <Folder Include="Views\ProfilePicture\" />
   </ItemGroup>

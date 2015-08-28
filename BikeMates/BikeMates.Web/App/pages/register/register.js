@@ -1,27 +1,27 @@
-﻿$(document).ready(function () {
-
+﻿define(["knockout", "text!./register.html"], function (ko, registerTemplate) {
+    
     var tokenKey = "tokenInfo";
 
-    function RegisterViewModel() {
+    function RegisterViewModel(params) {
+        var self = this;
+        self.firstName = ko.observable("");
+        self.secondName = ko.observable("");
+        self.email = ko.observable("");
+        self.password = ko.observable("");
+        self.confirmPassword = ko.observable("");
 
-        this.firstName = ko.observable("");
-        this.secondName = ko.observable("");
-        this.email = ko.observable("");
-        this.password = ko.observable("");
-        this.confirmPassword = ko.observable("");
-
-        this.register = function () {
+        self.register = function () {
             $.ajax({
                 url: 'http://localhost:51952/api/account/register',
                 type: 'POST',
                 contentType: 'application/x-www-form-urlencoded',
                 data:
                     {
-                        Email: this.email,
-                        Password: this.password,
-                        ConfirmPassword: this.confirmPassword,
-                        FirstName: this.firstName,
-                        SecondName: this.secondName
+                        Email: self.email,
+                        Password: self.password,
+                        ConfirmPassword: self.confirmPassword,
+                        FirstName: self.firstName,
+                        SecondName: self.secondName
                     },
 
                 success: function (data) {
@@ -29,7 +29,7 @@
                     $(".validation-summary-errors").hide();
 
                     sessionStorage.setItem(tokenKey, data.access_token);
-                    window.location.href = "/Home/Index";
+                    window.location.href = "/index.html";
 
                 },
                 error: function (data) {
@@ -39,15 +39,13 @@
                     $(".validation-summary-errors").show();
 
                     var response = JSON.parse(data.responseText);
-                    for (key in response.modelState)
-                    {
-                        for (var i = 0; i < response.modelState[key].length; i++)
-                        {
+                    for (key in response.modelState) {
+                        for (var i = 0; i < response.modelState[key].length; i++) {
                             errors.push(response.modelState[key][i]);
                         }
                     }
 
-                    $("#error_details").text(" "+errors.join(" "));
+                    $("#error_details").text(" " + errors.join(" "));
 
                     if (errors.length > 0) {
                         $("#error_message").show();
@@ -56,8 +54,7 @@
                 }
             });
         }
+        return self;
     }
-
-
-    ko.applyBindings(new RegisterViewModel());
+    return { viewModel: RegisterViewModel, template: registerTemplate };
 });
