@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 
+
+
 namespace BikeMates.Service
 {
     public class Startup
@@ -34,7 +36,7 @@ namespace BikeMates.Service
             // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-
+            
         }
     }
 }

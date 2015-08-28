@@ -44,35 +44,27 @@ namespace BikeMates.Service.Controllers
             string root = HttpContext.Current.Server.MapPath("~/Resources");
             var provider = new MultipartFormDataStreamProvider(root);
 
-            try
+            // Read the form data.
+            await Request.Content.ReadAsMultipartAsync(provider);
+
+            string path = "";
+            string newfilePath = "";
+            string oldfilePath = "";
+
+            // This illustrates how to get the file names.
+            foreach (MultipartFileData file in provider.FileData)
             {
-                // Read the form data.
-                await Request.Content.ReadAsMultipartAsync(provider);
-
-                string path = "";
-                string newfilePath = "";
-                string oldfilePath = "";
-
-                // This illustrates how to get the file names.
-                foreach (MultipartFileData file in provider.FileData)
-                {
-                    FileInfo currentFile = new FileInfo(file.LocalFileName);
-                    path = file.Headers.ContentDisposition.FileName;
-                    oldfilePath = file.LocalFileName;
-                    //TODO: Do not use + for strings. Replace with string.Format() method
-                    newfilePath = currentFile.Directory.FullName + "\\" + "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";// +".jpeg"; 
-                }
-
-                File.Delete(newfilePath); // Delete the existing file if exists
-                File.Move(oldfilePath, newfilePath); // Rename the oldFileName into newFileName
-                
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-                return response;
+                FileInfo currentFile = new FileInfo(file.LocalFileName);
+                path = file.Headers.ContentDisposition.FileName;
+                oldfilePath = file.LocalFileName;
+                newfilePath = String.Format("{0}\\{1}", currentFile.Directory.FullName, id);
             }
-            catch (System.Exception e) // TODO: Remove try catch we will use global Error handling
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-            }
+            File.Delete(newfilePath);
+            File.Move(oldfilePath, newfilePath);
+
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            return response;
+
         }
 
         [HttpGet]
@@ -91,20 +83,10 @@ namespace BikeMates.Service.Controllers
             if (fileData == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            //TODO: Remove all inline comments
-
-            //Set Response contents and MediaTypeHeaderValue 
             HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
             Response.Content = new ByteArrayContent(fileData);
             Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");
             return Response;
-
-            //FileStream fileStream = FileProvider.Open(fileName);
-            //HttpResponseMessage response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
-            //response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
-            //response.Content.Headers.ContentLength = FileProvider.GetLength(fileName);
-            //return response;
-
         }
     }
 }

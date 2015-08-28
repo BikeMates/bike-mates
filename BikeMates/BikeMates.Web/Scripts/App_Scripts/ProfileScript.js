@@ -5,7 +5,7 @@
         window.location = "http://localhost:51949/Account/EditProfile";
     });
 
-    function AppViewModel() { //TODO: Rename to PrifileViewModel
+    function ProfileViewModel() {
 
         var self = this;
         self.FirstName = ko.observable("");
@@ -37,6 +37,6 @@
         });
     }
     // Activates knockout.js - bind view model to referring view 
-    ko.applyBindings(new AppViewModel());
+    ko.applyBindings(new ProfileViewModel());
 });
 

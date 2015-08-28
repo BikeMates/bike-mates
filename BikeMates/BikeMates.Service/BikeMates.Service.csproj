@@ -211,7 +211,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\CustomMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Helpers\NinjectDependencyResolver.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />

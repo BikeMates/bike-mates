@@ -10,15 +10,15 @@ namespace BikeMates.Service.Models
     {
       
         [Required]
-        public string id { get; set; } //TODO: Start all properties with Capital letter
+        public string Id { get; set; }
 
-        public string firstName { get; set; }
+        public string FirstName { get; set; }
 
-        public string secondName { get; set; }
+        public string SecondName { get; set; }
 
-        public string about { get; set; }
+        public string About { get; set; }
         
-        public string picture { get; set; }
+        public string Picture { get; set; }
 
 
      

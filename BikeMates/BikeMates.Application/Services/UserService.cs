@@ -28,7 +28,7 @@ namespace BikeMates.Application.Services
 
         public void Delete(string id)
         {
-            this.userRepository.Delete(id);
+            userRepository.Delete(id);
         }
 
         public void Update(User entity)
@@ -36,9 +36,9 @@ namespace BikeMates.Application.Services
             this.userRepository.Update(entity);
         }
 
-        public IdentityResult Register(User user, string password)
+        public IdentityResult Register(User entity, string password)
         {
-            return this.userRepository.Register(user, password);
+            return this.userRepository.Register(entity, password);
         }
 
 
@@ -56,13 +56,14 @@ namespace BikeMates.Application.Services
 
         }
 
-        public IdentityResult changePassword(string oldPass, string newPass, string newPassConfirmation, string id)
+        public IdentityResult changePassword(string oldPassword, string newPassword, string newPassConfirmation, string id)
         {
-            if (!(String.IsNullOrEmpty(oldPass)) && !(String.IsNullOrEmpty(newPass)) && !(String.IsNullOrEmpty(newPassConfirmation)) 
-                && newPass == newPassConfirmation)
+            if (!(String.IsNullOrEmpty(oldPassword)) && !(String.IsNullOrEmpty(newPassword)) && !(String.IsNullOrEmpty(newPassConfirmation))
+                && newPassword == newPassConfirmation)
             {
-             return   this.userRepository.changePassword(oldPass, newPass, id);
+                return this.userRepository.changePassword(oldPassword, newPassword, id);
             }
+            //Cause all fields are empty means user do not want to change password
             return IdentityResult.Success; 
         }
     }

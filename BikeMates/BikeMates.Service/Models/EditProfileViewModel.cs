@@ -21,19 +21,19 @@ namespace BikeMates.Service.Models
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)] 
         [Display(Name = "Old Password")]
-        public string OldPass { get; set; } //TODO: Use full words like Password. Rename to OldPassword
+        public string OldPassword { get; set; }
 
        
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)] 
         [Display(Name = "New Password")]
-        public string NewPass { get; set; } //TODO: Rename to NewPassword
+        public string NewPassword { get; set; }
 
        
         [DataType(DataType.Password)]
         [Display(Name = "Re-type password")]
         [Compare("NewPass", ErrorMessage = "The password and confirmation password do not match.")]
-        public string NewPass2 { get; set; } //TODO: Rename to ConfirmationPassword
+        public string NewPasswordConfirmation { get; set; }
 
    
 
