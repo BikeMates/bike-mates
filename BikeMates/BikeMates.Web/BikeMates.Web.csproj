@@ -215,8 +215,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App\pages\route\add.html" />
-    <Content Include="App\pages\route\add.js" />
+    <Content Include="App\pages\route\route.html" />
+    <Content Include="App\pages\route\route.js" />
     <Content Include="Scripts\require\CSSLoader.js" />
     <Content Include="App\boot\require.config.js" />
     <Content Include="App\boot\router.js" />

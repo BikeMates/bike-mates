@@ -11,6 +11,6 @@ namespace BikeMates.Domain.Entities
     {
         public Coordinate Start { get; set; }
         public Coordinate End { get; set; }
-        public IList<IList<double>> Waypoints { get; set; }
+        public virtual ICollection<Coordinate> Waypoints { get; set; }
     }
 }
