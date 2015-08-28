@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿//TODO: Rewrite with RequireJS
 $(document).ready(function () {
+=======
+﻿$(document).ready(function () {
+>>>>>>> d3683477041505f69dcee5a30407e163550a8cde
 
     var tokenKey = "tokenInfo";
     var api_link = "aaa";

@@ -13,7 +13,7 @@ using System.Web.Http;
 
 namespace BikeMates.Service.Controllers
 {
-    public class SearchController : ApiController
+    public class SearchController : ApiController //TODO: Remove this controller. Move logic to the RoutesController
     {
         private RouteService RouteService;
         private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
@@ -29,6 +29,7 @@ namespace BikeMates.Service.Controllers
        
         public List<Route> Search(RouteSearch routesearch)//TODO: Use only one method Seacrh which will receive both search and sort options
         {
+           
             routesSearchParameters.Participants = routesearch.ByParticipants;
             routesSearchParameters.Name = routesearch.ByName;
             routesSearchParameters.Date = routesearch.ByDate;

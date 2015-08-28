@@ -9,12 +9,77 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/App_Scripts/RouteView.js"></script>
 
-<table align="center" style="bottom:300px">
+<table align="center" class="pagination">
     <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
-    <tr><td><label>Title: </label></td><td><input type="text" id="title" data-bind="textInput: title" /></td></tr>
-    <tr><td><label>Start: </label></td><td><input type="text" id="start" data-bind="textInput: start" /></td></tr>
-    <tr><td><label>Distance: </label></td><td><input type="number" id="distance" data-bind="textInput: distance" /></td></tr>
-    <tr><td><label>Meeting Place: </label></td><td><input type="text" id="MeetingPlace" data-bind="textInput: MeetingPlace" /></td></tr>
+    <tr><td><label>Title: </label></td><td><label type="text" id="title" data-bind="text: title" /></td></tr>
 </table>
+    <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+    <style>
+        #map_canvas img {
+            max-width: none;
+        }
+    </style>
 
+    <style>
+        .infoDiv {
+            height: 200px;
+            width: 200px;
+            -webkit-user-select: none;
+            background-color: white;
+        }
+    </style>
 
+    <div id="map_canvas" style="height: 400px; width: 700px"></div>
+
+    @section scripts {
+        <section class="scripts">
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+                    Initialize();
+                });
+
+                function Initialize() {
+                    google.maps.visualRefresh = true;
+                    var kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
+                    var mapOptions = {
+                        zoom: 14,
+                        center: kiev,
+                        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                    var myLatlng = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: 'Route'
+                    });
+
+                    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+                }
+            </script>
+        </section>
+    }
+
+    <table align="center" class="pagination">
+        <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+        <tr><td><label>Title: </label></td><td><label type="text" id="title" data-bind="text: title" /></td></tr>
+        <tr><td><label>Start: </label></td><td><label type="text" id="start" data-bind="text: start" /></td></tr>
+        <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" /></td></tr>
+        <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
+    </table>
+    <button type="button" style="left:800px" id="Subscribe">Subscribe</button>
+
+@*<div align="left">
+        <p class="result-silter-itm">
+            Particapants:
+   
+        </p>  
+</div>*@
+
+    <div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+
+    </div>

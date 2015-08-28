@@ -43,12 +43,13 @@ namespace BikeMates.Service.Controllers
             //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
             var user = userService.getUserByEmail(model.Email);
-            UserModel userModel = new UserModel() { Id = user.Id, FirstName = user.FirstName, SecondName = user.SecondName, Picture = user.Picture, About = user.About };
+            UserModel userModel = new UserModel() { Id = user.Id, FirstName = user.FirstName, SecondName = user.SecondName, Picture = user.Picture, About = user.About }; //TODO: Use AutoMapper library to Map between User and UserModel classes
             return Ok(userModel);
         }
 
         // POST api/Account/Register
         [AllowAnonymous]
+        [Authorize(Roles = "user")]
         [Route("Register")]
         public async Task<HttpResponseMessage> Register(RegisterViewModel userModel)
         {

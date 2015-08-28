@@ -23,7 +23,7 @@ namespace BikeMates.DataAccess.Repository
         public void Add(Route entity)
         {
 
-            this.context.Set<Route>().Add(entity);
+            this.context.Set<Route>().Add(entity); //TODO: Create property Routes for context.Set<Route>()
             this.context.SaveChanges();
         }
 

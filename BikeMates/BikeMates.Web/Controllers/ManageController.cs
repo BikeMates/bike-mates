@@ -11,7 +11,7 @@ using BikeMates.Web.Models;
 namespace BikeMates.Web.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : Controller //TODO: Remove Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

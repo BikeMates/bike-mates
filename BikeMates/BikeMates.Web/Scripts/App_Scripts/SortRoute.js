@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    function SortViewModel() {
+    function SortViewModel() { //TODO: Remove this view model. Use just one Search model 
 
         var self = this;
         self.ByParticipants = ko.observable();

@@ -15,7 +15,7 @@ namespace BikeMates.DataAccess.Repository
     public class UserRepository : IUserRepository
     {
         private readonly BikeMatesDbContext context;
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<User> userManager; //TODO: Create IUserManager interface and use it here
 
         public UserRepository(BikeMatesDbContext context)
         {
@@ -30,7 +30,7 @@ namespace BikeMates.DataAccess.Repository
         public void Delete(string id)
         {
             var user = Get(id);
-            this.context.Set<User>().Remove(user);
+            this.context.Set<User>().Remove(user); //TODO: Create property Users for context.Users and use it in this class
             context.SaveChanges();
         }
 
@@ -54,7 +54,12 @@ namespace BikeMates.DataAccess.Repository
 
         public IdentityResult Register(User user, string password)
         {
-            return userManager.Create(user, password); 
+            var result = userManager.Create(user, password); 
+            if(result.Succeeded)
+            {
+                userManager.AddToRole(user.Id, "user");
+            }
+            return result;
         }
 
         public User Login(string email, string password)
@@ -64,10 +69,7 @@ namespace BikeMates.DataAccess.Repository
         
         public void resetPassword(string id)
         {
-            //string code = userManager.GenerateEmailConfirmationToken(id);
-            ////string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
-            //var callbackUrl = ""; //= Url.Action("ConfirmEmail", "Account", new { userId = id, code = code }, protocol: Request.Url.Scheme);
-            //userManager.SendEmail(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
         }
 
         public IdentityResult changePassword(string oldPass, string newPass, string id)

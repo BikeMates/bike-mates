@@ -40,7 +40,11 @@ namespace BikeMates.Service.Controllers
 
             [HttpPost]
            // [Route("GetRoute")]
+<<<<<<< HEAD
+            public IHttpActionResult GetRoute(RouteViewModel model) //TODO: Use HttpPost methods to update Routes. And HttpGet to Get information about routes. So remove this method
+=======
             public RouteViewModel GetRoute(RouteViewModel model)
+>>>>>>> d3683477041505f69dcee5a30407e163550a8cde
             {
                 
                 model.Title = routeService.GetRoute(1).Title;

@@ -8,7 +8,7 @@ using BikeMates.Domain.Entities;
 
 namespace BikeMates.Contracts.Models
 {
-    public class Route
+    public class Route //TODO: Move to the WebApi Service project
     {
         [Key]
         public int Id { get; set; }

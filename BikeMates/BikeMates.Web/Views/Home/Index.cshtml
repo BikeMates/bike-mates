@@ -7,15 +7,16 @@
 <script src="~/Scripts/knockout-3.3.0.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/App_Scripts/js.Search"></script>
+<script src="~/Scripts/App_Scripts/RouteView.js"></script>
 
 <div class="jumbotron filter_menu">
     <div class="navbar-collapse collapse">
-        <select id="sort_order" onchange="CallActionList($(this).val()); return false;">
+        @*<select id="sort_order" onchange="CallActionList($(this).val()); return false;">
             <option>select</option>
             <option value="All Routes">All Routes</option>
             <option value="My Routes">My Routes</option>
             <option value="Subscription">Subscription</option>
-        </select>
+        </select>*@
 
         <ul class="nav navbar-nav">
             <li>
@@ -55,11 +56,12 @@
 
 <div class="row result-filter-row">
     @foreach (var item in Model)
-    {
+    {       
         <p class="result-silter-itm">
-            @Html.DisplayFor(modelItem => item.Title)
+            <label id="Route" data-bind="value: @item.Id"> @Html.ActionLink(item.Title, "RouteView", new { id = item.Id })</label>
+           @Html.DisplayFor(modelItem => item.Title)
             Distance: @Html.DisplayFor(modelItem => item.Distance)
-
+            
             Date: @Html.DisplayFor(modelItem => item.Start);
             Meeting Place: @Html.DisplayFor(modelItem => item.MeetingPlace);
             Participants:  @Html.DisplayFor(modelItem => item.Participants.Count)
