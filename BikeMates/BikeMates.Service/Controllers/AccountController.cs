@@ -49,6 +49,7 @@ namespace BikeMates.Service.Controllers
 
         // POST api/Account/Register
         [AllowAnonymous]
+        [Authorize(Roles = "user")]
         [Route("Register")]
         public async Task<HttpResponseMessage> Register(RegisterViewModel userModel)
         {
