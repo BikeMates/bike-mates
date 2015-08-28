@@ -35,6 +35,7 @@
 
                     sessionStorage.setItem(tokenKey, data.access_token);
                     window.location.href = "/index.html";
+                    console.log(sessionStorage.getItem(tokenKey));
 
                 },
                 error: function (data) {

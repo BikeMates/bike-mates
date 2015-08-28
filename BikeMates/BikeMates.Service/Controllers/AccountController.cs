@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using AutoMapper;
 
 namespace BikeMates.Service.Controllers
 {
@@ -28,22 +29,13 @@ namespace BikeMates.Service.Controllers
 
         }
 
-        [Authorize]
-        [Route("Test")]
-        public IHttpActionResult Test()
-        {
-            return Ok("work");
-        }
-
         [HttpPost]
         [Route("GetUserByEmail")]
         public IHttpActionResult GetUserByEmail(ForgotPasswordModel model)
         {
-            //ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-
+            Mapper.CreateMap<User, UserModel>();
             var user = userService.getUserByEmail(model.Email);
-            UserModel userModel = new UserModel() { Id = user.Id, FirstName = user.FirstName, SecondName = user.SecondName, Picture = user.Picture, About = user.About }; //TODO: Use AutoMapper library to Map between User and UserModel classes
+            UserModel userModel = Mapper.Map<UserModel>(user);
             return Ok(userModel);
         }
 
@@ -57,14 +49,11 @@ namespace BikeMates.Service.Controllers
             {
                 return await this.BadRequest(this.ModelState).ExecuteAsync(new CancellationToken());
             }
-            User user = new User
-            {
-                UserName = userModel.Email,
-                FirstName = userModel.FirstName,
-                SecondName = userModel.SecondName, 
-                Email = userModel.Email
 
-            };
+            Mapper.CreateMap<RegisterViewModel, User>();
+            var user = Mapper.Map<User>(userModel);
+            user.UserName = userModel.Email;
+
             IdentityResult result = userService.Register(user, userModel.Password);
 
             IHttpActionResult errorResult = GetErrorResult(result);
@@ -128,7 +117,6 @@ namespace BikeMates.Service.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
                     return BadRequest();
                 }
 

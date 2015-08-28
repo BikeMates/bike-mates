@@ -28,7 +28,7 @@ namespace BikeMates.Application.Services
 
         public void Delete(string id)
         {
-            userRepository.Delete(id); //TODO: Use this before private fields
+            this.userRepository.Delete(id);
         }
 
         public void Update(User entity)
@@ -36,9 +36,9 @@ namespace BikeMates.Application.Services
             this.userRepository.Update(entity);
         }
 
-        public IdentityResult Register(User entity, string password)
+        public IdentityResult Register(User user, string password)
         {
-            return this.userRepository.Register(entity, password);
+            return this.userRepository.Register(user, password);
         }
 
 
@@ -63,7 +63,6 @@ namespace BikeMates.Application.Services
             {
              return   this.userRepository.changePassword(oldPass, newPass, id);
             }
-            //Cause all fields are empty means user do not want to change password
             return IdentityResult.Success; 
         }
     }

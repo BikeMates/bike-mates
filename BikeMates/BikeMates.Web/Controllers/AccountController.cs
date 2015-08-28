@@ -164,25 +164,19 @@ namespace BikeMates.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = new User { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, SecondName = "", About = "", Picture = ""};
+            //if (ModelState.IsValid)
+            //{
+            //    var user = new User { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, SecondName = "", About = "", Picture = ""};
 
-                var result = userService.Register(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            //    var result = userService.Register(user, model.Password);
+            //    if (result.Succeeded)
+            //    {
+            //        await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
+            //        return RedirectToAction("Index", "Home");
+            //    }
+            //    AddErrors(result);
+            //}
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -195,17 +189,7 @@ namespace BikeMates.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail()
         {
-            //string id = "d0c1d19c-9c7d-4483-bbdf-6b010638fc4e";
-            //string code = await UserManager.GenerateEmailConfirmationTokenAsync(id);
-            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = id, code = code }, protocol: Request.Url.Scheme);
-            //await UserManager.SendEmailAsync(id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
             return RedirectToAction("Index", "Home");
-            //if (userId == null || code == null)
-            //{
-            //    return View("Error");
-            //}
-            //var result = await UserManager.ConfirmEmailAsync(userId, code);
-            //return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //
@@ -233,7 +217,6 @@ namespace BikeMates.Web.Controllers
                     string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response));
             var captchaResponse = JsonConvert.DeserializeObject<CaptchaModel>(reply);
             
-
             if (ModelState.IsValid&&captchaResponse.Success)
             {
                 string userId;

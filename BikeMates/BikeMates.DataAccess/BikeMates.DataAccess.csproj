@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BikeMatesDbContext.cs" />
+    <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Migrations\201508261106343_MigrationAfterBLLMerge.cs" />
     <Compile Include="Migrations\201508261106343_MigrationAfterBLLMerge.Designer.cs">
       <DependentUpon>201508261106343_MigrationAfterBLLMerge.cs</DependentUpon>

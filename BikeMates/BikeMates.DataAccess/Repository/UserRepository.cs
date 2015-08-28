@@ -5,22 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 using BikeMates.Contracts;
 using BikeMates.Contracts.Repositories;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using BikeMates.Domain.Entities;
 using System.Security.Policy;
+using BikeMates.Contracts.Managers;
+using BikeMates.DataAccess.Managers;
+using Microsoft.AspNet.Identity;
 
 namespace BikeMates.DataAccess.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly BikeMatesDbContext context;
-        private readonly UserManager<User> userManager; //TODO: Create IUserManager interface and use it here
+        private readonly IUserManager userManager;
 
         public UserRepository(BikeMatesDbContext context)
         {
             this.context = context;
-            userManager = new UserManager<User>(new UserStore<User>(context));
+            userManager = new UserManager(context);
         }
         public void Add(User user)
         {
@@ -57,7 +58,7 @@ namespace BikeMates.DataAccess.Repository
             var result = userManager.Create(user, password); 
             if(result.Succeeded)
             {
-                userManager.AddToRole(user.Id, "user");
+                //result = userManager.AddToRole(user.Id, "user");
             }
             return result;
         }
