@@ -23,9 +23,9 @@ namespace BikeMates.DataAccess.Migrations
 
         protected override void Seed(BikeMates.DataAccess.BikeMatesDbContext context)
         {
-            if (System.Diagnostics.Debugger.IsAttached == false)
-                System.Diagnostics.Debugger.Launch();
-            SeedBikeMates(context);
+            //if (System.Diagnostics.Debugger.IsAttached == false)
+            //    System.Diagnostics.Debugger.Launch();
+            //SeedBikeMates(context);
         }
         private void SeedBikeMates(BikeMates.DataAccess.BikeMatesDbContext context)
         {

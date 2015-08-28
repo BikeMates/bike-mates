@@ -5,7 +5,8 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
         routes: [
             { url: '', params: { page: 'home' } },
             { url: 'register', params: { page: 'register' } },
-            { url: 'login', params: { page: 'login' } }
+            { url: 'login', params: { page: 'login' } },
+            { url: 'route', params: { page: 'add' } }
         ]
     });
 

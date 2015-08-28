@@ -57,9 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BikeMatesDbContext.cs" />
-    <Compile Include="Migrations\201508281149116_BikeMatesDB.cs" />
-    <Compile Include="Migrations\201508281149116_BikeMatesDB.Designer.cs">
-      <DependentUpon>201508281149116_BikeMatesDB.cs</DependentUpon>
+    <Compile Include="Migrations\201508281639351_initial.cs" />
+    <Compile Include="Migrations\201508281639351_initial.Designer.cs">
+      <DependentUpon>201508281639351_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508281649295_addSubscribers.cs" />
+    <Compile Include="Migrations\201508281649295_addSubscribers.Designer.cs">
+      <DependentUpon>201508281649295_addSubscribers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\RouteRepository.cs" />
@@ -81,8 +85,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508281149116_BikeMatesDB.resx">
-      <DependentUpon>201508281149116_BikeMatesDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508281639351_initial.resx">
+      <DependentUpon>201508281639351_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508281649295_addSubscribers.resx">
+      <DependentUpon>201508281649295_addSubscribers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

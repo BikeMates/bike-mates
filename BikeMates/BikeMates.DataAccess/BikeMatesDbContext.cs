@@ -19,8 +19,7 @@ namespace BikeMates.DataAccess
         public DbSet<Route> Routes { get; set; }
         public DbSet<Coordinate> Coordinates { get; set; }
         public DbSet<MapData> MapDatas { get; set; }
-
-
+       
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
@@ -30,10 +29,10 @@ namespace BikeMates.DataAccess
 
             modelBuilder.Entity<User>()
                 .HasMany(x => x.Routes)
-                .WithMany(x => x.Subscribers)
-                .Map(m =>
+                .WithMany(r=>r.Subscribers).
+                Map(m =>
                 {
-                    m.ToTable("SubscriptionsManyToMany");
+                    m.ToTable("Subscriptions");
                     m.MapLeftKey("User_Id");
                     m.MapRightKey("Route_Id");
                 }
