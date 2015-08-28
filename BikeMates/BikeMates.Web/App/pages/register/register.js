@@ -1,5 +1,10 @@
-﻿define(["knockout", "text!./register.html"], function (ko, registerTemplate) {
+﻿define(["knockout", "text!./register.html", "require", "cssLoader"], function (ko, registerTemplate, require, cssLoader) {
     
+    var localPath = "/Content/Site.css";
+    var pathFromApp = require.toUrl(localPath);
+
+    cssLoader.link(pathFromApp);
+
     var tokenKey = "tokenInfo";
 
     function RegisterViewModel(params) {

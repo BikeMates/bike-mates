@@ -1,4 +1,4 @@
-﻿define(['jquery', 'knockout', './router', 'knockout-projections'], function ($, ko, router) {
+﻿define(['jquery', 'knockout', './router',  'knockout-projections'], function ($, ko, router) {
 
     ko.components.register('home', { require: 'App/pages/home/home' });
 
