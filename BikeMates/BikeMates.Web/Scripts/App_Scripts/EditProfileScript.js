@@ -74,10 +74,10 @@
                 dataType: 'json',
                 data: ko.toJSON(self),
                 success: function (data) {
-                
+                    
                     $("#error_message").hide();
                     $(".validation-summary-errors").hide();
-                    window.location = "http://localhost:51949/Account/Profile";
+                  
                 },
 
                 error: function (data) {
