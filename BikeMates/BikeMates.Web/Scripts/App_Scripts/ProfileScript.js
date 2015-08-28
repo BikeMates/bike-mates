@@ -5,7 +5,7 @@
         window.location = "http://localhost:51949/Account/EditProfile";
     });
     
-    function AppViewModel() {
+    function AppViewModel() { //TODO: Rename to PrifileViewModel
 
         var self = this;
         self.FirstName = ko.observable("");

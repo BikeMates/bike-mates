@@ -221,7 +221,7 @@ namespace BikeMates.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model) //TODO: Move to the Service project
         {
             //TODO: too many code for one method - split into several methods (may put as helpers in helpers folder)
             var response = Request["g-recaptcha-response"];

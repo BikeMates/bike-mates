@@ -59,7 +59,8 @@ namespace BikeMates.Service.Controllers
                     FileInfo currentFile = new FileInfo(file.LocalFileName);
                     path = file.Headers.ContentDisposition.FileName;
                     oldfilePath = file.LocalFileName;
-                    newfilePath = currentFile.Directory.FullName + "\\" + "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";// +".jpeg";
+                    //TODO: Do not use + for strings. Replace with string.Format() method
+                    newfilePath = currentFile.Directory.FullName + "\\" + "749eae97-ff20-4d8c-8bd0-7e7fc27a9ed2";// +".jpeg"; 
                 }
 
                 File.Delete(newfilePath); // Delete the existing file if exists
@@ -68,7 +69,7 @@ namespace BikeMates.Service.Controllers
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
                 return response;
             }
-            catch (System.Exception e)
+            catch (System.Exception e) // TODO: Remove try catch we will use global Error handling
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
             }
@@ -90,7 +91,9 @@ namespace BikeMates.Service.Controllers
             if (fileData == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            //Set Response contents and MediaTypeHeaderValue
+            //TODO: Remove all inline comments
+
+            //Set Response contents and MediaTypeHeaderValue 
             HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
             Response.Content = new ByteArrayContent(fileData);
             Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");

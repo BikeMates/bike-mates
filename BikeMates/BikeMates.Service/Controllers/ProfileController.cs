@@ -38,7 +38,7 @@ namespace BikeMates.Service.Controllers
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
-            User _user = userService.GetUser(userId);
+            User _user = userService.GetUser(userId); //TODO: Do not use '_' in names
             var profile = new ProfileViewModel();
             profile.about = _user.About;
             profile.firstName = _user.FirstName;
@@ -53,7 +53,7 @@ namespace BikeMates.Service.Controllers
         public ProfileViewModel Get(string id)
         {
             User _user = userService.GetUser(id);
-            var profile = new ProfileViewModel();
+            var profile = new ProfileViewModel(); //TODO: Use AutoMapper library to map User and ProfileViewModel classes
             profile.about = _user.About;
             profile.firstName = _user.FirstName;
             profile.secondName = _user.SecondName;

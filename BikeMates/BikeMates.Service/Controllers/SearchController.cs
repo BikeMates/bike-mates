@@ -13,7 +13,7 @@ using System.Web.Http;
 
 namespace BikeMates.Service.Controllers
 {
-    public class SearchController : ApiController
+    public class SearchController : ApiController //TODO: Remove this controller. Move logic to the RoutesController
     {
         private RouteService RouteService;
         private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Net.Http;
 
-namespace BikeMates.Service.Helpers
+namespace BikeMates.Service.Helpers //TODO: Move to the Providers folder
 {
     public class CustomMultipartFormDataStreamProvider : MultipartFormDataStreamProvider
     {

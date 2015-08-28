@@ -28,7 +28,7 @@ namespace BikeMates.Application.Services
 
         public void Delete(string id)
         {
-            userRepository.Delete(id);
+            userRepository.Delete(id); //TODO: Use this before private fields
         }
 
         public void Update(User entity)
@@ -58,7 +58,7 @@ namespace BikeMates.Application.Services
 
         public IdentityResult changePassword(string oldPass, string newPass, string newPassConfirmation, string id)
         {
-            if (!(String.IsNullOrEmpty(oldPass)) && !(String.IsNullOrEmpty(newPass)) && !(String.IsNullOrEmpty(newPassConfirmation))
+            if (!(String.IsNullOrEmpty(oldPass)) && !(String.IsNullOrEmpty(newPass)) && !(String.IsNullOrEmpty(newPassConfirmation)) 
                 && newPass == newPassConfirmation)
             {
              return   this.userRepository.changePassword(oldPass, newPass, id);

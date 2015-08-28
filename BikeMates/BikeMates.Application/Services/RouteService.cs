@@ -43,6 +43,7 @@ namespace BikeMates.Application.Services
         {
             List<Route> results;
 
+            //TODO: Move the logic below to the RouteRepository class
             results = routesSearchParameters.entity.FindAll(
                 delegate(Route rot)
                 {

@@ -15,7 +15,7 @@ namespace BikeMates.DataAccess.Repository
     public class UserRepository : IUserRepository
     {
         private readonly BikeMatesDbContext context;
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<User> userManager; //TODO: Create IUserManager interface and use it here
 
         public UserRepository(BikeMatesDbContext context)
         {
@@ -30,7 +30,7 @@ namespace BikeMates.DataAccess.Repository
         public void Delete(string id)
         {
             var user = Get(id);
-            this.context.Set<User>().Remove(user);
+            this.context.Set<User>().Remove(user); //TODO: Create property Users for context.Users and use it in this class
             context.SaveChanges();
         }
 

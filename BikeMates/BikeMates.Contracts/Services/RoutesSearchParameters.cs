@@ -8,7 +8,7 @@ namespace BikeMates.Contracts.Services
 {
   public  class RoutesSearchParameters //TODO: Move to domain
     {
-     public List<Route> entity{get;set;} //TODO: rename to Routes
+     public List<Route> entity{get;set;} //TODO: remove
      public string Location{get;set;}
      public string Dist1 { get; set; } //TODO: rename DistanceMin
      public string Dist2{get;set;}

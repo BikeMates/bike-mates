@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    function AppViewModel() {
+    function AppViewModel() { //TODO: Rename to RouteViewModel
 
         var self = this;
         self.title = ko.observable("");

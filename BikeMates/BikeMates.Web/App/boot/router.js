@@ -1,7 +1,7 @@
 ﻿/// <reference path="/Scripts/crossroads/crossroads.js" />
 define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroads, hasher) {
 
-    return new Router({
+    return new Router({ //TODO: Move to the bottom after all functions
         routes: [
             { url: '', params: { page: 'home' } },
             { url: 'register', params: { page: 'register' } },
