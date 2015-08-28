@@ -17,6 +17,8 @@ using Microsoft.AspNet.Identity;
 //for async methods 
 using System.Threading;
 using System.Threading.Tasks;
+//for ninject implementation
+using BikeMates.Contracts.Services;
 
 
 //TODO: format code (spaces/tabs, remove blank lines) use - ctrl k, d
@@ -27,10 +29,12 @@ namespace BikeMates.Service.Controllers
     public class ProfileController : ApiController
     {
         private UserService userService;
+        //private IUserService userService; for ninject
 
         public ProfileController()
         {
-            userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+          //  userService = userServicein; for ninject
+          userService = new UserService(new UserRepository(new BikeMatesDbContext()));
         }
 
         // GET api/user
@@ -42,11 +46,11 @@ namespace BikeMates.Service.Controllers
           
             User user = userService.GetUser(userId);
             var profile = new ProfileViewModel();
-            profile.about = user.About;
-            profile.firstName = user.FirstName;
-            profile.secondName = user.SecondName;
-            profile.picture = user.Picture;
-            profile.id = user.Id;
+            profile.About = user.About;
+            profile.FirstName = user.FirstName;
+            profile.SecondName = user.SecondName;
+            profile.Picture = user.Picture;
+            profile.Id = user.Id;
 
             return profile;
         }
@@ -57,11 +61,11 @@ namespace BikeMates.Service.Controllers
         {
             User user = userService.GetUser(id);
             var profile = new ProfileViewModel();
-            profile.about = user.About;
-            profile.firstName = user.FirstName;
-            profile.secondName = user.SecondName;
-            profile.picture = user.Picture;
-            profile.id = user.Id;
+            profile.About = user.About;
+            profile.FirstName = user.FirstName;
+            profile.SecondName = user.SecondName;
+            profile.Picture = user.Picture;
+            profile.Id = user.Id;
 
             return profile;
         }
@@ -81,7 +85,7 @@ namespace BikeMates.Service.Controllers
             user.Picture = UserViewModel.Picture;
             userService.Update(user);
 
-            IdentityResult result = userService.changePassword(UserViewModel.OldPass, UserViewModel.NewPass, UserViewModel.NewPass2, userId);
+            IdentityResult result = userService.changePassword(UserViewModel.OldPassword, UserViewModel.NewPassword, UserViewModel.NewPasswordConfirmation, userId);
             IHttpActionResult errorResult = GetErrorResult(result);
             
             if (errorResult != null)
