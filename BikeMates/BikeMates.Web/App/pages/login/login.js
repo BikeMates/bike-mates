@@ -1,4 +1,9 @@
-﻿define(["knockout", "text!./login.html"], function (ko, loginTemplate) {
+﻿define(["knockout", "text!./login.html", "require", "cssLoader"], function (ko, loginTemplate, require, cssLoader) {
+
+    var localPath = "/Content/Site.css";
+    var pathFromApp = require.toUrl(localPath);
+
+    cssLoader.link(pathFromApp);
 
     var tokenKey = "tokenInfo";
 

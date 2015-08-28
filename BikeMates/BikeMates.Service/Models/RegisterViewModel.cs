@@ -8,10 +8,11 @@ namespace BikeMates.Service.Models
 {
     public class RegisterViewModel
     {
+        [Required]
         [Display(Name = "Name")]
         public string FirstName { get; set; }
 
-
+         [Required]
         [Display(Name = "Surname")]
         public string SecondName { get; set; }
 
