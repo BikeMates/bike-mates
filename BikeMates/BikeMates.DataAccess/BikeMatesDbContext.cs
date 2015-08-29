@@ -28,8 +28,8 @@ namespace BikeMates.DataAccess
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new {r.RoleId, r.UserId});
 
             modelBuilder.Entity<User>()
-                .HasMany(x => x.Routes)
-                .WithMany(r=>r.Subscribers).
+                .HasMany(x => x.Subscriptions)
+                .WithMany(r => r.Subscribers).
                 Map(m =>
                 {
                     m.ToTable("Subscriptions");

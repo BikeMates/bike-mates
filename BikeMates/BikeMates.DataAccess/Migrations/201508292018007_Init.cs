@@ -3,7 +3,7 @@ namespace BikeMates.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -14,8 +14,11 @@ namespace BikeMates.DataAccess.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Latitude = c.Double(nullable: false),
                         Longitude = c.Double(nullable: false),
+                        MapData_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.MapDatas", t => t.MapData_Id)
+                .Index(t => t.MapData_Id);
             
             CreateTable(
                 "dbo.MapDatas",
@@ -65,18 +68,12 @@ namespace BikeMates.DataAccess.Migrations
                         Start = c.DateTime(nullable: false),
                         Distance = c.Double(nullable: false),
                         IsBanned = c.Boolean(nullable: false),
-                        User_Id = c.String(maxLength: 128),
-                        User_Id1 = c.String(maxLength: 128),
                         Author_Id = c.String(maxLength: 128),
                         MapData_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
-                .ForeignKey("dbo.Users", t => t.User_Id1)
                 .ForeignKey("dbo.Users", t => t.Author_Id)
                 .ForeignKey("dbo.MapDatas", t => t.MapData_Id)
-                .Index(t => t.User_Id)
-                .Index(t => t.User_Id1)
                 .Index(t => t.Author_Id)
                 .Index(t => t.MapData_Id);
             
@@ -100,11 +97,8 @@ namespace BikeMates.DataAccess.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(),
-                        Route_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Routes", t => t.Route_Id)
-                .Index(t => t.Route_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.IdentityUserClaims",
@@ -132,32 +126,46 @@ namespace BikeMates.DataAccess.Migrations
                 .ForeignKey("dbo.Users", t => t.User_Id)
                 .Index(t => t.User_Id);
             
+            CreateTable(
+                "dbo.Subscriptions",
+                c => new
+                    {
+                        User_Id = c.String(nullable: false, maxLength: 128),
+                        Route_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.User_Id, t.Route_Id })
+                .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Routes", t => t.Route_Id, cascadeDelete: true)
+                .Index(t => t.User_Id)
+                .Index(t => t.Route_Id);
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Users", "Route_Id", "dbo.Routes");
             DropForeignKey("dbo.Routes", "MapData_Id", "dbo.MapDatas");
+            DropForeignKey("dbo.Subscriptions", "Route_Id", "dbo.Routes");
+            DropForeignKey("dbo.Subscriptions", "User_Id", "dbo.Users");
             DropForeignKey("dbo.Routes", "Author_Id", "dbo.Users");
-            DropForeignKey("dbo.Routes", "User_Id1", "dbo.Users");
-            DropForeignKey("dbo.Routes", "User_Id", "dbo.Users");
             DropForeignKey("dbo.IdentityUserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.IdentityUserLogins", "User_Id", "dbo.Users");
             DropForeignKey("dbo.IdentityUserClaims", "UserId", "dbo.Users");
             DropForeignKey("dbo.IdentityUserRoles", "IdentityRole_Id", "dbo.IdentityRoles");
+            DropForeignKey("dbo.Coordinates", "MapData_Id", "dbo.MapDatas");
             DropForeignKey("dbo.MapDatas", "Start_Id", "dbo.Coordinates");
             DropForeignKey("dbo.MapDatas", "End_Id", "dbo.Coordinates");
+            DropIndex("dbo.Subscriptions", new[] { "Route_Id" });
+            DropIndex("dbo.Subscriptions", new[] { "User_Id" });
             DropIndex("dbo.IdentityUserLogins", new[] { "User_Id" });
             DropIndex("dbo.IdentityUserClaims", new[] { "UserId" });
-            DropIndex("dbo.Users", new[] { "Route_Id" });
             DropIndex("dbo.Routes", new[] { "MapData_Id" });
             DropIndex("dbo.Routes", new[] { "Author_Id" });
-            DropIndex("dbo.Routes", new[] { "User_Id1" });
-            DropIndex("dbo.Routes", new[] { "User_Id" });
             DropIndex("dbo.IdentityUserRoles", new[] { "IdentityRole_Id" });
             DropIndex("dbo.IdentityUserRoles", new[] { "UserId" });
             DropIndex("dbo.MapDatas", new[] { "Start_Id" });
             DropIndex("dbo.MapDatas", new[] { "End_Id" });
+            DropIndex("dbo.Coordinates", new[] { "MapData_Id" });
+            DropTable("dbo.Subscriptions");
             DropTable("dbo.IdentityUserLogins");
             DropTable("dbo.IdentityUserClaims");
             DropTable("dbo.Users");

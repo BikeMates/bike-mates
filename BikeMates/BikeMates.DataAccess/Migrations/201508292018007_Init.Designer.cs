@@ -7,13 +7,13 @@ namespace BikeMates.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addSubscribers : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addSubscribers));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508281649295_addSubscribers"; }
+            get { return "201508292018007_Init"; }
         }
         
         string IMigrationMetadata.Source
