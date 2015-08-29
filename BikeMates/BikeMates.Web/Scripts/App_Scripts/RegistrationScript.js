@@ -34,7 +34,7 @@
                 },
                 error: function (data) {
                     var errors = [];
-
+                    
                     $("#error_message").hide();
                     $(".validation-summary-errors").show();
 

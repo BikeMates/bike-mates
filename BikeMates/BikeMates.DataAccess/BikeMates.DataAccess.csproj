@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201508261106343_MigrationAfterBLLMerge.Designer.cs">
       <DependentUpon>201508261106343_MigrationAfterBLLMerge.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508291617555_AddRoles.cs" />
+    <Compile Include="Migrations\201508291617555_AddRoles.Designer.cs">
+      <DependentUpon>201508291617555_AddRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\RouteRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
@@ -84,6 +88,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201508261106343_MigrationAfterBLLMerge.resx">
       <DependentUpon>201508261106343_MigrationAfterBLLMerge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508291617555_AddRoles.resx">
+      <DependentUpon>201508291617555_AddRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

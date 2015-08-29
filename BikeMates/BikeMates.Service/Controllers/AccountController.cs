@@ -41,7 +41,6 @@ namespace BikeMates.Service.Controllers
 
         // POST api/Account/Register
         [AllowAnonymous]
-        [Authorize(Roles = "user")]
         [Route("Register")]
         public async Task<HttpResponseMessage> Register(RegisterViewModel userModel)
         {
@@ -53,7 +52,7 @@ namespace BikeMates.Service.Controllers
             Mapper.CreateMap<RegisterViewModel, User>();
             var user = Mapper.Map<User>(userModel);
             user.UserName = userModel.Email;
-
+            user.Role = "user";
             IdentityResult result = userService.Register(user, userModel.Password);
 
             IHttpActionResult errorResult = GetErrorResult(result);
