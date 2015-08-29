@@ -58,7 +58,7 @@ namespace BikeMates.DataAccess.Repository
             var result = userManager.Create(user, password); 
             if(result.Succeeded)
             {
-                result = userManager.AddToRole(user.Id, "user");
+                //result = userManager.AddToRole(user.Id, "user");
             }
             return result;
         }

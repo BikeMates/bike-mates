@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Managers\IUserManager.cs" />
+    <Compile Include="Models\CaptchaModel.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IRouteRepository.cs" />
