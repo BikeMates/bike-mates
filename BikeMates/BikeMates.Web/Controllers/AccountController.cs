@@ -32,6 +32,9 @@ namespace BikeMates.Web.Controllers
         private ApplicationUserManager _userManager;
         private IUserService userService = new UserService(new UserRepository(new BikeMatesDbContext()));
 
+        public AccountController()
+        { }
+
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;

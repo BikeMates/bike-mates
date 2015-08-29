@@ -3,38 +3,36 @@
 <head>
     <title>Bike Mates</title>
     <link href="Content/bootstrap.css" rel="stylesheet" />
-   <!-- <link href="Content/bootstrap-theme.css" rel="stylesheet" />-->
 
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
                 </button>
+                <img src="/Content/Images/logo.png" align="left" width="128" height="60" />
+                <a href="#" class=" navbar-brand">BikeMates</a>
+            </div>
 
-                <a class="navbar-brand" href="/">BikeMates</a>
-
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        <a href="#register">Sign Up</a>
-                    </li>
-                    <li>
-                        <a href="#login">Sign In</a>
-                    </li>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left home-search-form"  role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default" style="margin-top:1px">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#register" id="registerLink">Sing up</a></li>
+                    <li><a href="#login" id="loginLink">Sing in</a></li>
                 </ul>
-
             </div>
         </div>
     </div>
 
-    <div id="page1" class="container" style="padding-top:50px" data-bind="component: { name: route().page, params: route }"></div>
+    <div class="container body-content">
+        <div id="page1" class="container" style="padding-top:50px" data-bind="component: { name: route().page, params: route }"></div>
+    </div>
 
     <script src="App/boot/require.config.js"></script>
     <script data-main="App/boot/startup" src="Scripts/require/require.js"></script>

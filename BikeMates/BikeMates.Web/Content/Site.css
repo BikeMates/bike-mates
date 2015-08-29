@@ -92,6 +92,18 @@ textarea {
           user-select: none;
 
 }
+
+.home-search-form{
+    margin-left:150px;
+    margin-top:12px;
+}
+
+.home-authorizatio-form{
+    position: absolute;
+    top:0px;
+    right:300px;
+}
+
 .navbar-brand{
      color: #E2E2E2!important;
      font-size: 20px;
