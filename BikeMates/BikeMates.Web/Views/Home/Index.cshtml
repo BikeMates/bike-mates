@@ -6,7 +6,7 @@
 <link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/knockout-3.3.0.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/App_Scripts/js.Search"></script>
+<script src="~/Scripts/App_Scripts/ViewRouteList.js"></script>
 <script src="~/Scripts/App_Scripts/RouteView.js"></script>
 
 <div class="jumbotron filter_menu">
@@ -35,31 +35,40 @@
 <table>
     <tr>
         <td><h4>Location </h4></td>
-        <td><input type="text" size="26" class="filter-inpt" id="Location" name="Location" data-bind=Location /> </td>
+        <td><input type="text" size="26" class="filter-inpt" id="Location" name="Location" data-bind="value:Location" /> </td>
     </tr>
     <tr>
         <td><h4>Date</h4></td>
         <td>
-            <input type="text" size="10" class="filter-inpt" id="Date1" name="Date" data-bind=Date1 />
-            <input type="text" size="10" class="filter-inpt" id="Date2" name="Date" data-bind=Date2 />
+            <input type="text" size="10" class="filter-inpt" id="Date1" name="Date" data-bind="value:Date1" />
+            <input type="text" size="10" class="filter-inpt" id="Date2" name="Date" data-bind="value:Date2" />
         </td>
     </tr>
     <tr>
         <td><h4>Distance</h4></td>
         <td>
-            <input type="text" size="10" class="filter-inpt" id="Distance1" name="Distance" data-bind=Distance1 />
-            <input type="text" size="10" class="filter-inpt" id="Distance2" name="Distance" data-bind=Distance2 />
+            <input type="text" size="10" class="filter-inpt" id="Distance1" name="Distance" data-bind="value: Distance1" />
+            <input type="text" size="10" class="filter-inpt" id="Distance2" name="Distance" data-bind="value: Distance2" />
         </td>
     </tr>
 </table>
 <button type="button" class="btn btn-default filter-btn" id="Search">SEARCH</button>
 
 <div class="row result-filter-row">
+
+@*<table>
+    <tbody data-bind="foreach: allRoutes">
+        <tr>
+            
+            <td data-bind="text: distance">DDD</td>
+        </tr>
+    </tbody>
+</table>*@
     @foreach (var item in Model)
     {       
         <p class="result-silter-itm">
-            <label id="Route" data-bind="value: @item.Id"> @Html.ActionLink(item.Title, "RouteView", new { id = item.Id })</label>
-           @Html.DisplayFor(modelItem => item.Title)
+           @Html.ActionLink(item.Title, "RouteView", new { id = item.Id })           
+           @Html.DisplayFor(modelItem => item.Title)      
             Distance: @Html.DisplayFor(modelItem => item.Distance)
             
             Date: @Html.DisplayFor(modelItem => item.Start);
