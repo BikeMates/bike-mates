@@ -26,21 +26,8 @@ namespace BikeMates.Service.Controllers
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
 
         }
-       
-        public List<Route> Search(RouteSearch routesearch)//TODO: Use only one method Seacrh which will receive both search and sort options
-        {
-           
-            routesSearchParameters.Participants = routesearch.ByParticipants;
-            routesSearchParameters.Name = routesearch.ByName;
-            routesSearchParameters.Date = routesearch.ByDate;
-            routesSearchParameters.Date1 = routesearch.Date1;
-            routesSearchParameters.Date2 = routesearch.Date2;
-            routesSearchParameters.Dist1 = routesearch.Distance1;
-            routesSearchParameters.Dist2 = routesearch.Distance2;
-            routesSearchParameters.Location = routesearch.Location;
-            return RouteService.Find(routesSearchParameters);
-        }
 
+       [HttpGet]
        public List<Route> Get()
         {
             
