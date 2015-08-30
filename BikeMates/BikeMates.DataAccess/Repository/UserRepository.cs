@@ -42,10 +42,10 @@ namespace BikeMates.DataAccess.Repository
 
         public User Get(string id)
         {
-           return this.context.Set<User>().Find(id);
+            return this.context.Set<User>().Find(id);
         }
 
-        
+
 
         public void Update(User user)
         {
@@ -55,8 +55,8 @@ namespace BikeMates.DataAccess.Repository
 
         public IdentityResult Register(User user, string password)
         {
-            var result = userManager.Create(user, password); 
-            if(result.Succeeded)
+            var result = userManager.Create(user, password);
+            if (result.Succeeded)
             {
                 result = userManager.AddToRole(user.Id, "user");
             }
@@ -65,22 +65,28 @@ namespace BikeMates.DataAccess.Repository
 
         public User Login(string email, string password)
         {
-            return userManager.Find(email, password); 
+            return userManager.Find(email, password);
         }
-        
-        public void resetPassword(string id)
-        {
 
+        public string forgotPassword(string id)
+        {
+            return userManager.GeneratePasswordResetToken(id);
         }
 
         public IdentityResult changePassword(string oldPass, string newPass, string id)
         {
             return userManager.ChangePassword(id, oldPass, newPass);
         }
-        
+
         public User getUserByEmail(string email)
         {
             return userManager.FindByEmail(email);
+        }
+
+
+        public IdentityResult resetPassword(string id, string code, string password)
+        {
+            return userManager.ResetPassword(id, code, password);
         }
     }
 }

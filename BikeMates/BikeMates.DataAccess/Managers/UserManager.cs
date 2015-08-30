@@ -7,6 +7,8 @@ using BikeMates.Contracts.Managers;
 using Microsoft.AspNet.Identity;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security.DataProtection;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace BikeMates.DataAccess.Managers
 {
@@ -17,6 +19,8 @@ namespace BikeMates.DataAccess.Managers
         public UserManager(BikeMatesDbContext context) 
         {
             userManager = new UserManager<User>(new UserStore<User>(context));
+            var provider = new DpapiDataProtectionProvider("BikeMates");
+            userManager.UserTokenProvider = new DataProtectorTokenProvider<User>(provider.Create("ResetPassword"));
         }
 
         public IdentityResult Create(User user, string password)
@@ -42,6 +46,18 @@ namespace BikeMates.DataAccess.Managers
         public User FindByEmail(string email)
         {
             return userManager.FindByEmail(email);
+        }
+
+
+        public string GeneratePasswordResetToken(string userId)
+        {
+            return userManager.GeneratePasswordResetToken(userId);
+        }
+
+
+        public IdentityResult ResetPassword(string userId, string code, string password)
+        {
+            return userManager.ResetPassword(userId, code, password);
         }
     }
 }

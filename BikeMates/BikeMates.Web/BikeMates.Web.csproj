@@ -209,12 +209,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CaptchaModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\App_Scripts\ForgotPasswordScript.js" />
+    <Content Include="Scripts\App_Scripts\ResetPasswordScript.js" />
     <Content Include="Scripts\require\CSSLoader.js" />
     <Content Include="App\boot\require.config.js" />
     <Content Include="App\boot\router.js" />

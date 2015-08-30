@@ -12,5 +12,7 @@ namespace BikeMates.Service.Models
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
+        public string Host { get; set; }
+        public string Response { get; set; }
     }
 }

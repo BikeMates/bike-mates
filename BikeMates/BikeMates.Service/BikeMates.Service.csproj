@@ -211,11 +211,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CaptchaModel.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\RouteSearch.cs" />
     <Compile Include="Models\RouteViewModel.cs" />
     <Compile Include="Models\UserModel.cs" />

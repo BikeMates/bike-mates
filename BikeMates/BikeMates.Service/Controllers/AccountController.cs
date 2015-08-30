@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using AutoMapper;
+using Newtonsoft.Json;
+using BikeMates.Web.Models;
+using System.Net;
 
 namespace BikeMates.Service.Controllers
 {
@@ -29,15 +32,6 @@ namespace BikeMates.Service.Controllers
 
         }
 
-        [HttpPost]
-        [Route("GetUserByEmail")]
-        public IHttpActionResult GetUserByEmail(ForgotPasswordModel model)
-        {
-            Mapper.CreateMap<User, UserModel>();
-            var user = userService.getUserByEmail(model.Email);
-            UserModel userModel = Mapper.Map<UserModel>(user);
-            return Ok(userModel);
-        }
 
         // POST api/Account/Register
         [AllowAnonymous]
@@ -96,6 +90,74 @@ namespace BikeMates.Service.Controllers
                 return responseMsg;
             }
         }
+
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public IHttpActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            if (ModelState.IsValid && checkCaptcha(model.Response).Success)
+            {
+                var user = userService.getUserByEmail(model.Email);
+                if (user != null)
+                {
+                    userService.forgotPassword(user.Id, model.Host);
+                }
+            }
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("ResetPassword")]
+        public IHttpActionResult ResetPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = userService.getUserByEmail(model.Email);
+                if (user != null)
+                {
+                    var result = userService.resetPassword(user.Id, model.Code, model.Password);
+                    if (result.Succeeded)
+                    {
+                        return Ok();
+                    }
+                }
+            }
+            return BadRequest();
+        }
+
+        private CaptchaModel checkCaptcha(string response)
+        {
+            const string secret = "6LdnvQsTAAAAAGM8ZQ8kr46eAalzSBzH_BpnYoN3";
+
+            var webClient = new WebClient();
+            var reply =
+                webClient.DownloadString(
+                    string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response));
+            return JsonConvert.DeserializeObject<CaptchaModel>(reply);
+
+        }
+
+        private void generateMessage(string userId)
+        {
+            
+        }
+
+        private void sendMail(string userEmail, string message)
+        {
+            
+        }
+
+        [HttpPost]
+        [Route("GetUserByEmail")]
+        public IHttpActionResult GetUserByEmail(ForgotPasswordModel model)
+        {
+            Mapper.CreateMap<User, UserModel>();
+            var user = userService.getUserByEmail(model.Email);
+            UserModel userModel = Mapper.Map<UserModel>(user);
+            return Ok(userModel);
+        }
+
+
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
         {

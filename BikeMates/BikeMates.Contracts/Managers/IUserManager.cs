@@ -15,5 +15,7 @@ namespace BikeMates.Contracts.Managers
         IdentityResult ChangePassword(string userId, string oldPassword, string newPassword);
         User Find(string email, string password);
         User FindByEmail(string email);
+        string GeneratePasswordResetToken(string userId);
+        IdentityResult ResetPassword(string userId, string code, string password);
     }
 }
