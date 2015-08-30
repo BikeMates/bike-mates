@@ -15,10 +15,12 @@
                     },
                 success: function (data) {
                     $("#error_message").hide();
-                    window.location.href = "/Home/Index";
+                    window.location.href = "/index.html";
                 },
                 error: function (data) {
                     var response = JSON.parse(data.responseText);
+                    $("#error_details").text(response.message)
+                    $("#error_message").show();
                     console.log(response);
                 }
             });

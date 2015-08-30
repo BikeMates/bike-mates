@@ -18,11 +18,22 @@
                     },
                 success: function (data) {
                     $("#error_message").hide();
-                    window.location.href = "/Home/Index";
+                    window.location.href = "/index.html";
                 },
                 error: function (data) {
+                    var errors = []
                     var response = JSON.parse(data.responseText);
-                    console.log(response);
+                    errors.push(response.message);
+                    for (key in response.modelState)
+                    {
+                        for (var i = 0; i < response.modelState[key].length; i++)
+                        {
+                            errors.push(response.modelState[key][i]);
+                        }
+                    }
+
+                    $("#error_details").text(" " + errors.join(" "));
+                    $("#error_message").show();
                 }
             });
         }

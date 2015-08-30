@@ -70,7 +70,7 @@ namespace BikeMates.Service.Controllers
         {
             var request = HttpContext.Current.Request;
             var tokenServiceUrl = request.Url.GetLeftPart(UriPartial.Authority) + request.ApplicationPath + "/token";
-            
+
             using (var client = new HttpClient())
             {
                 var requestParams = new List<KeyValuePair<string, string>>
@@ -95,34 +95,47 @@ namespace BikeMates.Service.Controllers
         [Route("ForgotPassword")]
         public IHttpActionResult ForgotPassword(ForgotPasswordModel model)
         {
-            if (ModelState.IsValid && checkCaptcha(model.Response).Success)
+            if (!checkCaptcha(model.Response).Success)
             {
-                var user = userService.getUserByEmail(model.Email);
-                if (user != null)
-                {
-                    userService.forgotPassword(user.Id, model.Host);
-                }
+                return BadRequest("Invalid captcha");
             }
+
+            var user = userService.getUserByEmail(model.Email);
+
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            userService.forgotPassword(user.Id, model.Host);
+
             return Ok();
         }
 
         [HttpPost]
         [Route("ResetPassword")]
-        public IHttpActionResult ResetPassword(ResetPasswordViewModel model)
+        public async Task<HttpResponseMessage> ResetPassword(ResetPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = userService.getUserByEmail(model.Email);
-                if (user != null)
-                {
-                    var result = userService.resetPassword(user.Id, model.Code, model.Password);
-                    if (result.Succeeded)
-                    {
-                        return Ok();
-                    }
-                }
+                return await BadRequest(this.ModelState).ExecuteAsync(new CancellationToken());
             }
-            return BadRequest();
+
+            var user = userService.getUserByEmail(model.Email);
+
+            if (user == null)
+            {
+                return await BadRequest("User not found").ExecuteAsync(new CancellationToken());
+            }
+
+            var result = userService.resetPassword(user.Id, model.Code, model.Password);
+            var errorResult = GetErrorResult(result);
+
+            if (errorResult != null)
+            {
+                return await errorResult.ExecuteAsync(new CancellationToken());
+            }
+            return await Ok().ExecuteAsync(new CancellationToken());
         }
 
         private CaptchaModel checkCaptcha(string response)
@@ -134,17 +147,6 @@ namespace BikeMates.Service.Controllers
                 webClient.DownloadString(
                     string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response));
             return JsonConvert.DeserializeObject<CaptchaModel>(reply);
-
-        }
-
-        private void generateMessage(string userId)
-        {
-            
-        }
-
-        private void sendMail(string userEmail, string message)
-        {
-            
         }
 
         [HttpPost]

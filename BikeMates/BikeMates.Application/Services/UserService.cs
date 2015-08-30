@@ -54,18 +54,19 @@ namespace BikeMates.Application.Services
         {
             return this.userRepository.getUserByEmail(email);
         }
-        public string forgotPassword(string id, string host)
+        public void forgotPassword(string id, string host)
         {
-            var resetToken = this.userRepository.forgotPassword(id);
+            string resetToken = this.userRepository.forgotPassword(id);
             resetToken = System.Web.HttpUtility.UrlEncode(resetToken);
 
-            string message = "http://" + host +
+            string resetUrl = "http://" + host +
                 "/Account/ResetPassword?userId=" + id +
                 "&code=" + resetToken;
-            var url = new Url(message);
-            sendMail(id, message);
-            return "";
 
+            string message = "Please reset your password by clicking <a href=\"" + resetUrl + "\">Reset Password</a><br/>" + 
+            @"Or click on the copy the following link on the browser:" + resetUrl;
+
+            sendMail(id, message);
         }
 
         public IdentityResult changePassword(string oldPassword, string newPassword, string newPassConfirmation, string id)
