@@ -15,7 +15,7 @@
                         email: self.email,
                         password: self.password,
                         confirmPassword: self.confirmPassword,
-                        code: location.href.split("&")[1].split("=")[1]
+                        code: location.href.split("&")[1].split("=")[1].split("#")[0]
                     },
                 success: function (data) {
                     $("#error_message").hide();
