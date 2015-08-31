@@ -17,6 +17,7 @@ namespace BikeMates.Domain.Entities
         public string Picture {get; set;}
         public string About {get; set;}
         public string Role { get; set; }
+        public bool IsBaned { get; set; }
         public virtual ICollection<Route> Routes { get; set; }
         public virtual ICollection<Route> Subscriptions { get; set; }
     }

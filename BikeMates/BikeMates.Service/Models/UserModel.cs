@@ -13,5 +13,6 @@ namespace BikeMates.Service.Models
         public string SecondName {get; set;}
         public string Picture {get; set;}
         public string About {get; set;}
+        public bool IsBaned { get; set; }
     }
 }

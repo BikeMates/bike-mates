@@ -223,6 +223,8 @@
     <Content Include="App\pages\account\editprofile\editprofile.js" />
     <Content Include="App\pages\account\profile\profile.html" />
     <Content Include="App\pages\account\profile\profile.js" />
+    <Content Include="App\pages\admin\admin.html" />
+    <Content Include="App\pages\admin\admin.js" />
     <Content Include="App\pages\route\route.html" />
     <Content Include="App\pages\route\route.js" />
     <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />
@@ -297,7 +299,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\App_Scripts\Route.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

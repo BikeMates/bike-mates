@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201508311409016_initial.Designer.cs">
       <DependentUpon>201508311409016_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508311635095_AddIsBanedForUser.cs" />
+    <Compile Include="Migrations\201508311635095_AddIsBanedForUser.Designer.cs">
+      <DependentUpon>201508311635095_AddIsBanedForUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\RouteRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
@@ -112,6 +116,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201508311409016_initial.resx">
       <DependentUpon>201508311409016_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508311635095_AddIsBanedForUser.resx">
+      <DependentUpon>201508311635095_AddIsBanedForUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

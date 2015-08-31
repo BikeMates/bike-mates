@@ -13,6 +13,7 @@ using Microsoft.AspNet.Identity;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Policy;
+using System.Collections;
 
 namespace BikeMates.Application.Services
 {
@@ -102,5 +103,13 @@ namespace BikeMates.Application.Services
             code = System.Web.HttpUtility.UrlDecode(code);
             return userRepository.resetPassword(id, code, password);
         }
+
+
+        public IEnumerable<User> GetAll()
+        {
+            return userRepository.GetAll();
+        }
+
+
     }
 }
