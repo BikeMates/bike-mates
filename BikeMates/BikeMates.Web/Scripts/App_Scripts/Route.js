@@ -80,7 +80,10 @@ function saveRoute() {
     wp = routeLeg.via_waypoints;
 
     for (var i = 0; i < wp.length; i++) {
-        waypoints[i] = [wp[i].lat(), wp[i].lng()];
+        waypoints[i] = {
+            'latitude': wp[i].lat(),
+            'longitude': wp[i].lng()
+        };
     }
     data.waypoints = waypoints;
 
