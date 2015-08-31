@@ -22,11 +22,9 @@ namespace BikeMates.Service.Controllers
     [RoutePrefix("api/profilepicture")]
     public class ProfilePictureController : ApiController
     {
-        private UserService userService;
-
         public ProfilePictureController()
         {
-            userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+
         }
 
         //POST api/profilepicture
@@ -68,7 +66,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetImage(string id)
+        static public HttpResponseMessage GetImage(string id)
         {
             string fileName = id;
             string rootPath = HttpContext.Current.Server.MapPath("~/Resources");
@@ -83,10 +81,15 @@ namespace BikeMates.Service.Controllers
             if (fileData == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
-            Response.Content = new ByteArrayContent(fileData);
-            Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");
-            return Response;
+
+            using (HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK))
+            {
+                Response.Content = new ByteArrayContent(fileData);
+                Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");
+                return Response;
+
+            }
+
         }
     }
 }

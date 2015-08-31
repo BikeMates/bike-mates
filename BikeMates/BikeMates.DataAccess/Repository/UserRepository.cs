@@ -73,7 +73,7 @@ namespace BikeMates.DataAccess.Repository
             return userManager.GeneratePasswordResetToken(id);
         }
 
-        public IdentityResult changePassword(string oldPass, string newPass, string id)
+        public IdentityResult ChangePassword(string oldPass, string newPass, string id)
         {
             return userManager.ChangePassword(id, oldPass, newPass);
         }

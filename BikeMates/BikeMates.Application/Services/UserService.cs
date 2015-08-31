@@ -69,12 +69,12 @@ namespace BikeMates.Application.Services
             sendMail(id, message);
         }
 
-        public IdentityResult changePassword(string oldPassword, string newPassword, string newPassConfirmation, string id)
+        public IdentityResult ChangePassword(string oldPassword, string newPassword, string newPassConfirmation, string id)
         {
             if (!(String.IsNullOrEmpty(oldPassword)) && !(String.IsNullOrEmpty(newPassword)) && !(String.IsNullOrEmpty(newPassConfirmation))
                 && newPassword == newPassConfirmation)
             {
-                return this.userRepository.changePassword(oldPassword, newPassword, id);
+                return this.userRepository.ChangePassword(oldPassword, newPassword, id);
             }
             //Cause all fields are empty means user do not want to change password
             return IdentityResult.Success;

@@ -62,20 +62,20 @@ namespace BikeMates.Service.Controllers
 
         // POST api/user
         [HttpPost]
-        public async Task<HttpResponseMessage> Update(EditProfileViewModel UserViewModel)
+        public async Task<HttpResponseMessage> Update(EditProfileViewModel userViewModel)
         {
           
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
             User user = userService.GetUser(userId);
-            user.FirstName = UserViewModel.FirstName;
-            user.About = UserViewModel.About;
-            user.SecondName = UserViewModel.SecondName;
-            user.Picture = UserViewModel.Picture;
+            user.FirstName = userViewModel.FirstName;
+            user.About = userViewModel.About;
+            user.SecondName = userViewModel.SecondName;
+            user.Picture = userViewModel.Picture;
             userService.Update(user);
 
-            IdentityResult result = userService.changePassword(UserViewModel.OldPassword, UserViewModel.NewPassword, UserViewModel.NewPasswordConfirmation, userId);
+            IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, userId);
             IHttpActionResult errorResult = GetErrorResult(result);
             
             if (errorResult != null)
