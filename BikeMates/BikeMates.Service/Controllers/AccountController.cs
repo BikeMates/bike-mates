@@ -97,7 +97,7 @@ namespace BikeMates.Service.Controllers
         {
             if (!checkCaptcha(model.Response).Success)
             {
-                //return BadRequest("Invalid captcha");
+                return BadRequest("Invalid captcha");
             }
 
             var user = userService.getUserByEmail(model.Email);
