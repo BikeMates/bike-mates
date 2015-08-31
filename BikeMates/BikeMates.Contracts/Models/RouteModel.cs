@@ -39,7 +39,8 @@ namespace BikeMates.Contracts.Models
 
         public double Distance { get; set; }
 
-        public virtual List<User> Participants { get; set; }
+        public virtual List<User> Subscribers { get; set; }
+        public virtual User Author { get; set; }
 
         public bool IsBanned { get; set; }
 
@@ -54,7 +55,7 @@ namespace BikeMates.Contracts.Models
                 MeetingPlace = this.MeetingPlace,
                 Start = this.Start,
                 Distance = this.Distance,
-                Participants = this.Participants,
+                Subscribers = this.Subscribers,
                 IsBanned = this.IsBanned
             };
             return _route;
@@ -70,7 +71,7 @@ namespace BikeMates.Contracts.Models
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
                 Distance = route.Distance,
-                Participants = route.Participants,
+                Subscribers = route.Subscribers,
                 IsBanned = route.IsBanned
             };
             return _route;

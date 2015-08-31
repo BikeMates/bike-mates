@@ -18,7 +18,7 @@ namespace BikeMates.Service.Controllers
             private RouteService RouteService;
             private RoutesSearchParameters routesSearchParameters;
             private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
-            public List<Route> allRoutes;
+            public IEnumerable<Route> allRoutes;
             private RouteService routeService;
             public RoutesController()
             {
@@ -26,22 +26,22 @@ namespace BikeMates.Service.Controllers
                 allRoutes = routelist.GetAllRoutes();
             }
             [HttpGet]
-            public Route Get()
+            public Route Get(int id)
             {
                 
                 Route rot = new Route();
                 //rot.MapData.Start = routeService.GetRoute(1).MapData.Start;
                // rot.MapData.End = routeService.GetRoute(1).MapData.End;
-                rot.Participants = routeService.GetRoute(1).Participants;
-                rot.Title = routeService.GetRoute(1).Title;
-                rot.Start = routeService.GetRoute(1).Start;
-                rot.MeetingPlace = routeService.GetRoute(1).MeetingPlace;
-                rot.Distance = routeService.GetRoute(1).Distance;
+                rot.Participants = routeService.GetRoute(id).Participants;
+                rot.Title = routeService.GetRoute(id).Title;
+                rot.Start = routeService.GetRoute(id).Start;
+                rot.MeetingPlace = routeService.GetRoute(id).MeetingPlace;
+                rot.Distance = routeService.GetRoute(id).Distance;
                 return rot;
             }
 
             [HttpPost]
-            public List<Route> Search(RouteSearch routesearch)//TODO: Use only one method Seacrh which will receive both search and sort options
+            public IEnumerable<Route> Search(RouteSearch routesearch)//TODO: Use only one method Seacrh which will receive both search and sort options
             {
 
                 //routesSearchParameters.Participants = routesearch.ByParticipants;

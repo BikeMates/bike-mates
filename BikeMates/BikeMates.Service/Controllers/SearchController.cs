@@ -17,24 +17,49 @@ namespace BikeMates.Service.Controllers
     {
         private RouteService RouteService;
         private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
-        public List<Route> allRoutes;
+        public IEnumerable<Route> allRoutes;
         private RoutesSearchParameters routesSearchParameters;
+        private IEnumerable<Route> ListSort;
         public SearchController()
         {
-            allRoutes = routelist.GetAllRoutes();
+            allRoutes = routelist.GetAll().ToList();
           //  routesSearchParameters.entity = routelist.GetAllRoutes();
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
-
         }
 
        [HttpGet]
-       public List<Route> Get()
-        {
-            
-            return allRoutes;
-            
+       public IEnumerable<Route> Get()
+        {           
+            return allRoutes;           
         }
-        
-
+       [HttpGet]
+       public IEnumerable<Route> Get(int id) {
+           
+           if (id == 1)
+           {
+               var routesSort = from nameRoute
+                            in allRoutes
+                           orderby nameRoute.Title
+                           select nameRoute;
+               ListSort =  routesSort;
+           }
+           if (id == 2)
+           {
+               var routesSort = from nameRoute
+                                in allRoutes
+                                orderby nameRoute.Subscribers.Count
+                                select nameRoute;
+               ListSort = routesSort;
+           }
+           if (id == 3)
+           {
+               var routesSort = from nameRoute
+                                in allRoutes
+                                orderby nameRoute.Start
+                                select nameRoute;
+               ListSort = routesSort;
+           }
+           return ListSort ;      
+       }
     }
 }

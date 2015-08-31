@@ -6,5 +6,7 @@
     ko.components.register('forgotpassword', { require: 'App/pages/account/forgotpassword/forgotPassword' });
     ko.components.register('resetpassword', { require: 'App/pages/account/resetpassword/resetPassword' });
 
+    ko.components.register('route', { require: 'App/pages/route/route' });
+
     ko.applyBindings({ route: router.currentRoute });
 });

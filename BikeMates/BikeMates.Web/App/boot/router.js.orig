@@ -1,6 +1,18 @@
 ﻿/// <reference path="/Scripts/crossroads/crossroads.js" />
 define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroads, hasher) {
 
+<<<<<<< HEAD
+=======
+    return new Router({ //TODO: Move to the bottom after all functions
+        routes: [
+            { url: '', params: { page: 'home' } },
+            { url: 'register', params: { page: 'register' } },
+            { url: 'login', params: { page: 'login' } },
+            { url: 'route', params: { page: 'route' } }
+        ]
+    });
+
+>>>>>>> origin/EF-troubleshooting
     function Router(config) {
         var currentRoute = this.currentRoute = ko.observable({});
 
@@ -36,10 +48,7 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
             { url: 'register', params: { page: 'register' } },
             { url: 'login', params: { page: 'login' } },
             { url: 'forgotpassword', params: { page: 'forgotpassword' } },
-            { url: 'resetpassword', params: { page: 'resetpassword' } },
-            { url: 'login', params: { page: 'login' } },
-            { url: 'route', params: { page: 'route' } }
-
+            { url: 'resetpassword', params: { page: 'resetpassword' } }
         ]
     });
 });

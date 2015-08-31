@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    function RouteViewModel() { 
+    function RouteViewModel() {
 
         var self = this;
         self.title = ko.observable("");
@@ -15,10 +15,11 @@
         self.Date2 = ko.observable("");
         self.Distance1 = ko.observable("");
         self.Distance2 = ko.observable("");
+        self.allRoutes = ko.observableArray();
 
-
+        self.ByTitle=ko.observable("");
         $.ajax({
-            url: "http://localhost:51952/api/routes",
+            url: "http://localhost:51952/api/routes"+'/'+2,
             contentType: "application/json",
             type: "GET",
             success: function (data) {
@@ -47,8 +48,55 @@
                 }
             });
         });
-    }
-    ko.applyBindings(new RouteViewModel());
+        $("#ByDate").button().click(function () {
+            $.ajax({
+                url: "http://localhost:51952/api/search" + '/' + 3,
+                contentType: "application/json",
+                type: "GET",
+                success: function (data) {
+                    self.allRoutes(data.ListSort);
+                },
+                error: function (data) {
+                }
+            });
+        });
+        $("#ByParticipants").button().click(function () {
+            $.ajax({
+                url: "http://localhost:51952/api/search" + '/' + 2,
+                contentType: "application/json",
+                type: "GET",
+                success: function (data) {
+                    self.allRoutes(data.ListSort);                  
+                },
+                error: function (data) {
+                }
+            });
+        });
+        $("#ByTitle").button().click(function () {
+            $.ajax({
+                url: "http://localhost:51952/api/search"+ '/'+1,
+                contentType: "application/json",
+                type: "GET",
+                success: function (data) {
+                    self.allRoutes(data.ListSort);
+                },
+                error: function (data) {
+                }
+            });
+        });
 
+        $.ajax({
+            url: "http://localhost:51952/api/search/" ,
+            contentType: "application/json",
+            type: "GET",
+            success: function (data) {
+                self.allRoutes(data.allRoutes);
+                console.log("succes");
+            },
+            error: function (data) {
+            }
+        });
+    }
+        ko.applyBindings(new RouteViewModel());
 });
 

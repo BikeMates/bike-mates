@@ -48,10 +48,13 @@ namespace BikeMates.DataAccess.Repository
         {
             this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
         }
+<<<<<<< HEAD
         public IEnumerable<Route> GetAllRoutes()
         {
             
             return context.Routes.ToList();
         }
+=======
+>>>>>>> origin/EF-troubleshooting
     }
 }

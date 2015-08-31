@@ -214,6 +214,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\pages\route\route.html" />
+    <Content Include="App\pages\route\route.js" />
     <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />
     <Content Include="App\pages\account\confirmResetPassword\confrimResetPassword.html" />
     <Content Include="App\pages\account\forgotpassword\forgotPassword.html" />
@@ -258,7 +260,6 @@
     <Content Include="Scripts\crossroads\signals.min.js" />
     <Content Include="Scripts\App_Scripts\GetUserIdWebApi.js" />
     <Content Include="Scripts\require\text.js" />
-    <Content Include="Scripts\App_Scripts\SortRoute.js" />
     <Content Include="Scripts\App_Scripts\EditProfileScript.js" />
     <Content Include="Scripts\App_Scripts\LoginScript.js" />
     <Content Include="Scripts\App_Scripts\ProfileScript.js" />
