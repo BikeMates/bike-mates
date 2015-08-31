@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BikeMates.Application.Services;
-using BikeMates.Contracts.Models;
 using BikeMates.DataAccess;
 using BikeMates.DataAccess.Repository;
 using Newtonsoft.Json;
@@ -24,10 +23,10 @@ namespace BikeMates.Web.Controllers
 
         public ActionResult Add()
         {
-            var route = new BikeMates.Contracts.Models.Route();
+            var route = new BikeMates.Service.Models.RouteViewModel();
             return View(route);
         }
-        public void Save(BikeMates.Contracts.Models.Route route, FormCollection form) //TODO: Move this logic to the WebApi controller
+        public void Save(BikeMates.Service.Models.RouteViewModel route, FormCollection form) //TODO: Move this logic to the WebApi controller
         {
             route.MapData = JsonConvert.DeserializeObject<BikeMates.Domain.Entities.MapData>(form["MapData"]);
             route.Distance = Double.Parse(form["Distance"], System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);

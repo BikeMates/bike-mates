@@ -57,7 +57,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [System.Web.Http.HttpPut]
-        public void Put(BikeMates.Contracts.Models.Route route, FormCollection form)
+        public void Put(BikeMates.Service.Models.RouteViewModel route, FormCollection form)
         {
             route.MapData = JsonConvert.DeserializeObject<BikeMates.Domain.Entities.MapData>(form["MapData"]);
             route.Distance = Double.Parse(form["Distance"], System.Globalization.NumberStyles.AllowDecimalPoint,

@@ -1,5 +1,4 @@
-﻿@model BikeMates.Contracts.Models.Route
-
+﻿@model BikeMates.Service.Models.RouteViewModel
 @{
     Layout = "~/Views/Route/_Layout.cshtml";
 }
@@ -10,8 +9,8 @@
 }
 
 @section Styles{
-@Styles.Render("~/Content/Route.css")
-@Styles.Render("~/Content/jquery-ui.css")
+    @Styles.Render("~/Content/Route.css")
+    @Styles.Render("~/Content/jquery-ui.css")
 }
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
@@ -24,53 +23,53 @@
     <div id="map"></div>
     <div class="container">
 
-        @using (Html.BeginForm("Save", "Route", FormMethod.Post, new {@onsubmit = "return saveRoute()", @class = "form-horizontal", @id = "routeForm", role = "form", @enctype = "multipart/form-data"}))
+        @using (Html.BeginForm("Save", "Route", FormMethod.Post, new { @onsubmit = "return saveRoute()", @class = "form-horizontal", @id = "routeForm", role = "form", @enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-            <hr/>
-            @Html.ValidationSummary("", new {@class = "text-danger"})
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
             <div class="center">
                 <div class="form-inline">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Start, new {@class = "col-md-4 control-label"})
+                        @Html.LabelFor(m => m.Start, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
                             @{
-                                Model.Start = DateTime.Today;
+            Model.Start = DateTime.Today;
                             }
-                            @Html.TextBoxFor(m => m.Start, "{0:dd/MM/yyyy}", htmlAttributes: new {@class = "form-control", @id = "datepicker"})
+                            @Html.TextBoxFor(m => m.Start, "{0:dd/MM/yyyy}", htmlAttributes: new { @class = "form-control", @id = "datepicker" })
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Distance, "Total Distance:", new {@class = "col-md-5 control-label"})
+                        @Html.LabelFor(m => m.Distance, "Total Distance:", new { @class = "col-md-5 control-label" })
                         <div class="col-md-5">
-                            @Html.TextBoxFor(m => m.Distance, new {@class = "form-control", @id = "totalDistance"}) <span >km</span>
+                            @Html.TextBoxFor(m => m.Distance, new { @class = "form-control", @id = "totalDistance" }) <span>km</span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Title, new {@class = "col-md-2 control-label"})
+                    @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Title, new {@class = "form-control"})
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.MeetingPlace, new {@class = "col-md-2 control-label"})
+                    @Html.LabelFor(m => m.MeetingPlace, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(m => m.MeetingPlace, new {@class = "form-control"})
+                        @Html.TextAreaFor(m => m.MeetingPlace, new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Description, new {@class = "col-md-2 control-label"})
+                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextAreaFor(m => m.Description, new {@class = "form-control"})
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
                     </div>
                 </div>
 
                 @Html.HiddenFor(model => model.MapData)
 
                 <div class="form-inline pull-right">
-                    <input type="button" class="btn btn-default" id="ClearMapButton" value="Clear"/>
-                    <input type="submit" class="btn btn-default" id="SaveRouteButton" value="Save"/>
+                    <input type="button" class="btn btn-default" id="ClearMapButton" value="Clear" />
+                    <input type="submit" class="btn btn-default" id="SaveRouteButton" value="Save" />
                 </div>
             </div>
         }
