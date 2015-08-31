@@ -47,7 +47,7 @@ namespace BikeMates.Service.Controllers
            {
                var routesSort = from nameRoute
                                 in allRoutes
-                                orderby nameRoute.Participants.Count
+                                orderby nameRoute.Subscribers.Count
                                 select nameRoute;
                ListSort = routesSort;
            }

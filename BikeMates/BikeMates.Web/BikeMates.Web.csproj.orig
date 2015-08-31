@@ -209,24 +209,42 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CaptchaModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />
+    <Content Include="App\pages\account\confirmResetPassword\confrimResetPassword.html" />
+    <Content Include="App\pages\account\forgotpassword\forgotPassword.html" />
+    <Content Include="App\pages\account\forgotpassword\forgotPassword.js" />
+    <Content Include="App\pages\account\resetpassword\resetPassword.html" />
+    <Content Include="App\pages\account\resetpassword\resetPassword.js" />
+    <Content Include="Scripts\App_Scripts\ForgotPasswordScript.js" />
+    <Content Include="Scripts\App_Scripts\ResetPasswordScript.js" />
+=======
+    <Content Include="App\pages\route\route.html" />
+    <Content Include="App\pages\route\route.js" />
+>>>>>>> origin/EF-troubleshooting
+    <Content Include="Scripts\require\CSSLoader.js" />
+    <Content Include="App\boot\require.config.js" />
+    <Content Include="App\boot\router.js" />
+    <Content Include="App\boot\startup.js" />
+    <Content Include="App\pages\home\home.html" />
+    <Content Include="App\pages\home\home.js" />
+    <Content Include="App\pages\account\login\login.html" />
+    <Content Include="App\pages\account\login\login.js" />
+    <Content Include="App\pages\account\register\register.html" />
+    <Content Include="App\pages\account\register\register.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EditProfilePage.css" />
     <Content Include="Content\Images\add_user.png" />
     <Content Include="Content\Images\avatar-big.png" />
     <Content Include="Content\Images\google-plus.png" />
-<<<<<<< HEAD
     <Content Include="Content\Images\logo.png" />
-=======
-    <Content Include="Content\Images\velosiped_gucci_bianchi_16_01_12_001.jpg" />
     <Content Include="Content\jquery-ui.css" />
->>>>>>> Datepicker fix on add route page
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\ProfilePage.css" />
     <Content Include="Content\Route.css" />
@@ -235,13 +253,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="index.html" />
+    <Content Include="Scripts\App_Scripts\RouteView.js" />
+    <Content Include="Scripts\crossroads\crossroads.js" />
+    <Content Include="Scripts\crossroads\crossroads.min.js" />
+    <Content Include="Scripts\crossroads\hasher.js" />
+    <Content Include="Scripts\crossroads\hasher.min.js" />
+    <Content Include="Scripts\crossroads\signals.js" />
+    <Content Include="Scripts\crossroads\signals.min.js" />
     <Content Include="Scripts\App_Scripts\GetUserIdWebApi.js" />
-    <Content Include="Scripts\App_Scripts\SortRoute.js" />
+    <Content Include="Scripts\require\text.js" />
     <Content Include="Scripts\App_Scripts\EditProfileScript.js" />
     <Content Include="Scripts\App_Scripts\LoginScript.js" />
     <Content Include="Scripts\App_Scripts\ProfileScript.js" />
     <Content Include="Scripts\App_Scripts\RegistrationScript.js" />
-    <Content Include="Scripts\App_Scripts\Search.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -257,7 +282,11 @@
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\knockout-delegatedEvents.js" />
     <Content Include="Scripts\knockout-delegatedEvents.min.js" />
+    <Content Include="Scripts\knockout-projections.js" />
+    <Content Include="Scripts\knockout-projections.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\require\r.js" />
+    <Content Include="Scripts\require\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\App_Scripts\Route.js" />
@@ -302,8 +331,10 @@
     <Content Include="Views\Route\Add.cshtml" />
     <Content Include="Views\Route\_Layout.cshtml" />
     <Content Include="Views\Home\_Layout.cshtml" />
+    <Content Include="Views\Home\RouteView.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\components\" />
     <Folder Include="App_Data\" />
     <Folder Include="Views\ProfilePicture\" />
   </ItemGroup>
