@@ -42,11 +42,12 @@ namespace BikeMates.Service.Controllers
         public ProfileViewModel Get()
         {   //get logged user id
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-           // var userId = "6d707167-450b-4cd6-9b9a-253ef088b946";
+            //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+           var userId = "6d707167-450b-4cd6-9b9a-253ef088b946";
 
             AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
             User user = userService.GetUser(userId);
+            var obj = AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
             return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
         }
 
