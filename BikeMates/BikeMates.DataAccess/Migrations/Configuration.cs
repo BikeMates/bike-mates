@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using BikeMates.Contracts.Repositories;
+using BikeMates.DataAccess.Managers;
 using BikeMates.DataAccess.Repository;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
@@ -23,14 +24,30 @@ namespace BikeMates.DataAccess.Migrations
 
         protected override void Seed(BikeMates.DataAccess.BikeMatesDbContext context)
         {
-            //if (System.Diagnostics.Debugger.IsAttached == false)
-            //    System.Diagnostics.Debugger.Launch();
-            //SeedBikeMates(context);
+            if (System.Diagnostics.Debugger.IsAttached == false)
+                System.Diagnostics.Debugger.Launch();
+            SeedBikeMates(context);
         }
         private void SeedBikeMates(BikeMates.DataAccess.BikeMatesDbContext context)
         {
-            BikeMates.Domain.Entities.User user = new BikeMates.Domain.Entities.User();
-            BikeMates.Domain.Entities.Route route = new BikeMates.Domain.Entities.Route();
+            User user = new User();
+            Route route = new Route();
+            var userManager = new UserManager(context);
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            var role = new IdentityRole();
+            if (!roleManager.RoleExists("Admonistrator"))
+            {
+                role = new IdentityRole();
+                role.Name = "Admonistrator";
+                roleManager.Create(role);
+            }
+            if (!roleManager.RoleExists("User"))
+            {
+                role = new IdentityRole();
+                role.Name = "User";
+                roleManager.Create(role);
+            }
 
             for (int i = 0; i < 100; i++)
             {
@@ -52,6 +69,10 @@ namespace BikeMates.DataAccess.Migrations
                     LockoutEnabled = false,
                     AccessFailedCount = 0
                 });
+                context.Users.Add(user);
+                context.SaveChanges();
+                userManager.AddToRole(user.Id, "User");
+
                 for (int j = 0; j < 10; j++)
                 {
                     Coordinate start = context.Coordinates.Add(new Coordinate
@@ -67,13 +88,13 @@ namespace BikeMates.DataAccess.Migrations
                     MapData mapdata = context.MapDatas.Add(new MapData { Start = start, End = end });
 
                     Collection<User> subscribers = new Collection<User>();
-                    var randomizer = new Random();
 
                     if (context.Users.Count() > 10)
                     {
-                        for (int k = 0; k < 5; k++)
+                        var randomUsers = context.Users.OrderBy(r => Guid.NewGuid()).Take(5);
+                        foreach (var item in randomUsers)
                         {
-                            subscribers.Add(context.Users.ElementAt(randomizer.Next(context.Users.Count())));
+                            subscribers.Add(item);
                         }
                     }
                     route = context.Routes.Add(new Route
@@ -90,10 +111,10 @@ namespace BikeMates.DataAccess.Migrations
                             "Near the Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
                         MapData = mapdata,
                         Author = user,
-                        //Subscribers = subscribers
+                        Subscribers = subscribers
                     });
-                    user.Routes.Add(route);
-                    context.Users.AddOrUpdate(context.Users.Find(user));
+                    context.Routes.Add(route);
+                    context.SaveChanges();
                 }
             }
         }

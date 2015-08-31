@@ -3,7 +3,7 @@ namespace BikeMates.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -86,6 +86,7 @@ namespace BikeMates.DataAccess.Migrations
                         SecondName = c.String(),
                         Picture = c.String(),
                         About = c.String(),
+                        Role = c.String(),
                         Email = c.String(),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
