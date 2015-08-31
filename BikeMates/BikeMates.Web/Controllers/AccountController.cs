@@ -145,9 +145,6 @@ namespace BikeMates.Web.Controllers
             return View(model);
         }
 
-
-
-        //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail()
@@ -167,66 +164,8 @@ namespace BikeMates.Web.Controllers
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model) //TODO: Move to the Service project
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model) 
         {
-            //TODO: too many code for one method - split into several methods (may put as helpers in helpers folder)
-            var response = Request["g-recaptcha-response"];
-            const string secret = "6LdnvQsTAAAAAGM8ZQ8kr46eAalzSBzH_BpnYoN3";
-
-            var webClient = new WebClient();
-            var reply =
-                webClient.DownloadString(
-                    string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response));
-            var captchaResponse = JsonConvert.DeserializeObject<CaptchaModel>(reply);
-            
-            if (ModelState.IsValid&&captchaResponse.Success)
-            {
-                string userId;
-
-                var ServiceUrl = "http://localhost:51952/api/account/GetUserByEmail";
-                using (var client = new HttpClient())
-                {
-                    var requestParams = new List<KeyValuePair<string, string>>
-                    {
-                        new KeyValuePair<string, string>("email", model.Email),
-                    };
-
-                    var requestParamsFormUrlEncoded = new FormUrlEncodedContent(requestParams);
-                    var ServiceResponse = await client.PostAsync(ServiceUrl, requestParamsFormUrlEncoded);
-                    var responseString = await ServiceResponse.Content.ReadAsStringAsync();
-
-                    var responseCode = ServiceResponse.StatusCode;
-                    var responseMsg = new HttpResponseMessage(responseCode)
-                    {
-                        Content = new StringContent(responseString, Encoding.UTF8, "application/json")
-                    };
-
-                    var user = JsonConvert.DeserializeObject<User>(responseString);
-                    userId = user.Id;
-                }
-
-                string code = await UserManager.GeneratePasswordResetTokenAsync(userId);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = userId, code = code }, protocol: Request.Url.Scheme);
-
-                var html = "Please reset your password by clicking <a href=\"" + callbackUrl + "\">Reset Password</a><br/>";
-                html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + callbackUrl);
-
-                MailMessage msg = new MailMessage();
-                msg.From = new MailAddress("BikeMatesUkraine@gmail.com");
-                msg.To.Add(new MailAddress(model.Email));
-                msg.Subject = "Reset Password";
-                msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
-                msg.IsBodyHtml = true;
-
-                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
-                System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("BikeMatesUkraine@gmail.com", "Qwerty1#");
-                smtpClient.Credentials = credentials;
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(msg);
-                }
-            
-        
-            // If we got this far, something failed, redisplay form
             return RedirectToAction( "ForgotPasswordConfirmation","Account");
         }
 
@@ -265,22 +204,6 @@ namespace BikeMates.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            var result = userService.resetPassword(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
             return View();
         }
 

@@ -1,4 +1,6 @@
 ﻿var require = {
+    urlArgs: "ts=" + new Date().getTime(), // disable caching - remove in production
+    waitSeconds: 15,
     baseUrl: "/",
     paths: {
         "bootstrap": "Scripts/bootstrap",
@@ -12,8 +14,6 @@
         "cssLoader": "Scripts/require/CSSLoader"
     },
     shim: {
-        "bootstrap": {
-            deps: ["jquery"]
-        }
+        "bootstrap": { deps: ["jquery"] }
     }
 }
