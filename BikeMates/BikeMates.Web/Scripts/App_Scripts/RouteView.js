@@ -17,8 +17,9 @@
         self.Distance2 = ko.observable("");
         self.allRoutes = ko.observableArray();
 
+        self.ByTitle=ko.observable("");
         $.ajax({
-            url: "http://localhost:51952/api/routes",
+            url: "http://localhost:51952/api/routes"+'/'+2,
             contentType: "application/json",
             type: "GET",
             success: function (data) {
@@ -48,24 +49,48 @@
             });
         });
         $("#ByDate").button().click(function () {
-
-            console.log("ByDate");
+            $.ajax({
+                url: "http://localhost:51952/api/search" + '/' + 3,
+                contentType: "application/json",
+                type: "GET",
+                success: function (data) {
+                    self.allRoutes(data.ListSort);
+                },
+                error: function (data) {
+                }
+            });
         });
         $("#ByParticipants").button().click(function () {
-            console.log("ByParticipants");
+            $.ajax({
+                url: "http://localhost:51952/api/search" + '/' + 2,
+                contentType: "application/json",
+                type: "GET",
+                success: function (data) {
+                    self.allRoutes(data.ListSort);                  
+                },
+                error: function (data) {
+                }
+            });
         });
         $("#ByTitle").button().click(function () {
-            console.log("ByTitle");
+            $.ajax({
+                url: "http://localhost:51952/api/search"+ '/'+1,
+                contentType: "application/json",
+                type: "GET",
+                success: function (data) {
+                    self.allRoutes(data.ListSort);
+                },
+                error: function (data) {
+                }
+            });
         });
 
-
         $.ajax({
-            url: "http://localhost:51952/api/search",
+            url: "http://localhost:51952/api/search/" ,
             contentType: "application/json",
             type: "GET",
             success: function (data) {
                 self.allRoutes(data.allRoutes);
-
                 console.log("succes");
             },
             error: function (data) {
@@ -73,6 +98,5 @@
         });
     }
         ko.applyBindings(new RouteViewModel());
-
 });
 

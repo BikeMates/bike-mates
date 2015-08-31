@@ -48,7 +48,7 @@ namespace BikeMates.DataAccess.Repository
         {
             this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
         }
-        public List<Route> GetAllRoutes()
+        public IEnumerable<Route> GetAllRoutes()
         {
             
             return context.Routes.ToList();
