@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,7 +21,7 @@ namespace BikeMates.Web.Controllers
         {
             routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
         }
-        
+
         public ActionResult Add()
         {
             var route = new BikeMates.Contracts.Models.Route();
@@ -30,6 +31,7 @@ namespace BikeMates.Web.Controllers
         {
             route.MapData = JsonConvert.DeserializeObject<BikeMates.Domain.Entities.MapData>(form["MapData"]);
             route.Distance = Double.Parse(form["Distance"], System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
+            route.Start = DateTime.Parse(form["Start"], CultureInfo.InvariantCulture);
             routeService.Add(route.MapToDomain());
         }
     }
