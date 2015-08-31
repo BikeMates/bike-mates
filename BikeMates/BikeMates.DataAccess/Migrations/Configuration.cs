@@ -36,10 +36,10 @@ namespace BikeMates.DataAccess.Migrations
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             var role = new IdentityRole();
-            if (!roleManager.RoleExists("Admonistrator"))
+            if (!roleManager.RoleExists("Admin"))
             {
                 role = new IdentityRole();
-                role.Name = "Admonistrator";
+                role.Name = "Admin";
                 roleManager.Create(role);
             }
             if (!roleManager.RoleExists("User"))
@@ -48,6 +48,13 @@ namespace BikeMates.DataAccess.Migrations
                 role.Name = "User";
                 roleManager.Create(role);
             }
+
+            var admin = new User { Email = "admin@admin.com", UserName = "admin@admin.com", Role = "Admin" };
+            string password = "Qwerty1#";
+            userManager.Create(admin, password);
+
+            userManager.AddToRole(admin.Id, "Admin");
+
 
             for (int i = 0; i < 100; i++)
             {
@@ -71,6 +78,7 @@ namespace BikeMates.DataAccess.Migrations
                 });
                 context.Users.Add(user);
                 context.SaveChanges();
+                user.Role = "User";
                 userManager.AddToRole(user.Id, "User");
 
                 for (int j = 0; j < 10; j++)

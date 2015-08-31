@@ -46,7 +46,7 @@ namespace BikeMates.Service.Controllers
             Mapper.CreateMap<RegisterViewModel, User>();
             var user = Mapper.Map<User>(userModel);
             user.UserName = userModel.Email;
-            user.Role = "user";
+            user.Role = "User";
             IdentityResult result = userService.Register(user, userModel.Password);
 
             IHttpActionResult errorResult = GetErrorResult(result);
