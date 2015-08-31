@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201508292018007_Init.Designer.cs">
       <DependentUpon>201508292018007_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508311243138_Migration31aug.cs" />
+    <Compile Include="Migrations\201508311243138_Migration31aug.Designer.cs">
+      <DependentUpon>201508311243138_Migration31aug.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\RouteRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
@@ -107,6 +111,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201508292018007_Init.resx">
       <DependentUpon>201508292018007_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508311243138_Migration31aug.resx">
+      <DependentUpon>201508311243138_Migration31aug.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

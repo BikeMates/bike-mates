@@ -214,6 +214,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\pages\account\editprofile\editprofile.html" />
+    <Content Include="App\pages\account\editprofile\editprofile.js" />
+    <Content Include="App\pages\account\profile\profile.html" />
+    <Content Include="App\pages\account\profile\profile.js" />
     <Content Include="App\pages\route\route.html" />
     <Content Include="App\pages\route\route.js" />
     <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />

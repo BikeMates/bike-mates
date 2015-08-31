@@ -42,17 +42,12 @@ namespace BikeMates.Service.Controllers
         public ProfileViewModel Get()
         {   //get logged user id
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-          
-            User user = userService.GetUser(userId);
-            var profile = new ProfileViewModel();
-            profile.About = user.About;
-            profile.FirstName = user.FirstName;
-            profile.SecondName = user.SecondName;
-            profile.Picture = user.Picture;
-            profile.Id = user.Id;
+            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+           // var userId = "6d707167-450b-4cd6-9b9a-253ef088b946";
 
-            return profile;
+            AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
+            User user = userService.GetUser(userId);
+            return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
         }
 
         // GET api/user/1
@@ -60,14 +55,8 @@ namespace BikeMates.Service.Controllers
         public ProfileViewModel Get(string id)
         {
             User user = userService.GetUser(id);
-            var profile = new ProfileViewModel();
-            profile.About = user.About;
-            profile.FirstName = user.FirstName;
-            profile.SecondName = user.SecondName;
-            profile.Picture = user.Picture;
-            profile.Id = user.Id;
-
-            return profile;
+            AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
+            return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
         }
 
         // POST api/user

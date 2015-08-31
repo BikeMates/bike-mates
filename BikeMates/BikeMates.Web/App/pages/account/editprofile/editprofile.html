@@ -1,0 +1,77 @@
+﻿<div id="editprofile_section">
+
+    <h2></h2>
+
+    <div class="row">
+        <div class="col-md-3 text-center">
+
+            <img id="avatar" data-bind="attr:{alt: fullName}" height="150" width="150" />
+
+            <h2></h2>
+            <form enctype="multipart/form-data" action="http://localhost:51952/api/profilepicture" method="post" id="image_form">
+                <input name="somefile" type="file" accept="image/*" multiple />
+                <input type="submit" class="btn btn-default " value="Load new picture" />
+            </form>
+
+        </div>
+        <div class="col-md-4 ">
+            <h1>
+                <strong data-bind="text: fullName">FullName</strong>
+            </h1>
+
+            <div class="form-group">
+                <label for="usrname">First name:</label>
+                <input type="text" class="form-control" id="usrname" value="Nazar" data-bind="textInput: FirstName" placeholder="Required" required>
+            </div>
+
+            <div class="form-group">
+                <label for="usrscname">Last name:</label>
+                <input type="text" class="form-control" id="usrscname" value="Popkov" data-bind="textInput: SecondName" placeholder="Required" required>
+            </div>
+
+            <hr />
+
+            <div class="alert alert-dismissible alert-danger" hidden="hidden" id="error_message">
+                <strong id="error_details"></strong>
+            </div>
+
+            <p> Change password </p>
+            <div class="form-group">
+                <label for="opwd">Old password:</label>
+                <input type="password" class="form-control" id="opwd" data-bind="value: OldPass">
+            </div>
+
+
+            <div class="form-group">
+                <label for="pwd">New password:</label>
+                <input type="password" class="form-control" id="npwd1" data-bind="value: NewPass">
+            </div>
+
+
+            <div class="form-group">
+                <label for="pwd">Repeat new password:</label>
+                <input type="password" class="form-control" id="npwd2" data-bind="value: NewPass2">
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <label for="comment">About myself:</label>
+                <textarea class="form-control" rows="5" id="comment" data-bind="textInput: About">
+                    Basically cycling is a part of my soul .Like to to it with my friends and just like everyone else - it really makes me happy
+                </textarea>
+            </div>
+            <button type="button" class="btn btn-default pull-right" id="save_btn">Save</button>
+        </div>
+        <div class="col-md-3 text-center">
+            <h2></h2>
+            <button type="button" class="btn btn-default" id="profile_btn" resource="">Cancel</button>
+            <hr />
+        </div>
+
+    </div>
+</div>
+
+
+
+

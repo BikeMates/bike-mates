@@ -7,6 +7,8 @@
     ko.components.register('resetpassword', { require: 'App/pages/account/resetpassword/resetPassword' });
 
     ko.components.register('route', { require: 'App/pages/route/route' });
+    ko.components.register('profile', { require: 'App/pages/account/profile/profile' });
+    ko.components.register('editprofile', { require: 'App/pages/account/editprofile/editprofile' });
 
     ko.applyBindings({ route: router.currentRoute });
 });
