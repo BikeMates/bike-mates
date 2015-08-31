@@ -18,6 +18,6 @@ namespace BikeMates.Domain.Entities
         public string About {get; set;}
         public string Role { get; set; }
         public virtual ICollection<Route> Routes { get; set; }
-
+        public virtual ICollection<Route> Subscriptions { get; set; }
     }
 }

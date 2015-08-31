@@ -36,7 +36,10 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
             { url: 'register', params: { page: 'register' } },
             { url: 'login', params: { page: 'login' } },
             { url: 'forgotpassword', params: { page: 'forgotpassword' } },
-            { url: 'resetpassword', params: { page: 'resetpassword' } }
+            { url: 'resetpassword', params: { page: 'resetpassword' } },
+            { url: 'login', params: { page: 'login' } },
+            { url: 'route', params: { page: 'route' } }
+
         ]
     });
 });

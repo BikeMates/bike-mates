@@ -80,14 +80,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BikeMatesDbContext.cs" />
-    <Compile Include="Managers\UserManager.cs" />
-    <Compile Include="Migrations\201508261106343_MigrationAfterBLLMerge.cs" />
-    <Compile Include="Migrations\201508261106343_MigrationAfterBLLMerge.Designer.cs">
-      <DependentUpon>201508261106343_MigrationAfterBLLMerge.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201508291617555_AddRoles.cs" />
-    <Compile Include="Migrations\201508291617555_AddRoles.Designer.cs">
-      <DependentUpon>201508291617555_AddRoles.cs</DependentUpon>
+    <Compile Include="Migrations\201508292018007_Init.cs" />
+    <Compile Include="Migrations\201508292018007_Init.Designer.cs">
+      <DependentUpon>201508292018007_Init.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\RouteRepository.cs" />
@@ -109,11 +105,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508261106343_MigrationAfterBLLMerge.resx">
-      <DependentUpon>201508261106343_MigrationAfterBLLMerge.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201508291617555_AddRoles.resx">
-      <DependentUpon>201508291617555_AddRoles.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508292018007_Init.resx">
+      <DependentUpon>201508292018007_Init.cs</DependentUpon>
+
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

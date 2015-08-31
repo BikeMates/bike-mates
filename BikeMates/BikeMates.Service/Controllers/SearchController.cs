@@ -22,7 +22,7 @@ namespace BikeMates.Service.Controllers
         private IEnumerable<Route> ListSort;
         public SearchController()
         {
-            allRoutes = routelist.GetAllRoutes();
+            allRoutes = routelist.GetAll().ToList();
           //  routesSearchParameters.entity = routelist.GetAllRoutes();
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
         }

@@ -11,9 +11,15 @@
         "signals": "Scripts/crossroads/signals",
         "hasher": "Scripts/crossroads/hasher",
         "text": "Scripts/require/text",
-        "cssLoader": "Scripts/require/CSSLoader"
+        "cssLoader": "Scripts/require/CSSLoader",
+        "jqueryValidate":"/Scripts/jquery.validate.js",
+        "unobtrusive":"/Scripts/jquery.validate.unobtrusive.js",
+        "jqure-ui":"/Scripts/jquery-ui.js",        "modernizr":"/Scripts/modernizr-2.6.2.js",
+        "respond": "/Scripts/respond.js"
     },
     shim: {
-        "bootstrap": { deps: ["jquery"] }
+        "bootstrap": {
+            deps: ["jquery"]
+        }
     }
 }
