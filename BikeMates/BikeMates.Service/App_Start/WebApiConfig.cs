@@ -23,6 +23,12 @@ namespace BikeMates.Service
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                name: "ApiWithActionName",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

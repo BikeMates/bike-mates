@@ -19,9 +19,9 @@ namespace BikeMates.Application.Services
         {
             this.routeRepository = routeRepository;
         }
-        public void Add(Route entity)
+        public Route Add(Route entity)
         {
-            this.routeRepository.Add(entity);
+            return this.routeRepository.Add(entity);
         }
         public Route GetRoute(int id)
         {

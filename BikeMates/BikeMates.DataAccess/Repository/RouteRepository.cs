@@ -20,11 +20,11 @@ namespace BikeMates.DataAccess.Repository
         {
             this.context = context;
         }
-        public void Add(Route entity)
+        public Route Add(Route entity)
         {
-
-            this.context.Set<Route>().Add(entity); //TODO: Create property Routes for context.Set<Route>()
+            var route = this.context.Set<Route>().Add(entity); //TODO: Create property Routes for context.Set<Route>()
             this.context.SaveChanges();
+            return route;
         }
 
         public void Delete(int id)

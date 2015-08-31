@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace BikeMates.Service.Models
 {
@@ -18,7 +19,7 @@ namespace BikeMates.Service.Models
         [DataType(DataType.Text)]
         public string Title { get; set; }
 
-        public MapData MapData { get; set; }
+        public string MapData { get; set; }
 
         [Required]
         [Display(Name = "Description")]
@@ -36,44 +37,65 @@ namespace BikeMates.Service.Models
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Start { get; set; }
 
-        public double Distance { get; set; }
+        public string Distance { get; set; }
 
         public virtual List<User> Subscribers { get; set; }
         public virtual User Author { get; set; }
 
         public bool IsBanned { get; set; }
 
-        public BikeMates.Domain.Entities.Route MapToDomain()
+        public Route MapToDomain()
         {
-            BikeMates.Domain.Entities.Route _route = new BikeMates.Domain.Entities.Route
+            Route _route = new Route
             {
                 Id = this.Id,
                 Title = this.Title,
-                MapData = this.MapData,
+                MapData = JsonConvert.DeserializeObject<MapData>(this.MapData),
                 Description = this.Description,
                 MeetingPlace = this.MeetingPlace,
                 Start = this.Start,
-                Distance = this.Distance,
+                Distance = Double.Parse(this.Distance, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo),
+                Author = this.Author,
                 Subscribers = this.Subscribers,
                 IsBanned = this.IsBanned
             };
             return _route;
         }
-        public BikeMates.Domain.Entities.Route MapToDomain(BikeMates.Service.Models.RouteViewModel route)
+        public static Route MapToDomain(RouteViewModel route)
         {
-            BikeMates.Domain.Entities.Route _route = new BikeMates.Domain.Entities.Route
+            Route _route = new Route
             {
                 Id = route.Id,
                 Title = route.Title,
-                MapData = route.MapData,
+                MapData = JsonConvert.DeserializeObject<MapData>(route.MapData),
                 Description = route.Description,
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
-                Distance = route.Distance,
+                Distance = Double.Parse(route.Distance, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo),
+                Author = route.Author,
                 Subscribers = route.Subscribers,
                 IsBanned = route.IsBanned
             };
             return _route;
         }
+
+        public static RouteViewModel MapToViewModel(Route route)
+        {
+            RouteViewModel _route = new RouteViewModel
+            {
+                Id = route.Id,
+                Title = route.Title,
+                MapData = JsonConvert.SerializeObject(route.MapData),
+                Description = route.Description,
+                MeetingPlace = route.MeetingPlace,
+                Start = route.Start,
+                Distance = route.Distance.ToString(), 
+                //Author = route.Author,
+                //Subscribers = route.Subscribers.ToList(),
+                IsBanned = route.IsBanned
+            };
+            return _route;
+        }
+
     }
 }
