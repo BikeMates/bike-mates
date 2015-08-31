@@ -37,7 +37,6 @@ namespace BikeMates.DataAccess
                     m.MapRightKey("Route_Id");
                 }
                 );
-
         }
 
         

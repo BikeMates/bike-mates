@@ -81,9 +81,9 @@
   <ItemGroup>
     <Compile Include="BikeMatesDbContext.cs" />
     <Compile Include="Managers\UserManager.cs" />
-    <Compile Include="Migrations\201508292018007_Init.cs" />
-    <Compile Include="Migrations\201508292018007_Init.Designer.cs">
-      <DependentUpon>201508292018007_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201508311409016_initial.cs" />
+    <Compile Include="Migrations\201508311409016_initial.Designer.cs">
+      <DependentUpon>201508311409016_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201508311243138_Migration31aug.cs" />
     <Compile Include="Migrations\201508311243138_Migration31aug.Designer.cs">
@@ -109,8 +109,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508292018007_Init.resx">
-      <DependentUpon>201508292018007_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508311409016_initial.resx">
+      <DependentUpon>201508311409016_initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508311243138_Migration31aug.resx">
       <DependentUpon>201508311243138_Migration31aug.cs</DependentUpon>
