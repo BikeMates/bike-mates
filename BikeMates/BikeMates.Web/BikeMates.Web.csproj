@@ -338,10 +338,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\EditProfile.cshtml" />
-    <Content Include="Views\Route\Add.cshtml" />
     <Content Include="Views\Route\_Layout.cshtml" />
     <Content Include="Views\Home\_Layout.cshtml" />
     <Content Include="Views\Home\RouteView.cshtml" />
+    <Content Include="Views\Route\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\components\" />

@@ -24,9 +24,9 @@ namespace BikeMates.DataAccess.Repository
             this.context = context;
             userManager = new UserManager(context);
         }
-        public void Add(User user)
+        public User Add(User user)
         {
-
+            return new User(); //FOR_GUYS: implement or delete
         }
 
         public void Delete(string id)

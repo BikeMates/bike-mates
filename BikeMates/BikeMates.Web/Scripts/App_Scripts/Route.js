@@ -91,19 +91,31 @@ function saveRoute() {
     $('#MapData').val(stringifiedData);
 
     $.ajax({
-        type: 'POST',
-        url: '/Route/Save',
+        type: 'PUT',
+        url: 'http://localhost:51952/api/route/put',
         data: $('#routeForm').serialize(),
         success: function (response) { }
     });
     return false;
 }
 
+
+function getRoute(id) {
+    $.ajax({
+            type: 'GET',
+            url: 'http://localhost:51952/api/route/getmapdata/' + id,
+            response: JSON,
+            success: function (response) {
+                loadRoute(response);
+            }
+    });
+}
+
 function loadRoute(route) {
     var waypoints = [];
     for (var i = 0; i < route.waypoints.length; i++) {
         waypoints[i] = {
-            'location': new google.maps.LatLng(route.waypoints[i][0], route.waypoints[i][1]),
+            'location': new google.maps.LatLng(route.waypoints[i][0].latitude, route.waypoints[i][1].longitude),
             'stopover': false
         }
     }
@@ -189,6 +201,7 @@ function clearMap() {
 }
 
 $('#ClearMapButton').click(function (e) { clearMap(); });
+$('#LoadMapButton').click(function (e) { getRoute(999); }); //999 just for test
 
 
 $("#datepicker").datepicker();
