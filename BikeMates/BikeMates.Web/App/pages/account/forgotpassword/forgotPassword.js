@@ -1,7 +1,8 @@
-﻿define(["knockout", "text!./forgotPassword.html", "require"], function (ko, forgotPasswordTemplate, require) {
+﻿define(["knockout", "text!./forgotPassword.html", "require", "captcha"], function (ko, forgotPasswordTemplate, require, captcha) {
     function ForgotPasswordViewModel(params) {
         var self = this;
         self.username = ko.observable("");
+
         self.forgotPassword = function () {
             $.ajax({
                 url: 'http://localhost:51952/api/account/forgotpassword',

@@ -11,9 +11,11 @@
         "signals": "Scripts/crossroads/signals",
         "hasher": "Scripts/crossroads/hasher",
         "text": "Scripts/require/text",
-        "cssLoader": "Scripts/require/CSSLoader"
+        "cssLoader": "Scripts/require/CSSLoader",
+        "captcha": "http://www.google.com/recaptcha/api"
     },
     shim: {
-        "bootstrap": { deps: ["jquery"] }
+        "bootstrap": { deps: ["jquery"] },
+        "recaptcha": { exports: 'Recaptcha' }
     }
 }

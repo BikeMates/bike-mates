@@ -60,7 +60,7 @@ namespace BikeMates.Application.Services
             resetToken = System.Web.HttpUtility.UrlEncode(resetToken);
 
             string resetUrl = "http://" + host +
-                "/index.html?userId=" + id +
+                "?userId=" + id +
                 "&code=" + resetToken+"#resetpassword";
 
             string message = "Please reset your password by clicking <a href=\"" + resetUrl + "\">Reset Password</a><br/>" + 
