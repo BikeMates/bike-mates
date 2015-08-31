@@ -15,7 +15,7 @@
         self.password = ko.observable("");
         self.confirmPassword = ko.observable("");
 
-        self.add = function () {
+        self.register = function () {
             $.ajax({
                 url: 'http://localhost:51952/api/account/register',
                 type: 'POST',

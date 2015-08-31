@@ -1,5 +1,5 @@
 ﻿var require = {
-    urlArgs: "ts=" + new Date().getTime(), // disable caching - remove in production
+    urlArgs: "ts=" + new Date().getTime(),
     waitSeconds: 15,
     baseUrl: "/",
     paths: {
@@ -12,13 +12,13 @@
         "hasher": "Scripts/crossroads/hasher",
         "text": "Scripts/require/text",
         "cssLoader": "Scripts/require/CSSLoader",
-	"captcha": "http://www.google.com/recaptcha/api"
-        "unobtrusive":"/Scripts/jquery.validate.unobtrusive.js",
-        "jqure-ui":"/Scripts/jquery-ui.js",        "modernizr":"/Scripts/modernizr-2.6.2.js",
-        "respond": "/Scripts/respond.js"
+        "captcha": "http://www.google.com/recaptcha/api",
+        "unobtrusive": "/Scripts/jquery.validate.unobtrusive",
+        "jqure-ui": "/Scripts/jquery-ui",
+        "modernizr": "/Scripts/modernizr-2.6.2",
+        "respond": "/Scripts/respond"
     },
     shim: {
- 	"bootstrap": { deps: ["jquery"] }
-        }
+        "bootstrap": { deps: ["jquery"] }
     }
 }
