@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    function RouteViewModel() { 
+    function RouteViewModel() {
 
         var self = this;
         self.title = ko.observable("");
@@ -15,7 +15,7 @@
         self.Date2 = ko.observable("");
         self.Distance1 = ko.observable("");
         self.Distance2 = ko.observable("");
-
+        self.allRoutes = ko.observableArray();
 
         $.ajax({
             url: "http://localhost:51952/api/routes",
@@ -47,8 +47,32 @@
                 }
             });
         });
+        $("#ByDate").button().click(function () {
+
+            console.log("ByDate");
+        });
+        $("#ByParticipants").button().click(function () {
+            console.log("ByParticipants");
+        });
+        $("#ByTitle").button().click(function () {
+            console.log("ByTitle");
+        });
+
+
+        $.ajax({
+            url: "http://localhost:51952/api/search",
+            contentType: "application/json",
+            type: "GET",
+            success: function (data) {
+                self.allRoutes(data.allRoutes);
+
+                console.log("succes");
+            },
+            error: function (data) {
+            }
+        });
     }
-    ko.applyBindings(new RouteViewModel());
+        ko.applyBindings(new RouteViewModel());
 
 });
 

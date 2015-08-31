@@ -6,8 +6,9 @@
 <link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/knockout-3.3.0.js"></script>
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/App_Scripts/ViewRouteList.js"></script>
+@*<script src="~/Scripts/App_Scripts/ViewRouteList.js"></script>*@
 <script src="~/Scripts/App_Scripts/RouteView.js"></script>
+
 
 <div class="jumbotron filter_menu">
     <div class="navbar-collapse collapse">
@@ -56,14 +57,16 @@
 
 <div class="row result-filter-row">
 
-@*<table>
+<table>
     <tbody data-bind="foreach: allRoutes">
         <tr>
-            
-            <td data-bind="text: distance">DDD</td>
+            <td><p><b data-bind="text: title"></b></p></td>
+            <td><p><b data-bind="text: start"></b></p></td>
+            <td><p><b data-bind="text: distance"></b></p></td>
+            <td><p><b data-bind="text: MeetingPlace"></b></p></td>
         </tr>
     </tbody>
-</table>*@
+</table>
     @foreach (var item in Model)
     {       
         <p class="result-silter-itm">
