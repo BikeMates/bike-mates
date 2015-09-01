@@ -8,7 +8,7 @@ namespace BikeMates.Contracts.Repositories
 {
     public interface IRepository<T, TKey>
     {
-        T Add(T entity); //TODO: Make the method void. Do not return added entity. Use Get method to retrieve it.
+        void Add(T entity);
         void Delete(TKey entity);
         T Get(TKey id);
         IEnumerable<T> GetAll();

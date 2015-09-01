@@ -17,6 +17,5 @@ namespace BikeMates.Contracts.Repositories
         string forgotPassword(string id);
         IdentityResult resetPassword(string id, string code, string password);
         IdentityResult ChangePassword(string oldPass, string newPass, string id);
-        IEnumerable<User> GetAll(); //TODO: Remove this method as it is already declared in base IRepository interface
     }
 }

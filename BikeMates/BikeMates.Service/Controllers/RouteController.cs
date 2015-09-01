@@ -46,9 +46,9 @@ namespace BikeMates.Service.Controllers
 
         [HttpPut]
         [Route("Put")]
-        public Route Put(RouteViewModel route)
+        public void Put(RouteViewModel route)
         {
-            return routeService.Add(route.MapToDomain());
+            routeService.Add(route.MapToDomain());
         }
 
         [HttpDelete]
