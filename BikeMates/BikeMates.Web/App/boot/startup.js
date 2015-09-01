@@ -11,6 +11,6 @@
     ko.components.register('profile', { require: 'App/pages/account/profile/profile' });
     ko.components.register('editprofile', { require: 'App/pages/account/editprofile/editprofile' });
     ko.components.register('admin', { require: 'App/pages/admin/admin' });
-    ko.components.register('banedroutes', { require: 'App/pages/admin/banedRoutes' });
+    ko.components.register('bannedroutes', { require: 'App/pages/admin/bannedRoutes' });
     ko.applyBindings({ route: router.currentRoute });
 });

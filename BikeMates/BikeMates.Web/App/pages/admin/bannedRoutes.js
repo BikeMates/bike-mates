@@ -1,4 +1,4 @@
-﻿define(["knockout", "text!./banedRoutes.html", "require", "cssLoader"], function (ko, banedRoutesTemplate, require, cssLoader) {
+﻿define(["knockout", "text!./bannedRoutes.html", "require", "cssLoader"], function (ko, bannedRoutesTemplate, require, cssLoader) {
 
     var localPath = "/Content/Site.css";
     var pathFromApp = require.toUrl(localPath);
@@ -6,7 +6,7 @@
 
     cssLoader.link(pathFromApp);
 
-    function BanedRoutesViewModel(params) {
+    function BannedRoutesViewModel(params) {
         var self = this;
         self.id = ko.observable("");
         self.name = ko.observable("");
@@ -18,7 +18,7 @@
 
         self.loadRoutes = function () {
             $.ajax({
-                url: "http://localhost:51952/api/admin/getbanedroutes",
+                url: "http://localhost:51952/api/admin/getbannedroutes",
                 type: 'GET',
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 contentType: 'application/x-www-form-urlencoded',
@@ -39,5 +39,5 @@
         self.id = id;
         self.firstName = firsName;
     }
-    return { viewModel: BanedRoutesViewModel, template: banedRoutesTemplate };
+    return { viewModel: BannedRoutesViewModel, template: bannedRoutesTemplate };
 });

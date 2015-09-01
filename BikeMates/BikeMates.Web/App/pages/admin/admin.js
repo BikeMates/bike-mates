@@ -19,7 +19,7 @@
 
         self.loadUsers = function () {
             $.ajax({
-                url: "http://localhost:51952/api/admin/getbanedusers",
+                url: "http://localhost:51952/api/admin/getbannedusers",
                 type: 'GET',
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 contentType: 'application/x-www-form-urlencoded',

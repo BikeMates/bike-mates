@@ -26,8 +26,8 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
-        [Route("GetBanedUsers")]
-        public IHttpActionResult GetBanedUsers()
+        [Route("GetBannedUsers")]
+        public IHttpActionResult GetBannedUsers()
         {
             List<User> users = userService.GetAll().Where(x => x.IsBanned == true).ToList();
             Mapper.CreateMap<User, UserModel>();
@@ -40,8 +40,8 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
-        [Route("GetBanedRoutes")]
-        public IHttpActionResult GetBanedRoutes()
+        [Route("GetBannedRoutes")]
+        public IHttpActionResult GetBannedRoutes()
         {
             List<Route> routes = new List<Route>();// = routeService.GetAll().Where(x => x.IsBaned == true).ToList();
             routes.Add(new Route(){
