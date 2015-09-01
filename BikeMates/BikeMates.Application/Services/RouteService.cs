@@ -93,7 +93,15 @@ namespace BikeMates.Application.Services
             return routesSearchParameters.entity;
         }
 
+        public bool UnsubscribeUser(Route route, User user)
+        {
+            return routeRepository.UnsubscribeUser(route, user);
+        }
 
+        public void SubscribeUser(Route route, User user)
+        {
+            routeRepository.SubscribeUser(route, user);
+        }
 
     }
 }

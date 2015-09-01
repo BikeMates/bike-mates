@@ -66,7 +66,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
-          public HttpResponseMessage GetImage(string id)
+        public HttpResponseMessage GetImage(string id)
         {
             string fileName = id;
             string rootPath = HttpContext.Current.Server.MapPath("~/Resources");
@@ -82,10 +82,10 @@ namespace BikeMates.Service.Controllers
 
             if (fileData == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            
-                Response.Content = new ByteArrayContent(fileData);
-                Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");
-                return Response;
+
+            Response.Content = new ByteArrayContent(fileData);
+            Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");
+            return Response;
 
         }
     }

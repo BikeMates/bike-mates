@@ -33,8 +33,8 @@ namespace BikeMates.Service.Controllers
 
         public ProfileController()
         {
-          //  userService = userServicein; for ninject
-          userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+            //  userService = userServicein; for ninject
+            userService = new UserService(new UserRepository(new BikeMatesDbContext()));
         }
 
         // GET api/user
@@ -42,7 +42,7 @@ namespace BikeMates.Service.Controllers
         public ProfileViewModel Get()
         {   //get logged user id
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-           var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
             AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
             User user = userService.GetUser(userId);
@@ -62,25 +62,25 @@ namespace BikeMates.Service.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> Update(EditProfileViewModel userViewModel)
         {
-          
+
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
             AutoMapper.Mapper.CreateMap<EditProfileViewModel, User>();
-
 
             User user = userService.GetUser(userId); //TODO: Use Automapper for mapping
             user.FirstName = userViewModel.FirstName;
             user.About = userViewModel.About;
             user.SecondName = userViewModel.SecondName;
             user.Picture = userViewModel.Picture;
-           // AutoMapper.Mapper.Map<EditProfileViewModel, User>(userViewModel);
-    
+
+            //user = AutoMapper.Mapper.Map<EditProfileViewModel, User>(userViewModel);
+
             userService.Update(user);
 
             IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, userId);
             IHttpActionResult errorResult = GetErrorResult(result);
-            
+
             if (errorResult != null)
             {
                 HttpResponseMessage ia = await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());

@@ -12,5 +12,7 @@ namespace BikeMates.Contracts.Repositories
     {
         Route Get(int id); //TODO: Move to the base IRepository interface
         IEnumerable<Route> GetAllRoutes();
+        void SubscribeUser(Route route, User user);
+        bool UnsubscribeUser(Route route, User user);
     }
 }

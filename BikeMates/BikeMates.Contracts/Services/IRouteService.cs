@@ -15,7 +15,8 @@ namespace BikeMates.Contracts.Services
         void Delete(int id);
         void Update(Route entity);//TODO: Rename entity to route. 
         List<Route> Find(RoutesSearchParameters routesSearchParameters);
-      
+        void SubscribeUser(Route route, User user);
+        bool UnsubscribeUser(Route route, User user);
 
     }
 }
