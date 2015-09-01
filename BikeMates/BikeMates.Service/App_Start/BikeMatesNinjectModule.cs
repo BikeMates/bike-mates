@@ -20,6 +20,8 @@ namespace BikeMates.Service
             this.Bind<BikeMatesDbContext>().To<BikeMatesDbContext>();
             this.Bind<IUserRepository>().To<UserRepository>();
             this.Bind<IUserService>().To<UserService>();
+            this.Bind<IRouteRepository>().To<RouteRepository>();
+            this.Bind<IRouteService>().To<RouteService>();
         }
     }
 }

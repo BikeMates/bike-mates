@@ -21,9 +21,9 @@ namespace BikeMates.Application.Services
         {
             this.routeRepository = routeRepository;
         }
-        public Route Add(Route entity)
+        public void Add(Route entity)
         {
-            return this.routeRepository.Add(entity);
+            this.routeRepository.Add(entity);
         }
         public Route Get(int id)
         {
@@ -44,6 +44,19 @@ namespace BikeMates.Application.Services
         public IEnumerable<Route> Search(RouteSearchParameters searchParameters)
         {
             return routeRepository.Search(searchParameters);
+        }
+
+        public void SubscribeUser(Route route, User user)		
+        {		
+            route.Subscribers.Add(user);		
+            this.Update(route);		
+        }		
+		 
+        public bool UnsubscribeUser(Route route, User user)
+        {		
+            bool isRemoved = route.Subscribers.Remove(user);		
+            this.Update(route);		
+            return isRemoved;		
         }
     }
 }

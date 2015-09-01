@@ -10,11 +10,13 @@ namespace BikeMates.Contracts.Services
 {
     public interface IRouteService
     {
-        Route Add(Route route);
+        void Add(Route route);
         Route Get(int id);
         void Update(Route entity);
         void Delete(int id);
         IEnumerable<Route> GetAll();
         IEnumerable<Route> Search(RouteSearchParameters searchParameters);
+        //void SubscribeUser(Route route, User user);
+        //bool UnsubscribeUser(Route route, User user);
     }
 }

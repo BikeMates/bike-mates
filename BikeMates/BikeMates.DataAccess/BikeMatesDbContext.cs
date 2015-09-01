@@ -41,6 +41,7 @@ namespace BikeMates.DataAccess
 
 
         //TODO: Remove this method
+        //this will cause error
         public static BikeMatesDbContext Create()
         {
             return new BikeMatesDbContext();
