@@ -28,13 +28,11 @@ namespace BikeMates.Service.Controllers
     [RoutePrefix("api/Profile")]
     public class ProfileController : ApiController
     {
-        private UserService userService;
-        //private IUserService userService; for ninject
+        private readonly IUserService userService;
 
-        public ProfileController()
+        public ProfileController(IUserService userService)
         {
-          //  userService = userServicein; for ninject
-          userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+            this.userService = userService;
         }
 
         // GET api/user

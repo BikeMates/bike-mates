@@ -1,14 +1,12 @@
-﻿using BikeMates.Service.Providers;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.OAuth;
-using Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System;
 using System.Web.Http;
-
-
+using BikeMates.Service.Providers;
+using Microsoft.Owin;
+using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.OAuth;
+using Ninject;
+using Ninject.Web.Common.OwinHost;
+using Owin;
 
 namespace BikeMates.Service
 {
@@ -19,8 +17,10 @@ namespace BikeMates.Service
             ConfigureOAuth(app);
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
+            config.DependencyResolver = new NinjectResolver(CreateKernel());
+            //app.UseNinjectMiddleware(CreateKernel);
         }
 
         public void ConfigureOAuth(IAppBuilder app)
@@ -37,6 +37,13 @@ namespace BikeMates.Service
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             
+        }
+
+        private static StandardKernel CreateKernel()
+        {
+            var kernel = new StandardKernel();
+            kernel.Load<BikeMatesNinjectModule>();
+            return kernel;
         }
     }
 }
