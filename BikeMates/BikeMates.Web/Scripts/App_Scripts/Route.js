@@ -4,12 +4,12 @@ var start, end;
 
 var initialLocation, browserSupportFlag;
 var ALLOW_EDIT;
+var kiev;
+
 
 function initialize(allowEdit) {
     ALLOW_EDIT = allowEdit;
-
-    var kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
-
+    kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
     var mapOptions = {
         zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP,

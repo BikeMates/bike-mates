@@ -28,13 +28,11 @@ namespace BikeMates.Service.Controllers
     [RoutePrefix("api/Profile")]
     public class ProfileController : ApiController
     {
-        private UserService userService;
-        //private IUserService userService; for ninject
+        private readonly IUserService userService;
 
-        public ProfileController()
+        public ProfileController(IUserService userService)
         {
-            //  userService = userServicein; for ninject
-            userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+            this.userService = userService;
         }
 
         // GET api/user
@@ -42,10 +40,12 @@ namespace BikeMates.Service.Controllers
         public ProfileViewModel Get()
         {   //get logged user id
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+            //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+           var userId = "6d707167-450b-4cd6-9b9a-253ef088b946"; //TODO: Remove hardcoded values
 
             AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
             User user = userService.GetUser(userId);
+            var obj = AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
             return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
         }
 
@@ -62,31 +62,27 @@ namespace BikeMates.Service.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> Update(EditProfileViewModel userViewModel)
         {
-
+          
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-
-            AutoMapper.Mapper.CreateMap<EditProfileViewModel, User>();
 
             User user = userService.GetUser(userId); //TODO: Use Automapper for mapping
             user.FirstName = userViewModel.FirstName;
             user.About = userViewModel.About;
             user.SecondName = userViewModel.SecondName;
             user.Picture = userViewModel.Picture;
-
-            //user = AutoMapper.Mapper.Map<EditProfileViewModel, User>(userViewModel);
-
             userService.Update(user);
 
             IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, userId);
             IHttpActionResult errorResult = GetErrorResult(result);
-
+            
             if (errorResult != null)
             {
                 HttpResponseMessage ia = await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
                 return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
             }
 
+            var responsemsg = new HttpResponseMessage(HttpStatusCode.BadRequest); //TODO: Remove
             var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
             return responseMsg;
         }

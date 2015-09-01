@@ -29,7 +29,7 @@ namespace BikeMates.Service.Controllers
         [Route("GetBannedUsers")]
         public IHttpActionResult GetBannedUsers()
         {
-            List<User> users = userService.GetAll().Where(x => x.IsBanned == true).ToList();
+            List<User> users = userService.GetAll().Where(x => x.IsBanned).ToList();
             Mapper.CreateMap<User, UserModel>();
             List<UserModel> model = new List<UserModel>();
             foreach (var user in users)
@@ -39,16 +39,27 @@ namespace BikeMates.Service.Controllers
             return Ok(model);
         }
 
+        [HttpPost]
+        [Route("UnbanUsers")]
+        public IHttpActionResult UnbanUsers(List<string> userId)
+        {
+            User user;
+            userId.RemoveAt(userId.Count - 1);
+
+            foreach (var id in userId)
+            {
+                user = userService.GetUser(id);
+                user.IsBanned = false;
+                userService.Update(user);
+            }
+            return Ok();
+        }
+
         [HttpGet]
         [Route("GetBannedRoutes")]
         public IHttpActionResult GetBannedRoutes()
         {
-            List<Route> routes = new List<Route>();// = routeService.GetAll().Where(x => x.IsBaned == true).ToList();
-            routes.Add(new Route(){
-                Id = 1,
-                Title = "Route #1",
-                Description = "Description #1"
-            });
+            List<Route> routes  = routeService.GetAll().Where(x => x.IsBanned).ToList();
             Mapper.CreateMap<Route, RouteModel>();
             List<RouteModel> model = new List<RouteModel>();
             foreach (var route in routes)
@@ -56,6 +67,22 @@ namespace BikeMates.Service.Controllers
                 model.Add(Mapper.Map<RouteModel>(route));
             }
             return Ok(model);
+        }
+
+
+        [HttpPost]
+        [Route("UnbanRoutes")]
+        public IHttpActionResult UnbanRoutes(List<int> routeId)
+        {
+            Route route;
+
+            foreach (var id in routeId)
+            {
+                route = routeService.Get(id);
+                route.IsBanned = false;
+                routeService.Update(route);
+            }
+            return Ok();
         }
     }
 }

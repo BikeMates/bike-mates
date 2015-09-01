@@ -11,12 +11,10 @@ namespace BikeMates.Contracts.Services
     public interface IRouteService
     {
         Route Add(Route route);
-        Route GetRoute(int id);
+        Route Get(int id);
+        void Update(Route entity);
         void Delete(int id);
-        void Update(Route entity);//TODO: Rename entity to route. 
-        List<Route> Find(RoutesSearchParameters routesSearchParameters);
-        void SubscribeUser(Route route, User user);
-        bool UnsubscribeUser(Route route, User user);
-
+        IEnumerable<Route> GetAll();
+        IEnumerable<Route> Search(RouteSearchParameters searchParameters);
     }
 }
