@@ -219,16 +219,20 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.js" />
+    <Content Include="App\pages\account\confirmResetPassword\confirmResetPassword.js" />
     <Content Include="App\pages\account\editprofile\editprofile.html" />
     <Content Include="App\pages\account\editprofile\editprofile.js" />
     <Content Include="App\pages\account\profile\profile.html" />
     <Content Include="App\pages\account\profile\profile.js" />
     <Content Include="App\pages\admin\admin.html" />
     <Content Include="App\pages\admin\admin.js" />
+    <Content Include="App\pages\admin\banedRoutes.html" />
+    <Content Include="App\pages\admin\banedRoutes.js" />
     <Content Include="App\pages\route\route.html" />
     <Content Include="App\pages\route\route.js" />
     <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />
-    <Content Include="App\pages\account\confirmResetPassword\confrimResetPassword.html" />
+    <Content Include="App\pages\account\confirmResetPassword\confirmResetPassword.html" />
     <Content Include="App\pages\account\forgotpassword\forgotPassword.html" />
     <Content Include="App\pages\account\forgotpassword\forgotPassword.js" />
     <Content Include="App\pages\account\resetpassword\resetPassword.html" />

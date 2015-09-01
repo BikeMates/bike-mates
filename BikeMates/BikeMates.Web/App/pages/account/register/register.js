@@ -34,7 +34,7 @@
                     $(".validation-summary-errors").hide();
 
                     sessionStorage.setItem(tokenKey, data.access_token);
-                    window.location.href = "/index.html";
+                    window.location.href = "#";
                     console.log(sessionStorage.getItem(tokenKey));
 
                 },

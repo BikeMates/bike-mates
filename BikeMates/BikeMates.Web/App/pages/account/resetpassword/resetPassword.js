@@ -19,7 +19,7 @@
                     },
                 success: function (data) {
                     $("#error_message").hide();
-                    window.location.href = "/index.html";
+                    window.location.href = "#";
                 },
                 error: function (data) {
                     var errors = []

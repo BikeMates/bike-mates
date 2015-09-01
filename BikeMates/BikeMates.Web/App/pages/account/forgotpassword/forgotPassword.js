@@ -16,7 +16,7 @@
                     },
                 success: function (data) {
                     $("#error_message").hide();
-                    window.location.href = "/index.html";
+                    window.location.href = "#confirmForgotPassword";
                 },
                 error: function (data) {
                     var response = JSON.parse(data.responseText);

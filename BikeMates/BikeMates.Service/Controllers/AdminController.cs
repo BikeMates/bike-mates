@@ -17,22 +17,40 @@ namespace BikeMates.Service.Controllers
     public class AdminController : ApiController
     {
         private IUserService userService;
-
+        private IRouteService routeService;
         public AdminController()
         {
             userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+            routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IHttpActionResult GetBanedUsers()
         {
             List<User> users = userService.GetAll().Where(x => x.IsBaned == true).ToList();
-            Mapper.CreateMap<User,UserModel>();
+            Mapper.CreateMap<User, UserModel>();
             List<UserModel> model = new List<UserModel>();
             foreach (var user in users)
             {
                 model.Add(Mapper.Map<UserModel>(user));
+            }
+            return Ok(model);
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetBanedRoutes()
+        {
+            List<Route> routes = new List<Route>();// = routeService.GetAll().Where(x => x.IsBaned == true).ToList();
+            routes.Add(new Route(){
+                Id = 1,
+                Title = "Route #1",
+                Description = "Description #1"
+            });
+            Mapper.CreateMap<Route, RouteModel>();
+            List<RouteModel> model = new List<RouteModel>();
+            foreach (var route in routes)
+            {
+                model.Add(Mapper.Map<RouteModel>(route));
             }
             return Ok(model);
         }
