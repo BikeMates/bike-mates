@@ -7,7 +7,7 @@
         self.confirmPassword = ko.observable("");
         self.resetPassword = function () {
             $.ajax({
-                url: 'http://localhost:51952/api/account/resetpassword',
+                url: 'http://localhost:51952/api/account/resetpassword', //TODO: Move the Service url to the separate App settings file
                 type: 'POST',
                 contentType: 'application/x-www-form-urlencoded',
                 data:

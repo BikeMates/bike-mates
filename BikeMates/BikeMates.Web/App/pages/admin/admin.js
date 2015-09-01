@@ -1,6 +1,6 @@
 ﻿define(["knockout", "text!./admin.html", "require", "cssLoader"], function (ko, adminTemplate, require, cssLoader) {
 
-    var localPath = "/Content/Site.css";
+    var localPath = "/Content/Site.css"; //TODO: Add css to Layout. Do not use css loader
     var pathFromApp = require.toUrl(localPath);
     var tokenKey = "tokenInfo";
 

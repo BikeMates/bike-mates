@@ -46,6 +46,7 @@ namespace BikeMates.Service.Models
 
         public Route MapToDomain()
         {
+            //TODO: Use Automapper for mapping
             Route _route = new Route
             {
                 Id = this.Id,

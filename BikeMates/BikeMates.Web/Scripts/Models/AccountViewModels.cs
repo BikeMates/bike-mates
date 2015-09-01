@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BikeMates.Web.Models
 {
-    public class ExternalLoginConfirmationViewModel
+    public class ExternalLoginConfirmationViewModel //TODO: Remove this class
     {
         [Required]
         [Display(Name = "Email")]

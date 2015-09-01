@@ -27,7 +27,7 @@ namespace BikeMates.Service.Controllers
         [HttpGet]
         public IHttpActionResult GetBanedUsers()
         {
-            List<User> users = userService.GetAll().Where(x => x.IsBaned == true).ToList();
+            List<User> users = userService.GetAll().Where(x => x.IsBaned == true).ToList(); //TODO: Remove == true, IsBanned is already bool
             Mapper.CreateMap<User, UserModel>();
             List<UserModel> model = new List<UserModel>();
             foreach (var user in users)
