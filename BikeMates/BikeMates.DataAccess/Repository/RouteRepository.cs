@@ -50,8 +50,8 @@ namespace BikeMates.DataAccess.Repository
         }
         public IEnumerable<Route> GetAllRoutes()
         {
-            
-            return context.Routes.ToList();
+
+            return context.Routes.ToList(); //TODO: Remove ToList()
         }
     }
 }

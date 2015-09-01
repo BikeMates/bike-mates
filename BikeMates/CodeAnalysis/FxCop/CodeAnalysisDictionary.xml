@@ -2,18 +2,6 @@
 <Dictionary>
 	<Words>
     <Recognized>
-      <Word>Pci</Word>
-      <Word>mim</Word>
-      <Word>Dto</Word>
-      <Word>Mo</Word>
-      <Word>MultiplicationFactorElement</Word>
-      <Word>Ninject</Word>
-      <Word>pcb</Word>
-      <Word>ncp</Word>
-      <Word>cosd</Word>
-      <Word>Rbs</Word>
-      <Word>Bsim</Word>
-      <Word>Oam</Word>
     </Recognized>
 		<DiscreteExceptions>
 			<!--<Term></Term>-->
@@ -21,19 +9,6 @@
 	</Words>
 	<Acronyms>
 		<CasingExceptions>
-			<Acronym>ECIM</Acronym>
-      <Acronym>MIM</Acronym>
-      <Acronym>ARNE</Acronym>
-      <Acronym>WITHOUT</Acronym>
-      <Acronym>BSIM</Acronym>
-      <Acronym>DNS</Acronym>
-      <Acronym>DHCP</Acronym>
-      <Acronym>MOM</Acronym>
-      <Acronym>RBS</Acronym>
-      <Acronym>LTE</Acronym>
-      <Acronym>NodeB</Acronym>
-      <Acronym>RNC</Acronym>
-      <Acronym>OAM</Acronym>
 		</CasingExceptions>
 	</Acronyms>
 </Dictionary>
