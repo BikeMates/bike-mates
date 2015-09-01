@@ -39,7 +39,8 @@ namespace BikeMates.DataAccess
                 );
         }
 
-        
+
+        //TODO: Remove this method
         public static BikeMatesDbContext Create()
         {
             return new BikeMatesDbContext();

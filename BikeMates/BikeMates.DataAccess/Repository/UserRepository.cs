@@ -10,6 +10,7 @@ using System.Security.Policy;
 using BikeMates.Contracts.Managers;
 using BikeMates.DataAccess.Managers;
 using Microsoft.AspNet.Identity;
+using System.Collections;
 
 namespace BikeMates.DataAccess.Repository
 {
@@ -21,11 +22,11 @@ namespace BikeMates.DataAccess.Repository
         public UserRepository(BikeMatesDbContext context)
         {
             this.context = context;
-            userManager = new UserManager(context);
+            userManager = new UserManager(context); //TODO: Inject IUserManager via constructor
         }
-        public void Add(User user)
+        public User Add(User user)
         {
-
+            return new User(); //FOR_GUYS: implement or delete
         }
 
         public void Delete(string id)
@@ -37,7 +38,7 @@ namespace BikeMates.DataAccess.Repository
 
         public IEnumerable<User> GetAll()
         {
-            return this.context.Users.ToList();
+            return this.context.Users;
         }
 
         public User Get(string id)
@@ -88,5 +89,6 @@ namespace BikeMates.DataAccess.Repository
         {
             return userManager.ResetPassword(id, code, password);
         }
+
     }
 }

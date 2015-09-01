@@ -57,7 +57,7 @@ namespace BikeMates.Service.Controllers
                 oldfilePath = file.LocalFileName;
                 newfilePath = String.Format("{0}\\{1}", currentFile.Directory.FullName, id);
             }
-            File.Delete(newfilePath);
+            File.Delete(newfilePath); //TODO: Check that file exist before removal
             File.Move(oldfilePath, newfilePath);
 
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);

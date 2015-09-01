@@ -1,0 +1,18 @@
+﻿<h2>Baned users</h2>
+<input type="button" value="Unban"/>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Surname</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: users">
+        <tr>
+            <td ><input type="checkbox" value="text: id"/></td>
+            <td data-bind="text: firstName"></td>
+            <td data-bind="text: secondName"></td>
+        </tr>
+    </tbody>
+</table>

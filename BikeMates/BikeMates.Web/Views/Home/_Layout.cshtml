@@ -12,39 +12,37 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
-                <img class="logo" src="~/Content/Images/logo.png" width="200" align="left" height="170" />
-                @Html.ActionLink("BikeMates", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2"></button>
+                <img src="/Content/Images/logo.png" align="left" width="128" height="60" />
+                <a href="#" class=" navbar-brand">BikeMates</a>
             </div>
-            <div class="navbar-collapse collapse">
-                @Html.Partial("_LoginPartial")
-                <ul class="nav navbar-nav navbar-right">
 
-                    <li>
-                        <div class="input-group search-body">
-                            <input type="search" class="form-control" name="q" size="30" placeholder="Search  site">
-                            <span class="input-group-btn">
-                                <input type="submit" class="btn btn-default" value="Search">
-                            </span>
-                        </div>
-                    </li>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form class="navbar-form navbar-left home-search-form" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default" style="margin-top:1px">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#register" id="registerLink">Sing up</a></li>
+                    <li><a href="#login" id="loginLink">Sing in</a></li>
                 </ul>
             </div>
         </div>
+    </div>
+
+    <div class="container body-content">
+        <div id="page1" class="container" style="padding-top:50px" data-bind="component: { name: route().page, params: route }"></div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <div style="text-align:center">
-            <div class="pagination-container">
-                <ul class="pagination">
-                    <li> @Html.ActionLink("About", "About", "Home") </li>
-                    <li> @Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
     </div>
+</body>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-</body>
+    <script src="App/boot/require.config.js"></script>
+    <script data-main="App/boot/startup" src="Scripts/require/require.js"></script>
+
 </html>

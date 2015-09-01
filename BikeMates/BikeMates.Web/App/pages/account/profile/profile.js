@@ -32,8 +32,8 @@
                     self.FirstName(data.firstName);
                     self.SecondName(data.secondName);
                     self.About(data.about);
-                    var api_link = "http://localhost:51952/api/profilepicture/";
-                    var usr_id = data.id;
+                    var api_link = "http://localhost:51952/api/profilepicture/"; //TODO: rename to imageUrl
+                    var usr_id = data.id; //TODO: rename to userId
                     $("#avatar").attr("src", api_link + usr_id);
 
                 },

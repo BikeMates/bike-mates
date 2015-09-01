@@ -43,7 +43,7 @@ namespace BikeMates.Service.Controllers
         {   //get logged user id
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             //var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
-           var userId = "6d707167-450b-4cd6-9b9a-253ef088b946";
+           var userId = "6d707167-450b-4cd6-9b9a-253ef088b946"; //TODO: Remove hardcoded values
 
             AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
             User user = userService.GetUser(userId);
@@ -68,7 +68,7 @@ namespace BikeMates.Service.Controllers
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
-            User user = userService.GetUser(userId);
+            User user = userService.GetUser(userId); //TODO: Use Automapper for mapping
             user.FirstName = userViewModel.FirstName;
             user.About = userViewModel.About;
             user.SecondName = userViewModel.SecondName;
@@ -84,7 +84,7 @@ namespace BikeMates.Service.Controllers
                 return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
             }
 
-            var responsemsg = new HttpResponseMessage(HttpStatusCode.BadRequest);
+            var responsemsg = new HttpResponseMessage(HttpStatusCode.BadRequest); //TODO: Remove
             var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
             return responseMsg;
         }

@@ -12,6 +12,7 @@
         self.username = ko.observable("");
         self.password = ko.observable("");
         self.login = function () {
+            console.log("login");
             $.ajax({
                 url: 'http://localhost:51952/api/account/login',
                 type: 'POST',
@@ -26,7 +27,7 @@
                     $("#error_message").hide();
 
                     sessionStorage.setItem(tokenKey, data.access_token);
-                    window.location.href = "/index.html";
+                    window.location.href = "#";
                 },
                 error: function (data) {
                     var response = JSON.parse(data.responseText);

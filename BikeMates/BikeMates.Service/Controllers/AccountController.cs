@@ -161,7 +161,7 @@ namespace BikeMates.Service.Controllers
 
 
 
-        private IHttpActionResult GetErrorResult(IdentityResult result)
+        private IHttpActionResult GetErrorResult(IdentityResult result) //TODO: Create BaseApiController and move this method into it
         {
             if (result == null)
             {

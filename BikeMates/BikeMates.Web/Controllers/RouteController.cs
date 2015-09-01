@@ -26,11 +26,8 @@ namespace BikeMates.Web.Controllers
             var route = new BikeMates.Service.Models.RouteViewModel();
             return View(route);
         }
-        public void Save(BikeMates.Service.Models.RouteViewModel route, FormCollection form) //TODO: Move this logic to the WebApi controller
+        public void Save(BikeMates.Service.Models.RouteViewModel route) //TODO: Move this logic to the WebApi controller
         {
-            route.MapData = JsonConvert.DeserializeObject<BikeMates.Domain.Entities.MapData>(form["MapData"]);
-            route.Distance = Double.Parse(form["Distance"], System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo);
-            route.Start = DateTime.Parse(form["Start"], CultureInfo.InvariantCulture);
             routeService.Add(route.MapToDomain());
         }
     }
