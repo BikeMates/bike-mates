@@ -23,13 +23,13 @@ namespace BikeMates.Service.Controllers
 {
     public class SubscribeController : ApiController
     {
-        private UserService userService;
-        private RouteService routeService;
+        private readonly IUserService userService;
+        private readonly IRouteService routeService;
 
-        public SubscribeController()
+        public SubscribeController(IUserService userService , IRouteService routeService)
         {
-            routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
-            userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+            this.userService = userService;
+            this.routeService = routeService;
         }
 
         [HttpPost]
@@ -40,7 +40,7 @@ namespace BikeMates.Service.Controllers
 
 
             var user = userService.GetUser(userId);
-            var route = routeService.GetRoute(routeId);
+            var route = routeService.Get(routeId);
 
             routeService.SubscribeUser(route, user);
             userService.SubscribeRoute(route, user);
@@ -58,7 +58,7 @@ namespace BikeMates.Service.Controllers
 
 
             var user = userService.GetUser(userId);
-            var route = routeService.GetRoute(routeId);
+            var route = routeService.Get(routeId);
 
             routeService.UnsubscribeUser(route, user);
             userService.UnsubscribeRoute(route, user);
