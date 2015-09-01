@@ -3,7 +3,7 @@
             var username = sessionStorage.getItem("username");
             $("#authorized").show();
             $("#anonimus").hide();
-            $('#user-name').text(usernaem);
+            $('#user-name').text(username);
         } else {
             $("#authorized").hide();
             $("#anonimus").show();
