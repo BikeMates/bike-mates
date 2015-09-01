@@ -5,6 +5,7 @@ using BikeMates.DataAccess.Repository;
 using BikeMates.Domain.Entities;
 using BikeMates.Service.Models;
 using System.Web.Http;
+using BikeMates.Contracts.Services;
 using Newtonsoft.Json;
 
 namespace BikeMates.Service.Controllers
@@ -12,11 +13,11 @@ namespace BikeMates.Service.Controllers
     [RoutePrefix("api/Route")]
     public class RouteController : ApiController
     {
-        private RouteService routeService;
+        private readonly IRouteService routeService;
 
-        public RouteController()
+        public RouteController(IRouteService routeService)
         {
-            routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
+            this.routeService = routeService;
         }
 
         [HttpGet]

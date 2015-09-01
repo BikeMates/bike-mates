@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BikeMates.Application.Services;
+using BikeMates.Contracts.Services;
 using BikeMates.DataAccess;
 using BikeMates.DataAccess.Repository;
 using Newtonsoft.Json;
@@ -14,11 +15,11 @@ namespace BikeMates.Web.Controllers
     public class RouteController : Controller //TODO: Remove this controller
     {
 
-        private RouteService routeService;
+        private readonly IRouteService routeService;
 
-        public RouteController()
+        public RouteController(IRouteService routeService)
         {
-            routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
+            this.routeService = routeService;
         }
         public ActionResult Add()
         {
