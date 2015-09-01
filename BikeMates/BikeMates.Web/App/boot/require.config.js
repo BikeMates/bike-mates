@@ -16,7 +16,9 @@
         "unobtrusive": "/Scripts/jquery.validate.unobtrusive",
         "jqure-ui": "/Scripts/jquery-ui",
         "modernizr": "/Scripts/modernizr-2.6.2",
-        "respond": "/Scripts/respond"
+        "respond": "/Scripts/respond",
+        "googlemap": "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize",
+        "RouteMap": "/Scripts/App_Scripts/Route"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] }

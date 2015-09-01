@@ -13,4 +13,19 @@
     ko.components.register('admin', { require: 'App/pages/admin/admin' });
     ko.components.register('bannedroutes', { require: 'App/pages/admin/bannedRoutes' });
     ko.applyBindings({ route: router.currentRoute });
+
+    ko.bindingHandlers.myBinding = {
+        init: function (element, valueAccessor, allBindings) {
+            var value = valueAccessor();
+
+            var valueUnwrapped = ko.unwrap(value);
+
+            var authorized = allBindings.get('authorized') || false;
+
+            if (authorized == true)
+                $(element).show(); 
+            else
+                $(element).hide(); 
+        }
+    };
 });

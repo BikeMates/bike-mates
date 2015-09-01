@@ -1,9 +1,4 @@
-﻿define(["knockout", "text!./login.html", "require", "cssLoader"], function (ko, loginTemplate, require, cssLoader) {
-
-    var localPath = "/Content/Site.css";
-    var pathFromApp = require.toUrl(localPath);
-
-    cssLoader.link(pathFromApp);
+﻿define(["knockout", "text!./login.html", "require"], function (ko, loginTemplate, require) {
 
     var tokenKey = "tokenInfo";
 
@@ -28,14 +23,14 @@
                 success: function (data) {
                     $("#error_message").hide();
 
-                    $("#authorized").show();
-                    $("#anonimus").hide();
-                    $('#user-name').text(userlogin);
-
                     sessionStorage.setItem(tokenKey, data.token);
                     sessionStorage.setItem("authorized", data.isAuthorized);
                     sessionStorage.setItem("username", data.firstName + " " + data.secondName);
                     sessionStorage.setItem("role", data.role);
+
+                    $("#authorized").show();
+                    $("#anonimus").hide();
+                    $('#user-name').text(sessionStorage.getItem('username'));
 
                     window.location.href = "#";
                 },
