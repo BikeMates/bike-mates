@@ -7,13 +7,13 @@ namespace BikeMates.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddIsBanedForUser : IMigrationMetadata
+    public sealed partial class AddIsBannedForUser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIsBanedForUser));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIsBannedForUser));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508311635095_AddIsBanedForUser"; }
+            get { return "201509011031597_AddIsBannedForUser"; }
         }
         
         string IMigrationMetadata.Source

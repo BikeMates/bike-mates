@@ -1,0 +1,10 @@
+﻿<h2>Banned routes</h2>
+<input type="button" value="Unban" data-bind="click: unban" />
+
+<div class="list-group" data-bind="foreach: routes">
+    <div class="list-group-item">
+        <input type="checkbox" data-bind="value: id" name="ids[]"/>
+        <h4 class="list-group-item-heading" data-bind="text: title"></h4>
+        <p class="list-group-item-text" data-bind="text: description"></p>
+    </div>
+</div>

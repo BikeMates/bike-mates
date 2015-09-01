@@ -24,7 +24,7 @@ namespace BikeMates.Service.Controllers
         [Route("Get/{id}")]
         public RouteViewModel Get(int id)
         {  
-            RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.GetRoute(id)); //TODO: Rename dto to routeViewModel
+            RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.Get(id));
             return dto;
         }
 
@@ -41,7 +41,7 @@ namespace BikeMates.Service.Controllers
         [Route("GetMapData/{id}")]
         public MapData GetMapData(int id)
         {
-            return routeService.GetRoute(id).MapData;
+            return routeService.Get(id).MapData;
         }
 
         [HttpPut]
