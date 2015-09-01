@@ -21,8 +21,8 @@ namespace BikeMates.Contracts.Services
         void Delete(string id);
         void Update(User user);
         IEnumerable<User> GetAll();
-        void SubscribeRoute(Route route, User user);
-        bool UnsubscribeRoute(Route route, User user);
+        //void SubscribeRoute(Route route, User user);
+        //bool UnsubscribeRoute(Route route, User user);
 
     }
 }

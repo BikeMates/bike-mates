@@ -4,18 +4,20 @@ using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BikeMates.DataAccess.Repository;
 
 namespace BikeMates.Application.Services
 {
     public class RouteService : IRouteService
     {
-        private IRouteRepository routeRepository;
+        private RouteRepository routeRepository;
 
-        public RouteService(IRouteRepository routeRepository)
+        public RouteService(RouteRepository routeRepository)
         {
             this.routeRepository = routeRepository;
         }
@@ -23,85 +25,38 @@ namespace BikeMates.Application.Services
         {
             this.routeRepository.Add(entity);
         }
-        public Route GetRoute(int id)
+        public Route Get(int id)
         {
             return this.routeRepository.Get(id);
+        }
+        public void Update(Route entity)
+        {
+            this.routeRepository.Update(entity);
         }
         public void Delete(int id)
         {
             routeRepository.Delete(id);
         }
-
-        public void Update(Route entity)
+        public IEnumerable<Route> GetAll()
         {
-            this.routeRepository.Update(entity);
+            return routeRepository.GetAll();
+        }
+        public IEnumerable<Route> Search(RouteSearchParameters searchParameters)
+        {
+            return routeRepository.Search(searchParameters);
         }
 
-        //TODO: Replace Find and Sort methods with one method SearchRoutes(RoutesSearchParameters routesSearchParameters), where RoutesSearchParameters contains all needed search and sort fields.
-        //TODO: Use LINQ query to get all routes and sort them. 
-        public List<Route> Find(RoutesSearchParameters routesSearchParameters)
-        {
-            List<Route> results;
-
-            //TODO: Move the logic below to the RouteRepository class
-            results = routesSearchParameters.entity.FindAll(
-                delegate(Route rot)
-                {
-
-                    return String.Equals(rot.MeetingPlace, routesSearchParameters.Location);
-                }
-                    );
-            results = routesSearchParameters.entity.FindAll(
-                delegate(Route rot)
-                {
-
-                    return (rot.Distance >= Convert.ToInt32(routesSearchParameters.Dist1) && rot.Distance <= Convert.ToInt32(routesSearchParameters.Dist2));
-                }
-                    );
-
-            results = routesSearchParameters.entity.FindAll(
-                delegate(Route rot)
-                {
-
-                    return (rot.Start >= Convert.ToDateTime(routesSearchParameters.Date1) && rot.Start <= Convert.ToDateTime(routesSearchParameters.Date2));
-                }
-                    );
-
-            if (routesSearchParameters.Name)
-            {
-
-                routesSearchParameters.entity.Sort(delegate(Route x, Route y)
-                {
-                    return x.Title.CompareTo(y.Title);
-                });
-            }
-
-           /* if (routesSearchParameters.Participants)
-            {
-                routesSearchParameters.entity.Sort(delegate(Route x, Route y)
-                {
-                    return x.Participants.CompareTo(y.Participants);
-                });
-            }*/
-            if (routesSearchParameters.Date)
-            {
-                routesSearchParameters.entity.Sort(delegate(Route x, Route y)
-                {
-                    return x.Start.CompareTo(y.Start);
-                });
-            }
-            return routesSearchParameters.entity;
-        }
-
+        public void SubscribeUser(Route route, User user)		
+        {		
+            route.Subscribers.Add(user);		
+            this.Update(route);		
+        }		
+		 
         public bool UnsubscribeUser(Route route, User user)
-        {
-            return routeRepository.UnsubscribeUser(route, user);
+        {		
+            bool isRemoved = route.Subscribers.Remove(user);		
+            this.Update(route);		
+            return isRemoved;		
         }
-
-        public void SubscribeUser(Route route, User user)
-        {
-            routeRepository.SubscribeUser(route, user);
-        }
-
     }
 }
