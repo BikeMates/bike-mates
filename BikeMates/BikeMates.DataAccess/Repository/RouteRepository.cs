@@ -49,6 +49,7 @@ namespace BikeMates.DataAccess.Repository
         public void Update(Route entity)
         {
             this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            this.context.SaveChanges();
         }
 
         public IEnumerable<Route> Search(RouteSearchParameters searchParameters)

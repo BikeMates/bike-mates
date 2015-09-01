@@ -59,12 +59,7 @@ namespace BikeMates.Service.Controllers
         [Route("GetBannedRoutes")]
         public IHttpActionResult GetBannedRoutes()
         {
-            List<Route> routes = new List<Route>();// = routeService.GetAll().Where(x => x.IsBaned == true).ToList();
-            routes.Add(new Route(){
-                Id = 1,
-                Title = "Route #1",
-                Description = "Description #1"
-            });
+            List<Route> routes  = routeService.GetAll().Where(x => x.IsBanned).ToList();
             Mapper.CreateMap<Route, RouteModel>();
             List<RouteModel> model = new List<RouteModel>();
             foreach (var route in routes)
@@ -72,6 +67,22 @@ namespace BikeMates.Service.Controllers
                 model.Add(Mapper.Map<RouteModel>(route));
             }
             return Ok(model);
+        }
+
+
+        [HttpPost]
+        [Route("UnbanRoutes")]
+        public IHttpActionResult UnbanRoutes(List<int> routeId)
+        {
+            Route route;
+
+            foreach (var id in routeId)
+            {
+                route = routeService.Get(id);
+                route.IsBanned = false;
+                routeService.Update(route);
+            }
+            return Ok();
         }
     }
 }
