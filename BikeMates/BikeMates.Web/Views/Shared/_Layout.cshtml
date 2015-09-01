@@ -24,24 +24,34 @@
                     </div>
                     <button type="submit" class="btn btn-default" style="margin-top:1px">Submit</button>
                 </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#register" id="registerLink">Sing up</a></li>
-                    <li><a href="#login" id="loginLink">Sing in</a></li>
-                </ul>
+                @*<div data-bind="myBinding: authorized">*@
+                    <ul class="nav navbar-nav navbar-right" id="anonimus">
+                        <li><a href="#register" id="registerLink">Sing up</a></li>
+                        <li><a href="#login" id="loginLink">Sing in</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right" hidden="hidden" id="authorized">
+                        <li>
+                            <a href="#profile" id="registerLink"><strong id="user-name">Name Surname</strong></a>
+                        </li>
+                    </ul>
+                @*</div>*@
             </div>
         </div>
     </div>
-
     <div class="container body-content">
         <div id="page1" class="container" style="padding-top:50px" data-bind="component: { name: route().page, params: route }"></div>
     </div>
     <script src="App/boot/require.config.js"></script>
     <script data-main="App/boot/startup" src="Scripts/require/require.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/App_Scripts/AuthScript.js"></script>
+  
     <div class="container body-content">
         @RenderBody()
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

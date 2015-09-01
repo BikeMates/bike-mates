@@ -87,6 +87,21 @@ namespace BikeMates.Service.Controllers
                 {
                     Content = new StringContent(responseString, Encoding.UTF8, "application/json")
                 };
+
+                if (responseMsg.StatusCode == HttpStatusCode.OK)
+                {
+                    var loginResponse = JsonConvert.DeserializeObject<LoginResponseModel>(responseString);
+                    var auth = new AuthModel();
+                    var user = userService.getUserByEmail(userModel.Email);
+
+                    auth.token = loginResponse.access_token;
+                    auth.role = user.Role;
+                    auth.firstName = user.FirstName;
+                    auth.secondName = user.SecondName;
+                    auth.isAuthorized = true;
+
+                    return await Ok<AuthModel>(auth).ExecuteAsync(new CancellationToken());
+                }
                 return responseMsg;
             }
         }
