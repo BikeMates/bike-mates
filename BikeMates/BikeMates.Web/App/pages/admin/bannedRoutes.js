@@ -10,11 +10,30 @@
         var self = this;
         self.id = ko.observable("");
         self.name = ko.observable("");
-        self.routes = ko.observableArray([
-            new route("1", "Route"),
-            new route("2", "Route"),
-            new route("3", "Route")
-        ]);
+        self.routes = ko.observableArray([]);
+
+        self.unban = function () {
+
+            var selected = new Array();
+            $('input:checked').each(function () {
+                selected.push($(this).attr('value'));
+            });
+
+            $.ajax({
+                url: "http://localhost:51952/api/admin/unbanroutes",
+                contentType: "application/json",
+                type: "POST",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                data: JSON.stringify(selected),
+                success: function (data) {
+                    $.each(selected, function (key, val) {
+                        self.routes.remove(function (route) { return route.id = val });
+                    });
+                    self.loadRoutes();
+                }
+            });
+
+        }
 
         self.loadRoutes = function () {
             $.ajax({
@@ -25,7 +44,7 @@
 
                 success: function (data) {
                     $.each(data, function (key, val) {
-                        self.routes.push(new route(val.id, val.firstName));
+                        self.routes.push(new route(val.id, val.title, val.description));
                     });
                 }
             });
@@ -34,10 +53,11 @@
         return self;
     }
 
-    function route(id, firsName) {
+    function route(id, title, description) {
         var self = this;
         self.id = id;
-        self.firstName = firsName;
+        self.title = title;
+        self.description = description;
     }
     return { viewModel: BannedRoutesViewModel, template: bannedRoutesTemplate };
 });

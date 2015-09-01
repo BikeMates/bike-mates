@@ -29,7 +29,7 @@ namespace BikeMates.Service.Controllers
         [Route("GetBannedUsers")]
         public IHttpActionResult GetBannedUsers()
         {
-            List<User> users = userService.GetAll().Where(x => x.IsBanned == true).ToList();
+            List<User> users = userService.GetAll().Where(x => x.IsBanned).ToList();
             Mapper.CreateMap<User, UserModel>();
             List<UserModel> model = new List<UserModel>();
             foreach (var user in users)
@@ -37,6 +37,22 @@ namespace BikeMates.Service.Controllers
                 model.Add(Mapper.Map<UserModel>(user));
             }
             return Ok(model);
+        }
+
+        [HttpPost]
+        [Route("UnbanUsers")]
+        public IHttpActionResult UnbanUsers(List<string> userId)
+        {
+            User user;
+            userId.RemoveAt(userId.Count - 1);
+
+            foreach (var id in userId)
+            {
+                user = userService.GetUser(id);
+                user.IsBanned = false;
+                userService.Update(user);
+            }
+            return Ok();
         }
 
         [HttpGet]

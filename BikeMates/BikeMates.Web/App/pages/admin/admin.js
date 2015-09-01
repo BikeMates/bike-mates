@@ -1,21 +1,36 @@
-﻿define(["knockout", "text!./admin.html", "require", "cssLoader"], function (ko, adminTemplate, require, cssLoader) {
+﻿define(["knockout", "text!./admin.html", "require"], function (ko, adminTemplate, require) {
 
-    var localPath = "/Content/Site.css"; //TODO: Add css to Layout. Do not use css loader
-    var pathFromApp = require.toUrl(localPath);
     var tokenKey = "tokenInfo";
-
-    cssLoader.link(pathFromApp);
 
     function AdminViewModel(params) {
         var self = this;
         self.id = ko.observable("");
         self.firstName = ko.observable("");
         self.secondName = ko.observable("");
-        self.users = ko.observableArray([
-            new user("1", "Vasyl", "Korzhyk"),
-            new user("2", "Vasyl", "Korzhyk"),
-            new user("3", "Vasyl", "Korzhyk")
-        ]);
+        self.users = ko.observableArray([]);
+
+        self.unban = function () {
+
+            var selected = new Array();
+            $('input:checked').each(function () {
+                selected.push($(this).attr('value'));
+            });
+
+            $.ajax({
+                url: "http://localhost:51952/api/admin/unbanusers",
+                contentType: "application/json",
+                type: "POST",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                data: JSON.stringify(selected),
+                success: function (data) {
+                    $.each(selected, function (key, val) {
+                        self.users.remove(function (user) { return user.id = val });
+                    });
+                    self.loadUsers();
+                }
+            });
+
+        }
 
         self.loadUsers = function () {
             $.ajax({
