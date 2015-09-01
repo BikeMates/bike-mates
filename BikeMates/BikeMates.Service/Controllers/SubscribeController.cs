@@ -26,13 +26,13 @@ namespace BikeMates.Service.Controllers
         private readonly IUserService userService;
         private readonly IRouteService routeService;
 
-        public SubscribeController(IUserService userService , IRouteService routeService)
+        public SubscribeController(IUserService userService, IRouteService routeService)
         {
             this.userService = userService;
             this.routeService = routeService;
         }
 
-        [HttpPost]
+        [HttpPut]
         public HttpResponseMessage Subscribe(int routeId)
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
@@ -45,17 +45,17 @@ namespace BikeMates.Service.Controllers
             routeService.SubscribeUser(route, user);
             userService.SubscribeRoute(route, user);
 
+
+            var usertest = userService.GetUser(userId);//for testing purposes
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
-        
         }
 
-        [HttpPost]
+        [HttpDelete]
         public HttpResponseMessage Unsubcsribe(int routeId)
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Single(c => c.Type == "id").Value;
-
 
             var user = userService.GetUser(userId);
             var route = routeService.Get(routeId);
@@ -65,10 +65,6 @@ namespace BikeMates.Service.Controllers
 
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
-
         }
-
-
-
     }
 }
