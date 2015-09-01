@@ -29,9 +29,9 @@
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
 
-                    self.FirstName(data.FirstName);
-                    self.SecondName(data.SecondName);
-                    self.About(data.About);
+                    self.FirstName(data.firstName);
+                    self.SecondName(data.secondName);
+                    self.About(data.about);
                     var image_url = "http://localhost:51952/api/profilepicture/";
                     var userId = data.id;
                     $("#avatar").attr("src", image_url + userId);
