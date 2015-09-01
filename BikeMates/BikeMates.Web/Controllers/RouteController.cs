@@ -20,7 +20,6 @@ namespace BikeMates.Web.Controllers
         {
             routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
         }
-
         public ActionResult Add()
         {
             var route = new BikeMates.Service.Models.RouteViewModel();
