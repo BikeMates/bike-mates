@@ -95,6 +95,7 @@
       <DependentUpon>201509011031597_AddIsBannedForUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\RouteRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

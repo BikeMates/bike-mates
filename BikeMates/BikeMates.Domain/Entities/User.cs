@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace BikeMates.Domain.Entities 
 {
-    public class User : IdentityUser
+    public class User : IdentityUser, IEntity<string>
     {
         public User() { Id = Guid.NewGuid().ToString(); }
         public string FirstName { get; set; }

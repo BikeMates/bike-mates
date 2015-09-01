@@ -10,7 +10,7 @@ namespace BikeMates.Contracts.Services
 {
     public interface IRouteService
     {
-        Route Add(Route route);
+        void Add(Route route);
         Route Get(int id);
         void Update(Route entity);
         void Delete(int id);
