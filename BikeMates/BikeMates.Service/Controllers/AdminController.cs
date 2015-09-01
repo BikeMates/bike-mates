@@ -14,6 +14,7 @@ using System.Web.Http;
 
 namespace BikeMates.Service.Controllers
 {
+    [RoutePrefix("api/Admin")]
     public class AdminController : ApiController
     {
         private IUserService userService;
@@ -25,9 +26,10 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
+        [Route("GetBanedUsers")]
         public IHttpActionResult GetBanedUsers()
         {
-            List<User> users = userService.GetAll().Where(x => x.IsBaned == true).ToList(); //TODO: Remove == true, IsBanned is already bool
+            List<User> users = userService.GetAll().Where(x => x.IsBanned == true).ToList();
             Mapper.CreateMap<User, UserModel>();
             List<UserModel> model = new List<UserModel>();
             foreach (var user in users)
@@ -38,6 +40,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
+        [Route("GetBanedRoutes")]
         public IHttpActionResult GetBanedRoutes()
         {
             List<Route> routes = new List<Route>();// = routeService.GetAll().Where(x => x.IsBaned == true).ToList();
