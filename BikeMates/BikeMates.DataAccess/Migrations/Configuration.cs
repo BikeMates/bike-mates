@@ -33,6 +33,7 @@ namespace BikeMates.DataAccess.Migrations
             var userManager = new UserManager(context);
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
+            //TODO: Create a method for Roles creation
             var role = new IdentityRole();
             if (!roleManager.RoleExists("Admin"))
             {
@@ -47,6 +48,7 @@ namespace BikeMates.DataAccess.Migrations
                 roleManager.Create(role);
             }
 
+            //TODO: Create a mothod for adding Admin user
             var admin = new User { Email = "admin@admin.com", UserName = "admin@admin.com", Role = "Admin" };
             string password = "Qwerty1#";
             userManager.Create(admin, password);
@@ -56,14 +58,14 @@ namespace BikeMates.DataAccess.Migrations
 
             for (int i = 0; i < 100; i++)
             {
-                user = context.Users.Add(new User
+                user = context.Users.Add(new User //TODO: Create a method which returns new User
                 {
                     FirstName = "Username-" + i,
                     SecondName = "Username-" + i,
                     Email = "Username-" + i + "@bikemates.com",
                     EmailConfirmed = true,
                     UserName = "Username-" + i + "@bikemates.com",
-                    About = "I'm just a test user. My whole life story:\n" +
+                    About = "I'm just a test user. My whole life story:\n" + //TODO: Use @ before string in order to avoid + operator 
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor." +
                             " Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus." +
                             " Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. ",
@@ -79,6 +81,7 @@ namespace BikeMates.DataAccess.Migrations
                 user.Role = "User";
                 userManager.AddToRole(user.Id, "User");
 
+                //TODO:Create a method for adding Routes
                 for (int j = 0; j < 10; j++)
                 {
                     Coordinate start = context.Coordinates.Add(new Coordinate
@@ -111,7 +114,7 @@ namespace BikeMates.DataAccess.Migrations
                             "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor." +
                             " Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus." +
                             " Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. ",
-                        Title = "Test-route-" + i,
+                        Title = "Test-route-" + j,
                         IsBanned = false,
                         MeetingPlace =
                             "Near the Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",

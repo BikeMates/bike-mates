@@ -1,18 +1,9 @@
-﻿<h2>Your seat reservations</h2>
-
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Surname</th>
-        </tr>
-    </thead>
-    <tbody data-bind="foreach: users">
-        <tr>
-            <td data-bind="text: id"></td>
-            <td data-bind="text: firstName"></td>
-            <td data-bind="text: secondName"></td>
-        </tr>
-    </tbody>
-</table>
+﻿<h2>Baned users</h2>
+<input type="button" value="Unban" data-bind="click: unban"/>
+<div class="list-group" class="banned" data-bind="foreach: users">
+    <div class="list-group-item">
+        <input type="checkbox" data-bind="value: id" name="ids[]" />
+        <h4 class="list-group-item-heading" data-bind="text: firstName"></h4>
+        <p class="list-group-item-text" data-bind="text: secondName"></p>
+    </div>
+</div>

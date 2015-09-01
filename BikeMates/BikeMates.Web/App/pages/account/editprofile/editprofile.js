@@ -9,7 +9,7 @@
     var api_link = "aaa";
     var usr_id = "nnn";
 
-
+    //TODO: Do not use JQuery functions. Move this logic to the ProfileViewModel and declare methods in it, then use Knockout to bind these methods
     $('#image_form').submit(function (e) {
         var data = new FormData(jQuery('#image_form')[0]);
         e.preventDefault();
@@ -68,7 +68,7 @@
         });
     });
 
-    function AppViewModel(params) {
+    function AppViewModel(params) { //TODO: Rename to ProfileViewModel
 
         var self = this;
         self.FirstName = ko.observable("");

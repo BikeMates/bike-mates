@@ -26,7 +26,7 @@ using System.Net;
 namespace BikeMates.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : Controller //TODO: Please try to remove this controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;

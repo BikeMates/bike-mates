@@ -1,13 +1,16 @@
-﻿define(["knockout", "text!./admin.html", "require"], function (ko, adminTemplate, require) {
+﻿define(["knockout", "text!./bannedRoutes.html", "require", "cssLoader"], function (ko, bannedRoutesTemplate, require, cssLoader) {
 
+    var localPath = "/Content/Site.css";
+    var pathFromApp = require.toUrl(localPath);
     var tokenKey = "tokenInfo";
 
-    function AdminViewModel(params) {
+    cssLoader.link(pathFromApp);
+
+    function BannedRoutesViewModel(params) {
         var self = this;
         self.id = ko.observable("");
-        self.firstName = ko.observable("");
-        self.secondName = ko.observable("");
-        self.users = ko.observableArray([]);
+        self.name = ko.observable("");
+        self.routes = ko.observableArray([]);
 
         self.unban = function () {
 
@@ -17,44 +20,44 @@
             });
 
             $.ajax({
-                url: "http://localhost:51952/api/admin/unbanusers",
+                url: "http://localhost:51952/api/admin/unbanroutes",
                 contentType: "application/json",
                 type: "POST",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 data: JSON.stringify(selected),
                 success: function (data) {
                     $.each(selected, function (key, val) {
-                        self.users.remove(function (user) { return user.id = val });
+                        self.routes.remove(function (route) { return route.id = val });
                     });
-                    self.loadUsers();
+                    self.loadRoutes();
                 }
             });
 
         }
 
-        self.loadUsers = function () {
+        self.loadRoutes = function () {
             $.ajax({
-                url: "http://localhost:51952/api/admin/getbannedusers",
+                url: "http://localhost:51952/api/admin/getbannedroutes",
                 type: 'GET',
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 contentType: 'application/x-www-form-urlencoded',
 
                 success: function (data) {
                     $.each(data, function (key, val) {
-                        self.users.push(new user(val.id, val.firstName, val.secondName));
+                        self.routes.push(new route(val.id, val.title, val.description));
                     });
                 }
             });
         }
-        self.loadUsers();
+        self.loadRoutes();
         return self;
     }
 
-    function user(id, firsName, secondName) {
+    function route(id, title, description) {
         var self = this;
         self.id = id;
-        self.firstName = firsName;
-        self.secondName = secondName;
+        self.title = title;
+        self.description = description;
     }
-    return { viewModel: AdminViewModel, template: adminTemplate };
+    return { viewModel: BannedRoutesViewModel, template: bannedRoutesTemplate };
 });

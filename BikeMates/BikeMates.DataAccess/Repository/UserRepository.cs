@@ -22,7 +22,7 @@ namespace BikeMates.DataAccess.Repository
         public UserRepository(BikeMatesDbContext context)
         {
             this.context = context;
-            userManager = new UserManager(context);
+            userManager = new UserManager(context); //TODO: Inject IUserManager via constructor
         }
         public User Add(User user)
         {

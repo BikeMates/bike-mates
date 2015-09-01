@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BikeMates.Web.Models
+namespace BikeMates.Web.Models //TODO: Change namespace to BikeMates.Service.Models
 {
     public class CaptchaModel
     {

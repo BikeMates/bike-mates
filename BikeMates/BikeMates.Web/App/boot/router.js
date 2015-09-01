@@ -36,11 +36,14 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
             { url: 'register', params: { page: 'register' } },
             { url: 'login', params: { page: 'login' } },
             { url: 'forgotpassword', params: { page: 'forgotpassword' } },
+            { url: 'confirmforgotpassword', params: { page: 'confirmforgotpassword' } },
             { url: 'resetpassword', params: { page: 'resetpassword' } },
+            { url: 'confirmresetpassword', params: { page: 'confirmresetpassword' } },
             { url: 'route', params: { page: 'route' } },
             { url: 'profile', params: { page: 'profile' } },
             { url: 'editprofile', params: { page: 'editprofile' } },
-            { url: 'admin', params: {page:'admin'}}
+            { url: 'admin', params: { page: 'admin' } },
+            { url: 'bannedroutes', params: { page: 'bannedroutes' } }
         ]
     });
 });

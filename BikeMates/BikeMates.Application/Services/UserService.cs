@@ -57,34 +57,37 @@ namespace BikeMates.Application.Services
         }
         public void forgotPassword(string id, string host)
         {
+            //TODO: Create a private method for message creation
             string resetToken = this.userRepository.forgotPassword(id);
             resetToken = System.Web.HttpUtility.UrlEncode(resetToken);
 
             string resetUrl = "http://" + host +
                 "?userId=" + id +
-                "&code=" + resetToken+"#resetpassword";
+                "&code=" + resetToken+"#resetpassword"; //TODO: Use string.Format method.
 
-            string message = "Please reset your password by clicking <a href=\"" + resetUrl + "\">Reset Password</a><br/>" + 
-            @"Or click on the copy the following link on the browser:" + resetUrl;
+            string message = "Please reset your password by clicking <a href=\"" + resetUrl + "\">Reset Password</a><br/>" +
+            @"Or click on the copy the following link on the browser:" + resetUrl; //TODO: Use string.Format method.
 
             sendMail(id, message);
         }
 
         public IdentityResult ChangePassword(string oldPassword, string newPassword, string newPassConfirmation, string id)
         {
-            if (!(String.IsNullOrEmpty(oldPassword)) && !(String.IsNullOrEmpty(newPassword)) && !(String.IsNullOrEmpty(newPassConfirmation))
+            if (!String.IsNullOrEmpty(oldPassword) && !String.IsNullOrEmpty(newPassword) && !String.IsNullOrEmpty(newPassConfirmation)
                 && newPassword == newPassConfirmation)
             {
                 return this.userRepository.ChangePassword(oldPassword, newPassword, id);
             }
+
             //Cause all fields are empty means user do not want to change password
             return IdentityResult.Success;
         }
-
+        
+        //TODO: Create a separate class MailSender which will send messages.
         private void sendMail(string userId, string message)
         {
             MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("BikeMatesUkraine@gmail.com");
+            msg.From = new MailAddress("BikeMatesUkraine@gmail.com"); //TODO: Move email settings to config file. Do not hardcode values
             msg.To.Add(new MailAddress(GetUser(userId).Email));
             msg.Subject = "Reset Password";
             msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(message, null, MediaTypeNames.Text.Html));

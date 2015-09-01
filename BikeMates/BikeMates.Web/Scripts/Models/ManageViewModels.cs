@@ -5,7 +5,7 @@ using Microsoft.Owin.Security;
 
 namespace BikeMates.Web.Models
 {
-    public class IndexViewModel
+    public class IndexViewModel//TODO: Remove this class
     {
         public bool HasPassword { get; set; }
         public IList<UserLoginInfo> Logins { get; set; }
