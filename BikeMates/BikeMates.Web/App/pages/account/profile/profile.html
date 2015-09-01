@@ -1,7 +1,8 @@
 ﻿<div id="profile_section">
     <div class="row">
+
         <div class="col-md-3 text-center">
-            <img id="avatar" data-bind="attr:{alt: fullName}" height="150" width="150" />
+            <img id="avatar" data-bind="attr:{alt: fullName , src: linkToPic}" height="150" width="150" />
         </div>
 
         <div class="col-md-4 ">
@@ -16,7 +17,7 @@
         </div>
         <div class="col-md-3 text-center">
             <h2></h2>
-            <button type="button" class="btn btn-default" id="properties_btn" resource="">Edit</button>
+            <button type="button" class="btn btn-default" id="properties_btn" data-bind="click: gotoedit" resource="">Edit</button>
             <hr />
         </div>
     </div>

@@ -12,7 +12,7 @@ namespace BikeMates.Contracts.Services
     public interface IUserService
     { 
         IdentityResult Register(User user, string password);
-        IdentityResult ChangePassword(string oldPass, string newPass, string newPassConfirmation, string id); //TODO: Rename Pass to Password
+        IdentityResult ChangePassword(string oldPassword, string newPassword, string newPasswordConfirmation, string id); //TODO: Rename Pass to Password
         User Login(string email, string password);
         void forgotPassword(string id, string host);
         IdentityResult resetPassword(string id, string code, string password);

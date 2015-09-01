@@ -66,7 +66,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
-        static public HttpResponseMessage GetImage(string id)
+          public HttpResponseMessage GetImage(string id)
         {
             string fileName = id;
             string rootPath = HttpContext.Current.Server.MapPath("~/Resources");
@@ -75,20 +75,17 @@ namespace BikeMates.Service.Controllers
             if (!File.Exists(filePath)) //If image not found - then default image
             { filePath = Path.Combine(rootPath, "icon-user-default.jpg"); }
 
+            HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
+
             //Read File as Byte Array
             byte[] fileData = File.ReadAllBytes(filePath);
 
             if (fileData == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-
-
-            using (HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK))
-            {
+            
                 Response.Content = new ByteArrayContent(fileData);
                 Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");
                 return Response;
-
-            }
 
         }
     }

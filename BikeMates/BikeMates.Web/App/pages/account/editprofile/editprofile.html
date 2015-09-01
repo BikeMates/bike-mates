@@ -8,7 +8,7 @@
             <img id="avatar" data-bind="attr:{alt: fullName}" height="150" width="150" />
 
             <h2></h2>
-            <form enctype="multipart/form-data" action="http://localhost:51952/api/profilepicture" method="post" id="image_form">
+            <form enctype="multipart/form-data" action="#" data-bind="submit: loadpicture" method="post" id="image_form">
                 <input name="somefile" type="file" accept="image/*" multiple />
                 <input type="submit" class="btn btn-default " value="Load new picture" />
             </form>
@@ -61,11 +61,11 @@
                     Basically cycling is a part of my soul .Like to to it with my friends and just like everyone else - it really makes me happy
                 </textarea>
             </div>
-            <button type="button" class="btn btn-default pull-right" id="save_btn">Save</button>
+            <button type="button" class="btn btn-default pull-right" id="save_btn" data-bind="click: savedata">Save</button>
         </div>
         <div class="col-md-3 text-center">
             <h2></h2>
-            <button type="button" class="btn btn-default" id="profile_btn" resource="">Cancel</button>
+            <button type="button" class="btn btn-default" id="profile_btn" data-bind="click: cancelchanges" resource="">Cancel</button>
             <hr />
         </div>
 
