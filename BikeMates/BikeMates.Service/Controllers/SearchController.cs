@@ -18,12 +18,12 @@ namespace BikeMates.Service.Controllers
         private RouteService RouteService;
         private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
         public IEnumerable<Route> allRoutes;
-        private RoutesSearchParameters routesSearchParameters;
+        private RouteSearchParameters routeSearchParameters;
         private IEnumerable<Route> ListSort;
         public SearchController()
         {
             allRoutes = routelist.GetAll().ToList();
-          //  routesSearchParameters.entity = routelist.GetAllRoutes();
+          //  RouteSearchParameters.entity = routelist.GetAllRoutes();
             RouteService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
         }
 
