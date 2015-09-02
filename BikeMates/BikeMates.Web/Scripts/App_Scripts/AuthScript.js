@@ -1,6 +1,6 @@
 ﻿define(["knockout", "jquery"], function (ko, $) {
 
-    ko.bindingHandlers.myBinding = {
+    ko.bindingHandlers.authBinding = {
         update: function (element, valueAccessor) {
             var value = sessionStorage.getItem("role");
 
