@@ -1,10 +1,6 @@
-﻿define(["knockout", "text!./bannedRoutes.html", "require", "cssLoader"], function (ko, bannedRoutesTemplate, require, cssLoader) {
+﻿define(["knockout", "text!./bannedRoutes.html", "require"], function (ko, bannedRoutesTemplate, require) {
 
-    var localPath = "/Content/Site.css";
-    var pathFromApp = require.toUrl(localPath);
     var tokenKey = "tokenInfo";
-
-    cssLoader.link(pathFromApp);
 
     function BannedRoutesViewModel(params) {
         var self = this;

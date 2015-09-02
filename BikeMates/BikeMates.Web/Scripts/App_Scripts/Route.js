@@ -99,43 +99,51 @@ function saveRoute() {
     return false;
 }
 
-
 function getRoute(id) {
     $.ajax({
-            type: 'GET',
-            url: 'http://localhost:51952/api/route/getmapdata/' + id,
-            response: JSON,
-            success: function (response) {
-                loadRoute(response);
-            }
+        type: 'GET',
+        url: 'http://localhost:51952/api/route/getmapdata/' + id,
+        response: JSON,
+        success: function (response) {
+            loadRoute(response);
+        }
     });
 }
 
 function loadRoute(route) {
     var waypoints = [];
+    var location;
     for (var i = 0; i < route.waypoints.length; i++) {
+        location = new google.maps.LatLng(route.waypoints[i].latitude, route.waypoints[i].longitude);
         waypoints[i] = {
-            'location': new google.maps.LatLng(route.waypoints[i][0].latitude, route.waypoints[i][1].longitude),
-            'stopover': false
+            location: location
         }
     }
-    service.route({
-        'origin': new google.maps.LatLng(route.start.lat, route.start.lng),
-        'destination': new google.maps.LatLng(route.end.lat, route.end.lng),
-        'waypoints': waypoints,
-        'travelMode': google.maps.DirectionsTravelMode.DRIVING
-    }, function (result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            renderer.setDirections(result);
-        }
-    });
+    var origin = new google.maps.LatLng(route.start.latitude, route.start.longitude);
+    var destination = new google.maps.LatLng(route.end.latitude, route.end.longitude);
+    displayRoute(origin, destination, service, renderer, waypoints);
 }
 
 function displayRoute(origin, destination, service, display) {
+    displayRoute(origin, destination, service, display, []);
+}
+
+function displayRoute(origin, destination, service, display, waypoints) {
+    //mapping waypoints to google format
+    var googleWaypoints;
+    var waypoint;
+    for (var i = 0; i < waypoints.length; i++) {
+        waypoint = {
+            "lat": waypoints[i].location.latitude,
+            "lng": waypoints[i].location.longitude
+        }
+        googleWaypoints += (waypoint);
+    }
+
     service.route({
         origin: origin,
         destination: destination,
-        waypoints: [],
+        waypoints: waypoints,
         travelMode: google.maps.TravelMode.DRIVING,
         avoidTolls: true
     }, function (response, status) {
@@ -146,7 +154,6 @@ function displayRoute(origin, destination, service, display) {
         }
     });
 }
-
 function computeTotalDistance(result) {
     var total = 0;
     var myroute = result.routes[0];
@@ -201,7 +208,6 @@ function clearMap() {
 }
 
 $('#ClearMapButton').click(function (e) { clearMap(); });
-$('#LoadMapButton').click(function (e) { getRoute(999); }); //999 just for test
+$('#LoadMapButton').click(function (e) { getRoute(1003); }); //999 just for test
 
 $("#datepicker").datepicker();
-

@@ -1,9 +1,6 @@
-﻿define(["knockout", "text!./profile.html", "require", "cssLoader"], function (ko, profileTemplate, require, cssLoader) {
+﻿define(["knockout", "text!./profile.html", "require"], function (ko, profileTemplate, require) {
 
     var tokenKey = "tokenInfo";
-    var localPath = "/Content/Site.css";
-    var pathFromApp = require.toUrl(localPath);
-    cssLoader.link(pathFromApp);
 
     function ProfileViewModel(params) {
 
