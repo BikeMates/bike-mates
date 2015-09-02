@@ -7,10 +7,10 @@ namespace BikeMates.Service.Models
 {
     public class AuthModel
     {
-        public string token { get; set; }
-        public string role { get; set; }
-        public string firstName { get; set; }
-        public string secondName { get; set; }
-        public bool isAuthorized { get; set; }
+        public string Token { get; set; }
+        public string Role { get; set; }
+        public string FirstName { get; set; }
+        public string SecondName { get; set; }
+        public bool IsAuthorized { get; set; }
     }
 }

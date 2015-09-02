@@ -60,10 +60,10 @@ namespace BikeMates.Application.Services
         {
             string resetToken = this.userRepository.forgotPassword(id);
             string message = createMessage(id, host, resetToken);
-            MailSender.sendMail(GetUser(id).Email, message);
+            MailSender.Send(GetUser(id).Email, message);
         }
 
-        private string createMessage(string id, string host, string resetToken)
+        private static string createMessage(string id, string host, string resetToken)
         {
             resetToken = System.Web.HttpUtility.UrlEncode(resetToken);
             string resetUrl = string.Format("http://{0}?userId={1}&code={2}#resetpassword", host, id, resetToken);

@@ -11,7 +11,7 @@ namespace BikeMates.Application.Services
 {
     public static class MailSender
     {
-        public static void sendMail(string userEmail, string message)
+        public static void Send(string userEmail, string message)
         {
             MailMessage msg = new MailMessage();
             msg.From = new MailAddress(ConfigurationManager.AppSettings["MailAccount"]);
@@ -27,6 +27,8 @@ namespace BikeMates.Application.Services
             smtpClient.Credentials = credentials;
             smtpClient.EnableSsl = true;
             smtpClient.Send(msg);
+            smtpClient.Dispose();
+            msg.Dispose();
         }
     }
 }

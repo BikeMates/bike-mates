@@ -94,11 +94,11 @@ namespace BikeMates.Service.Controllers
                     var auth = new AuthModel();
                     var user = userService.getUserByEmail(userModel.Email);
 
-                    auth.token = loginResponse.access_token;
-                    auth.role = user.Role;
-                    auth.firstName = user.FirstName;
-                    auth.secondName = user.SecondName;
-                    auth.isAuthorized = true;
+                    auth.Token = loginResponse.access_token;
+                    auth.Role = user.Role;
+                    auth.FirstName = user.FirstName;
+                    auth.SecondName = user.SecondName;
+                    auth.IsAuthorized = true;
 
                     return await Ok<AuthModel>(auth).ExecuteAsync(new CancellationToken());
                 }
