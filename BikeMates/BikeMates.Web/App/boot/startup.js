@@ -7,7 +7,7 @@
     ko.components.register('confirmforgotpassword', { require: 'App/pages/account/confirmForgotPassword/confirmForgotPassword' });
     ko.components.register('resetpassword', { require: 'App/pages/account/resetpassword/resetPassword' });
     ko.components.register('confirmresetpassword', { require: 'App/pages/account/confirmResetPassword/confirmResetPassword' });
-    ko.components.register('route', { require: 'App/pages/route/route' });
+    ko.components.register('newroute', { require: 'App/pages/route/newroute' });
     ko.components.register('profile', { require: 'App/pages/account/profile/profile' });
     ko.components.register('editprofile', { require: 'App/pages/account/editprofile/editprofile' });
     ko.components.register('admin', { require: 'App/pages/admin/admin' });
