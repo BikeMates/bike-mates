@@ -22,12 +22,14 @@
         self.MinDistance = ko.observable("");
         self.MaxDistance = ko.observable("");
         self.description = ko.observable("");
+        self.Date = ko.observable("Date");
+        self.Title = ko.observable("Title");
+        self.Subscribe = ko.observable("Subscribers");
         self.allRoutes = ko.observableArray([new route(1, "Test", "recfrevrtvr", "Patona", 20),
             new route(2, "Test2", "23re3etvr", "1Patona", 10),
             new route(3, "Test3", "rfr45ggr", "Fatona", 40)
         ]);
 
-        self.ByTitle = ko.observable("");
         $.ajax({
             url: "http://localhost:51952/api/route",
             contentType: "application/json",
@@ -60,11 +62,11 @@
         });
         $("#ByDate").button().click(function () {
             $.ajax({
-                url: "http://localhost:51952/api/search" + '/' + 3,
+                url: "http://localhost:51952/api/route/sortdate",
                 contentType: "application/json",
                 type: "GET",
                 success: function (data) {
-                    self.allRoutes(data.ListSort);
+                    self.allRoutes(data.routesSort);
                     console.log("ByDate");
                 },
                 error: function (data) {
@@ -73,11 +75,11 @@
         });
         $("#ByParticipants").button().click(function () {
             $.ajax({
-                url: "http://localhost:51952/api/search" + '/' + 2,
+                url: "http://localhost:51952/api/route/sortsubscribes" ,
                 contentType: "application/json",
                 type: "GET",
                 success: function (data) {
-                    self.allRoutes(data.ListSort);
+                    self.allRoutes(data.routesSort);
                 },
                 error: function (data) {
                 }
@@ -85,11 +87,11 @@
         });
         $("#ByTitle").button().click(function () {
             $.ajax({
-                url: "http://localhost:51952/api/search" + '/' + 1,
+                url: "http://localhost:51952/api/route/sorttitle",
                 contentType: "application/json",
                 type: "GET",
                 success: function (data) {
-                    self.allRoutes(data.ListSort);
+                    self.allRoutes(data.routesSort);
                 },
                 error: function (data) {
                 }
@@ -97,7 +99,7 @@
         });
 
         $.ajax({
-            url: "http://localhost:51952/api/search",
+            url: "http://localhost:51952/api/route/getroutes",
             contentType: "application/json",
             type: "GET",
             success: function (data) {

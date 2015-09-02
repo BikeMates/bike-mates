@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BikeMates.Application.Services;
 using BikeMates.DataAccess;
 using BikeMates.DataAccess.Repository;
@@ -15,11 +16,15 @@ namespace BikeMates.Service.Controllers
     public class RouteController : ApiController
     {
         private RouteSearchParameters searchParameters;
+        private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
+        public IEnumerable<Route> allRoutes;
+        private IEnumerable<Route> ListSort;
         private readonly IRouteService routeService;
-
+        
         public RouteController(IRouteService routeService)
         {
             this.routeService = routeService;
+            allRoutes = routelist.GetAll();
         }
 
         [HttpGet]
@@ -86,5 +91,42 @@ namespace BikeMates.Service.Controllers
             }
             return routeService.Search(searchParameters);     
         }
+        [HttpGet]
+        [Route("GetRoutes")]
+        public IEnumerable<Route> Get()
+        {
+            return allRoutes;
+        }
+        [HttpGet]
+        [Route("SortTitle")]
+        public IEnumerable<Route> SortTitle()
+        {
+                    var routesSort = from nameRoute
+                             in allRoutes
+                                 orderby nameRoute.Title
+                                 select nameRoute;             
+            return routesSort;
+        }
+        [HttpGet]
+        [Route("SortSubscribes")]
+        public IEnumerable<Route> SortSubscribes()
+        {
+                var routesSort = from nameRoute
+                                 in allRoutes
+                                 orderby nameRoute.Subscribers.Count
+                                 select nameRoute;
+                return routesSort;
+            }
+        [HttpGet]
+        [Route("SortDate")]
+        public IEnumerable<Route> SortDate()
+        {
+                var routesSort = from nameRoute
+                                 in allRoutes
+                                 orderby nameRoute.Start
+                                 select nameRoute;
+                return routesSort;
+            }       
+        }
     }
-}
+
