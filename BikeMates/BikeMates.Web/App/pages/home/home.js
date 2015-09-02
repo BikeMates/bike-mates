@@ -8,6 +8,7 @@
     function HomeViewModel() {
 
         var self = this;
+        self.id = ko.observable();
         self.title = ko.observable("");
         self.start = ko.observable("");
         self.distance = ko.observable("");
@@ -20,11 +21,15 @@
         self.DateTo = ko.observable("");
         self.MinDistance = ko.observable("");
         self.MaxDistance = ko.observable("");
-        self.allRoutes = ko.observableArray();
+        self.description = ko.observable("");
+        self.allRoutes = ko.observableArray([new route(1, "Test", "recfrevrtvr", "Patona", 20),
+            new route(2, "Test2", "23re3etvr", "1Patona", 10),
+            new route(3, "Test3", "rfr45ggr", "Fatona", 40)
+        ]);
 
         self.ByTitle = ko.observable("");
         $.ajax({
-            url: "http://localhost:51952/api/route" + '/' + 2,
+            url: "http://localhost:51952/api/route",
             contentType: "application/json",
             type: "GET",
             success: function (data) {
@@ -41,7 +46,7 @@
 
         $("#Search").button().click(function () {
             $.ajax({
-                url: "http://localhost:51952/api/route",
+                url: "http://localhost:51952/api/route/search",
                 contentType: "application/json",
                 type: "POST",
                 dataType: 'json',
@@ -103,7 +108,12 @@
             }
         });
     }
-    function route(id, title) {
+    function route(id, title,description,meetingplace,distance) {
+      
+        
+        self.description=description;
+        self.MeetingPlace =meetingplace;
+        self.distance =distance;
         self.id = id;
         self.title = title;
     }

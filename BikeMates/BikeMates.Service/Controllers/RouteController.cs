@@ -7,12 +7,14 @@ using BikeMates.Service.Models;
 using System.Web.Http;
 using BikeMates.Contracts.Services;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Route")]
     public class RouteController : ApiController
     {
+        private RouteSearchParameters searchParameters;
         private readonly IRouteService routeService;
 
         public RouteController(IRouteService routeService)
@@ -57,6 +59,32 @@ namespace BikeMates.Service.Controllers
         public void Delete(int id)
         {
             routeService.Delete(id);
+        }
+        [HttpPost]
+        [Route("Search")]
+        public IEnumerable<Route> Searching(RouteSearch routesearch) {
+            searchParameters=new RouteSearchParameters();
+            if (routesearch.Location != String.Empty)
+            {
+                searchParameters.MeetingPlace = routesearch.Location;
+            }
+            if (routesearch.DateTo != String.Empty)
+            {
+                searchParameters.DateTo = DateTime.Parse(routesearch.DateTo);
+            }
+            if (routesearch.DateFrom != String.Empty)
+            {
+                searchParameters.DateFrom = DateTime.Parse(routesearch.DateFrom);
+            }
+            if (routesearch.MaxDistance != String.Empty)
+            {
+                searchParameters.MaxDistance = Int32.Parse(routesearch.MaxDistance);
+            }
+            if (routesearch.MinDistance != String.Empty)
+            {
+                searchParameters.MinDistance = Int32.Parse(routesearch.MinDistance);
+            }
+            return routeService.Search(searchParameters);     
         }
     }
 }
