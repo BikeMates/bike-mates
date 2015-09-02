@@ -1,4 +1,4 @@
-﻿define(["knockout", "text!./newroute.html", "require", "cssLoader", "RouteMap", "googlemap"], function (ko, RouteTemplate, require, cssLoader, RouteMap, googlemap) {
+﻿define(["knockout", "jquery", "text!./newroute.html", "require", "cssLoader", "RouteMap", "googlemap"], function (ko, $, RouteTemplate, require, cssLoader, RouteMap, googlemap) {
 
     var localPath = "/Content/Site.css";
     var pathFromApp = require.toUrl(localPath);
@@ -9,32 +9,30 @@
     pathFromApp = require.toUrl(localPath);
     cssLoader.link(pathFromApp);
 
-    ko.bindingHandlers.koDatepicker = {
-        init: function (element, valueAccessor, allBindingsAccessor) {
-            var options = {
-                showOtherMonths: true,
-                selectOtherMonths: true
-            };
-
-            if (typeof valueAccessor() === 'object') {
-                $.extend(options, valueAccessor());
-            }
-
-            $(element).datepicker(options);
-        }
-    };
-
     function AddRouteViewModel(params) {
         var self = this;
 
-        self.Start = ko.observable(new Date(Date.today)),
+
+        $('#map').text("dfasdfas");
+
+        self.Start = ko.observable(new Date()),
         self.Distance = ko.observable("");
         self.Title = ko.observable("");
         self.Description = ko.observable("");
         self.MeetingPlace = ko.observable("");
         self.MapData = ko.observable("");
-
-        self.add= function() {}
+        self.totalDistance = ko.observable("");
+        self.save = function () {
+            saveRoute();
+        }
+        self.clearMap = function() {
+            clearMap();
+            return;
+        }
+        self.loadRoute = function () {
+            loadRoute(1003);
+            return;
+        }
     }
 
     return { viewModel: AddRouteViewModel(), template: RouteTemplate };
