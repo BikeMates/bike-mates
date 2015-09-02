@@ -59,6 +59,11 @@
         }
 
         self.savedata = function () {
+            var username = self.fullName();
+            sessionStorage.setItem("username", username);
+           $('#userpanel').find('#admin').find("#user-name").text(sessionStorage.getItem("username"));
+           $('#userpanel').find('#user').find("#user-name").text(sessionStorage.getItem("username"));
+
             $.ajax({
                 url: "http://localhost:51952/api/profile",
                 contentType: "application/json",
