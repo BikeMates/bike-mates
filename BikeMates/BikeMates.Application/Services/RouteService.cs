@@ -53,7 +53,7 @@ namespace BikeMates.Application.Services
 		 
         public bool UnsubscribeUser(Route route, User user)
         {
-           return this.routeRepository.UnsubscribeUser(route, user);
+            return this.routeRepository.UnsubscribeUser(route, user);
         }
     }
 }
