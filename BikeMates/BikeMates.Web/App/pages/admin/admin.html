@@ -1,9 +1,19 @@
 ﻿<h2>Baned users</h2>
-<input type="button" value="Unban" data-bind="click: unban"/>
+<input type="button" value="Unban" class="btn btn-default" data-bind="click: unban" />
 <div class="list-group" class="banned" data-bind="foreach: users">
     <div class="list-group-item">
-        <input type="checkbox" data-bind="value: id" name="ids[]" />
-        <h4 class="list-group-item-heading" data-bind="text: firstName"></h4>
-        <p class="list-group-item-text" data-bind="text: secondName"></p>
+        <table>
+            <tr>
+                <th>
+                    <input type="checkbox" data-bind="value: id" style="width:30px; height:30px" name="ids[]" />
+                </th>
+                <th>
+                    <div style="margin-left:20px">
+                        <h4 class="list-group-item-heading" data-bind="text: firstName" />
+                    </div>
+
+                </th>
+            </tr>
+        </table>
     </div>
 </div>
