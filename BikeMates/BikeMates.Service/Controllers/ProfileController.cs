@@ -1,24 +1,20 @@
-﻿using System;
+﻿using BikeMates.Application.Services;
+using BikeMates.Contracts.Services;
+using BikeMates.DataAccess;
+using BikeMates.DataAccess.Repository;
+using BikeMates.Domain.Entities;
+using BikeMates.Service.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using System.Text;
-// project reffrerences
-using BikeMates.Application.Services;
-using BikeMates.Domain.Entities;
-using BikeMates.DataAccess.Repository;
-using BikeMates.DataAccess;
-using BikeMates.Service.Models;
-//for identifiying user
 using System.Security.Claims;
-using Microsoft.AspNet.Identity;
-//for async methods 
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-//for ninject implementation
-using BikeMates.Contracts.Services;
+using System.Web.Http;
 
 namespace BikeMates.Service.Controllers
 {
@@ -31,15 +27,15 @@ namespace BikeMates.Service.Controllers
         {
             this.userService = userService;
         }
+
         // GET api/user
         [HttpGet]
         public ProfileViewModel Get()
         {   ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+            var userId = principal.Claims.Single(c => c.Type == "id").Value;
 
             AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
             User user = userService.GetUser(userId);
-            var obj = AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
             return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
         }
 
@@ -51,23 +47,19 @@ namespace BikeMates.Service.Controllers
             AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
             return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
         }
+
         // POST api/user
         [HttpPost]
         public async Task<HttpResponseMessage> Update(EditProfileViewModel userViewModel)
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
+            var userId = principal.Claims.Single(c => c.Type == "id").Value;
 
-            AutoMapper.Mapper.CreateMap<User, EditProfileViewModel>();
-            AutoMapper.Mapper.CreateMap<EditProfileViewModel, User>();
-
-            User user = userService.GetUser(userId); //TODO: Use Automapper for mapping   RESP: creating error when updating entityusing automapper
-
-            user = AutoMapper.Mapper.Map<EditProfileViewModel, User>(userViewModel);
-            //user.FirstName = userViewModel.FirstName;
-            //user.About = userViewModel.About;
-            //user.SecondName = userViewModel.SecondName;
-            //user.Picture = userViewModel.Picture;
+            User user = userService.GetUser(userId); 
+            user.FirstName = userViewModel.FirstName;
+            user.About = userViewModel.About;
+            user.SecondName = userViewModel.SecondName;
+            user.Picture = userViewModel.Picture;
             userService.Update(user);
 
             IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, userId);
@@ -78,33 +70,8 @@ namespace BikeMates.Service.Controllers
                 HttpResponseMessage ia = await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
                 return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
             }
-            var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
-            return responseMsg;
-        }
 
-        private IHttpActionResult GetErrorResult(IdentityResult result)
-        {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-            if (!result.Succeeded)
-            {
-                if (result.Errors != null)
-                {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-                return BadRequest(ModelState);
-            }
-            return null;
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
