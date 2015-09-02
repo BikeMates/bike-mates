@@ -1,48 +1,40 @@
 ﻿<div style="width: 100%; height: 100%;">
     <hr/>
-
-
     <div id="map"></div>
     <div class="container">
-
         <form action="#" data-bind="submit: add" class="form-horizontal" method="post">
             <hr/>
-            <div class="validation-summary-valid text-danger" data-valmsg-summary="true">
-                <ul>
-                    <li style="display: none"></li>
-                </ul>
-            </div>
             <div class="center">
                 <div class="form-inline">
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="Start">Start date</label>
                         <div class="col-md-8">
-                            <input class="form-control" required data-bind="textInput: Start"data-val="true" data-val-date="The field Start date must be a date." data-val-required="Требуется поле Start date." id="datepicker" name="Start" type="text" value=""/>
+                            <input class="form-control" required data-bind="kendoDatePicker: Start" id="datepicker" name="Start" type="text" value="" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-5 control-label" for="Distance">Total Distance:</label>
                         <div class="col-md-5">
-                            <input class="form-control" required data-bind="textInput: Distance" data-val="true" data-val-number="The field Distance must be a number." data-val-required="Требуется поле Distance." id="totalDistance" name="Distance" type="text" value="0"/> <span>km</span>
+                            <input class="form-control" id="totalDistance" name="Distance" type="text" value="0"/> <span>km</span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="Title">Title</label>
                     <div class="col-md-10">
-                        <input class="form-control" required data-bind="textInput: Title" data-val="true" data-val-length="The Title must be at least 6 characters long." data-val-length-max="100" data-val-length-min="6" data-val-required="Требуется поле Title." id="Title" name="Title" type="text" value=""/>
+                        <input class="form-control" required data-bind="textInput: Title" id="Title" name="Title" type="text" value=""/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="Description">Description</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" required data-bind="textInput: Description" cols="20" data-val="true" data-val-required="Требуется поле Description." id="Description" name="Description" rows="2"></textarea>
+                        <textarea class="form-control" required data-bind="textInput: Description" cols="20" id="Description" name="Description" rows="2"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="MeetingPlace">Meeting place</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" required data-bind="textInput: MeetingPlace" cols="20" data-val="true" data-val-required="Требуется поле Meeting place." id="MeetingPlace" name="MeetingPlace" rows="2"></textarea>
+                        <textarea class="form-control" required data-bind="textInput: MeetingPlace" cols="20" id="MeetingPlace" name="MeetingPlace" rows="2"></textarea>
                     </div>
                 </div>
 
@@ -55,5 +47,4 @@
             </div>
         </form>
     </div>
-    Add route
 </div>

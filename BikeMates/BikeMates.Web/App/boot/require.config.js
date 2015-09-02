@@ -13,15 +13,14 @@
         "text": "Scripts/require/text",
         "cssLoader": "Scripts/require/CSSLoader",
         "captcha": "http://www.google.com/recaptcha/api",
-        "unobtrusive": "/Scripts/jquery.validate.unobtrusive",
-        "jqure-ui": "/Scripts/jquery-ui",
-        "modernizr": "/Scripts/modernizr-2.6.2",
-        "respond": "/Scripts/respond",
+        "jquery-ui": "/Scripts/jquery-ui",
         "googlemap": "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize",
         "RouteMap": "/Scripts/App_Scripts/Route",
         "auth": "/Scripts/App_Scripts/AuthScript"
     },
     shim: {
-        "bootstrap": { deps: ["jquery"] }
+        'knockout': { deps: [ 'jquery'] },
+        "bootstrap": { deps: ["jquery"] },
+        "jquery-ui": { deps: ["jquery"] }
     }
 }

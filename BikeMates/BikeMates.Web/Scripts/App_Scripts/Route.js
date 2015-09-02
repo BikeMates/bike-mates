@@ -199,4 +199,4 @@ function clearMap() {
 $('#ClearMapButton').click(function (e) { clearMap(); });
 $('#LoadMapButton').click(function (e) { getRoute(1004); }); //999 just for test
 
-$("#datepicker").datepicker();
+//$("#datepicker").datepicker();
