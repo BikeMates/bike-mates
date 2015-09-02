@@ -91,7 +91,7 @@ namespace BikeMates.Service.Controllers
                 {
                     var loginResponse = JsonConvert.DeserializeObject<LoginResponseModel>(responseString);
                     var auth = new AuthModel();
-                    var user = userService.getUserByEmail(userModel.Email);
+                    var user = userService.GetUserByEmail(userModel.Email);
 
                     auth.Token = loginResponse.access_token;
                     auth.Role = user.Role;
@@ -114,14 +114,14 @@ namespace BikeMates.Service.Controllers
                 return BadRequest("Invalid captcha");
             }
 
-            var user = userService.getUserByEmail(model.Email);
+            var user = userService.GetUserByEmail(model.Email);
 
             if (user == null)
             {
                 return BadRequest("User not found");
             }
 
-            userService.forgotPassword(user.Id, model.Host);
+            userService.ForgotPassword(user.Id, model.Host);
 
             return Ok();
         }
@@ -135,14 +135,14 @@ namespace BikeMates.Service.Controllers
                 return await BadRequest(this.ModelState).ExecuteAsync(new CancellationToken());
             }
 
-            var user = userService.getUserByEmail(model.Email);
+            var user = userService.GetUserByEmail(model.Email);
 
             if (user == null)
             {
                 return await BadRequest("User not found").ExecuteAsync(new CancellationToken());
             }
 
-            var result = userService.resetPassword(user.Id, model.Code, model.Password);
+            var result = userService.ResetPassword(user.Id, model.Code, model.Password);
             var errorResult = GetErrorResult(result);
 
             if (errorResult != null)
@@ -168,7 +168,7 @@ namespace BikeMates.Service.Controllers
         public IHttpActionResult GetUserByEmail(ForgotPasswordModel model)
         {
             Mapper.CreateMap<User, UserModel>();
-            var user = userService.getUserByEmail(model.Email);
+            var user = userService.GetUserByEmail(model.Email);
             UserModel userModel = Mapper.Map<UserModel>(user);
             return Ok(userModel);
         }

@@ -32,7 +32,7 @@ namespace BikeMates.DataAccess.Repository
             return userManager.Find(email, password);
         }
 
-        public string forgotPassword(string id)
+        public string ForgotPassword(string id)
         {
             return userManager.GeneratePasswordResetToken(id);
         }
@@ -42,12 +42,12 @@ namespace BikeMates.DataAccess.Repository
             return userManager.ChangePassword(id, oldPass, newPass);
         }
 
-        public User getUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             return userManager.FindByEmail(email);
         }
 
-        public IdentityResult resetPassword(string id, string code, string password)
+        public IdentityResult ResetPassword(string id, string code, string password)
         {
             return userManager.ResetPassword(id, code, password);
         }

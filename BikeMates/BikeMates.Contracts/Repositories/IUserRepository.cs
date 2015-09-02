@@ -13,9 +13,9 @@ namespace BikeMates.Contracts.Repositories
     {
         IdentityResult Register(User user, string password); 
         User Login(string email, string password);
-        User getUserByEmail(string email);
-        string forgotPassword(string id);
-        IdentityResult resetPassword(string id, string code, string password);
+        User GetUserByEmail(string email);
+        string ForgotPassword(string id);
+        IdentityResult ResetPassword(string id, string code, string password);
         IdentityResult ChangePassword(string oldPass, string newPass, string id);
         //void SubscribeRoute(Route route, User user);		
         //bool UnsubscribeRoute(Route route, User user);		

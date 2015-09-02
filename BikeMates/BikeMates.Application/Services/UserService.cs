@@ -52,13 +52,13 @@ namespace BikeMates.Application.Services
             return this.userRepository.Login(email, password);
         }
 
-        public User getUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
-            return this.userRepository.getUserByEmail(email);
+            return this.userRepository.GetUserByEmail(email);
         }
-        public void forgotPassword(string id, string host)
+        public void ForgotPassword(string id, string host)
         {
-            string resetToken = this.userRepository.forgotPassword(id);
+            string resetToken = this.userRepository.ForgotPassword(id);
             string message = createMessage(id, host, resetToken);
             MailSender.Send(GetUser(id).Email, message);
         }
@@ -83,10 +83,10 @@ namespace BikeMates.Application.Services
         }
 
 
-        public IdentityResult resetPassword(string id, string code, string password)
+        public IdentityResult ResetPassword(string id, string code, string password)
         {
             code = System.Web.HttpUtility.UrlDecode(code);
-            return userRepository.resetPassword(id, code, password);
+            return userRepository.ResetPassword(id, code, password);
         }
 
 
