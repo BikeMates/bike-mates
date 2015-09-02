@@ -22,7 +22,7 @@ using System.Net;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseController
     {
         private UserService userService;
 
@@ -176,32 +176,6 @@ namespace BikeMates.Service.Controllers
 
 
 
-        private IHttpActionResult GetErrorResult(IdentityResult result) //TODO: Create BaseApiController and move this method into it
-        {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-
-            if (!result.Succeeded)
-            {
-                if (result.Errors != null)
-                {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return null;
-        }
+       
     }
 }
