@@ -2,7 +2,6 @@
 
     var tokenKey = "tokenInfo";
     var api_link = "aaa";
-    var usr_id = "nnn"; //TODO: Remove this
 
     function ProfileViewModel(params) {
 
@@ -50,9 +49,8 @@
                     self.About(data.about);
                     self.Picture(data.picture);
                     self.Id(data.id);
-                    usr_id = data.id;
                     api_link = "http://localhost:51952/api/profilepicture/";
-                    $("#avatar").attr("src", api_link + usr_id);
+                    $("#avatar").attr("src", api_link + self.Id);
                     $('#avatar').attr('src', $('#avatar').attr('src') + '?' + Math.random());
                 },
                 error: function (data) {

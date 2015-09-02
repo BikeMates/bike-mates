@@ -13,7 +13,7 @@
             return self.FirstName() + " " + self.SecondName();
         }, this);
 
-        self.gotoedit = function () { //TODO: rename
+        self.goToEdit = function () { //TODO: rename
             window.location = "http://localhost:51949/#editprofile";
         }
 
