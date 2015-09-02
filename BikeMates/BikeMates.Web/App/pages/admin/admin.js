@@ -7,6 +7,7 @@
         self.id = ko.observable("");
         self.firstName = ko.observable("");
         self.secondName = ko.observable("");
+        self.imagePath = ko.observable("fdf");
         self.users = ko.observableArray([]);
 
         self.unban = function () {
@@ -41,7 +42,8 @@
 
                 success: function (data) {
                     $.each(data, function (key, val) {
-                        self.users.push(new user(val.id, val.firstName, val.secondName));
+                        console.log(val.picture);
+                        self.users.push(new user(val.id, val.firstName, val.secondName, val.Picture));
                     });
                 }
             });
@@ -50,11 +52,12 @@
         return self;
     }
 
-    function user(id, firsName, secondName) {
+    function user(id, firsName, secondName, picture) {
         var self = this;
         self.id = id;
         self.firstName = firsName;
         self.secondName = secondName;
+        self.imagePath = picture;
     }
     return { viewModel: AdminViewModel, template: adminTemplate };
 });

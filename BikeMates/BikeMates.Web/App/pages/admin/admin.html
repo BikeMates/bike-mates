@@ -1,4 +1,9 @@
-﻿<h2>Baned users</h2>
+﻿<ul class="breadcrumb">
+    <li class="active"><strong>Baned users</strong></li>
+    <li><a href="#bannedroutes"><strong>Baned routes</strong></a></li>
+</ul>
+
+<br />
 <input type="button" value="Unban" class="btn btn-default" data-bind="click: unban" />
 <div class="list-group" class="banned" data-bind="foreach: users">
     <div class="list-group-item">
@@ -6,6 +11,9 @@
             <tr>
                 <th>
                     <input type="checkbox" data-bind="value: id" style="width:30px; height:30px" name="ids[]" />
+                </th>
+                <th>
+                    <img data-bind="attr:{src: imagePath}" width="70px" height="70px" style="margin-left:20px" />
                 </th>
                 <th>
                     <div style="margin-left:20px">
