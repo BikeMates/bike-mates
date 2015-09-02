@@ -1,20 +1,15 @@
-﻿using BikeMates.Application.Services;
-using BikeMates.Contracts.Services;
-using BikeMates.DataAccess;
-using BikeMates.DataAccess.Repository;
-using BikeMates.Domain.Entities;
-using BikeMates.Service.Models;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using AutoMapper;
+using BikeMates.Contracts.Services;
+using BikeMates.Domain.Entities;
+using BikeMates.Service.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BikeMates.Service.Controllers
 {
@@ -31,12 +26,13 @@ namespace BikeMates.Service.Controllers
         // GET api/user
         [HttpGet]
         public ProfileViewModel Get()
-        {   ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+        {  
+            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Single(c => c.Type == "id").Value;
 
-            AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
+            Mapper.CreateMap<User, ProfileViewModel>();
             User user = userService.GetUser(userId);
-            return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
+            return Mapper.Map<User, ProfileViewModel>(user);
         }
 
         // GET api/user/1
@@ -44,8 +40,8 @@ namespace BikeMates.Service.Controllers
         public ProfileViewModel Get(string id)
         {
             User user = userService.GetUser(id);
-            AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
-            return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
+            Mapper.CreateMap<User, ProfileViewModel>();
+            return Mapper.Map<User, ProfileViewModel>(user);
         }
 
         // POST api/user

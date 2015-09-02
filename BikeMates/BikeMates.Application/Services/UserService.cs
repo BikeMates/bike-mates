@@ -1,31 +1,22 @@
-﻿using BikeMates.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
 using BikeMates.Contracts.Repositories;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Security;
-using Microsoft.AspNet.Identity;
-using System.Net.Mail;
-using System.Net.Mime;
-using System.Security.Policy;
-using System.Collections;
-using System.Configuration;
 
 namespace BikeMates.Application.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository userRepository;
+        private readonly IUserRepository userRepository;
 
         public UserService(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
+
         public User GetUser(string id)
         {
             return this.userRepository.Find(id);
@@ -46,7 +37,6 @@ namespace BikeMates.Application.Services
             return this.userRepository.Register(user, password);
         }
 
-
         public User Login(string email, string password)
         {
             return this.userRepository.Login(email, password);
@@ -56,16 +46,17 @@ namespace BikeMates.Application.Services
         {
             return this.userRepository.GetUserByEmail(email);
         }
+
         public void ForgotPassword(string id, string host)
         {
             string resetToken = this.userRepository.ForgotPassword(id);
-            string message = createMessage(id, host, resetToken);
+            string message = CreateMessage(id, host, resetToken);
             MailSender.Send(GetUser(id).Email, message);
         }
 
-        private static string createMessage(string id, string host, string resetToken)
+        private static string CreateMessage(string id, string host, string resetToken)
         {
-            resetToken = System.Web.HttpUtility.UrlEncode(resetToken);
+            resetToken = HttpUtility.UrlEncode(resetToken);
             string resetUrl = string.Format("http://{0}?userId={1}&code={2}#resetpassword", host, id, resetToken);
             string message = string.Format("Please reset your password by clicking <a href=\"{0}\">Reset Password</a><br/> @Or click on the copy the following link on the browser: {0}", resetUrl);
 
@@ -79,12 +70,13 @@ namespace BikeMates.Application.Services
             {
                 return this.userRepository.ChangePassword(oldPassword, newPassword, id);
             }
+
             return IdentityResult.Success;
         }
 
         public IdentityResult ResetPassword(string id, string code, string password)
         {
-            code = System.Web.HttpUtility.UrlDecode(code);
+            code = HttpUtility.UrlDecode(code);
             return userRepository.ResetPassword(id, code, password);
         }
 

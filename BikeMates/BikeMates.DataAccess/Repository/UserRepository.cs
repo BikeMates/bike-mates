@@ -1,7 +1,6 @@
-﻿using BikeMates.Contracts.Repositories;
+﻿using BikeMates.Contracts.Managers;
+using BikeMates.Contracts.Repositories;
 using BikeMates.Domain.Entities;
-using BikeMates.Contracts.Managers;
-using BikeMates.DataAccess.Managers;
 using Microsoft.AspNet.Identity;
 
 namespace BikeMates.DataAccess.Repository
@@ -37,9 +36,9 @@ namespace BikeMates.DataAccess.Repository
             return userManager.GeneratePasswordResetToken(id);
         }
 
-        public IdentityResult ChangePassword(string oldPass, string newPass, string id)
+        public IdentityResult ChangePassword(string oldPassword, string newPassword, string id)
         {
-            return userManager.ChangePassword(id, oldPass, newPass);
+            return userManager.ChangePassword(id, oldPassword, newPassword);
         }
 
         public User GetUserByEmail(string email)

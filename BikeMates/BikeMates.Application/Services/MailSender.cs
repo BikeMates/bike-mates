@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikeMates.Application.Services
 {
@@ -21,7 +18,7 @@ namespace BikeMates.Application.Services
             msg.IsBodyHtml = true;
 
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(
+            NetworkCredential credentials = new NetworkCredential(
                  ConfigurationManager.AppSettings["MailAccount"],
                  ConfigurationManager.AppSettings["MailPassword"]);
             smtpClient.Credentials = credentials;

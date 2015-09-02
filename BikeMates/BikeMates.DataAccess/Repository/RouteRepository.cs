@@ -42,11 +42,13 @@ namespace BikeMates.DataAccess.Repository
 
             return routes;
         }
+
         public void SubscribeUser(Route route, User user)
         {
             route.Subscribers.Add(user);
             this.Update(route);
         }
+
         public bool UnsubscribeUser(Route route, User user)
         {
             bool isRemoved = route.Subscribers.Remove(user);

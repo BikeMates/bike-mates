@@ -1,14 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using BikeMates.Application.Services;
-using BikeMates.DataAccess;
-using BikeMates.DataAccess.Repository;
-using BikeMates.Domain.Entities;
-using BikeMates.Service.Models;
 using System.Web.Http;
 using BikeMates.Contracts.Services;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+using BikeMates.Domain.Entities;
+using BikeMates.Service.Models;
 
 namespace BikeMates.Service.Controllers
 {

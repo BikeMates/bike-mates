@@ -1,10 +1,5 @@
-﻿using BikeMates.Domain.Entities;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using BikeMates.Domain.Entities;
 
 namespace BikeMates.Contracts.Services
 {
@@ -12,7 +7,7 @@ namespace BikeMates.Contracts.Services
     {
         void Add(Route route);
         Route Find(int id);
-        void Update(Route entity);
+        void Update(Route route);
         void Delete(int id);
         IEnumerable<Route> GetAll();
         IEnumerable<Route> Search(RouteSearchParameters searchParameters);

@@ -1,19 +1,14 @@
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
-using BikeMates.Contracts.Repositories;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using BikeMates.DataAccess.Managers;
-using BikeMates.DataAccess.Repository;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BikeMates.DataAccess.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
     internal sealed class Configuration : DbMigrationsConfiguration<BikeMatesDbContext>
     {
         public Configuration()
@@ -70,13 +65,6 @@ namespace BikeMates.DataAccess.Migrations
             }
         }
 
-        /// <summary>
-        /// Adds new route
-        /// </summary>
-        /// <param name="index">just a number that is added to title to make the difference</param>
-        /// <param name="author"></param>
-        /// <param name="context"></param>
-        /// <returns>new User</returns>
         private void AddRoute(int index, User author, BikeMatesDbContext context)
         {
             Route route = new Route();
@@ -122,11 +110,6 @@ namespace BikeMates.DataAccess.Migrations
             context.SaveChanges();
         }
 
-        /// <summary>
-        /// Returns new User
-        /// </summary>
-        /// <param name="index">just a number that is added to user name and email, to make the difference</param>
-        /// <returns>new User</returns>
         private User AddUser(int index, BikeMatesDbContext context)
         {
             var userManager = new UserManager(context);

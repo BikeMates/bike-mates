@@ -1,11 +1,6 @@
-﻿using BikeMates.Domain.Entities;
+﻿using System.Data.Entity;
+using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BikeMates.DataAccess
 {
@@ -41,7 +36,6 @@ namespace BikeMates.DataAccess
 
 
         //TODO: Remove this method
-        //this will cause error
         public static BikeMatesDbContext Create()
         {
             return new BikeMatesDbContext();

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using BikeMates.Application.Services;
+using BikeMates.Contracts.Managers;
 using BikeMates.Contracts.Repositories;
 using BikeMates.Contracts.Services;
 using BikeMates.DataAccess;
+using BikeMates.DataAccess.Managers;
 using BikeMates.DataAccess.Repository;
+using BikeMates.Service.Providers;
 using Ninject.Modules;
 using Ninject.Web.Common;
-using BikeMates.Service.Providers;
-using BikeMates.Contracts.Managers;
-using BikeMates.DataAccess.Managers;
 
 namespace BikeMates.Service
 {

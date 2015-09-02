@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
-using BikeMates.Domain.Entities;
-using System.Collections;
 
 namespace BikeMates.Contracts.Repositories
 {
@@ -16,6 +10,6 @@ namespace BikeMates.Contracts.Repositories
         User GetUserByEmail(string email);
         string ForgotPassword(string id);
         IdentityResult ResetPassword(string id, string code, string password);
-        IdentityResult ChangePassword(string oldPass, string newPass, string id);
+        IdentityResult ChangePassword(string oldPassword, string newPassword, string id);
     }
 }

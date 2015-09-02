@@ -1,19 +1,10 @@
-﻿using BikeMates.Application.Services;
-using BikeMates.Contracts.Services;
-using BikeMates.DataAccess;
-using BikeMates.DataAccess.Repository;
-using BikeMates.Domain.Entities;
-using BikeMates.Service.Models;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Http;
+using BikeMates.Contracts.Services;
+using BikeMates.Domain.Entities;
 
 namespace BikeMates.Service.Controllers
 {
