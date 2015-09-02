@@ -26,7 +26,7 @@ using BikeMates.Contracts.Services;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Profile")]
-    public class ProfileController : ApiController
+    public class ProfileController : BaseController
     {
         private readonly IUserService userService;
 

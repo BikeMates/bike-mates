@@ -15,7 +15,7 @@ using System.Web.Http;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Admin")]
-    public class AdminController : ApiController
+    public class AdminController : BaseController
     {
         private IUserService userService;
         private IRouteService routeService;

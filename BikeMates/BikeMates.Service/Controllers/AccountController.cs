@@ -106,6 +106,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("ForgotPassword")]
         public IHttpActionResult ForgotPassword(ForgotPasswordModel model)
         {
@@ -127,6 +128,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("ResetPassword")]
         public async Task<HttpResponseMessage> ResetPassword(ResetPasswordViewModel model)
         {
@@ -171,10 +173,6 @@ namespace BikeMates.Service.Controllers
             var user = userService.GetUserByEmail(model.Email);
             UserModel userModel = Mapper.Map<UserModel>(user);
             return Ok(userModel);
-        }
-
-
-
-       
+        }       
     }
 }

@@ -10,7 +10,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using BikeMates.Web.Models;
 using BikeMates.DataAccess;
 using BikeMates.Domain.Entities;
 using System.Net.Mail;

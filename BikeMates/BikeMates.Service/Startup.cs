@@ -5,7 +5,6 @@ using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Ninject;
-using Ninject.Web.Common.OwinHost;
 using Owin;
 
 namespace BikeMates.Service
@@ -14,29 +13,29 @@ namespace BikeMates.Service
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureOAuth(app);
+            var kernel = CreateKernel();
+            ConfigureOAuth(app, kernel);
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
             app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
-            config.DependencyResolver = new NinjectResolver(CreateKernel());
-            //app.UseNinjectMiddleware(CreateKernel);
+            config.DependencyResolver = new NinjectResolver(kernel);            
         }
 
-        public void ConfigureOAuth(IAppBuilder app)
+        public void ConfigureOAuth(IAppBuilder app, StandardKernel kernel)
         {
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new SimpleAuthorizationServerProvider()
+                Provider = kernel.Get<SimpleAuthorizationServerProvider>()
             };
 
             // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-            
+
         }
 
         private static StandardKernel CreateKernel()

@@ -21,7 +21,7 @@ using BikeMates.Contracts.Services;
 
 namespace BikeMates.Service.Controllers
 {
-    public class SubscribeController : ApiController
+    public class SubscribeController : BaseController
     {
         private readonly IUserService userService;
         private readonly IRouteService routeService;

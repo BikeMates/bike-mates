@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Route")]
-    public class RouteController : ApiController
+    public class RouteController : BaseController
     {
         private RouteSearchParameters searchParameters;        
         public IEnumerable<Route> allRoutes;
