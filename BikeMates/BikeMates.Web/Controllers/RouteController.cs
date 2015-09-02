@@ -17,7 +17,7 @@ namespace BikeMates.Web.Controllers
 
         private readonly IRouteService routeService;
 
-        public RouteController(IRouteService routeService)
+        public RouteController()
         {
             this.routeService = routeService;
         }
