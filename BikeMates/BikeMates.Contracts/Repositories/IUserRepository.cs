@@ -17,7 +17,5 @@ namespace BikeMates.Contracts.Repositories
         string ForgotPassword(string id);
         IdentityResult ResetPassword(string id, string code, string password);
         IdentityResult ChangePassword(string oldPass, string newPass, string id);
-        void SubscribeRoute(Route route, User user);		
-        bool UnsubscribeRoute(Route route, User user);		
     }
 }

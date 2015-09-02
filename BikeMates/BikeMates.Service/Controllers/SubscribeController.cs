@@ -37,9 +37,7 @@ namespace BikeMates.Service.Controllers
             int routeId = id;
             User user = userService.GetUser(userId);
             Route route = routeService.Get(routeId);
-
             this.routeService.SubscribeUser(route, user);
-            this.userService.SubscribeRoute(route, user);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -53,9 +51,7 @@ namespace BikeMates.Service.Controllers
             int   routeId = id;
             User  user = userService.GetUser(userId);
             Route route = routeService.Get(routeId);
-
             this.routeService.UnsubscribeUser(route, user);
-            this.userService.UnsubscribeRoute(route, user);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
