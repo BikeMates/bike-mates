@@ -1,7 +1,5 @@
 ﻿define(["knockout", "text!./route.html", "require", "cssLoader", "RouteMap"], function (ko, RouteTemplate, require, cssLoader, Map) {
 
-
-    Map.asdf();
     var localPath = "/Content/Site.css";
     var pathFromApp = require.toUrl(localPath);
 
@@ -20,9 +18,8 @@
         self.Description = ko.observable("");
         self.MeetingPlace = ko.observable("");
         self.MapData = ko.observable("");
-        self.add = function () {
-            alert("asdf");
-        }
+
+        self.add= function() {}
     }
     return { viewModel: AddRouteViewModel(), template: RouteTemplate };
 });
