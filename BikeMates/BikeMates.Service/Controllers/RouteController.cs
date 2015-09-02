@@ -51,6 +51,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpPut]
+        [AllowAnonymous]
         [Route("Put")]
         public void Put(RouteViewModel route)
         {
