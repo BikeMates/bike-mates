@@ -43,7 +43,8 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
             { url: 'profile', params: { page: 'profile' } },
             { url: 'editprofile', params: { page: 'editprofile' } },
             { url: 'admin', params: { page: 'admin' } },
-            { url: 'bannedroutes', params: { page: 'bannedroutes' } }
+            { url: 'bannedroutes', params: { page: 'bannedroutes' } },
+            { url: 'routeview', params: { page: 'routeview' } }
         ]
     });
 });
