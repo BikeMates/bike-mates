@@ -10,7 +10,7 @@ namespace BikeMates.Contracts.Repositories
     public interface IRouteRepository : IRepository<Route, int>
     {
         IEnumerable<Route> Search(RouteSearchParameters searchParameters);
-        //void SubscribeUser(Route route, User user);
-        //bool UnsubscribeUser(Route route, User user);
+        void SubscribeUser(Route route, User user);
+        bool UnsubscribeUser(Route route, User user);
     }
 }

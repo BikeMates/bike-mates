@@ -42,8 +42,8 @@ namespace BikeMates.Service.Controllers
             var user = userService.GetUser(userId);
             var route = routeService.Get(routeId);
 
-            //routeService.SubscribeUser(route, user);
-            //userService.SubscribeRoute(route, user);
+            routeService.SubscribeUser(route, user);
+            userService.SubscribeRoute(route, user);
 
 
             var usertest = userService.GetUser(userId);//for testing purposes
@@ -60,8 +60,8 @@ namespace BikeMates.Service.Controllers
             var user = userService.GetUser(userId);
             var route = routeService.Get(routeId);
 
-            //routeService.UnsubscribeUser(route, user);
-            //userService.UnsubscribeRoute(route, user);
+            routeService.UnsubscribeUser(route, user);
+            userService.UnsubscribeRoute(route, user);
 
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             return response;

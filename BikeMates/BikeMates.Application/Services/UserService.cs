@@ -95,15 +95,15 @@ namespace BikeMates.Application.Services
             return userRepository.GetAll();
         }
 
-        //public void SubscribeRoute(Route route, User user)
-        //{
-        //    userRepository.SubscribeRoute(route, user);
-        //}
+        public void SubscribeRoute(Route route, User user)
+        {
+            userRepository.SubscribeRoute(route, user);
+        }
 
-        //public bool UnsubscribeRoute(Route route, User user)
-        //{
-        //    return userRepository.UnsubscribeRoute(route, user);
-        //}
+        public bool UnsubscribeRoute(Route route, User user)
+        {
+            return userRepository.UnsubscribeRoute(route, user);
+        }
 
 
 

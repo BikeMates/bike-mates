@@ -79,7 +79,7 @@
                 data: ko.toJSON(self),
                 success: function (data) {
 
-                    window.location = "http://localhost:51949/index.html#profile";
+                    window.location = "http://localhost:51949/#profile";
                 },
                 error: function (data) {
                 }
