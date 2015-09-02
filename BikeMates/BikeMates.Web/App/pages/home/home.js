@@ -1,5 +1,9 @@
-﻿define(["knockout", "text!./home.html", "require"], function (ko, homeTemplate, require) {
+﻿define(["knockout", "text!./home.html", "require", "cssLoader"], function (ko, homeTemplate, require, cssLoader) {
     //TODO: Remove this page if it is not used
+    var localPath = "/Content/Site.css";
+    var pathFromApp = require.toUrl(localPath);
+
+    cssLoader.link(pathFromApp);
 
     function HomeViewModel() {
 
@@ -22,24 +26,6 @@
         self.description = ko.observable("");
         self.allRoutes = ko.observableArray([]);
         self.OrderByFieldName = ko.observable("");
-
-        self.goToRoute = function (data) {
-            $.ajax({
-                url: "http://localhost:51952/api/route",
-                contentType: "application/json",
-                type: "GET",
-                success: function (data) {
-                    //self.Start(data.Start)
-                    //self.End(data.End)
-                    self.title(data.title);
-                    self.start(data.start);
-                    self.MeetingPlace(data.meetingPlace);
-                   self.distance(data.distance);
-                },
-                error: function (data) {
-                }
-            });
-        };
 
         self.setOrderAndSearch = function (orderBy) {
             if (orderBy) {
