@@ -114,10 +114,10 @@ function loadRoute(route) {
     var waypoints = [];
     var location;
     for (var i = 0; i < route.waypoints.length; i++) {
-        location = new google.maps.LatLng(route.waypoints[i].latitude, route.waypoints[i].longitude);
         waypoints[i] = {
-            location: location
-        }
+            location: route.waypoints[i].latitude.toString() + ',' + route.waypoints[i].longitude.toString(),
+            stopover: false
+    };
     }
     var origin = new google.maps.LatLng(route.start.latitude, route.start.longitude);
     var destination = new google.maps.LatLng(route.end.latitude, route.end.longitude);
@@ -129,17 +129,6 @@ function displayRoute(origin, destination, service, display) {
 }
 
 function displayRoute(origin, destination, service, display, waypoints) {
-    //mapping waypoints to google format
-    var googleWaypoints;
-    var waypoint;
-    for (var i = 0; i < waypoints.length; i++) {
-        waypoint = {
-            "lat": waypoints[i].location.latitude,
-            "lng": waypoints[i].location.longitude
-        }
-        googleWaypoints += (waypoint);
-    }
-
     service.route({
         origin: origin,
         destination: destination,
@@ -208,6 +197,6 @@ function clearMap() {
 }
 
 $('#ClearMapButton').click(function (e) { clearMap(); });
-$('#LoadMapButton').click(function (e) { getRoute(1003); }); //999 just for test
+$('#LoadMapButton').click(function (e) { getRoute(1004); }); //999 just for test
 
 $("#datepicker").datepicker();
