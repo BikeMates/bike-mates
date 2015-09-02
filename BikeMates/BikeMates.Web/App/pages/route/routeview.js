@@ -1,9 +1,5 @@
-﻿define(["knockout", "text!./routeview.html", "require", "cssLoader"], function (ko, routeviewTemplate, require, cssLoader) {
+﻿define(["knockout", "text!./routeview.html", "require", "cssLoader"], function (ko, routeviewTemplate, require) {
 
-    var localPath = "/Content/Site.css";
-    var pathFromApp = require.toUrl(localPath);
-
-    cssLoader.link(pathFromApp);
     function RoutevViewModel() {
 
         var self = this;

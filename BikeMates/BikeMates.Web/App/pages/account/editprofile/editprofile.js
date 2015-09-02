@@ -1,9 +1,4 @@
-﻿define(["knockout", "text!./editprofile.html", "require", "cssLoader"], function (ko, editprofileTemplate, require, cssLoader) {
-
-    var localPath = "/Content/Site.css";
-    var pathFromApp = require.toUrl(localPath);
-
-    cssLoader.link(pathFromApp);
+﻿define(["knockout", "text!./editprofile.html", "require"], function (ko, editprofileTemplate, require) {
 
     var tokenKey = "tokenInfo";
     var api_link = "aaa";
