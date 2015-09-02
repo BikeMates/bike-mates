@@ -19,7 +19,7 @@
                     },
                 success: function (data) {
                     $("#error_message").hide();
-                    window.location.href = "#";
+                    window.location.href = "#confirmresetpassword";
                 },
                 error: function (data) {
                     var errors = []
