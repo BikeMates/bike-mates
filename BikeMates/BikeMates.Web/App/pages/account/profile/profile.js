@@ -18,7 +18,7 @@
         }, this);
 
         self.gotoedit = function () {
-            window.location = "http://localhost:51949/index.html#editprofile";
+            window.location = "http://localhost:51949/#editprofile";
         }
 
         {

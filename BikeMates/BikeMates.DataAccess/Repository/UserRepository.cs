@@ -51,5 +51,17 @@ namespace BikeMates.DataAccess.Repository
         {
             return userManager.ResetPassword(id, code, password);
         }
+
+        public void SubscribeRoute(Route route, User user)
+        {
+            user.Subscriptions.Add(route);
+            this.Update(user);		
+        }
+        public bool UnsubscribeRoute(Route route, User user)
+        {
+            bool isRemoved = user.Subscriptions.Remove(route);
+            this.Update(user);
+            return isRemoved;		
+        }
     }
 }

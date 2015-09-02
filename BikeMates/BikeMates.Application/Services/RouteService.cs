@@ -47,16 +47,13 @@ namespace BikeMates.Application.Services
         }
 
         public void SubscribeUser(Route route, User user)		
-        {		
-            route.Subscribers.Add(user);		
-            this.Update(route);		
+        {
+            this.routeRepository.SubscribeUser(route, user);
         }		
 		 
         public bool UnsubscribeUser(Route route, User user)
-        {		
-            bool isRemoved = route.Subscribers.Remove(user);		
-            this.Update(route);		
-            return isRemoved;		
+        {
+            return this.routeRepository.UnsubscribeUser(route, user);
         }
     }
 }
