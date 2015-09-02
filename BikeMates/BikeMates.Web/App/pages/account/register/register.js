@@ -33,7 +33,11 @@
                     $("#error_message").hide();
                     $(".validation-summary-errors").hide();
 
-                    sessionStorage.setItem(tokenKey, data.access_token);
+                    sessionStorage.setItem(tokenKey, data.token);
+                    sessionStorage.setItem("authorized", data.isAuthorized);
+                    sessionStorage.setItem("username", data.firstName + " " + data.secondName);
+                    sessionStorage.setItem("role", data.role);
+
                     window.location.href = "#";
                     console.log(sessionStorage.getItem(tokenKey));
 

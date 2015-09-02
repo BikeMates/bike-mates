@@ -267,7 +267,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="index.html" />
+    <Content Include="i.html" />
     <Content Include="Scripts\App_Scripts\RouteView.js" />
     <Content Include="Scripts\crossroads\crossroads.js" />
     <Content Include="Scripts\crossroads\crossroads.min.js" />

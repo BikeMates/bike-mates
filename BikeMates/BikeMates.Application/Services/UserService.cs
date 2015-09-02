@@ -14,6 +14,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Security.Policy;
 using System.Collections;
+using System.Configuration;
 
 namespace BikeMates.Application.Services
 {
@@ -57,18 +58,18 @@ namespace BikeMates.Application.Services
         }
         public void forgotPassword(string id, string host)
         {
-            //TODO: Create a private method for message creation
             string resetToken = this.userRepository.forgotPassword(id);
+            string message = createMessage(id, host, resetToken);
+            MailSender.sendMail(GetUser(id).Email, message);
+        }
+
+        private string createMessage(string id, string host, string resetToken)
+        {
             resetToken = System.Web.HttpUtility.UrlEncode(resetToken);
+            string resetUrl = string.Format("http://{0}?userId={1}&code={2}#resetpassword", host, id, resetToken);
+            string message = string.Format("Please reset your password by clicking <a href=\"{0}\">Reset Password</a><br/> @Or click on the copy the following link on the browser: {0}", resetUrl);
 
-            string resetUrl = "http://" + host +
-                "?userId=" + id +
-                "&code=" + resetToken+"#resetpassword"; //TODO: Use string.Format method.
-
-            string message = "Please reset your password by clicking <a href=\"" + resetUrl + "\">Reset Password</a><br/>" +
-            @"Or click on the copy the following link on the browser:" + resetUrl; //TODO: Use string.Format method.
-
-            sendMail(id, message);
+            return message;
         }
 
         public IdentityResult ChangePassword(string oldPassword, string newPassword, string newPassConfirmation, string id)
@@ -78,26 +79,7 @@ namespace BikeMates.Application.Services
             {
                 return this.userRepository.ChangePassword(oldPassword, newPassword, id);
             }
-
-            //Cause all fields are empty means user do not want to change password
             return IdentityResult.Success;
-        }
-        
-        //TODO: Create a separate class MailSender which will send messages.
-        private void sendMail(string userId, string message)
-        {
-            MailMessage msg = new MailMessage();
-            msg.From = new MailAddress("BikeMatesUkraine@gmail.com"); //TODO: Move email settings to config file. Do not hardcode values
-            msg.To.Add(new MailAddress(GetUser(userId).Email));
-            msg.Subject = "Reset Password";
-            msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(message, null, MediaTypeNames.Text.Html));
-            msg.IsBodyHtml = true;
-
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential("BikeMatesUkraine@gmail.com", "Qwerty1#");
-            smtpClient.Credentials = credentials;
-            smtpClient.EnableSsl = true;
-            smtpClient.Send(msg);
         }
 
 
@@ -122,8 +104,8 @@ namespace BikeMates.Application.Services
         //{
         //    return userRepository.UnsubscribeRoute(route, user);
         //}
-           
-       
+
+
 
     }
 }
