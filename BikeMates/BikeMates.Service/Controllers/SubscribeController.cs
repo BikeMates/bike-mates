@@ -33,30 +33,30 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage Subscribe(int routeId)
+        public HttpResponseMessage Subscribe(int id)
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Single(c => c.Type == "id").Value;
 
 
+            var routeId = id;
             var user = userService.GetUser(userId);
             var route = routeService.Get(routeId);
 
             routeService.SubscribeUser(route, user);
             userService.SubscribeRoute(route, user);
 
-
-            var usertest = userService.GetUser(userId);//for testing purposes
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
         }
 
         [HttpDelete]
-        public HttpResponseMessage Unsubcsribe(int routeId)
+        public HttpResponseMessage Unsubcsribe(int id)
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Single(c => c.Type == "id").Value;
 
+            var routeId = id;
             var user = userService.GetUser(userId);
             var route = routeService.Get(routeId);
 
