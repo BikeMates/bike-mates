@@ -27,8 +27,6 @@ namespace BikeMates.Application.Services
             smtpClient.Credentials = credentials;
             smtpClient.EnableSsl = true;
             smtpClient.Send(msg);
-            smtpClient.Dispose();
-            msg.Dispose();
         }
     }
 }
