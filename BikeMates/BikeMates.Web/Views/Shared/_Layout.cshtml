@@ -37,12 +37,21 @@
                             <li>
                                 <a href="#profile" id="registerLink"><strong id="user-name">Name Surname</strong></a>
                             </li>
+                            <li>
+                                <a href="#" id="registerLink"><strong>Log out</strong></a>
+                            </li>
                         </ul>
                     </div>
                     <div hidden="hidden" id="admin">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
+                                <a href="#admin" id="registerLink"><strong>Admin panel</strong></a>
+                            </li>
+                            <li>
                                 <a href="#profile" id="registerLink"><strong id="user-name">Name Surname</strong></a>
+                            </li>
+                            <li>
+                                <a href="#" id="registerLink"><strong>Log out</strong></a>
                             </li>
                         </ul>
                     </div>
@@ -58,9 +67,6 @@
    
     <script data-main="App/boot/startup" src="Scripts/require/require.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
-    @*<script src="~/Scripts/knockout-3.3.0.js"></script>
-    <script src="~/Scripts/App_Scripts/AuthScript.js"></script>*@
-    <script src="~/Scripts/App_Scripts/LayoutScript.js"></script>
     <div class="container body-content">
         @RenderBody()
     </div>
