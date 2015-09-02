@@ -10,6 +10,8 @@ using BikeMates.DataAccess.Repository;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using BikeMates.Service.Providers;
+using BikeMates.Contracts.Managers;
+using BikeMates.DataAccess.Managers;
 
 namespace BikeMates.Service
 {
@@ -24,6 +26,7 @@ namespace BikeMates.Service
             this.Bind<IRouteRepository>().To<RouteRepository>();
             this.Bind<IRouteService>().To<RouteService>();
             this.Bind<SimpleAuthorizationServerProvider>().ToSelf();
+            this.Bind<IUserManager>().To<UserManager>();
         }
     }
 }

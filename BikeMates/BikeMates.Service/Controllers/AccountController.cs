@@ -17,20 +17,20 @@ using System.Web.Http;
 using AutoMapper;
 using Newtonsoft.Json;
 using System.Net;
+using BikeMates.Contracts.Services;
 
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Account")]
     public class AccountController : BaseController
     {
-        private UserService userService;
+        private IUserService userService;
 
-        public AccountController()
+        public AccountController(IUserService userService)
         {
-            userService = new UserService(new UserRepository(new BikeMatesDbContext()));
+            this.userService = userService;
 
         }
-
 
         // POST api/Account/Register
         [AllowAnonymous]

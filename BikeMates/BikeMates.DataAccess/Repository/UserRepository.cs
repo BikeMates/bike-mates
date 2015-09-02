@@ -10,10 +10,10 @@ namespace BikeMates.DataAccess.Repository
     {
         private readonly IUserManager userManager;
 
-        public UserRepository(BikeMatesDbContext context)
+        public UserRepository(BikeMatesDbContext context, IUserManager userManager)
             : base(context)
         {
-            userManager = new UserManager(context); //TODO: Inject IUserManager via constructor
+            this.userManager = userManager;
         }
         
         public IdentityResult Register(User user, string password)

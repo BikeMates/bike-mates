@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace BikeMates.DataAccess.Managers
 {
-    class UserManager:IUserManager
+    public class UserManager:IUserManager
     {
         private readonly UserManager<User> userManager;
 

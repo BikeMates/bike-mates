@@ -19,10 +19,11 @@ namespace BikeMates.Service.Controllers
     {
         private IUserService userService;
         private IRouteService routeService;
-        public AdminController()
+
+        public AdminController(IUserService userService, IRouteService routeService)
         {
-            userService = new UserService(new UserRepository(new BikeMatesDbContext()));
-            routeService = new RouteService(new RouteRepository(new BikeMatesDbContext()));
+            this.userService = userService;
+            this.routeService = routeService;
         }
 
         [HttpGet]
