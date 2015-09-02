@@ -237,6 +237,8 @@
     <Content Include="App\pages\account\forgotpassword\forgotPassword.js" />
     <Content Include="App\pages\account\resetpassword\resetPassword.html" />
     <Content Include="App\pages\account\resetpassword\resetPassword.js" />
+    <Content Include="App\pages\route\routeview.html" />
+    <Content Include="App\pages\route\routeview.js" />
     <Content Include="Scripts\App_Scripts\AuthScript.js" />
     <Content Include="Scripts\App_Scripts\ForgotPasswordScript.js" />
     <Content Include="Scripts\App_Scripts\LayoutScript.js" />
