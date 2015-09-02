@@ -16,7 +16,6 @@ using System.Web;
 using System.Web.Http;
 using AutoMapper;
 using Newtonsoft.Json;
-using BikeMates.Web.Models;
 using System.Net;
 
 namespace BikeMates.Service.Controllers
