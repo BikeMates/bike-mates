@@ -142,6 +142,7 @@ function displayRoute(origin, destination, service, display, waypoints) {
             alert('Could not display directions due to: ' + status);
         }
     });
+    return;
 }
 function computeTotalDistance(result) {
     var total = 0;
@@ -151,6 +152,7 @@ function computeTotalDistance(result) {
     }
     total = total / 1000;
     document.getElementById('totalDistance').value = total;
+    return;
 }
 
 function placeMarker(location) {
@@ -194,9 +196,5 @@ function clearMap() {
     start = null;
     end = null;
     data = {};
+    return;
 }
-
-$('#ClearMapButton').click(function (e) { clearMap(); });
-$('#LoadMapButton').click(function (e) { getRoute(1004); }); //999 just for test
-
-//$("#datepicker").datepicker();

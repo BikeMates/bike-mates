@@ -1,21 +1,21 @@
-﻿<div style="width: 100%; height: 100%;">
+﻿<div >
     <hr/>
     <div id="map"></div>
     <div class="container">
-        <form action="#" data-bind="submit: add" class="form-horizontal" method="post">
+        <form action="#" data-bind="submit: save" class="form-horizontal" id="routeForm" method="post">
             <hr/>
             <div class="center">
                 <div class="form-inline">
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="Start">Start date</label>
                         <div class="col-md-8">
-                            <input class="form-control" required data-bind="kendoDatePicker: Start" id="datepicker" name="Start" type="text" value="" />
+                            <input class="form-control" required data-bind="textInput: Start" id="datepicker" name="Start" type="date" value="" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-5 control-label" for="Distance">Total Distance:</label>
                         <div class="col-md-5">
-                            <input class="form-control" id="totalDistance" name="Distance" type="text" value="0"/> <span>km</span>
+                            <input class="form-control" required data-bind="textInput: totalDistance" id="totalDistance" name="Distance" type="text" value="0" /> <span>km</span>
                         </div>
                     </div>
                 </div>
@@ -41,8 +41,9 @@
                 <input id="MapData" data-bind="textInput: MapData" name="MapData" type="hidden" value=""/>
 
                 <div class="form-inline pull-right">
-                    <input type="button" class="btn btn-default" id="ClearMapButton" value="Clear"/>
-                    <input type="submit" class="btn btn-default" id="SaveRouteButton" value="Save"/>
+                    <input type="button" data-bind="click: loadRoute" class="btn btn-default" id="LoadMapButton" value="Load" />
+                    <input type="button" data-bind="click: clearMap" class="btn btn-default" id="ClearMapButton" value="Clear" />
+                    <input type="submit" class="btn btn-default" id="SaveRouteButton" value="Save" />
                 </div>
             </div>
         </form>
