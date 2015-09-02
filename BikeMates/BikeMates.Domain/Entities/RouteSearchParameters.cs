@@ -7,7 +7,7 @@ using System.Text;
 
 namespace BikeMates.Domain.Entities
 {
-    public enum SortBy
+    public enum RouteSortBy
     {  
         Date, Title, Subscribers
     }
@@ -26,6 +26,6 @@ namespace BikeMates.Domain.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]   
         public DateTime? DateTo { get; set; }
-        public SortBy SortOrder { get; set; }
+        public RouteSortBy SortOrder { get; set; }
     }
 }

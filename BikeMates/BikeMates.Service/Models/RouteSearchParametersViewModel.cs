@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BikeMates.Service.Models
 {
-    public class RouteSearch //TODO: rename fields like in RouteSearchParameters
+    public class RouteSearchParametersViewModel
     {
         [Required]
         public string Location { get; set; }
@@ -23,5 +23,6 @@ namespace BikeMates.Service.Models
         [Required]
         public string MaxDistance { get; set; }
 
+        public string OrderByFieldName { get; set; }
     }
 }
