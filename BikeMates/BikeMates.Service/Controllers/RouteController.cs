@@ -28,9 +28,9 @@ namespace BikeMates.Service.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("Get/{id}")]
-        public RouteViewModel Get(int id)
+        public RouteViewModel Find(int id)
         {
-            RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.Get(id));
+            RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.Find(id));
             return dto;
         }
 
@@ -47,7 +47,7 @@ namespace BikeMates.Service.Controllers
         [Route("GetMapData/{id}")]
         public MapData GetMapData(int id)
         {
-            return routeService.Get(id).MapData;
+            return routeService.Find(id).MapData;
         }
 
         [HttpPut]

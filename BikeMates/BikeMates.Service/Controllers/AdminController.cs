@@ -79,7 +79,7 @@ namespace BikeMates.Service.Controllers
 
             foreach (var id in routeId)
             {
-                route = routeService.Get(id);
+                route = routeService.Find(id);
                 route.IsBanned = false;
                 routeService.Update(route);
             }

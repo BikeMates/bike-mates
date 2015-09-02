@@ -28,7 +28,7 @@ namespace BikeMates.Application.Services
         }
         public User GetUser(string id)
         {
-            return this.userRepository.Get(id);
+            return this.userRepository.Find(id);
         }
 
         public void Delete(string id)

@@ -27,7 +27,7 @@ namespace BikeMates.DataAccess.Repository
 
         public void Delete(TKey id)
         {
-            var entity = Get(id);
+            var entity = Find(id);
             this.Entities.Remove(entity);
             this.Context.SaveChanges();
         }
@@ -37,7 +37,7 @@ namespace BikeMates.DataAccess.Repository
             return this.Entities;
         }
 
-        public T Get(TKey id)
+        public T Find(TKey id)
         {
             return this.Entities.Find(id);
         }

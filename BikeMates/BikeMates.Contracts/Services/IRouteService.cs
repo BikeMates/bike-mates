@@ -11,7 +11,7 @@ namespace BikeMates.Contracts.Services
     public interface IRouteService
     {
         void Add(Route route);
-        Route Get(int id);
+        Route Find(int id);
         void Update(Route entity);
         void Delete(int id);
         IEnumerable<Route> GetAll();
