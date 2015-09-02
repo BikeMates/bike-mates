@@ -29,7 +29,7 @@
     <tr>
         <td><h4>Date</h4></td>
         <td>
-            <input type="text" size="10" class="filter-inpt" id="DateFor" name="Date" data-bind="value:DateFor" />
+            <input type="text" size="10" class="filter-inpt" id="DateFrom" name="Date" data-bind="value:DateFrom" />
             <input type="text" size="10" class="filter-inpt" id="DateTo" name="Date" data-bind="value:DateTo" />
         </td>
     </tr>
@@ -45,10 +45,13 @@
 
 <div class="row result-filter-row">
 
-    <table>
+    <table align="center">
         <tbody data-bind="foreach: allRoutes">
             <tr>
-
+                <td data-bind="text: id"></td>
+                <td data-bind="text: title"></td>
+                <td data-bind="text: description"></td>
+                <td data-bind="text: MeetingPlace"></td>
                 <td data-bind="text: distance"></td>
             </tr>
         </tbody>

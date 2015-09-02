@@ -12,25 +12,16 @@ namespace BikeMates.Service.Models
         public string Location { get; set; }
 
         [Required]
-        public string Date1 { get; set; }
+        public string DateTo { get; set; }
 
         [Required]
-        public string Date2 { get; set; }
+        public string DateFrom { get; set; }
 
         [Required]
-        public string Distance1 { get; set; }
+        public string MinDistance { get; set; }
 
         [Required]
-        public string Distance2 { get; set; }
-        [Required]
-        public bool ByName { get; set; }
-
-        [Required]
-        public bool ByDate { get; set; }
-
-        [Required]
-        public bool ByParticipants { get; set; }
-       
+        public string MaxDistance { get; set; }
 
     }
 }
