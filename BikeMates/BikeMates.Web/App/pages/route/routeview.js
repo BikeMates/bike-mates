@@ -3,6 +3,7 @@
     function RoutevViewModel() {
 
         var self = this;
+        self.id = ko.observable();
         self.title = ko.observable("");
         self.start = ko.observable("");
         self.distance = ko.observable("");
@@ -12,7 +13,7 @@
         //self.End = ko.observable();
         self.ByTitle = ko.observable("");
         $.ajax({
-            url: "http://localhost:51952/api/route/viewmodel",
+            url: "http://localhost:51952/api/route/get"+'/'+self.id,
             contentType: "application/json",
             type: "GET",
             success: function (data) {

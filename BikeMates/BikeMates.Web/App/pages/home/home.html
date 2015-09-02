@@ -1,6 +1,7 @@
 ﻿<div class="jumbotron filter_menu">
     <div class="navbar-collapse collapse">
-
+        
+        <!-- Used for Authorized user -->
         <!--<select id="sort_order" onchange="CallActionList($(this).val()); return false;">
             <option>select</option>
             <option value="All Routes">All Routes</option>
@@ -9,13 +10,13 @@
         </select>-->
         <ul class="nav navbar-nav">
             <li>
-                <input type="submit" value="By Date" id="ByDate" />
+                <input type="submit" value="By Date" id="ByDate" data-bind="click:setOrderAndSearch.bind($data,'Date')" />
             </li>
             <li>
-                <input type="submit" value="By Title" id="ByTitle" />
+                <input type="submit" value="By Title" id="ByTitle" data-bind="click:setOrderAndSearch.bind($data,'Title')" />
             </li>
             <li>
-                <input type="submit" value="By Participants" id="ByParticipants" />
+                <input type="submit" value="By Participants" id="ByParticipants" data-bind="click:setOrderAndSearch.bind($data,'Subscribers')" />
             </li>
         </ul>
 
@@ -47,19 +48,21 @@
         </td>
     </tr>
 </table>
-<button type="button" class="btn btn-default filter-btn" id="Search">SEARCH</button>
+<button type="button" class="btn btn-default filter-btn" data-bind="click: searchRoutes" id="Search">SEARCH</button>
 
 <div class="row result-filter-row">
     <table class="result-silter-itm" align="center">
-        <tbody data-bind="foreach: allRoutes">
-            <tr>
-                <td data-bind="value: id"></td>
-                <th><label data-bind="text: title"></label></th>
-                <th>Description:<label data-bind="text: description"></label></th>
-                <th>MeetingPlace:<label data-bind="text: meetingplace"></label></th>
-                <th> Distance:<label data-bind="text: distance"></label></th>
-            </tr>
-        </tbody>
-    </table>
+            <tbody data-bind="foreach: allRoutes">
+                <tr>
+                    <td class="result-silter-itm" data-bind="value: id">
+                        <a href="../#routeview"><label data-bind="text: title"></label></a>
+                        Distance:<label data-bind="text: distance"></label>
+                        MeetingPlace:<label data-bind="text: meetingPlace"></label>
+                        Start:<label data-bind="text: start"></label>
+                        Description:<label data-bind="text: description"></label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </div>
 
