@@ -2,7 +2,7 @@
 
     var tokenKey = "tokenInfo";
     var api_link = "aaa";
-    var usr_id = "nnn";
+    var usr_id = "nnn"; //TODO: Remove this
 
     function ProfileViewModel(params) {
 
@@ -31,7 +31,6 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-
                     api_link = "http://localhost:51952/api/profilepicture/";
                     $('#avatar').attr('src', $('#avatar').attr('src') + '?' + Math.random());
                 },
@@ -46,7 +45,6 @@
                 type: "GET",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
-
                     self.FirstName(data.firstName);
                     self.SecondName(data.secondName);
                     self.About(data.about);
@@ -56,7 +54,6 @@
                     api_link = "http://localhost:51952/api/profilepicture/";
                     $("#avatar").attr("src", api_link + usr_id);
                     $('#avatar').attr('src', $('#avatar').attr('src') + '?' + Math.random());
-
                 },
                 error: function (data) {
                 }
@@ -64,7 +61,6 @@
         }
 
         self.savedata = function () {
-
             $.ajax({
                 url: "http://localhost:51952/api/profile",
                 contentType: "application/json",
@@ -73,7 +69,6 @@
                 dataType: 'json',
                 data: ko.toJSON(self),
                 success: function (data) {
-
                     window.location = "http://localhost:51949/#profile";
                 },
                 error: function (data) {
@@ -82,29 +77,25 @@
 
         }
 
+        $.ajax({
+            url: "http://localhost:51952/api/profile",
+            contentType: "application/json",
+            type: "GET",
+            headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+            success: function (data) {
+                self.FirstName(data.firstName);
+                self.SecondName(data.secondName);
+                self.About(data.about);
+                self.Picture(data.picture);
+                self.Id(data.id);
+                usr_id = data.id;
+                api_link = "http://localhost:51952/api/profilepicture/";
+                $("#avatar").attr("src", api_link + usr_id);
+            },
+            error: function (data) {
+            }
+        });
 
-
-        {
-            $.ajax({
-                url: "http://localhost:51952/api/profile",
-                contentType: "application/json",
-                type: "GET",
-                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-                success: function (data) {
-
-                    self.FirstName(data.firstName);
-                    self.SecondName(data.secondName);
-                    self.About(data.about);
-                    self.Picture(data.picture);
-                    self.Id(data.id);
-                    usr_id = data.id;
-                    api_link = "http://localhost:51952/api/profilepicture/";
-                    $("#avatar").attr("src", api_link + usr_id);
-                },
-                error: function (data) {
-                }
-            });
-        }
         return self;
     }
 
