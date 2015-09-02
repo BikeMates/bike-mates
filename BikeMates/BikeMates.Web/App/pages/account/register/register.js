@@ -38,6 +38,10 @@
                     sessionStorage.setItem("username", data.firstName + " " + data.secondName);
                     sessionStorage.setItem("role", data.role);
 
+                    $("#authorized").show();
+                    $("#anonimus").hide();
+                    $('#user-name').text(sessionStorage.getItem('username'));
+
                     window.location.href = "#";
                     console.log(sessionStorage.getItem(tokenKey));
 

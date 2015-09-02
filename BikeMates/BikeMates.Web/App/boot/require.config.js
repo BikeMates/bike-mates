@@ -18,7 +18,8 @@
         "modernizr": "/Scripts/modernizr-2.6.2",
         "respond": "/Scripts/respond",
         "googlemap": "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize",
-        "RouteMap": "/Scripts/App_Scripts/Route"
+        "RouteMap": "/Scripts/App_Scripts/Route",
+        "auth": "/Scripts/App_Scripts/AuthScript"
     },
     shim: {
         "bootstrap": { deps: ["jquery"] }

@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Route")]
-    public class RouteController : ApiController
+    public class RouteController : BaseController
     {
         private RouteSearchParameters searchParameters;        
         public IEnumerable<Route> allRoutes;
@@ -65,66 +65,107 @@ namespace BikeMates.Service.Controllers
         }
         [HttpPost]
         [Route("Search")]
-        public IEnumerable<Route> Searching(RouteSearch routesearch) {
-            searchParameters=new RouteSearchParameters();
-            if (routesearch.Location.Length !=0)
+        public IEnumerable<RouteViewModel> Searching(RouteSearch search)
+        {
+            searchParameters = new RouteSearchParameters();
+            if (search.Location.Length != 0)
             {
-                searchParameters.MeetingPlace = routesearch.Location;
+                searchParameters.MeetingPlace = search.Location;
             }
-            if (routesearch.DateTo.Length != 0)
+            if (search.DateTo.Length != 0)
             {
-                searchParameters.DateTo = DateTime.Parse(routesearch.DateTo);
+                searchParameters.DateTo = DateTime.Parse(search.DateTo);
             }
-            if (routesearch.DateFrom.Length != 0)
+            if (search.DateFrom.Length != 0)
             {
-                searchParameters.DateFrom = DateTime.Parse(routesearch.DateFrom);
+                searchParameters.DateFrom = DateTime.Parse(search.DateFrom);
             }
-            if (routesearch.MaxDistance.Length != 0)
+            if (search.MaxDistance.Length != 0)
             {
-                searchParameters.MaxDistance = Int32.Parse(routesearch.MaxDistance);
+                searchParameters.MaxDistance = Int32.Parse(search.MaxDistance);
             }
-            if (routesearch.MinDistance.Length != 0)
+            if (search.MinDistance.Length != 0)
             {
-                searchParameters.MinDistance = Int32.Parse(routesearch.MinDistance);
+                searchParameters.MinDistance = Int32.Parse(search.MinDistance);
             }
-            return routeService.Search(searchParameters);     
+            var allroutescopy = routeService.Search(searchParameters);
+            var routes = new List<RouteViewModel>();
+            foreach (var item in allroutescopy)
+            {
+                routes.Add(RouteViewModel.MapToViewModel(item));
+            }
+            return routes;
         }
         [HttpGet]
         [Route("GetRoutes")]
-        public IEnumerable<Route> Get()
+        public IEnumerable<RouteViewModel> Get()
         {
-            return allRoutes;
+            var viewroute = new List<RouteViewModel>();
+            foreach (var item in allRoutes.ToArray())
+            {
+                viewroute.Add(RouteViewModel.MapToViewModel(item));
+            }
+            var routes = viewroute;
+            return routes;
         }
         [HttpGet]
         [Route("SortTitle")]
-        public IEnumerable<Route> SortTitle()
+        public IEnumerable<RouteViewModel> SortTitle()
         {
-                    var routesSort = from nameRoute
-                             in allRoutes
-                                 orderby nameRoute.Title
-                                 select nameRoute;             
-            return routesSort;
+            var routesSort = from nameRoute
+                     in allRoutes
+                             orderby nameRoute.Title
+                             select nameRoute;
+            var routeSort = new List<RouteViewModel>();
+            foreach (var item in routesSort)
+            {
+                routeSort.Add(RouteViewModel.MapToViewModel(item));
+            }
+            return routeSort;
         }
         [HttpGet]
         [Route("SortSubscribes")]
-        public IEnumerable<Route> SortSubscribes()
+        public IEnumerable<RouteViewModel> SortSubscribes()
         {
-                var routesSort = from nameRoute
-                                 in allRoutes
-                                 orderby nameRoute.Subscribers.Count
-                                 select nameRoute;
-                return routesSort;
+            var routesSort = from nameRoute
+                             in allRoutes
+                             orderby nameRoute.Subscribers.Count
+                             select nameRoute;
+            var routeSort = new List<RouteViewModel>();
+            foreach (var item in routesSort)
+            {
+                routeSort.Add(RouteViewModel.MapToViewModel(item));
             }
+            return routeSort;
+        }
         [HttpGet]
         [Route("SortDate")]
-        public IEnumerable<Route> SortDate()
+        public IEnumerable<RouteViewModel> SortDate()
         {
-                var routesSort = from nameRoute
-                                 in allRoutes
-                                 orderby nameRoute.Start
-                                 select nameRoute;
-                return routesSort;
-            }       
+            var routesSort = from nameRoute
+                             in allRoutes
+                             orderby nameRoute.Start
+                             select nameRoute;
+            var routeSort = new List<RouteViewModel>();
+            foreach (var item in routesSort)
+            {
+                routeSort.Add(RouteViewModel.MapToViewModel(item));
+            }
+            return routeSort;
+        }
+        [HttpGet]
+        [Route("ViewModel")]
+        public RouteViewModel ViewModel(int id)
+        {
+            RouteViewModel rot = new RouteViewModel();
+            //rot.MapData.Start = routeService.GetRoute(1).MapData.Start;
+            // rot.MapData.End = routeService.GetRoute(1).MapData.End;
+            // rot.Subscribers = routeService.Get(id).Subscribers;
+            rot.Title = routeService.Get(id).Title;
+            rot.Start = routeService.Get(id).Start;
+            rot.MeetingPlace = routeService.Get(id).MeetingPlace;
+            rot.Distance = (routeService.Get(id).Distance).ToString();
+            return rot;
         }
     }
-
+}

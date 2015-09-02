@@ -1,4 +1,4 @@
-﻿define(['jquery', 'knockout', './router',  'knockout-projections'], function ($, ko, router) {
+﻿define(['jquery', 'knockout', './router',  'knockout-projections', 'auth'], function ($, ko, router) {
 
     ko.components.register('home', { require: 'App/pages/home/home' });
     ko.components.register('register', { require: 'App/pages/account/register/register' });
@@ -12,20 +12,8 @@
     ko.components.register('editprofile', { require: 'App/pages/account/editprofile/editprofile' });
     ko.components.register('admin', { require: 'App/pages/admin/admin' });
     ko.components.register('bannedroutes', { require: 'App/pages/admin/bannedRoutes' });
-    ko.applyBindings({ route: router.currentRoute });
+    ko.components.register('routeview', { require: 'App/pages/route/routeview' });
+    //ko.components.register('auth', { require: 'Scripts/App_Scripts/AuthScript' });
 
-    ko.bindingHandlers.myBinding = {
-        init: function (element, valueAccessor, allBindings) {
-            var value = valueAccessor();
-
-            var valueUnwrapped = ko.unwrap(value);
-
-            var authorized = allBindings.get('authorized') || false;
-
-            if (authorized == true)
-                $(element).show(); 
-            else
-                $(element).hide(); 
-        }
-    };
+    ko.applyBindings({ route: router.currentRoute });    
 });

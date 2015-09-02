@@ -1,33 +1,29 @@
-﻿using BikeMates.Application.Services;
-using BikeMates.DataAccess;
-using BikeMates.DataAccess.Repository;
+﻿using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using Microsoft.Owin.Security.OAuth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace BikeMates.Service.Providers
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        //TODO: Remove async
+        private readonly IUserService userService;
+
+        public SimpleAuthorizationServerProvider(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
         }
 
-        //TODO: Remove async
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
-            UserService userService = new UserService(new UserRepository(new BikeMatesDbContext()));
-
             User user = userService.Login(context.UserName, context.Password);
 
             if (user == null)

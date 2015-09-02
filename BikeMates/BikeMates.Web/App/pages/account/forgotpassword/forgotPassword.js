@@ -1,4 +1,5 @@
 ﻿define(["knockout", "text!./forgotPassword.html", "require", "captcha"], function (ko, forgotPasswordTemplate, require, captcha) {
+
     function ForgotPasswordViewModel(params) {
         var self = this;
         self.username = ko.observable("");

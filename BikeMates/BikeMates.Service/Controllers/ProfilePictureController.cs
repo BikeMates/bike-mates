@@ -20,7 +20,7 @@ using BikeMates.Service.Models;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/profilepicture")]
-    public class ProfilePictureController : ApiController
+    public class ProfilePictureController : BaseController
     {
         public ProfilePictureController()
         {
