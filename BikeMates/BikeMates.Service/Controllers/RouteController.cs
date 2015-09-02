@@ -15,16 +15,14 @@ namespace BikeMates.Service.Controllers
     [RoutePrefix("api/Route")]
     public class RouteController : ApiController
     {
-        private RouteSearchParameters searchParameters;
-        private BikeMates.DataAccess.Repository.RouteRepository routelist = new BikeMates.DataAccess.Repository.RouteRepository(new BikeMatesDbContext());
+        private RouteSearchParameters searchParameters;        
         public IEnumerable<Route> allRoutes;
-        private IEnumerable<Route> ListSort;
         private readonly IRouteService routeService;
         
         public RouteController(IRouteService routeService)
         {
             this.routeService = routeService;
-            allRoutes = routelist.GetAll();
+            allRoutes = routeService.GetAll();
         }
 
         [HttpGet]
@@ -69,23 +67,23 @@ namespace BikeMates.Service.Controllers
         [Route("Search")]
         public IEnumerable<Route> Searching(RouteSearch routesearch) {
             searchParameters=new RouteSearchParameters();
-            if (routesearch.Location != String.Empty)
+            if (routesearch.Location.Length !=0)
             {
                 searchParameters.MeetingPlace = routesearch.Location;
             }
-            if (routesearch.DateTo != String.Empty)
+            if (routesearch.DateTo.Length != 0)
             {
                 searchParameters.DateTo = DateTime.Parse(routesearch.DateTo);
             }
-            if (routesearch.DateFrom != String.Empty)
+            if (routesearch.DateFrom.Length != 0)
             {
                 searchParameters.DateFrom = DateTime.Parse(routesearch.DateFrom);
             }
-            if (routesearch.MaxDistance != String.Empty)
+            if (routesearch.MaxDistance.Length != 0)
             {
                 searchParameters.MaxDistance = Int32.Parse(routesearch.MaxDistance);
             }
-            if (routesearch.MinDistance != String.Empty)
+            if (routesearch.MinDistance.Length != 0)
             {
                 searchParameters.MinDistance = Int32.Parse(routesearch.MinDistance);
             }
