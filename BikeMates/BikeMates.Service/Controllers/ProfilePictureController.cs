@@ -24,9 +24,7 @@ namespace BikeMates.Service.Controllers
     {
         public ProfilePictureController()
         {
-
         }
-
         //POST api/profilepicture
         [HttpPost]
         public async Task<HttpResponseMessage> AddImage()
@@ -38,7 +36,6 @@ namespace BikeMates.Service.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-
             string root = HttpContext.Current.Server.MapPath("~/Resources");
             var provider = new MultipartFormDataStreamProvider(root);
 
@@ -49,7 +46,6 @@ namespace BikeMates.Service.Controllers
             string newfilePath = "";
             string oldfilePath = "";
 
-            // This illustrates how to get the file names.
             foreach (MultipartFileData file in provider.FileData)
             {
                 FileInfo currentFile = new FileInfo(file.LocalFileName);
@@ -57,14 +53,13 @@ namespace BikeMates.Service.Controllers
                 oldfilePath = file.LocalFileName;
                 newfilePath = String.Format("{0}\\{1}", currentFile.Directory.FullName, id);
             }
-            File.Delete(newfilePath); //TODO: Check that file exist before removal
+            if (File.Exists(newfilePath))
+              { File.Delete(newfilePath); }
             File.Move(oldfilePath, newfilePath);
 
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
-
         }
-
         [HttpGet]
         public HttpResponseMessage GetImage(string id)
         {
@@ -73,20 +68,15 @@ namespace BikeMates.Service.Controllers
 
             var filePath = Path.Combine(rootPath, fileName);
             if (!File.Exists(filePath)) //If image not found - then default image
-            { filePath = Path.Combine(rootPath, "icon-user-default.jpg"); }
-
-            HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
-
-            //Read File as Byte Array
+                { filePath = Path.Combine(rootPath, "icon-user-default.jpg"); }
             byte[] fileData = File.ReadAllBytes(filePath);
-
             if (fileData == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
+            HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
             Response.Content = new ByteArrayContent(fileData);
             Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");
             return Response;
-
         }
     }
 }

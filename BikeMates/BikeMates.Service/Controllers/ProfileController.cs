@@ -20,9 +20,6 @@ using System.Threading.Tasks;
 //for ninject implementation
 using BikeMates.Contracts.Services;
 
-
-//TODO: format code (spaces/tabs, remove blank lines) use - ctrl k, d
-
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Profile")]
@@ -34,12 +31,10 @@ namespace BikeMates.Service.Controllers
         {
             this.userService = userService;
         }
-
         // GET api/user
         [HttpGet]
         public ProfileViewModel Get()
-        {   //get logged user id
-            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+        {   ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
             AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
@@ -56,20 +51,23 @@ namespace BikeMates.Service.Controllers
             AutoMapper.Mapper.CreateMap<User, ProfileViewModel>();
             return AutoMapper.Mapper.Map<User, ProfileViewModel>(user);
         }
-
         // POST api/user
         [HttpPost]
         public async Task<HttpResponseMessage> Update(EditProfileViewModel userViewModel)
         {
-
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Where(c => c.Type == "id").Single().Value;
 
+            AutoMapper.Mapper.CreateMap<User, EditProfileViewModel>();
+            AutoMapper.Mapper.CreateMap<EditProfileViewModel, User>();
+
             User user = userService.GetUser(userId); //TODO: Use Automapper for mapping   RESP: creating error when updating entityusing automapper
-            user.FirstName = userViewModel.FirstName;
-            user.About = userViewModel.About;
-            user.SecondName = userViewModel.SecondName;
-            user.Picture = userViewModel.Picture;
+
+            user = AutoMapper.Mapper.Map<EditProfileViewModel, User>(userViewModel);
+            //user.FirstName = userViewModel.FirstName;
+            //user.About = userViewModel.About;
+            //user.SecondName = userViewModel.SecondName;
+            //user.Picture = userViewModel.Picture;
             userService.Update(user);
 
             IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, userId);
@@ -80,7 +78,6 @@ namespace BikeMates.Service.Controllers
                 HttpResponseMessage ia = await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
                 return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
             }
-
             var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
             return responseMsg;
         }
@@ -91,7 +88,6 @@ namespace BikeMates.Service.Controllers
             {
                 return InternalServerError();
             }
-
             if (!result.Succeeded)
             {
                 if (result.Errors != null)
@@ -101,18 +97,14 @@ namespace BikeMates.Service.Controllers
                         ModelState.AddModelError("", error);
                     }
                 }
-
                 if (ModelState.IsValid)
                 {
                     // No ModelState errors are available to send, so just return an empty BadRequest.
                     return BadRequest();
                 }
-
                 return BadRequest(ModelState);
             }
-
             return null;
         }
-
     }
 }

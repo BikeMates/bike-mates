@@ -51,7 +51,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpDelete]
-        public HttpResponseMessage Unsubcsribe(int id)
+        public HttpResponseMessage Unsubscribe(int id)
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Single(c => c.Type == "id").Value;
