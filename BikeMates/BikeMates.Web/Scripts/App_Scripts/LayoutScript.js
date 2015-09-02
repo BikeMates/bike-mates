@@ -1,11 +1,8 @@
 ﻿$(document).ready(function () {        
-        if (sessionStorage.getItem("authorized")) {
-            var username = sessionStorage.getItem("username");
-            $("#authorized").show();
-            $("#anonimus").hide();
-            $('#user-name').text(username);
-        } else {
-            $("#authorized").hide();
-            $("#anonimus").show();
-        }
+    $(".logout").on('click', function () {
+        sessionStorage.clear();
+        $('#userpanel').find('#anonim').show();
+        $('#userpanel').find('#user').hide();
+        $('#userpanel').find('#admin').hide();
+    });
 });

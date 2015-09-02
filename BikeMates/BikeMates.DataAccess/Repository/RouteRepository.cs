@@ -14,28 +14,28 @@ namespace BikeMates.DataAccess.Repository
         public IEnumerable<Route> Search(RouteSearchParameters searchParameters)
         {
             IQueryable<Route> routes = this.Context.Routes.Where(route =>
-                (route.Title.Contains(searchParameters.Title) || string.IsNullOrEmpty(searchParameters.Title)) &&
-                (route.Author.FirstName.Contains(searchParameters.Author) || string.IsNullOrEmpty(searchParameters.Author)) &&
-                (route.Author.SecondName.Contains(searchParameters.Author) || string.IsNullOrEmpty(searchParameters.Author)) &&
-                (route.MeetingPlace.Contains(searchParameters.MeetingPlace) || string.IsNullOrEmpty(searchParameters.MeetingPlace)) &&
-                (route.Description.Contains(searchParameters.Description) || string.IsNullOrEmpty(searchParameters.Description)) &&
-                (route.Distance >= searchParameters.MinDistance || searchParameters.MinDistance.HasValue) &&
-                (route.Distance <= searchParameters.MaxDistance || searchParameters.MaxDistance.HasValue) &&
-                (route.Start >= searchParameters.DateFrom  || searchParameters.DateFrom.HasValue) &&
-                (route.Start <= searchParameters.DateTo || searchParameters.DateTo.HasValue)
+                (string.IsNullOrEmpty(searchParameters.Title) || route.Title.Contains(searchParameters.Title)) &&
+                (string.IsNullOrEmpty(searchParameters.Author) || route.Author.FirstName.Contains(searchParameters.Author)) &&
+                (string.IsNullOrEmpty(searchParameters.Author)) || route.Author.SecondName.Contains(searchParameters.Author) &&
+                (string.IsNullOrEmpty(searchParameters.MeetingPlace) || route.MeetingPlace.Contains(searchParameters.MeetingPlace)) &&
+                (string.IsNullOrEmpty(searchParameters.Description) || route.Description.Contains(searchParameters.Description)) &&
+                (!searchParameters.MinDistance.HasValue || route.Distance >= searchParameters.MinDistance) &&
+                (!searchParameters.MaxDistance.HasValue || route.Distance <= searchParameters.MaxDistance) &&
+                (!searchParameters.DateFrom.HasValue || route.Start >= searchParameters.DateFrom) &&
+                (!searchParameters.DateTo.HasValue || route.Start <= searchParameters.DateTo)
                 );
 
-            if (searchParameters.SortOrder == SortBy.Date)
+            if (searchParameters.SortOrder == RouteSortBy.Date)
             {
                 routes = routes.OrderBy(x => x.Start);
             }
 
-            if (searchParameters.SortOrder == SortBy.Title)
+            if (searchParameters.SortOrder == RouteSortBy.Title)
             {
                 routes = routes.OrderBy(x => x.Title);
             }
 
-            if (searchParameters.SortOrder == SortBy.Subscribers)
+            if (searchParameters.SortOrder == RouteSortBy.Subscribers)
             {
                 routes = routes.OrderBy(x => x.Subscribers.Count);
             }

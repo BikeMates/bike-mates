@@ -4,8 +4,8 @@
 
     function LoginViewModel(params) {
         var self = this;
-        self.username = ko.observable("admin@admin.com");
-        self.password = ko.observable("Qwerty1#");
+        self.username = ko.observable("");
+        self.password = ko.observable("");
         self.login = function () {
 
             var userlogin = self.username;

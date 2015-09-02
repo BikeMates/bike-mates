@@ -1,5 +1,9 @@
-﻿define(["knockout", "text!./home.html", "require"], function (ko, homeTemplate, require) {
+﻿define(["knockout", "text!./home.html", "require", "cssLoader"], function (ko, homeTemplate, require, cssLoader) {
     //TODO: Remove this page if it is not used
+    var localPath = "/Content/Site.css";
+    var pathFromApp = require.toUrl(localPath);
+
+    cssLoader.link(pathFromApp);
 
     function HomeViewModel() {
 
@@ -21,90 +25,31 @@
         self.MaxDistance = ko.observable("");
         self.description = ko.observable("");
         self.allRoutes = ko.observableArray([]);
+        self.OrderByFieldName = ko.observable("");
 
-        self.goToRoute = function (data) {
-            //$.ajax({
-            //    url: "http://localhost:51952/api/route",
-            //    contentType: "application/json",
-            //    type: "GET",
-            //    success: function (data) {
-            //        //self.Start(data.Start)
-            //        //self.End(data.End)
-            //        self.title(data.title);
-            //        self.start(data.start);
-            //        self.distance(data.distance);
-            //        self.MeetingPlace(data.meetingPlace);
-            //    },
-            //    error: function (data) {
-            //    }
-            //});
-        };
+        self.setOrderAndSearch = function (orderBy) {
+            if (orderBy) {
+                self.OrderByFieldName(orderBy);
+            }
+            self.searchRoutes();
+        }
 
-        $("#Search").button().click(function () {
+        self.searchRoutes = function () {
             $.ajax({
-                url: "http://localhost:51952/api/route/search",
+                url: "http://localhost:51952/api/route/getroutes",
                 contentType: "application/json",
                 type: "POST",
                 dataType: 'json',
                 data: ko.toJSON(self),
                 success: function (data) {
-                    self.allRoutes(data.routes);
-                    console.log(data);
-                },
-                error: function (data) {
+                    $.each(data, function (key, val) {
+                  self.allRoutes.push(new route(val.author,val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
+                    });
                 }
             });
-        });
-        $("#ByDate").button().click(function () {
-            $.ajax({
-                url: "http://localhost:51952/api/route/sortdate",
-                contentType: "application/json",
-                type: "GET",
-                success: function (data) {
-                    self.allRoutes(data.routeSort);
-                    console.log("ByDate");
-                },
-                error: function (data) {
-                }
-            });
-        });
-        $("#ByParticipants").button().click(function () {
-            $.ajax({
-                url: "http://localhost:51952/api/route/sortsubscribes",
-                contentType: "application/json",
-                type: "GET",
-                success: function (data) {
-                    self.allRoutes(data.routeSort);
-                },
-                error: function (data) {
-                }
-            });
-        });
-        $("#ByTitle").button().click(function () {
-            $.ajax({
-                url: "http://localhost:51952/api/route/sorttitle",
-                contentType: "application/json",
-                type: "GET",
-                success: function (data) {
-                    self.allRoutes(data.routeSort);
-                },
-                error: function (data) {
-                }
-            });
-        });
-
-        $.ajax({
-            url: "http://localhost:51952/api/route/getroutes",
-            contentType: "application/json",
-            type: "GET",
-            success: function (data) {
-
-                self.allRoutes(data.routes);
-                console.log("succes");
-            },
-            error: function (data) {
-            }
-        });
+        }
+        self.searchRoutes();
+        return self;
     }
     function route(author, description, distance, id, isBanned, mapData, meetingPlace, start, subscribers, title) {
         var self = this;
@@ -119,5 +64,6 @@
         self.subscribers = subscribers;
         self.title = title;
     }
+    
     return { viewModel: HomeViewModel, template: homeTemplate };
 });
