@@ -18,7 +18,37 @@
         }, this);
 
         self.gotoedit = function () {
-            window.location = "http://localhost:51949/index.html#editprofile";
+            window.location = "http://localhost:51949/#editprofile";
+        }
+
+        self.subscribe = function () {
+            var apiurl = "http://localhost:51952/api/subscribe/" + 999;
+            $.ajax({
+                url: apiurl,
+                contentType: "application/json",
+                type: "PUT",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                success: function (data) {
+                                 
+               
+                },
+                error: function (data) {
+                }
+            });
+        }
+        self.unsubscribe = function () {
+            var apiurl = "http://localhost:51952/api/subscribe/" + 999;
+            $.ajax({
+                url: apiurl,
+                contentType: "application/json",
+                type: "DELETE",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                success: function (data) {
+                   
+                },
+                error: function (data) {
+                }
+            });
         }
 
         {

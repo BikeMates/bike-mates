@@ -18,7 +18,7 @@ namespace BikeMates.Service
         public override void Load()
         {
             this.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-            this.Bind<BikeMatesDbContext>().To<BikeMatesDbContext>();
+            this.Bind<BikeMatesDbContext>().To<BikeMatesDbContext>().InRequestScope();
             this.Bind<IUserRepository>().To<UserRepository>();
             this.Bind<IUserService>().To<UserService>();
             this.Bind<IRouteRepository>().To<RouteRepository>();
