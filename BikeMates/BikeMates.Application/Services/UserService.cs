@@ -82,30 +82,15 @@ namespace BikeMates.Application.Services
             return IdentityResult.Success;
         }
 
-
         public IdentityResult ResetPassword(string id, string code, string password)
         {
             code = System.Web.HttpUtility.UrlDecode(code);
             return userRepository.ResetPassword(id, code, password);
         }
 
-
         public IEnumerable<User> GetAll()
         {
             return userRepository.GetAll();
         }
-
-        public void SubscribeRoute(Route route, User user)
-        {
-            userRepository.SubscribeRoute(route, user);
-        }
-
-        public bool UnsubscribeRoute(Route route, User user)
-        {
-            return userRepository.UnsubscribeRoute(route, user);
-        }
-
-
-
     }
 }

@@ -1,44 +1,37 @@
-﻿using System;
+﻿using BikeMates.Application.Services;
+using BikeMates.Contracts.Services;
+using BikeMates.DataAccess;
+using BikeMates.DataAccess.Repository;
+using BikeMates.Domain.Entities;
+using BikeMates.Service.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-using System.IO;
-using System.Threading.Tasks;
-using System.Web;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-//project reffrences
-using BikeMates.Application.Services;
-using BikeMates.Domain.Entities;
-using BikeMates.Contracts.Services;
-using BikeMates.DataAccess.Repository;
-using BikeMates.DataAccess;
-using BikeMates.Service.Models;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
 
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/profilepicture")]
     public class ProfilePictureController : BaseController
     {
-        public ProfilePictureController()
-        {
-
-        }
-
         //POST api/profilepicture
         [HttpPost]
         public async Task<HttpResponseMessage> AddImage()
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var id = principal.Claims.Where(c => c.Type == "id").Single().Value;
+            var id = principal.Claims.Single(c => c.Type == "id").Value;
 
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-
             string root = HttpContext.Current.Server.MapPath("~/Resources");
             var provider = new MultipartFormDataStreamProvider(root);
 
@@ -49,7 +42,6 @@ namespace BikeMates.Service.Controllers
             string newfilePath = "";
             string oldfilePath = "";
 
-            // This illustrates how to get the file names.
             foreach (MultipartFileData file in provider.FileData)
             {
                 FileInfo currentFile = new FileInfo(file.LocalFileName);
@@ -57,14 +49,17 @@ namespace BikeMates.Service.Controllers
                 oldfilePath = file.LocalFileName;
                 newfilePath = String.Format("{0}\\{1}", currentFile.Directory.FullName, id);
             }
-            File.Delete(newfilePath); //TODO: Check that file exist before removal
+
+            if (File.Exists(newfilePath))
+            {
+                File.Delete(newfilePath);
+            }
             File.Move(oldfilePath, newfilePath);
 
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            return response;
-
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public HttpResponseMessage GetImage(string id)
         {
@@ -73,20 +68,20 @@ namespace BikeMates.Service.Controllers
 
             var filePath = Path.Combine(rootPath, fileName);
             if (!File.Exists(filePath)) //If image not found - then default image
-            { filePath = Path.Combine(rootPath, "icon-user-default.jpg"); }
+            {
+                filePath = Path.Combine(rootPath, "icon-user-default.jpg");
+            }
+
+            byte[] fileData = File.ReadAllBytes(filePath);
+            if (fileData == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
 
             HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
-
-            //Read File as Byte Array
-            byte[] fileData = File.ReadAllBytes(filePath);
-
-            if (fileData == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-
             Response.Content = new ByteArrayContent(fileData);
             Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/*");
             return Response;
-
         }
     }
 }

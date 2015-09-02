@@ -229,8 +229,8 @@
     <Content Include="App\pages\admin\admin.js" />
     <Content Include="App\pages\admin\bannedRoutes.html" />
     <Content Include="App\pages\admin\bannedRoutes.js" />
-    <Content Include="App\pages\route\route.html" />
-    <Content Include="App\pages\route\route.js" />
+    <Content Include="App\pages\route\newroute.html" />
+    <Content Include="App\pages\route\newroute.js" />
     <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />
     <Content Include="App\pages\account\confirmResetPassword\confirmResetPassword.html" />
     <Content Include="App\pages\account\forgotpassword\forgotPassword.html" />
@@ -321,16 +321,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Account\Profile.cshtml" />
-    <Content Include="Views\Account\EditProfile.cshtml" />
     <Content Include="Views\Route\_Layout.cshtml" />
     <Content Include="Views\Home\_Layout.cshtml" />
     <Content Include="Views\Home\RouteView.cshtml" />
@@ -341,6 +333,7 @@
     <Folder Include="App\components\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\Manage\" />
     <Folder Include="Views\ProfilePicture\" />
   </ItemGroup>

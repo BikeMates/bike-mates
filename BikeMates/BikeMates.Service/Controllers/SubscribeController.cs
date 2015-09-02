@@ -1,23 +1,19 @@
-﻿using System;
+﻿using BikeMates.Application.Services;
+using BikeMates.Contracts.Services;
+using BikeMates.DataAccess;
+using BikeMates.DataAccess.Repository;
+using BikeMates.Domain.Entities;
+using BikeMates.Service.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
-// project reffrerences
-using BikeMates.Application.Services;
-using BikeMates.Domain.Entities;
-using BikeMates.DataAccess.Repository;
-using BikeMates.DataAccess;
-using BikeMates.Service.Models;
-//for identifiying user
 using System.Security.Claims;
-using Microsoft.AspNet.Identity;
-//for async methods 
 using System.Threading;
 using System.Threading.Tasks;
-//for ninject implementation
-using BikeMates.Contracts.Services;
+using System.Web.Http;
 
 namespace BikeMates.Service.Controllers
 {
@@ -35,36 +31,29 @@ namespace BikeMates.Service.Controllers
         [HttpPut]
         public HttpResponseMessage Subscribe(int id)
         {
-            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Single(c => c.Type == "id").Value;
+            var principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
+            int routeId = id;
+            User user = userService.GetUser(userId);
+            Route route = routeService.Get(routeId);
+            this.routeService.SubscribeUser(route, user);
 
-            var routeId = id;
-            var user = userService.GetUser(userId);
-            var route = routeService.Get(routeId);
-
-            routeService.SubscribeUser(route, user);
-            userService.SubscribeRoute(route, user);
-
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            return response;
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpDelete]
-        public HttpResponseMessage Unsubcsribe(int id)
+        public HttpResponseMessage Unsubscribe(int id)
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Single(c => c.Type == "id").Value;
+            string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
-            var routeId = id;
-            var user = userService.GetUser(userId);
-            var route = routeService.Get(routeId);
+            int   routeId = id;
+            User  user = userService.GetUser(userId);
+            Route route = routeService.Get(routeId);
+            this.routeService.UnsubscribeUser(route, user);
 
-            routeService.UnsubscribeUser(route, user);
-            userService.UnsubscribeRoute(route, user);
-
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
-            return response;
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

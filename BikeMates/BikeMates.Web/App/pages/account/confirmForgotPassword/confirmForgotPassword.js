@@ -1,9 +1,4 @@
-﻿define(["knockout", "text!./confirmForgotPassword.html", "require", "cssLoader"], function (ko, confirmForgotPasswordTemplate, require, cssLoader) {
-
-    var localPath = "/Content/Site.css";
-    var pathFromApp = require.toUrl(localPath);
-
-    cssLoader.link(pathFromApp);
+﻿define(["knockout", "text!./confirmForgotPassword.html", "require"], function (ko, confirmForgotPasswordTemplate, require) {
 
     function ConfirmForgotPasswordViewModel(params) {
         var self = this;

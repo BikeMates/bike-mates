@@ -1,4 +1,4 @@
-﻿define(["knockout", "text!./route.html", "require", "cssLoader", "RouteMap"], function (ko, RouteTemplate, require, cssLoader, Map) {
+﻿define(["knockout", "text!./newroute.html", "require", "cssLoader", "RouteMap"], function (ko, RouteTemplate, require, cssLoader, Map) {
 
     var localPath = "/Content/Site.css";
     var pathFromApp = require.toUrl(localPath);

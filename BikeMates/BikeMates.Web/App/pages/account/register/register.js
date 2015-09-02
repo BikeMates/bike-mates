@@ -1,10 +1,5 @@
-﻿define(["knockout", "text!./register.html", "require", "cssLoader"], function (ko, registerTemplate, require, cssLoader) {
+﻿define(["knockout", "text!./register.html", "require"], function (ko, registerTemplate, require) {
     
-    var localPath = "/Content/Site.css";
-    var pathFromApp = require.toUrl(localPath);
-
-    cssLoader.link(pathFromApp);
-
     var tokenKey = "tokenInfo";
 
     function RegisterViewModel(params) {
@@ -38,9 +33,15 @@
                     sessionStorage.setItem("username", data.firstName + " " + data.secondName);
                     sessionStorage.setItem("role", data.role);
 
-                    $("#authorized").show();
-                    $("#anonimus").hide();
-                    $('#user-name').text(sessionStorage.getItem('username'));
+                    $('#userpanel').find('#anonim').hide();
+
+                    if (data.role == "Admin") {
+                        $('#userpanel').find('#admin').show()
+                        $('#userpanel').find('#admin').find("#user-name").text(sessionStorage.getItem("username"));
+                    } else {
+                        $('#userpanel').find('#user').show();
+                        $('#userpanel').find('#user').find("#user-name").text(sessionStorage.getItem("username"));
+                    }
 
                     window.location.href = "#";
                     console.log(sessionStorage.getItem(tokenKey));
