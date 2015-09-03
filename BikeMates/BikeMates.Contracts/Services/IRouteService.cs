@@ -15,6 +15,6 @@ namespace BikeMates.Contracts.Services
         void SubscribeUser(Route route, User user);
         bool UnsubscribeUser(Route route, User user);
         IEnumerable<Route> GetAllUserSubscribedRoutes(User user);
-        bool CheckIsUserSubscribedToRoute(Route route, User user)
+        bool CheckIsUserSubscribedToRoute(Route route, User user);
     }
 }
