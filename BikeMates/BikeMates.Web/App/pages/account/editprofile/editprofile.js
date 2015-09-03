@@ -1,7 +1,6 @@
 ﻿define(["knockout", "text!./editprofile.html", "require"], function (ko, editprofileTemplate, require) {
 
     var tokenKey = "tokenInfo";
-    var api_link = "aaa";
 
     function ProfileViewModel(params) {
 
@@ -14,6 +13,7 @@
         self.NewPass = ko.observable("");
         self.NewPass2 = ko.observable("");
         self.Id = ko.observable("");
+        self.Imagesrc = ko.observable("");
 
         self.fullName = ko.computed(function () {
             return self.FirstName() + " " + self.SecondName();
@@ -30,8 +30,10 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    api_link = "http://localhost:51952/api/profilepicture/";
-                    $('#avatar').attr('src', $('#avatar').attr('src') + '?' + Math.random());
+                    var image_url = "http://localhost:51952/api/profilepicture/";
+                    var userId = self.Id();
+                    self.Imagesrc(image_url + userId + '?' + Math.random());
+
                 },
             });
 
@@ -49,9 +51,9 @@
                     self.About(data.about);
                     self.Picture(data.picture);
                     self.Id(data.id);
-                    api_link = "http://localhost:51952/api/profilepicture/";
-                    $("#avatar").attr("src", api_link + self.Id);
-                    $('#avatar').attr('src', $('#avatar').attr('src') + '?' + Math.random());
+                    var image_url = "http://localhost:51952/api/profilepicture/";
+                    var userId = self.Id();
+                    self.Imagesrc(image_url + userId + '?' + Math.random());
                 },
                 error: function (data) {
                 }
@@ -61,8 +63,8 @@
         self.savedata = function () {
             var username = self.fullName();
             sessionStorage.setItem("username", username);
-           $('#userpanel').find('#admin').find("#user-name").text(sessionStorage.getItem("username"));
-           $('#userpanel').find('#user').find("#user-name").text(sessionStorage.getItem("username"));
+            $('#userpanel').find('#admin').find("#user-name").text(sessionStorage.getItem("username"));
+            $('#userpanel').find('#user').find("#user-name").text(sessionStorage.getItem("username"));
 
             $.ajax({
                 url: "http://localhost:51952/api/profile",
@@ -91,9 +93,9 @@
                 self.About(data.about);
                 self.Picture(data.picture);
                 self.Id(data.id);
-                usr_id = data.id;
-                api_link = "http://localhost:51952/api/profilepicture/";
-                $("#avatar").attr("src", api_link + usr_id);
+                var image_url = "http://localhost:51952/api/profilepicture/";
+                var userId = self.Id();
+                self.Imagesrc(image_url + userId + '?' + Math.random());
             },
             error: function (data) {
             }

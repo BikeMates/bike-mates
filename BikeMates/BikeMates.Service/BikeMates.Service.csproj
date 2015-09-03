@@ -226,11 +226,11 @@
     </Compile>
     <Compile Include="Models\AuthModel.cs" />
     <Compile Include="Models\CaptchaModel.cs" />
-    <Compile Include="Models\EditProfileViewModel.cs" />
+    <Compile Include="Models\editProfileViewModel.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
     <Compile Include="Models\LoginResponseModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\ProfileViewModel.cs" />
+    <Compile Include="Models\profileViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\RouteModel.cs" />
