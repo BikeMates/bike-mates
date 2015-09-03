@@ -36,10 +36,8 @@ namespace BikeMates.Service.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-          
             string root = HttpContext.Current.Server.MapPath("~/Resources");
             var provider = new MultipartFormDataStreamProvider(root);
-
             // Read the form data.
             await Request.Content.ReadAsMultipartAsync(provider);
             imageService.SaveImage(this.userId, provider);
