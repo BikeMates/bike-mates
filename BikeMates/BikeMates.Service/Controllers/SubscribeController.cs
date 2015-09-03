@@ -29,6 +29,7 @@ namespace BikeMates.Service.Controllers
             User user = userService.GetUser(userId);
             Route route = routeService.Find(id);
 
+            //TODO: Move this logic to Service
             bool isSubscribed = false;
             if (route.Subscribers.Contains(user))
                  {
