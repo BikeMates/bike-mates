@@ -21,7 +21,7 @@ namespace BikeMates.Service.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("Get/{id}")]
+        [Route("Find/{id}")]
         public RouteViewModel Find(int id)
         {
             RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.Find(id));
