@@ -42,7 +42,12 @@
                     $.each(data, function (key, val) {
                         self.routes.push(new route(val.id, val.title, val.description));
                     });
+                },
+                statusCode: {
+                401: function (response) {
+                    window.location.href = "#login";
                 }
+            }
             });
         }
         self.loadRoutes();
