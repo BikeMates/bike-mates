@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using BikeMates.DataAccess.Managers;
+using BikeMates.DataAccess.Repository;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -40,6 +42,65 @@ namespace BikeMates.DataAccess.Migrations
                     AddRoute(routesCount, user, context);
                 }
             }
+
+            //TEST: adding custom route
+            var routeRepository = new RouteRepository(context);
+            routeRepository.Add(new Route
+            {
+                Author = user,
+                Title = "Madness",
+                MeetingPlace = "NOVUS, near Osokorki station.",
+                Description = "Insane way to get to another subway station...",
+                Start = DateTime.Now,
+                MapData = new MapData
+                {
+                    End = new Coordinate
+                    {
+                        Latitude =50.3942303,
+                        Longitude =30.600585700000011 
+                        
+                    },
+                    Start = new Coordinate
+                    {
+                        Latitude =50.394672,
+                        Longitude =30.616593799999919 
+                    },
+                    Waypoints = new List<Coordinate>
+                    {
+                        new Coordinate
+                        {
+                            Latitude =50.418354099999988,
+                            Longitude =30.709839500000044 
+                        },
+                        new Coordinate
+                        {
+                            Latitude =50.523433,
+                            Longitude =30.627987800000028
+                        },
+                        new Coordinate
+                        {
+                            Latitude =50.5202178,
+                            Longitude =30.453903099999934 
+                        },
+                        new Coordinate
+                        {
+                            Latitude =50.6150969,
+                            Longitude =30.166428999999994 
+                        },
+                        new Coordinate
+                        {
+                            Latitude =50.506747999999988,
+                            Longitude =30.053443000000016   
+                        },
+                        new Coordinate
+                        {
+                            Latitude =50.3581845,
+                            Longitude =30.156392600000004 
+                        }
+                    }
+                },
+                Distance = 171.321
+            });
         }
 
         private void CreateRole(string roleName, BikeMatesDbContext context)
@@ -115,8 +176,8 @@ namespace BikeMates.DataAccess.Migrations
             var userManager = new UserManager(context);
             User user = new User
             {
-                FirstName = "Username-" + index,
-                SecondName = "Username-" + index,
+                FirstName = "John-" + index,
+                SecondName = "Doe-" + index,
                 Email = "Username-" + index + "@bikemates.com",
                 EmailConfirmed = true,
                 UserName = "Username-" + index + "@bikemates.com",

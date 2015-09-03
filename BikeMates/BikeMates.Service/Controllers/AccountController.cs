@@ -25,17 +25,18 @@ namespace BikeMates.Service.Controllers
     public class AccountController : BaseController
     {
         private IUserService userService;
+        private ICaptchaService captchaService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, ICaptchaService captchaService)
         {
             this.userService = userService;
-
+            this.captchaService = captchaService;
         }
 
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<HttpResponseMessage> Register(RegisterViewModel userModel) //TODO: Rename userModel to registerViewModel
+        public async Task<HttpResponseMessage> Register(RegisterViewModel registerViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -43,10 +44,10 @@ namespace BikeMates.Service.Controllers
             }
 
             Mapper.CreateMap<RegisterViewModel, User>();
-            var user = Mapper.Map<User>(userModel);
-            user.UserName = userModel.Email;
+            var user = Mapper.Map<User>(registerViewModel);
+            user.UserName = registerViewModel.Email;
             user.Role = "User";
-            IdentityResult result = userService.Register(user, userModel.Password);
+            IdentityResult result = userService.Register(user, registerViewModel.Password);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -56,8 +57,8 @@ namespace BikeMates.Service.Controllers
             }
             var userLoginModel = new LoginViewModel
             {
-                Email = userModel.Email,
-                Password = userModel.Password
+                Email = registerViewModel.Email,
+                Password = registerViewModel.Password
             };
             var resultLogin = await Login(userLoginModel);
             return resultLogin;
@@ -87,30 +88,37 @@ namespace BikeMates.Service.Controllers
                     Content = new StringContent(responseString, Encoding.UTF8, "application/json")
                 };
 
-                if (responseMsg.StatusCode == HttpStatusCode.OK) //TODO: Move this  logic to a separate method
+                if (responseMsg.StatusCode == HttpStatusCode.OK) 
                 {
-                    var loginResponse = JsonConvert.DeserializeObject<LoginResponseModel>(responseString);
-                    var auth = new AuthModel();
-                    var user = userService.GetUserByEmail(userModel.Email);
-
-                    auth.Token = loginResponse.access_token;
-                    auth.Role = user.Role;
-                    auth.FirstName = user.FirstName;
-                    auth.SecondName = user.SecondName;
-                    auth.IsAuthorized = true;
-
+                    var auth = getAuthData(userModel, responseString);
                     return await Ok<AuthModel>(auth).ExecuteAsync(new CancellationToken());
                 }
                 return responseMsg;
             }
         }
 
+        private AuthModel getAuthData(LoginViewModel userModel, string responseString)
+        {
+            var loginResponse = JsonConvert.DeserializeObject<LoginResponseModel>(responseString);
+            var auth = new AuthModel();
+            var user = userService.GetUserByEmail(userModel.Email);
+
+            auth.Token = loginResponse.AccessToken;
+            auth.Role = user.Role;
+            auth.FirstName = user.FirstName;
+            auth.SecondName = user.SecondName;
+            auth.IsAuthorized = true;
+            return auth;
+        }
+
+        
+
         [HttpPost]
         [AllowAnonymous]
         [Route("ForgotPassword")]
         public IHttpActionResult ForgotPassword(ForgotPasswordModel model)
         {
-            if (!checkCaptcha(model.Response).Success)
+            if (!captchaService.checkCaptcha(model.Response))
             {
                 return BadRequest("Invalid captcha");
             }
@@ -154,16 +162,7 @@ namespace BikeMates.Service.Controllers
             return await Ok().ExecuteAsync(new CancellationToken());
         }
 
-        private CaptchaModel checkCaptcha(string response) //TODO: Create a separate class that will check Captcha
-        {
-            const string secret = "6LdnvQsTAAAAAGM8ZQ8kr46eAalzSBzH_BpnYoN3";
-
-            var webClient = new WebClient();
-            var reply =
-                webClient.DownloadString(
-                    string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response)); //TODO: Do not hardcode Url. Move it to web config
-            return JsonConvert.DeserializeObject<CaptchaModel>(reply);
-        }
+        
 
         [HttpPost]
         [Route("GetUserByEmail")]
