@@ -1,4 +1,5 @@
 ﻿using BikeMates.Application.Services;
+using BikeMates.Contracts.MailSender;
 using BikeMates.Contracts.Managers;
 using BikeMates.Contracts.Repositories;
 using BikeMates.Contracts.Services;
@@ -21,20 +22,20 @@ namespace BikeMates.Test.Services
     class UserServiceTests
     {
         private Mock<IUserRepository> userRepository;
-        private Mock<BikeMatesDbContext> context;
+        private Mock<IMailService> mailSender;
 
         private IUserService userService;
         private User expectedUser;
         private IdentityResult expectedResult;
-        private IUserManager userManager;
 
         [SetUp]
         public void Initialization()
         {
             //Arrange
             userRepository = new Mock<IUserRepository>();
+            mailSender = new Mock<IMailService>();
 
-            userService = new UserService(userRepository.Object);
+            userService = new UserService(userRepository.Object, mailSender.Object);
 
             expectedUser = new User
             {
@@ -44,8 +45,8 @@ namespace BikeMates.Test.Services
 
             expectedResult = new IdentityResult();
 
-            userRepository.Setup(s => s.GetUserByEmail(It.IsAny<string>())).Returns(expectedUser);
             userRepository.Setup(s => s.Find(It.IsAny<string>())).Returns(expectedUser);
+            userRepository.Setup(s => s.GetUserByEmail(It.IsAny<string>())).Returns(expectedUser);
             userRepository.Setup(s => s.Register(It.IsAny<User>(), It.IsAny<string>())).Returns(expectedResult);
         }
 
@@ -62,15 +63,15 @@ namespace BikeMates.Test.Services
         [Test]
         [TestCase("admin@admin.com", TestName = "ExistentUserShouldReturnValidUserByEmail")]
         public void GetUserByEmail(string expectedEmail)
-        {              
-            User user = userService.GetUserByEmail(expectedEmail);        
-            Assert.AreEqual(user.Email,expectedEmail);
+        {
+            User user = userService.GetUserByEmail(expectedEmail);
+            Assert.AreEqual(user.Email, expectedEmail);
         }
 
         [Test]
         [TestCase(TestName = "RegistrationShouldReturnPositiveResult")]
         public void Register()
-        {    
+        {
             userService.Register(expectedUser, "Qwerty1#");
             Assert.AreEqual(expectedResult.Errors.Count(), 0);
         }

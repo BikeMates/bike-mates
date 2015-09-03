@@ -16,5 +16,6 @@ namespace BikeMates.Contracts.Services
         void Delete(string userId);
         void Update(User user);
         IEnumerable<User> GetAll();
+        void UnbanUsers(List<string> userIds);
     }
 }

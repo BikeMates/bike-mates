@@ -5,16 +5,20 @@ using BikeMates.Contracts.Repositories;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
+using BikeMates.Contracts.MailSender;
 
 namespace BikeMates.Application.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
+        private readonly IMailService mailSender;
 
-        public UserService(IUserRepository userRepository)
+
+        public UserService(IUserRepository userRepository, IMailService mailSender)
         {
             this.userRepository = userRepository;
+            this.mailSender = mailSender;
         }
 
         public User GetUser(string id)
@@ -51,7 +55,7 @@ namespace BikeMates.Application.Services
         {
             string resetToken = this.userRepository.ForgotPassword(id);
             string message = CreateMessage(id, host, resetToken);
-            MailSender.Send(GetUser(id).Email, message); //TODO: Create interface for mail sender and inject it in constructor. And use here
+            mailSender.Send(GetUser(id).Email, message);
         }
 
         private static string CreateMessage(string id, string host, string resetToken)
@@ -83,6 +87,20 @@ namespace BikeMates.Application.Services
         public IEnumerable<User> GetAll()
         {
             return userRepository.GetAll();
+        }
+
+        public void UnbanUsers(List<string> userIds)
+        {
+            User user;
+            foreach (var id in userIds)
+            {
+                if (id != null)
+                {
+                    user = GetUser(id);
+                    user.IsBanned = false;
+                    Update(user);
+                }
+            }
         }
     }
 }

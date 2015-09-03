@@ -9,6 +9,7 @@ using BikeMates.DataAccess.Repository;
 using BikeMates.Service.Providers;
 using Ninject.Modules;
 using Ninject.Web.Common;
+using BikeMates.Contracts.MailSender;
 
 namespace BikeMates.Service
 {
@@ -25,6 +26,8 @@ namespace BikeMates.Service
             this.Bind<SimpleAuthorizationServerProvider>().ToSelf();
             this.Bind<IUserManager>().To<UserManager>();
             this.Bind<IImageService>().To<ImageService>();
+            this.Bind<IMailService>().To<MailService>();
+            this.Bind<ICaptchaService>().To<CaptchaService>();
         }
     }
 }

@@ -80,9 +80,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\IMailService.cs" />
     <Compile Include="Managers\IUserManager.cs" />
     <Compile Include="Repositories\IRouteRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Services\ICaptchaService.cs" />
     <Compile Include="Services\IImageService.cs" />
     <Compile Include="Services\IRouteService.cs" />
     <Compile Include="Services\IUserService.cs" />
