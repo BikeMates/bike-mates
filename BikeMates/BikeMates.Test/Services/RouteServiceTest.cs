@@ -1,4 +1,5 @@
 ﻿using BikeMates.Application.Services;
+using BikeMates.Contracts.MailSender;
 using BikeMates.Contracts.Repositories;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
@@ -15,12 +16,13 @@ namespace BikeMates.Test
         private IUserService userService;
         private Mock<IRouteRepository> routeRepository;
         private IRouteService routeService;
-
+        private Mock<IMailService> mailSender;
         [TestFixtureSetUp]
         public void InitialSetup()
         {
             userRepository = new Mock<IUserRepository>();
-            userService = new UserService(userRepository.Object);
+            mailSender = new Mock<IMailService>();
+            userService = new UserService(userRepository.Object, mailSender.Object);
             routeRepository = new Mock<IRouteRepository>();
             routeService = new RouteService(routeRepository.Object, userRepository.Object);
         }
