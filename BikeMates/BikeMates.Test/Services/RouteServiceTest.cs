@@ -23,8 +23,7 @@ namespace BikeMates.Test
          
             Route r1 = new Route() {   Id = 1 , Title = "loool"};
             Route r2 = new Route() {   Id = 2 , Title = "loool1"};
-           
-            
+                     
             Assert.AreEqual(r1.Title , r2.Title);
         }
     }
