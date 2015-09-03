@@ -7,7 +7,7 @@ namespace BikeMates.Contracts.Repositories
     {
         IEnumerable<Route> Search(RouteSearchParameters searchParameters);
         void SubscribeUser(Route route, User user);
-        bool UnsubscribeUser(Route route, User user); //TODO: Remove bool result. Make the method void
+        void UnsubscribeUser(Route route, User user); 
         IEnumerable<Route> GetAllSubscribedRoutesByUser(User user);
     }
 }

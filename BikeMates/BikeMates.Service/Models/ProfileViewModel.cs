@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BikeMates.Service.Models
 {
-    public class ProfileViewModel
+    public class profileViewModel
     {
       
         [Required]

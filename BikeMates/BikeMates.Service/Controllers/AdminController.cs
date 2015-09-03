@@ -9,6 +9,7 @@ using BikeMates.Service.Models;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
     {
         private IUserService userService;

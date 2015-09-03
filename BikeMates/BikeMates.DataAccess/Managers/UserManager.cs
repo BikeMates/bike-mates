@@ -10,7 +10,6 @@ namespace BikeMates.DataAccess.Managers
     public class UserManager:IUserManager
     {
         private readonly UserManager<User> userManager;
-
         public UserManager(BikeMatesDbContext context) 
         {
             userManager = new UserManager<User>(new UserStore<User>(context));

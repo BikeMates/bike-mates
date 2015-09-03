@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BikeMates.Service.Models
 {
-    public class EditProfileViewModel
+    public class editProfileViewModel
     {
         public string Id { get; set; }
 
