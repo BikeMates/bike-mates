@@ -17,15 +17,22 @@ namespace BikeMates.Test
     [TestFixture]
     class RouteServiceTests
     {
+        [TestFixtureSetUp]
+        public void InitialSetup()
+        {
+
+
+        }
+
         [Test]
         public void AddRouteTest()
         {
-         
             Route r1 = new Route() {   Id = 1 , Title = "loool"};
-            Route r2 = new Route() {   Id = 2 , Title = "loool1"};
-           
+            Route r2 = new Route() {   Id = 2 , Title = "loool"};
             
             Assert.AreEqual(r1.Title , r2.Title);
         }
+
+
     }
 }
