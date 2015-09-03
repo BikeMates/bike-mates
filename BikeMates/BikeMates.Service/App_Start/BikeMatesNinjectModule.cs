@@ -24,6 +24,7 @@ namespace BikeMates.Service
             this.Bind<IRouteService>().To<RouteService>();
             this.Bind<SimpleAuthorizationServerProvider>().ToSelf();
             this.Bind<IUserManager>().To<UserManager>();
+            this.Bind<IImageService>().To<ImageService>();
         }
     }
 }
