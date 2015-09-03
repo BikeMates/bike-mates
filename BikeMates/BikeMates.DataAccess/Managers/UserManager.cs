@@ -12,7 +12,7 @@ namespace BikeMates.DataAccess.Managers
         private readonly UserManager<User> userManager;
         public UserManager(BikeMatesDbContext context) 
         {
-            userManager = new UserManager<User>(new UserStore<User>(this.context));
+            userManager = new UserManager<User>(new UserStore<User>(context));
             var provider = new DpapiDataProtectionProvider("BikeMates");
             userManager.UserTokenProvider = new DataProtectorTokenProvider<User>(provider.Create("ResetPassword"));
         }

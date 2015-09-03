@@ -1,12 +1,8 @@
-﻿define(["knockout", "text!./home.html", "require", "cssLoader"], function (ko, homeTemplate, require, cssLoader) {
-    var localPath = "/Content/Site.css";
-    var pathFromApp = require.toUrl(localPath); //TODO: Remove Css load
-
-    cssLoader.link(pathFromApp);
+﻿define(["knockout", "text!./home.html", "require"], function (ko, homeTemplate, require) {
 
     ko.extenders.paging = function (target, pageSize) {
-        var _pageSize = ko.observable(pageSize || 10), // default pageSize to 10
-            _currentPage = ko.observable(1); // default current page to 1
+        var _pageSize = ko.observable(pageSize || 100),
+            _currentPage = ko.observable(1); 
 
         target.pageSize = ko.computed({
             read: _pageSize,
@@ -15,7 +11,7 @@
                     _pageSize(newValue);
                 }
                 else {
-                    _pageSize(10);
+                    _pageSize(200);
                 }
             }
         });

@@ -90,8 +90,8 @@ namespace BikeMates.Service.Models
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
                 Distance = route.Distance.ToString(),
-                Author = JsonConvert.SerializeObject(route.Author),
-                Subscribers = JsonConvert.SerializeObject(route.Subscribers),
+                //Author = JsonConvert.SerializeObject(route.Author),
+                //Subscribers = JsonConvert.SerializeObject(route.Subscribers),
                 IsBanned = route.IsBanned
             };
             return _route;

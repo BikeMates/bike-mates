@@ -10,15 +10,13 @@ namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Route")]
     public class RouteController : ApiController
-    {
-        private RouteSearchParameters searchParameters; //TODO: Remove
-        public IEnumerable<Route> allRoutes;//TODO: Remove
+    {   
         private readonly IRouteService routeService;
 
         public RouteController(IRouteService routeService)
         {
             this.routeService = routeService;
-            allRoutes = routeService.GetAll();
+           
         }
 
         [HttpGet]
@@ -65,7 +63,7 @@ namespace BikeMates.Service.Controllers
         [Route("GetRoutes")]
         public IEnumerable<RouteViewModel> GetRoutes(RouteSearchParametersViewModel search)
         {
-            searchParameters = new RouteSearchParameters();
+            RouteSearchParameters searchParameters = new RouteSearchParameters();
             searchParameters.MeetingPlace = search.Location;
 
             //TODO: Refactor the code below. Do not parse values replace types in RouteSearchParametersViewModel class
