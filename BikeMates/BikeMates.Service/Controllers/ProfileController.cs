@@ -28,7 +28,7 @@ namespace BikeMates.Service.Controllers
         public profileViewModel Get()
         {  
             Mapper.CreateMap<User, profileViewModel>();
-            User user = userService.GetUser(this.userID);
+            User user = userService.GetUser(this.userId);
             return Mapper.Map<User, profileViewModel>(user);
         }
 
@@ -43,17 +43,26 @@ namespace BikeMates.Service.Controllers
 
         // POST api/user
         [HttpPost]
-        public async Task<HttpResponseMessage> Update(editProfileViewModel userViewModel) //TODO: Rename to editProfileViewModel
+        public async Task<HttpResponseMessage> Update(editProfileViewModel userViewModel) 
         {
 
-            User user = userService.GetUser(this.userID); //TODO: Use AutoMapper for mapping
+            User user = userService.GetUser(this.userId); //TODO: Use AutoMapper for mapping
+
+            Mapper.CreateMap<User, editProfileViewModel>();
+            Mapper.CreateMap<editProfileViewModel, User>();
+            
             user.FirstName = userViewModel.FirstName;
             user.About = userViewModel.About;
             user.SecondName = userViewModel.SecondName;
             user.Picture = userViewModel.Picture;
+
+            user =  Mapper.Map<editProfileViewModel, User>(userViewModel);
+            
             userService.Update(user);
 
-            IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, this.userID);
+
+
+            IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, this.userId);
             IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)

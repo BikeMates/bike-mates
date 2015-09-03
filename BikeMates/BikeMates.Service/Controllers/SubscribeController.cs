@@ -35,7 +35,7 @@ namespace BikeMates.Service.Controllers
         public HttpResponseMessage Subscribe(int id)
         {
             int routeId = id;
-            this.routeService.SubscribeUser(routeId, this.userID);
+            this.routeService.SubscribeUser(routeId, this.userId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -44,7 +44,7 @@ namespace BikeMates.Service.Controllers
         public HttpResponseMessage Unsubscribe(int id)
         {
             int routeId = id;
-            this.routeService.UnsubscribeUser(routeId, this.userID);
+            this.routeService.UnsubscribeUser(routeId, this.userId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

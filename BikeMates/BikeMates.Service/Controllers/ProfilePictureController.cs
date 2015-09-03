@@ -21,42 +21,28 @@ namespace BikeMates.Service.Controllers
     [RoutePrefix("api/profilepicture")]
     public class ProfilePictureController : BaseController
     {
+        private readonly IImageService imageService;
+        
+        public ProfilePictureController(IImageService imageService)
+        {
+            this.imageService = imageService;        
+        }
+
         //POST api/profilepicture
         [HttpPost]
         public async Task<HttpResponseMessage> AddImage()
         {
-            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var id = principal.Claims.Single(c => c.Type == "id").Value;
-
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
+          
             string root = HttpContext.Current.Server.MapPath("~/Resources");
             var provider = new MultipartFormDataStreamProvider(root);
 
             // Read the form data.
             await Request.Content.ReadAsMultipartAsync(provider);
-
-            //TODO: Move all logic that related to Images into new ImageService
-            //TODO: Create a method for saving files
-            string path = "";
-            string newfilePath = "";
-            string oldfilePath = "";
-
-            foreach (MultipartFileData file in provider.FileData)
-            {
-                FileInfo currentFile = new FileInfo(file.LocalFileName);
-                path = file.Headers.ContentDisposition.FileName;
-                oldfilePath = file.LocalFileName;
-                newfilePath = String.Format("{0}\\{1}", currentFile.Directory.FullName, id);
-            }
-
-            if (File.Exists(newfilePath))
-            {
-                File.Delete(newfilePath);
-            }
-            File.Move(oldfilePath, newfilePath);
+            imageService.SaveImage(this.userId, provider);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -65,20 +51,10 @@ namespace BikeMates.Service.Controllers
         [HttpGet]
         public HttpResponseMessage GetImage(string id)
         {
-            //TODO: Create a method to Get filePath
-            string fileName = id;
-            string rootPath = HttpContext.Current.Server.MapPath("~/Resources");
-
-            var filePath = Path.Combine(rootPath, fileName);
-            if (!File.Exists(filePath)) //If image not found - then default image
-            {
-                filePath = Path.Combine(rootPath, "icon-user-default.jpg");
-            }
-
-            byte[] fileData = File.ReadAllBytes(filePath);
+            byte[] fileData = imageService.GetImage(id);
             if (fileData == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return new  HttpResponseMessage(HttpStatusCode.NotFound);
             }
 
             HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
