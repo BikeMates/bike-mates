@@ -55,5 +55,13 @@ namespace BikeMates.DataAccess.Repository
             this.Update(route);
             return isRemoved;
         }
+
+        public IEnumerable<Route> GetAllSubscribedRoutesByUser(User user)
+        {
+            IQueryable<Route> routes = this.Context.Routes.Where(route => route.Subscribers.Contains(user));
+            return routes;
+        }
+
+       
     }
 }

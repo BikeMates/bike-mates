@@ -53,5 +53,10 @@ namespace BikeMates.Application.Services
         {
             return this.routeRepository.UnsubscribeUser(route, user);
         }
+
+        public IEnumerable<Route> GetAllUserSubscribedRoutes(User user)
+        {
+            return this.routeRepository.GetAllSubscribedRoutesByUser(user);
+        }
     }
 }

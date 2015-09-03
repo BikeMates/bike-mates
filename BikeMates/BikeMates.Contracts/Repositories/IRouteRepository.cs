@@ -8,5 +8,6 @@ namespace BikeMates.Contracts.Repositories
         IEnumerable<Route> Search(RouteSearchParameters searchParameters);
         void SubscribeUser(Route route, User user);
         bool UnsubscribeUser(Route route, User user);
+        IEnumerable<Route> GetAllSubscribedRoutesByUser(User user);
     }
 }

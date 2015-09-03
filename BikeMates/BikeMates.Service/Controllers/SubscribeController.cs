@@ -18,6 +18,16 @@ namespace BikeMates.Service.Controllers
             this.userService = userService;
             this.routeService = routeService;
         }
+        [HttpGet]
+        public HttpResponseMessage GetAllSubscribedRoutes(string id)
+        {
+
+            User user = userService.GetUser(id);
+            
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
 
         [HttpPut]
         public HttpResponseMessage Subscribe(int id)
