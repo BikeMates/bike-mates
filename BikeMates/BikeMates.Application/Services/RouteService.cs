@@ -8,10 +8,12 @@ namespace BikeMates.Application.Services
     public class RouteService : IRouteService
     {
         private readonly IRouteRepository routeRepository;
+        private readonly IUserRepository userRepository;
 
-        public RouteService(IRouteRepository routeRepository)
+        public RouteService(IRouteRepository routeRepository , IUserRepository userRepository)
         {
             this.routeRepository = routeRepository;
+            this.userRepository = userRepository;
         }
 
         public void Add(Route entity)
@@ -44,23 +46,31 @@ namespace BikeMates.Application.Services
             return this.routeRepository.Search(searchParameters);
         }
 
-        public void SubscribeUser(Route route, User user)		
+        public void SubscribeUser(int routeId, string userId)		
         {
+            User user = userRepository.Find(userId);
+            Route route = routeRepository.Find(routeId);
+            
             this.routeRepository.SubscribeUser(route, user);
-        }		
-		 
-        public bool UnsubscribeUser(Route route, User user)
-        {
-            return this.routeRepository.UnsubscribeUser(route, user);
         }
 
-        public IEnumerable<Route> GetAllUserSubscribedRoutes(User user)
+        public void UnsubscribeUser(int routeId, string userId)
         {
+            User user = userRepository.Find(userId);
+            Route route = routeRepository.Find(routeId);
+            this.routeRepository.UnsubscribeUser(route, user);
+        }
+
+        public IEnumerable<Route> GetAllUserSubscribedRoutes(string userId)
+        {
+            User user = userRepository.Find(userId);
             return this.routeRepository.GetAllSubscribedRoutesByUser(user);
         }
 
-        public bool CheckIsUserSubscribedToRoute(Route route, User user)
+        public bool CheckIsUserSubscribedToRoute(int routeId, string userId)
         {
+            User user = userRepository.Find(userId);
+            Route route = routeRepository.Find(routeId);
             return route.Subscribers.Contains(user);
         }
         

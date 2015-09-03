@@ -12,9 +12,9 @@ namespace BikeMates.Contracts.Services
         void Delete(int id);
         IEnumerable<Route> GetAll();
         IEnumerable<Route> Search(RouteSearchParameters searchParameters);
-        void SubscribeUser(Route route, User user);
-        bool UnsubscribeUser(Route route, User user);
-        IEnumerable<Route> GetAllUserSubscribedRoutes(User user);
-        bool CheckIsUserSubscribedToRoute(Route route, User user);
+        void SubscribeUser(int routeId, string userId);
+        void UnsubscribeUser(int routeId, string userId);
+        IEnumerable<Route> GetAllUserSubscribedRoutes(string userId);
+        bool CheckIsUserSubscribedToRoute(int routeId, string userId);
     }
 }

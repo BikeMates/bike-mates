@@ -21,25 +21,14 @@ namespace BikeMates.Service.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public bool GetAllSubscribedRoutes(int id)
+        public bool GetIsUserSubscribedToRoute(int id)
         {
             var principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             //string userId = principal.Claims.Single(c => c.Type == "id").Value;
             string userId = "be44b720-b9e0-4c17-ae83-0fb8e5beecf7";
-            User user = userService.GetUser(userId);
-            Route route = routeService.Find(id);
+            int routeId = id;
 
-            //TODO: Move this logic to Service
-            bool isSubscribed = false;
-            if (route.Subscribers.Contains(user))
-                 {
-                     isSubscribed = true;
-                 }
-            else
-                 {
-                     isSubscribed = false;
-                 }
-            return isSubscribed;
+            return routeService.CheckIsUserSubscribedToRoute(routeId, userId);
         }
 
 
@@ -50,9 +39,8 @@ namespace BikeMates.Service.Controllers
             string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
             int routeId = id;
-            User user = userService.GetUser(userId); //TODO: Move this logic to Service pass userId and routeId there.
-            Route route = routeService.Find(routeId);
-            this.routeService.SubscribeUser(route, user);
+            
+            this.routeService.SubscribeUser(routeId, userId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -64,9 +52,7 @@ namespace BikeMates.Service.Controllers
             string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
             int routeId = id;
-            User user = userService.GetUser(userId); //TODO: Move this logic to Service pass userId and routeId there.
-            Route route = routeService.Find(routeId);
-            this.routeService.UnsubscribeUser(route, user);
+            this.routeService.UnsubscribeUser(routeId, userId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
