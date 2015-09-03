@@ -1,5 +1,13 @@
-﻿define(["knockout", "text!./routeview.html", "require", "cssLoader"], function (ko, routeviewTemplate, require) {
+﻿define(["knockout", "text!./routeview.html", "require", "cssLoader", "RouteMap", "googlemap"], function (ko, routeviewTemplate, require, cssLoader, RouteMap, googlemap) {
     var tokenKey = "tokenInfo";
+    var localPath = "/Content/Site.css";
+    var pathFromApp = require.toUrl(localPath);
+
+    cssLoader.link(pathFromApp);
+
+    localPath = "/Content/Route.css";
+    pathFromApp = require.toUrl(localPath);
+    cssLoader.link(pathFromApp);
     function RoutevViewModel() {
 
         var self = this;
@@ -9,6 +17,7 @@
         self.distance = ko.observable("");
         self.MeetingPlace = ko.observable("");
         self.Participants = ko.observable();
+        self.description = ko.observable("");
         //self.Start = ko.observable();
         //self.End = ko.observable();
         self.ByTitle = ko.observable("");
@@ -44,7 +53,7 @@
 
         console.log(self.id());
         $.ajax({
-            url: "http://localhost:51952/api/route/get"+'/'+ self.id(),
+            url: "http://localhost:51952/api/route/get"+'/'+ 2,
             contentType: "application/json",
             type: "GET",
             success: function (data) {
@@ -54,10 +63,12 @@
                 self.start(data.start);
                 self.distance(data.distance);
                 self.MeetingPlace(data.meetingPlace);
+                self.description(data.description);
             },
             error: function (data) {
             }
         });
+
 
 
         return self;
