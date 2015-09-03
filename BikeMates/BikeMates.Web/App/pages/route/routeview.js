@@ -52,17 +52,13 @@
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
                     self.subscribed(data);
-                    console.log(self.subscribed());
-                    console.log(data);
-                 
-                    if (self.subscribed()) {
-                        console.log("im in true branch");
+                    if (self.subscribed())
+                    {
                         $("#sub_btn").hide();
                         $("#unsub_btn").show();
                     }
                     else
                     {
-                        console.log("im in false branch");
                         $("#sub_btn").show();
                         $("#unsub_btn").hide();
                     }
