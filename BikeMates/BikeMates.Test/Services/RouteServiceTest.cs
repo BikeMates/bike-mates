@@ -12,16 +12,20 @@ namespace BikeMates.Test
     class RouteServiceTests
     {
         private Mock<IUserRepository> userRepository;
-        private IUserService userService;
         private Mock<IRouteRepository> routeRepository;
+        private Mock<IMailService> mailService;
+
+        private IUserService userService;
         private IRouteService routeService;
 
         [TestFixtureSetUp]
         public void InitialSetup()
         {
             userRepository = new Mock<IUserRepository>();
-            userService = new UserService(userRepository.Object);
+            mailService = new Mock<IMailService>();
             routeRepository = new Mock<IRouteRepository>();
+
+            userService = new UserService(userRepository.Object, mailService.Object);
             routeService = new RouteService(routeRepository.Object, userRepository.Object);
         }
 

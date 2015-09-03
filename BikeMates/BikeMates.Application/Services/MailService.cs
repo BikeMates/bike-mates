@@ -1,5 +1,4 @@
-﻿using BikeMates.Contracts.MailSender;
-using System;
+﻿using BikeMates.Contracts.Services;
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
