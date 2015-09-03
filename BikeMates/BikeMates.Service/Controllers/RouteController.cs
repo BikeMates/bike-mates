@@ -93,9 +93,9 @@ namespace BikeMates.Service.Controllers
                 searchParameters.MaxDistance = maxDistance;
             }
 
-            RouteSortBy orderByField = RouteSortBy.Date;
+            RouteSortOptions orderByField = RouteSortOptions.Date;
 
-            Enum.TryParse<RouteSortBy>(search.OrderByFieldName, true, out orderByField);
+            Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField);
             searchParameters.SortOrder = orderByField;
 
             IEnumerable<Route> routes = routeService.Search(searchParameters).ToArray();

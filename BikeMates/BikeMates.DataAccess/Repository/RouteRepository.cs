@@ -25,17 +25,17 @@ namespace BikeMates.DataAccess.Repository
                 (!searchParameters.DateTo.HasValue || route.Start <= searchParameters.DateTo)
                 );
 
-            if (searchParameters.SortOrder == RouteSortBy.Date)
+            if (searchParameters.SortOrder == RouteSortOptions.Date)
             {
                 routes = routes.OrderBy(x => x.Start);
             }
 
-            if (searchParameters.SortOrder == RouteSortBy.Title)
+            if (searchParameters.SortOrder == RouteSortOptions.Title)
             {
                 routes = routes.OrderBy(x => x.Title);
             }
 
-            if (searchParameters.SortOrder == RouteSortBy.Subscribers)
+            if (searchParameters.SortOrder == RouteSortOptions.Subscribers)
             {
                 routes = routes.OrderBy(x => x.Subscribers.Count);
             }

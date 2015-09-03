@@ -39,8 +39,8 @@ namespace BikeMates.Service.Models
 
         public string Distance { get; set; }
 
-        public virtual List<User> Subscribers { get; set; }
-        public virtual User Author { get; set; }
+        public virtual string Subscribers { get; set; }
+        public virtual string Author { get; set; }
 
         public bool IsBanned { get; set; }
 
@@ -56,8 +56,8 @@ namespace BikeMates.Service.Models
                 MeetingPlace = this.MeetingPlace,
                 Start = this.Start,
                 Distance = Double.Parse(this.Distance, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo),
-                Author = this.Author,
-                Subscribers = this.Subscribers,
+                Author = JsonConvert.DeserializeObject<User>(this.Author),
+                Subscribers = JsonConvert.DeserializeObject<List<User>>(this.Subscribers),
                 IsBanned = this.IsBanned
             };
             return _route;
@@ -73,13 +73,12 @@ namespace BikeMates.Service.Models
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
                 Distance = Double.Parse(route.Distance, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo),
-                Author = route.Author,
-                Subscribers = route.Subscribers,
+                Author = JsonConvert.DeserializeObject<User>(route.Author),
+                Subscribers = JsonConvert.DeserializeObject<List<User>>(route.Subscribers),
                 IsBanned = route.IsBanned
             };
             return _route;
         }
-
         public static RouteViewModel MapToViewModel(Route route)
         {
             RouteViewModel _route = new RouteViewModel
@@ -90,9 +89,9 @@ namespace BikeMates.Service.Models
                 Description = route.Description,
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
-                Distance = route.Distance.ToString(), 
-                //Author = route.Author,
-                //Subscribers = route.Subscribers.ToList(),
+                Distance = route.Distance.ToString(),
+                Author = JsonConvert.SerializeObject(route.Author),
+                Subscribers = JsonConvert.SerializeObject(route.Subscribers),
                 IsBanned = route.IsBanned
             };
             return _route;
