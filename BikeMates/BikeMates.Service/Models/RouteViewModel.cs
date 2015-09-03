@@ -56,8 +56,8 @@ namespace BikeMates.Service.Models
                 MeetingPlace = this.MeetingPlace,
                 Start = this.Start,
                 Distance = Double.Parse(this.Distance, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo),
-                Author = JsonConvert.DeserializeObject<User>(this.Author),
-                Subscribers = JsonConvert.DeserializeObject<List<User>>(this.Subscribers),
+                //Author = JsonConvert.DeserializeObject<User>(this.Author),
+                //Subscribers = JsonConvert.DeserializeObject<List<User>>(this.Subscribers),
                 IsBanned = this.IsBanned
             };
             return _route;
@@ -73,8 +73,8 @@ namespace BikeMates.Service.Models
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
                 Distance = Double.Parse(route.Distance, System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.NumberFormatInfo.InvariantInfo),
-                Author = JsonConvert.DeserializeObject<User>(route.Author),
-                Subscribers = JsonConvert.DeserializeObject<List<User>>(route.Subscribers),
+                //Author = JsonConvert.DeserializeObject<User>(route.Author),
+                //Subscribers = JsonConvert.DeserializeObject<List<User>>(route.Subscribers),
                 IsBanned = route.IsBanned
             };
             return _route;
@@ -90,8 +90,8 @@ namespace BikeMates.Service.Models
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
                 Distance = route.Distance.ToString(),
-                Author = JsonConvert.SerializeObject(route.Author),
-                Subscribers = JsonConvert.SerializeObject(route.Subscribers),
+                //Author = JsonConvert.SerializeObject(route.Author),
+                //Subscribers = JsonConvert.SerializeObject(route.Subscribers),
                 IsBanned = route.IsBanned
             };
             return _route;

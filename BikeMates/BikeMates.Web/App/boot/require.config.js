@@ -15,7 +15,6 @@
         "captcha": "http://www.google.com/recaptcha/api",
         "jquery-ui": "/Scripts/jquery-ui",
         "googlemap": "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize",
-        "RouteMap": "/Scripts/App_Scripts/Route",
         "auth": "/Scripts/App_Scripts/AuthScript",
         "authmodel": "/Scripts/App_Scripts/AuthModelScript"
     },
