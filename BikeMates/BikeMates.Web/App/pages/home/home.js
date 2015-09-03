@@ -1,11 +1,70 @@
 ﻿define(["knockout", "text!./home.html", "require", "cssLoader"], function (ko, homeTemplate, require, cssLoader) {
-    //TODO: Remove this page if it is not used
     var localPath = "/Content/Site.css";
     var pathFromApp = require.toUrl(localPath);
 
     cssLoader.link(pathFromApp);
 
-    function HomeViewModel() {
+    ko.extenders.paging = function (target, pageSize) {
+        var _pageSize = ko.observable(pageSize || 10), // default pageSize to 10
+            _currentPage = ko.observable(1); // default current page to 1
+
+        target.pageSize = ko.computed({
+            read: _pageSize,
+            write: function (newValue) {
+                if (newValue > 0) {
+                    _pageSize(newValue);
+                }
+                else {
+                    _pageSize(10);
+                }
+            }
+        });
+
+        target.currentPage = ko.computed({
+            read: _currentPage,
+            write: function (newValue) {
+                if (newValue > target.pageCount()) {
+                    _currentPage(target.pageCount());
+                }
+                else if (newValue <= 0) {
+                    _currentPage(1);
+                }
+                else {
+                    _currentPage(newValue);
+                }
+            }
+        });
+
+        target.pageCount = ko.computed(function () {
+            return Math.ceil(target().length / target.pageSize()) || 1;
+        });
+
+        target.currentPageData = ko.computed(function () {
+            var pageSize = _pageSize(),
+                pageIndex = _currentPage(),
+                startIndex = pageSize * (pageIndex - 1),
+                endIndex = pageSize * pageIndex;
+
+            return target().slice(startIndex, endIndex);
+        });
+
+        target.moveFirst = function () {
+            target.currentPage(1);
+        };
+        target.movePrevious = function () {
+            target.currentPage(target.currentPage() - 1);
+        };
+        target.moveNext = function () {
+            target.currentPage(target.currentPage() + 1);
+        };
+        target.moveLast = function () {
+            target.currentPage(target.pageCount());
+        };
+
+        return target;
+    };
+
+    var HomeViewModel= function () {
 
         var self = this;
         self.author = ko.observable();
@@ -24,7 +83,7 @@
         self.MinDistance = ko.observable("");
         self.MaxDistance = ko.observable("");
         self.description = ko.observable("");
-        self.allRoutes = ko.observableArray([]);
+        self.allRoutes = ko.observableArray([]).extend({ paging: 3 });
         self.OrderByFieldName = ko.observable("");
 
         self.setOrderAndSearch = function (orderBy) {
