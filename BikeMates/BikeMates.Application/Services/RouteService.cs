@@ -16,24 +16,24 @@ namespace BikeMates.Application.Services
             this.userRepository = userRepository;
         }
 
-        public void Add(Route entity)
+        public void Add(Route route)
         {
-            this.routeRepository.Add(entity);
+            this.routeRepository.Add(route);
         }
 
-        public Route Find(int id)
+        public Route Find(int routeId)
         {
-            return this.routeRepository.Find(id);
+            return this.routeRepository.Find(routeId);
         }
 
-        public void Update(Route entity)
+        public void Update(Route route)
         {
-            this.routeRepository.Update(entity);
+            this.routeRepository.Update(route);
         }
 
-        public void Delete(int id)
+        public void Delete(int routeId)
         {
-            this.routeRepository.Delete(id);
+            this.routeRepository.Delete(routeId);
         }
 
         public IEnumerable<Route> GetAll()
