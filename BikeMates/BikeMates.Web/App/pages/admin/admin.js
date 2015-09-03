@@ -28,8 +28,8 @@
                         self.users.remove(function (user) { return user.id = val });
                     });
                     self.loadUsers();
-                }
-            });
+                },
+                });
 
         }
 
@@ -45,7 +45,12 @@
                         console.log(val.picture);
                         self.users.push(new user(val.id, val.firstName, val.secondName, val.Picture));
                     });
+                },
+                statusCode: {
+                401: function (response) {
+                    window.location.href = "#login";
                 }
+            }
             });
         }
         self.loadUsers();

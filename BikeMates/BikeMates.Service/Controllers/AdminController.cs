@@ -5,12 +5,11 @@ using AutoMapper;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using BikeMates.Service.Models;
-using BikeMates.Service.RoleHandling;
 
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Admin")]
-    [AuthorizeRoles("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
     {
         private IUserService userService;
