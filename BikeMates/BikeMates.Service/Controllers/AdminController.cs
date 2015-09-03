@@ -37,17 +37,9 @@ namespace BikeMates.Service.Controllers
 
         [HttpPost]
         [Route("UnbanUsers")]
-        public IHttpActionResult UnbanUsers(List<string> userId) //TODO: Rename to userIds
+        public IHttpActionResult UnbanUsers(List<string> userIds)
         {
-            User user;
-            userId.RemoveAt(userId.Count - 1); //TODO: Do not remove values. Check if it is not null
-
-            foreach (var id in userId) //TODO: Move this logic to UserService
-            {
-                user = userService.GetUser(id);
-                user.IsBanned = false;
-                userService.Update(user);
-            }
+            userService.UnbanUsers(userIds);
             return Ok();
         }
 
@@ -68,16 +60,9 @@ namespace BikeMates.Service.Controllers
 
         [HttpPost]
         [Route("UnbanRoutes")]
-        public IHttpActionResult UnbanRoutes(List<int> routeId) //TODO: Rename to routeIds
+        public IHttpActionResult UnbanRoutes(List<int> routeIds)
         {
-            Route route;
 
-            foreach (var id in routeId) //TODO: Move this logic to RouteService
-            {
-                route = routeService.Find(id);
-                route.IsBanned = false;
-                routeService.Update(route);
-            }
             return Ok();
         }
     }

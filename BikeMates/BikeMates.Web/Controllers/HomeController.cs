@@ -9,12 +9,5 @@ namespace BikeMates.Web.Controllers
         {            
             return View(); 
         } 
-        
-        public ActionResult RouteView() //TODO: Remove
-        {
-            ViewBag.Message = "Route View";
-
-            return View();
-        }
     }
 }

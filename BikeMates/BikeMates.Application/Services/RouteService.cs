@@ -73,6 +73,17 @@ namespace BikeMates.Application.Services
             Route route = routeRepository.Find(routeId);
             return route.Subscribers.Contains(user);
         }
-        
+
+
+        public void UnbanRoutes(List<int> routeIds)
+        {
+            Route route;
+            foreach (var id in routeIds)
+            {
+                route = Find(id);
+                route.IsBanned = false;
+                Update(route);
+            }
+        }
     }
 }

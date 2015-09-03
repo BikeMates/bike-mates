@@ -50,6 +50,5 @@ namespace BikeMates.DataAccess.Repository
         {
             return userManager.ResetPassword(id, code, password);
         }
-
     }
 }
