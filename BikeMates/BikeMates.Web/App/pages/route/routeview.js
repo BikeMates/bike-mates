@@ -89,11 +89,9 @@
                 self.start(data.start);
                 self.distance(data.distance);
                 self.MeetingPlace(data.meetingPlace);
-<<<<<<< HEAD
-                self.description(data.description);
-=======
 
->>>>>>> a3b73c51b54c4a79c0051961c35bddd3e4e79dc9
+                self.description(data.description);
+
             },
             error: function (data) {
             }
