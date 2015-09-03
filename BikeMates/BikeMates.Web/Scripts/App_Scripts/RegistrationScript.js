@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function () { //TODO: Rewrite with RequireJS
 
     var tokenKey = "tokenInfo";
 

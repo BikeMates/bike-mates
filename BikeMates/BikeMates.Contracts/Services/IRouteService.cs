@@ -5,6 +5,7 @@ namespace BikeMates.Contracts.Services
 {
     public interface IRouteService
     {
+        //TODO: Rename id to routeId. Be more specific
         void Add(Route route);
         Route Find(int id);
         void Update(Route route);

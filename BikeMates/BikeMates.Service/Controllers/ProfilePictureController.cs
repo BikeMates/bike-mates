@@ -38,6 +38,8 @@ namespace BikeMates.Service.Controllers
             // Read the form data.
             await Request.Content.ReadAsMultipartAsync(provider);
 
+            //TODO: Move all logic that related to Images into new ImageService
+            //TODO: Create a method for saving files
             string path = "";
             string newfilePath = "";
             string oldfilePath = "";
@@ -63,6 +65,7 @@ namespace BikeMates.Service.Controllers
         [HttpGet]
         public HttpResponseMessage GetImage(string id)
         {
+            //TODO: Create a method to Get filePath
             string fileName = id;
             string rootPath = HttpContext.Current.Server.MapPath("~/Resources");
 

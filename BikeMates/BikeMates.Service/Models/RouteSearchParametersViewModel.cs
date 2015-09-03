@@ -8,6 +8,7 @@ namespace BikeMates.Service.Models
 {
     public class RouteSearchParametersViewModel
     {
+        //TODO: Remove Required from all properties
         [Required]
         public string Location { get; set; }
 

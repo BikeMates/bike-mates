@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function () { //TODO: Rewrite with RequireJS
 
     function RouteViewModel() {
 
@@ -33,7 +33,7 @@
             error: function (data) {
             }
         });
-
+         //TODO: Use Knockout to assign methods. Do not use jQuery
         $("#Search").button().click(function () {
             $.ajax({
                 url: "http://localhost:51952/api/routes",
@@ -72,7 +72,7 @@
                 }
             });
         });
-        $("#ByTitle").button().click(function () {
+        $("#ByTitle").button().click(function () { 
             $.ajax({
                 url: "http://localhost:51952/api/search"+ '/'+1,
                 contentType: "application/json",

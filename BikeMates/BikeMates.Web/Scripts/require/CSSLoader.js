@@ -1,4 +1,4 @@
-﻿(function () {
+﻿(function () { //TODO: Remove
     "use strict";
 
     define(function () {
