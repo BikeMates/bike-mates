@@ -52,17 +52,32 @@
 
 <div class="row result-filter-row">
     <table class="result-silter-itm" align="center">
-            <tbody data-bind="foreach: allRoutes">
-                <tr>
-                    <td class="result-silter-itm" data-bind="value: id">
-                        <a href="../#routeview"><label data-bind="text: title"></label></a>
-                        Distance:<label data-bind="text: distance"></label>
-                        MeetingPlace:<label data-bind="text: meetingPlace"></label>
-                        Start:<label data-bind="text: start"></label>
-                        Description:<label data-bind="text: description"></label>
-                    </td>
-                </tr>
-            </tbody>
+        <tbody data-bind="foreach: allRoutes.currentPageData">
+            <tr>
+                <td class="result-silter-itm" data-bind="value: id">
+                    <a href="../#routeview"><label data-bind="text: title"></label></a>
+                    Start:<label data-bind="text: start"></label>
+                    Distance:<label data-bind="text: distance"></label>
+                    <br />
+                    MeetingPlace:<label data-bind="text: meetingPlace"></label>
+                    <br />
+                    Description:<label data-bind="text: description"></label>
+                </td>
+            </tr>
+        </tbody>
         </table>
+    <table align="center">
+        <tbody>
+            <tr>
+                <td>
+                    <div style="clear: both"></div>
+                    <a href="#" data-bind="click: allRoutes.moveFirst">First</a>
+                    <a href="#" data-bind="click: allRoutes.movePrevious">Previous</a>
+                    <a href="#" data-bind="click: allRoutes.moveNext">Next</a>
+                    <a href="#" data-bind="click: allRoutes.moveLast">Last</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 

@@ -152,7 +152,7 @@
     <Rule Id="CA2224" Action="Error" />
     <Rule Id="CA2225" Action="Error" />
     <Rule Id="CA2226" Action="Error" />
-    <Rule Id="CA2227" Action="Error" />
+    <Rule Id="CA2227" Action="None" />
     <Rule Id="CA2228" Action="Error" />
     <Rule Id="CA2229" Action="Error" />
     <Rule Id="CA2230" Action="Error" />
