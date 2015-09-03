@@ -178,3 +178,34 @@ textarea {
   border-radius: 3px;
   margin-left: 350px;
 }
+
+#routeForm {
+    padding-left: auto;
+    padding-right: auto;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.form-inline- .form-group {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.form-inline {
+    padding-bottom: 15px;
+}
+
+.center {
+    margin: 0 auto;
+    width: 700px;
+    padding-left: auto;
+    padding-right: auto;
+    white-space: nowrap;
+}
+#map {
+    margin: 0 auto;
+    width: 1200px;
+    height: 600px;  
+}

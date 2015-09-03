@@ -5,11 +5,10 @@ namespace BikeMates.Contracts.Services
 {
     public interface IRouteService
     {
-        //TODO: Rename id to routeId. Be more specific
         void Add(Route route);
-        Route Find(int id);
+        Route Find(int routeId);
         void Update(Route route);
-        void Delete(int id);
+        void Delete(int routeId);
         IEnumerable<Route> GetAll();
         IEnumerable<Route> Search(RouteSearchParameters searchParameters);
         void SubscribeUser(int routeId, string userId);

@@ -70,13 +70,13 @@ namespace BikeMates.DataAccess.Migrations
             Route route = new Route();
             Coordinate start = context.Coordinates.Add(new Coordinate
             {
-                Latitude = 50.4602253,
-                Longitude = 30.511327100000017
+                Latitude = 50.4653661,
+                Longitude = 30.521903599999973
             });
             Coordinate end = context.Coordinates.Add(new Coordinate
             {
-                Latitude = 50.4602253,
-                Longitude = 30.511327100000017
+                Latitude = 50.466008599999988,
+                Longitude = 30.511753699999986
             });
             MapData mapdata = context.MapDatas.Add(new MapData { Start = start, End = end });
 

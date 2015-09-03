@@ -1,5 +1,4 @@
 ﻿<div >
-    <hr/>
     <div id="map"></div>
     <div class="container">
         <form action="#" data-bind="submit: save" class="form-horizontal" id="routeForm" method="post">
@@ -15,7 +14,7 @@
                     <div class="form-group">
                         <label class="col-md-5 control-label" for="Distance">Total Distance:</label>
                         <div class="col-md-5">
-                            <input class="form-control" required data-bind="textInput: totalDistance" id="totalDistance" name="Distance" type="text" value="0" /> <span>km</span>
+                            <input class="form-control" required data-bind="textInput: Distance" id="Distance" name="Distance" type="text" value="0" /> <span>km</span>
                         </div>
                     </div>
                 </div>
@@ -28,7 +27,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="Description">Description</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" required data-bind="textInput: Description" cols="20" id="Description" name="Description" rows="2"></textarea>
+                        <textarea class="form-control" required data-bind="text: Description" cols="20" id="Description" name="Description" rows="2"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -41,7 +40,7 @@
                 <input id="MapData" data-bind="textInput: MapData" name="MapData" type="hidden" value=""/>
 
                 <div class="form-inline pull-right">
-                    <input type="button" data-bind="click: loadRoute" class="btn btn-default" id="LoadMapButton" value="Load" />
+                    <input type="button" data-bind="click: getRoute(999)" class="btn btn-default" id="LoadMapButton" value="Load" />
                     <input type="button" data-bind="click: clearMap" class="btn btn-default" id="ClearMapButton" value="Clear" />
                     <input type="submit" class="btn btn-default" id="SaveRouteButton" value="Save" />
                 </div>

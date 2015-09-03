@@ -25,40 +25,44 @@ namespace BikeMates.Service.Controllers
 
         // GET api/user
         [HttpGet]
-        public ProfileViewModel Get()
+        public profileViewModel Get()
         {  
-            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal; //TODO: Move this logic to the BaseController. Create UserId property there
-            var userId = principal.Claims.Single(c => c.Type == "id").Value;
-
-            Mapper.CreateMap<User, ProfileViewModel>();
-            User user = userService.GetUser(userId);
-            return Mapper.Map<User, ProfileViewModel>(user);
+            Mapper.CreateMap<User, profileViewModel>();
+            User user = userService.GetUser(this.userId);
+            return Mapper.Map<User, profileViewModel>(user);
         }
 
         // GET api/user/1
         [HttpGet]
-        public ProfileViewModel Get(string id)
+        public profileViewModel Get(string id)
         {
             User user = userService.GetUser(id);
-            Mapper.CreateMap<User, ProfileViewModel>();
-            return Mapper.Map<User, ProfileViewModel>(user);
+            Mapper.CreateMap<User, profileViewModel>();
+            return Mapper.Map<User, profileViewModel>(user);
         }
 
         // POST api/user
         [HttpPost]
-        public async Task<HttpResponseMessage> Update(EditProfileViewModel userViewModel) //TODO: Rename to editProfileViewModel
+        public async Task<HttpResponseMessage> Update(editProfileViewModel userViewModel) 
         {
-            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-            var userId = principal.Claims.Single(c => c.Type == "id").Value;
 
-            User user = userService.GetUser(userId); //TODO: Use AutoMapper for mapping
+            User user = userService.GetUser(this.userId); //TODO: Use AutoMapper for mapping
+
+            Mapper.CreateMap<User, editProfileViewModel>();
+            Mapper.CreateMap<editProfileViewModel, User>();
+            
             user.FirstName = userViewModel.FirstName;
             user.About = userViewModel.About;
             user.SecondName = userViewModel.SecondName;
             user.Picture = userViewModel.Picture;
+
+            user =  Mapper.Map<editProfileViewModel, User>(userViewModel);
+            
             userService.Update(user);
 
-            IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, userId);
+
+
+            IdentityResult result = userService.ChangePassword(userViewModel.OldPassword, userViewModel.NewPassword, userViewModel.NewPasswordConfirmation, this.userId);
             IHttpActionResult errorResult = GetErrorResult(result);
 
             if (errorResult != null)

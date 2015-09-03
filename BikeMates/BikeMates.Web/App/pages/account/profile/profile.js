@@ -14,7 +14,7 @@
             return self.FirstName() + " " + self.SecondName();
         }, this);
 
-        self.goToEdit = function () { //TODO: rename
+        self.goToEdit = function () {
             window.location = "http://localhost:51949/#editprofile";
         }
 
@@ -29,15 +29,11 @@
                 self.About(data.about);
                 var image_url = "http://localhost:51952/api/profilepicture/";
                 var userId = data.id;
-                self.Imagesrc = image_url + userId + '?' + Math.random();
-                //TODO: Rewrite code below this knockout. Do not use jQuery
-               // $("#avatar").attr("src", image_url + userId);
-                //$('#avatar').attr('src', $('#avatar').attr('src') + '?' + Math.random());
+                self.Imagesrc(image_url + userId + '?' + Math.random());
             },
             error: function (data) {
             }
         });
-
         return self;
     }
 

@@ -88,7 +88,7 @@
             }
             self.searchRoutes();
         }
-
+      
         self.searchRoutes = function () {
             $.ajax({
                 url: "http://localhost:51952/api/route/getroutes",
@@ -106,6 +106,10 @@
         self.searchRoutes();
         return self;
     }
+
+    goToRoute = function (r) {
+            console.log("item module id " + r.id());
+    };
     function route(author, description, distance, id, isBanned, mapData, meetingPlace, start, subscribers, title) {
         var self = this;
         self.author = author;
