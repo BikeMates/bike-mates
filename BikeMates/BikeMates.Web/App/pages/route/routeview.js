@@ -12,37 +12,67 @@
         //self.Start = ko.observable();
         //self.End = ko.observable();
         self.ByTitle = ko.observable("");
+        self.subscribed = ko.observable(false);
 
         self.subscribe = function () {
-            var apiurl = "http://localhost:51952/api/subscribe/" + self.id();
+            var apiurl = "http://localhost:51952/api/subscribe/" + 91;
             $.ajax({
                 url: apiurl,
                 contentType: "application/json",
                 type: "PUT",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
-
+                    self.isSubscribed();
                 },
                 error: function (data) {
                 }
             });
         }
         self.unsubscribe = function () {
-            var apiurl = "http://localhost:51952/api/subscribe/" + self.id();
+            var apiurl = "http://localhost:51952/api/subscribe/" + 91;
             $.ajax({
                 url: apiurl,
                 contentType: "application/json",
                 type: "DELETE",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
-
+                    self.isSubscribed();
                 },
                 error: function (data) {
                 }
             });
         }
+        self.isSubscribed = function ()
+        {
+            var apiurl = "http://localhost:51952/api/subscribe/" + 91;
+            $.ajax({
+                url: apiurl,
+                contentType: "application/json",
+                type: "GET",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                success: function (data) {
+                    self.subscribed(data);
+                    console.log(self.subscribed());
+                    console.log(data);
+                 
+                    if (self.subscribed()) {
+                        console.log("im in true branch");
+                        $("#sub_btn").hide();
+                        $("#unsub_btn").show();
+                    }
+                    else
+                    {
+                        console.log("im in false branch");
+                        $("#sub_btn").show();
+                        $("#unsub_btn").hide();
+                    }
+                },
+                error: function (data) {
+                }
+            });
 
-        console.log(self.id());
+        }
+
         $.ajax({
             url: "http://localhost:51952/api/route/get"+'/'+ self.id(),
             contentType: "application/json",
@@ -54,6 +84,7 @@
                 self.start(data.start);
                 self.distance(data.distance);
                 self.MeetingPlace(data.meetingPlace);
+
             },
             error: function (data) {
             }

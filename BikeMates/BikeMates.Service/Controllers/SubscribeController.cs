@@ -18,16 +18,28 @@ namespace BikeMates.Service.Controllers
             this.userService = userService;
             this.routeService = routeService;
         }
+
         [HttpGet]
-        public HttpResponseMessage GetAllSubscribedRoutes(string id)
+        [AllowAnonymous]
+        public bool GetAllSubscribedRoutes(int id)
         {
+            var principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            //string userId = principal.Claims.Single(c => c.Type == "id").Value;
+            string userId = "be44b720-b9e0-4c17-ae83-0fb8e5beecf7";
+            User user = userService.GetUser(userId);
+            Route route = routeService.Find(id);
 
-            User user = userService.GetUser(id);
-            
-
-            return Request.CreateResponse(HttpStatusCode.OK);
+            bool isSubscribed = false;
+            if (route.Subscribers.Contains(user))
+                 {
+                     isSubscribed = true;
+                 }
+            else
+                 {
+                     isSubscribed = false;
+                 }
+            return isSubscribed;
         }
-
 
         [HttpPut]
         public HttpResponseMessage Subscribe(int id)
@@ -49,8 +61,8 @@ namespace BikeMates.Service.Controllers
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
-            int   routeId = id;
-            User  user = userService.GetUser(userId);
+            int routeId = id;
+            User user = userService.GetUser(userId);
             Route route = routeService.Find(routeId);
             this.routeService.UnsubscribeUser(route, user);
 
