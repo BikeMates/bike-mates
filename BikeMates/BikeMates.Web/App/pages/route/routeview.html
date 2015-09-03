@@ -1,8 +1,13 @@
 ﻿<table align="center" class="pagination">
     <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
-   <tr><td><label  type="text" id="title" data-bind="text: title" /></td></tr>
-    <tr><td><div id="map" style="height: 400px; width: 700px"></div> </td></tr>
+    <tr><td><label type="text" id="title" data-bind="text: title" /></td></tr>
 </table>
+    <input id="MapData" data-bind="textInput: MapData" name="MapData" type="hidden" value="" />
+
+    <div class="form-inline pull-right">
+        <input type="button" data-bind="click: getRoute(999)" class="btn btn-default" id="LoadMapButton" value="Load" />
+    </div>
+
 
 <!--<div align="left">
     <p class="result-silter-itm">
@@ -13,6 +18,7 @@
 
 <table align="center" class="pagination">
     <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+    <tr><td><label>Author: </label></td><td><label type="text" id="start" data-bind="text: Author" /></td></tr>
     <tr><td><label>Start: </label></td><td><label type="text" id="start" data-bind="text: start" /></td></tr>
     <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" /></td></tr>
     <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>

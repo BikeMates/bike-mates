@@ -55,7 +55,8 @@
         <tbody data-bind="foreach: allRoutes.currentPageData">
             <tr>
                 <td class="result-silter-itm" data-bind="value: id">
-                    <a href="../#routeview"><label data-bind="text: title"></label></a>
+                    <button data-bind="click: $root.goToRoute , text:title"></button>             
+                    <label data-bind="text: title"></label>
                     Start:<label data-bind="text: start"></label>
                     Distance:<label data-bind="text: distance"></label>
                     <br />
@@ -66,6 +67,7 @@
             </tr>
         </tbody>
         </table>
+   
     <table align="center">
         <tbody>
             <tr>
