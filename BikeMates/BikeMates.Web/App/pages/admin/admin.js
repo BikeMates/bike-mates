@@ -2,13 +2,74 @@
 
     var tokenKey = "tokenInfo"; //TODO: Create auth service which will create Token header. Remove the duplicated logic from all files
 
+    ko.extenders.paging = function (target, pageSize) {
+        var _pageSize = ko.observable(pageSize || 100),
+            _currentPage = ko.observable(1);
+
+        target.pageSize = ko.computed({
+            read: _pageSize,
+            write: function (newValue) {
+                if (newValue > 0) {
+                    _pageSize(newValue);
+                }
+                else {
+                    _pageSize(200);
+                }
+            }
+        });
+
+        target.currentPage = ko.computed({
+            read: _currentPage,
+            write: function (newValue) {
+                if (newValue > target.pageCount()) {
+                    _currentPage(target.pageCount());
+                }
+                else if (newValue <= 0) {
+                    _currentPage(1);
+                }
+                else {
+                    _currentPage(newValue);
+                }
+            }
+        });
+
+        target.pageCount = ko.computed(function () {
+            return Math.ceil(target().length / target.pageSize()) || 1;
+        });
+
+        target.currentPageData = ko.computed(function () {
+            var pageSize = _pageSize(),
+                pageIndex = _currentPage(),
+                startIndex = pageSize * (pageIndex - 1),
+                endIndex = pageSize * pageIndex;
+
+            return target().slice(startIndex, endIndex);
+        });
+
+        target.moveFirst = function () {
+            target.currentPage(1);
+        };
+        target.movePrevious = function () {
+            target.currentPage(target.currentPage() - 1);
+        };
+        target.moveNext = function () {
+            target.currentPage(target.currentPage() + 1);
+        };
+        target.moveLast = function () {
+            target.currentPage(target.pageCount());
+        };
+
+        return target;
+    };
+
     function AdminViewModel(params) {
         var self = this;
         self.id = ko.observable("");
         self.firstName = ko.observable("");
         self.secondName = ko.observable("");
-        self.imagePath = ko.observable("fdf");
-        self.users = ko.observableArray([]);
+        self.imagePath = ko.observable("");
+
+        self.users = ko.observableArray([]).extend({ paging: 6 });
 
         self.unban = function () {
 
@@ -29,7 +90,7 @@
                     });
                     self.loadUsers();
                 },
-                });
+            });
 
         }
 
@@ -47,10 +108,10 @@
                     });
                 },
                 statusCode: {
-                401: function (response) {
-                    window.location.href = "#login";
+                    401: function (response) {
+                        window.location.href = "#login";
+                    }
                 }
-            }
             });
         }
         self.loadUsers();
@@ -62,6 +123,9 @@
         self.id = id;
         self.firstName = firsName;
         self.secondName = secondName;
+        self.fullName = ko.computed(function () {
+            return self.firstName + " " + self.secondName;
+        }, this);
         self.imagePath = picture;
     }
     return { viewModel: AdminViewModel, template: adminTemplate };
