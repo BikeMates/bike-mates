@@ -51,7 +51,7 @@ namespace BikeMates.Application.Services
         {
             string resetToken = this.userRepository.ForgotPassword(id);
             string message = CreateMessage(id, host, resetToken);
-            MailSender.Send(GetUser(id).Email, message);
+            MailSender.Send(GetUser(id).Email, message); //TODO: Create interface for mail sender and inject it in constructor. And use here
         }
 
         private static string CreateMessage(string id, string host, string resetToken)

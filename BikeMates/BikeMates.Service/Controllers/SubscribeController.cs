@@ -22,7 +22,7 @@ namespace BikeMates.Service.Controllers
         public HttpResponseMessage GetAllSubscribedRoutes(string id)
         {
 
-            User user = userService.GetUser(id);
+            User user = userService.GetUser(id); //TODO: Why we need this? Remove if it is not needed.
             
 
             return Request.CreateResponse(HttpStatusCode.OK);
@@ -36,7 +36,7 @@ namespace BikeMates.Service.Controllers
             string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
             int routeId = id;
-            User user = userService.GetUser(userId);
+            User user = userService.GetUser(userId); //TODO: Move this logic to Service pass userId and routeId there.
             Route route = routeService.Find(routeId);
             this.routeService.SubscribeUser(route, user);
 
@@ -50,7 +50,7 @@ namespace BikeMates.Service.Controllers
             string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
             int   routeId = id;
-            User  user = userService.GetUser(userId);
+            User user = userService.GetUser(userId); //TODO: Move this logic to Service pass userId and routeId there.
             Route route = routeService.Find(routeId);
             this.routeService.UnsubscribeUser(route, user);
 

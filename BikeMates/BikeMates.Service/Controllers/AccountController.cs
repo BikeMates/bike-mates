@@ -35,7 +35,7 @@ namespace BikeMates.Service.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<HttpResponseMessage> Register(RegisterViewModel userModel)
+        public async Task<HttpResponseMessage> Register(RegisterViewModel userModel) //TODO: Rename userModel to registerViewModel
         {
             if (!ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace BikeMates.Service.Controllers
                     Content = new StringContent(responseString, Encoding.UTF8, "application/json")
                 };
 
-                if (responseMsg.StatusCode == HttpStatusCode.OK)
+                if (responseMsg.StatusCode == HttpStatusCode.OK) //TODO: Move this  logic to a separate method
                 {
                     var loginResponse = JsonConvert.DeserializeObject<LoginResponseModel>(responseString);
                     var auth = new AuthModel();
@@ -154,14 +154,14 @@ namespace BikeMates.Service.Controllers
             return await Ok().ExecuteAsync(new CancellationToken());
         }
 
-        private CaptchaModel checkCaptcha(string response)
+        private CaptchaModel checkCaptcha(string response) //TODO: Create a separate class that will check Captcha
         {
             const string secret = "6LdnvQsTAAAAAGM8ZQ8kr46eAalzSBzH_BpnYoN3";
 
             var webClient = new WebClient();
             var reply =
                 webClient.DownloadString(
-                    string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response));
+                    string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response)); //TODO: Do not hardcode Url. Move it to web config
             return JsonConvert.DeserializeObject<CaptchaModel>(reply);
         }
 

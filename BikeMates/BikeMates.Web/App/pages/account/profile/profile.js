@@ -28,6 +28,7 @@
                 self.About(data.about);
                 var image_url = "http://localhost:51952/api/profilepicture/";
                 var userId = data.id;
+                //TODO: Rewrite code below this knockout. Do not use jQuery
                 $("#avatar").attr("src", image_url + userId);
                 $('#avatar').attr('src', $('#avatar').attr('src') + '?' + Math.random());
             },

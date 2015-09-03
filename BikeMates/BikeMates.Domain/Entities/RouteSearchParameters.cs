@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BikeMates.Domain.Entities
 {
-    public enum RouteSortBy
+    public enum RouteSortBy //TODO: Rename to RouteSortOptions and move to a separate file
     {  
         Date, Title, Subscribers
     }
@@ -17,7 +17,7 @@ namespace BikeMates.Domain.Entities
         public double? MinDistance { get; set; }
         public double? MaxDistance { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)] //TODO: Remove formating from here
         public DateTime? DateFrom { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]   

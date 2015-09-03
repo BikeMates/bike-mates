@@ -6,6 +6,7 @@ namespace BikeMates.Contracts.Services
 {
     public interface IUserService
     { 
+        //TODO: Rename id to userId. Be more specific
         IdentityResult Register(User user, string password);
         IdentityResult ChangePassword(string oldPassword, string newPassword, string newPasswordConfirmation, string id); 
         User Login(string email, string password);

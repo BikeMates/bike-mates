@@ -51,7 +51,7 @@ namespace BikeMates.DataAccess.Repository
 
         public bool UnsubscribeUser(Route route, User user)
         {
-            bool isRemoved = route.Subscribers.Remove(user);
+            bool isRemoved = route.Subscribers.Remove(user); //TODO: Remove isRemoved value
             this.Update(route);
             return isRemoved;
         }
