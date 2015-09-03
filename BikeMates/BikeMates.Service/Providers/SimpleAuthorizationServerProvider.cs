@@ -24,6 +24,7 @@ namespace BikeMates.Service.Providers
         {
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
             User user = userService.Login(context.UserName, context.Password);
 
             if (user == null)
