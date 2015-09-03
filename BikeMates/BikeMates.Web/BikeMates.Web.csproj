@@ -245,7 +245,6 @@
     <Content Include="Scripts\App_Scripts\ForgotPasswordScript.js" />
     <Content Include="Scripts\App_Scripts\LayoutScript.js" />
     <Content Include="Scripts\App_Scripts\ResetPasswordScript.js" />
-    <Content Include="Scripts\require\CSSLoader.js" />
     <Content Include="App\boot\require.config.js" />
     <Content Include="App\boot\router.js" />
     <Content Include="App\boot\startup.js" />
