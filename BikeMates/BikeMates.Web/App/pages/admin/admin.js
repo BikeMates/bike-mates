@@ -1,6 +1,6 @@
 ﻿define(["knockout", "text!./admin.html", "require"], function (ko, adminTemplate, require) {
 
-    var tokenKey = "tokenInfo";
+    var tokenKey = "tokenInfo"; //TODO: Create auth service which will create Token header. Remove the duplicated logic from all files
 
     function AdminViewModel(params) {
         var self = this;

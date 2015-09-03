@@ -21,7 +21,7 @@ namespace BikeMates.Service.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public bool GetIsUserSubscribedToRoute(int id)
+        public bool GetAllSubscribedRoutes(int id)
         {
             var principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             //string userId = principal.Claims.Single(c => c.Type == "id").Value;
@@ -29,9 +29,19 @@ namespace BikeMates.Service.Controllers
             User user = userService.GetUser(userId);
             Route route = routeService.Find(id);
 
-            bool isSubscribed = route.Subscribers.Contains(user);
+            //TODO: Move this logic to Service
+            bool isSubscribed = false;
+            if (route.Subscribers.Contains(user))
+                 {
+                     isSubscribed = true;
+                 }
+            else
+                 {
+                     isSubscribed = false;
+                 }
             return isSubscribed;
         }
+
 
         [HttpPut]
         public HttpResponseMessage Subscribe(int id)
@@ -40,7 +50,7 @@ namespace BikeMates.Service.Controllers
             string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
             int routeId = id;
-            User user = userService.GetUser(userId);
+            User user = userService.GetUser(userId); //TODO: Move this logic to Service pass userId and routeId there.
             Route route = routeService.Find(routeId);
             this.routeService.SubscribeUser(route, user);
 
@@ -54,7 +64,7 @@ namespace BikeMates.Service.Controllers
             string userId = principal.Claims.Single(c => c.Type == "id").Value;
 
             int routeId = id;
-            User user = userService.GetUser(userId);
+            User user = userService.GetUser(userId); //TODO: Move this logic to Service pass userId and routeId there.
             Route route = routeService.Find(routeId);
             this.routeService.UnsubscribeUser(route, user);
 

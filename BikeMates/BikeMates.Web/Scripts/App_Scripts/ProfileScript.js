@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     var tokenKey = "tokenInfo";
 
+    //TODO: Remove this. Do not use jQuery selectors
     $("#properties_btn").click(function () {
         window.location = "http://localhost:51949/Account/EditProfile";
     });
@@ -28,7 +29,7 @@
                 self.About(data.about);
                 var api_link = "http://localhost:51952/api/profilepicture/";
                 var usr_id = data.id;
-                $("#avatar").attr("src", api_link + usr_id);
+                $("#avatar").attr("src", api_link + usr_id); //TODO: Replace jQuery with knockout
 
             },
             error: function (data) {

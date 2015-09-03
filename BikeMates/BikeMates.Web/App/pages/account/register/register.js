@@ -28,11 +28,12 @@
                     $("#error_message").hide();
                     $(".validation-summary-errors").hide();
 
+                    //TODO: Create a method for this
                     sessionStorage.setItem(tokenKey, data.token);
                     sessionStorage.setItem("authorized", data.isAuthorized);
                     sessionStorage.setItem("username", data.firstName + " " + data.secondName);
                     sessionStorage.setItem("role", data.role);
-
+                    //TODO: Rewrite code below this knockout. Do not use jQuery
                     $('#userpanel').find('#anonim').hide();
 
                     if (data.role == "Admin") {
@@ -50,6 +51,7 @@
                 error: function (data) {
                     var errors = [];
 
+                    //TODO: Create a common component for error handling
                     $("#error_message").hide();
                     $(".validation-summary-errors").show();
 

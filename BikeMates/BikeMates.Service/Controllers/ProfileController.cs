@@ -27,7 +27,7 @@ namespace BikeMates.Service.Controllers
         [HttpGet]
         public ProfileViewModel Get()
         {  
-            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+            ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal; //TODO: Move this logic to the BaseController. Create UserId property there
             var userId = principal.Claims.Single(c => c.Type == "id").Value;
 
             Mapper.CreateMap<User, ProfileViewModel>();
@@ -46,12 +46,12 @@ namespace BikeMates.Service.Controllers
 
         // POST api/user
         [HttpPost]
-        public async Task<HttpResponseMessage> Update(EditProfileViewModel userViewModel)
+        public async Task<HttpResponseMessage> Update(EditProfileViewModel userViewModel) //TODO: Rename to editProfileViewModel
         {
             ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             var userId = principal.Claims.Single(c => c.Type == "id").Value;
 
-            User user = userService.GetUser(userId); 
+            User user = userService.GetUser(userId); //TODO: Use AutoMapper for mapping
             user.FirstName = userViewModel.FirstName;
             user.About = userViewModel.About;
             user.SecondName = userViewModel.SecondName;

@@ -11,8 +11,8 @@ namespace BikeMates.Service.Controllers
     [RoutePrefix("api/Route")]
     public class RouteController : ApiController
     {
-        private RouteSearchParameters searchParameters;
-        public IEnumerable<Route> allRoutes;
+        private RouteSearchParameters searchParameters; //TODO: Remove
+        public IEnumerable<Route> allRoutes;//TODO: Remove
         private readonly IRouteService routeService;
 
         public RouteController(IRouteService routeService)
@@ -68,6 +68,7 @@ namespace BikeMates.Service.Controllers
             searchParameters = new RouteSearchParameters();
             searchParameters.MeetingPlace = search.Location;
 
+            //TODO: Refactor the code below. Do not parse values replace types in RouteSearchParametersViewModel class
             DateTime dateFrom;
             if (DateTime.TryParse(search.DateFrom, out dateFrom))
             {
@@ -92,9 +93,9 @@ namespace BikeMates.Service.Controllers
                 searchParameters.MaxDistance = maxDistance;
             }
 
-            RouteSortBy orderByField = RouteSortBy.Date;
+            RouteSortOptions orderByField = RouteSortOptions.Date;
 
-            Enum.TryParse<RouteSortBy>(search.OrderByFieldName, true, out orderByField);
+            Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField);
             searchParameters.SortOrder = orderByField;
 
             IEnumerable<Route> routes = routeService.Search(searchParameters).ToArray();
