@@ -58,5 +58,11 @@ namespace BikeMates.Application.Services
         {
             return this.routeRepository.GetAllSubscribedRoutesByUser(user);
         }
+
+        public bool CheckIsUserSubscribedToRoute(Route route, User user)
+        {
+            return route.Subscribers.Contains(user);
+        }
+        
     }
 }

@@ -21,7 +21,7 @@ namespace BikeMates.Service.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public bool GetAllSubscribedRoutes(int id)
+        public bool GetIsUserSubscribedToRoute(int id)
         {
             var principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
             //string userId = principal.Claims.Single(c => c.Type == "id").Value;
@@ -29,15 +29,7 @@ namespace BikeMates.Service.Controllers
             User user = userService.GetUser(userId);
             Route route = routeService.Find(id);
 
-            bool isSubscribed = false;
-            if (route.Subscribers.Contains(user))
-                 {
-                     isSubscribed = true;
-                 }
-            else
-                 {
-                     isSubscribed = false;
-                 }
+            bool isSubscribed = route.Subscribers.Contains(user);
             return isSubscribed;
         }
 
