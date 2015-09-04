@@ -1,5 +1,7 @@
 ﻿define(["knockout", "jquery", "jquery-ui", "text!./newroute.html", "require", "googlemap"], function (ko, $, $$, RouteTemplate, require, googlemap) {
 
+    var tokenKey = "tokenInfo";
+
     var map, service, renderer;
     var data = {};
     var start, end;
@@ -123,6 +125,7 @@
 
             $.ajax({
                 type: 'PUT',
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 url: 'http://localhost:51952/api/route/put',
                 data: $('#routeForm').serialize(),
                 success: function (response) { }
