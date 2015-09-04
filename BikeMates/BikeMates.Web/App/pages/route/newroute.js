@@ -204,7 +204,10 @@
         self.Description = ko.observable("");
         self.MeetingPlace = ko.observable("");
         self.MapData = ko.observable("");
-        self.save = function() {
+        self.save = function () {
+            alert("Route added to DB\n" +
+                "Remove alert and make redirect to all user routes\n" +
+                "after that page is ready");
             saveRoute();
         }
         self.Load = function(id) {
