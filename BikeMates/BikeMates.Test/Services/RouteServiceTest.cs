@@ -5,6 +5,8 @@ using BikeMates.Domain.Entities;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+
 
 namespace BikeMates.Test
 {
@@ -17,6 +19,7 @@ namespace BikeMates.Test
 
         private IUserService userService;
         private IRouteService routeService;
+        
 
         [TestFixtureSetUp]
         public void InitialSetup()
@@ -30,30 +33,33 @@ namespace BikeMates.Test
         }
 
         [Test]
-        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "AddedInfoShouldBeIdentical")]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "User info is properly added")]
         public void AddRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
             , double expectedDistance, string expectedPlace, int expectedId)
         {
-            var expectedUser = new User
+            
+
+            User expectedUser = new User
             {
                 Email = expectedEmail,
                 About = expectedAbout,
                 FirstName = expectedName,
-                SecondName= expectedSurname
+                SecondName = expectedSurname
             };
 
-            var expectedRoute = new Route 
+            Route expectedRoute = new Route
             {
-               Id = expectedId,
-               Author = expectedUser,
-               Description = expectedDescription,
-               Start = new DateTime(2015,12,22),
-               Distance = expectedDistance,
-               MeetingPlace = expectedPlace 
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+          
             };
 
-          
-          routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
+           // routeService.Add();
+            routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
 
             Route testroute = routeService.Find(1);
 
@@ -67,6 +73,94 @@ namespace BikeMates.Test
             Assert.AreEqual(expectedId,          testroute.Id,                " Ids are not equal");
         }
 
+        [Test]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "User is subscribed")]
+        public void CheckIsUserSubscribedToRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
+            , double expectedDistance, string expectedPlace, int expectedId)
+     
+        {
+            // set up test objects
+
+            User expectedUser = new User()
+            {
+                Email = expectedEmail,
+                About = expectedAbout,
+                FirstName = expectedName,
+                SecondName = expectedSurname
+            };
+
+            List<User> expextedSubscribers = new List<User>();
+            expextedSubscribers.Add(expectedUser);
+
+            Route expectedRoute = new Route()
+            {
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+                Subscribers = expextedSubscribers
+             
+            };
+
+            routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
+            userRepository.Setup(r => r.Find(It.IsAny<string>())).Returns(expectedUser);
+
+            // check the method
+
+            bool actualResult =   routeService.CheckIsUserSubscribedToRoute(expectedRoute.Id, expectedUser.Id);
+            bool expectedResult = true;
+
+            Assert.AreEqual(expectedResult, actualResult, "wrong subscription logic");
+        
+        
+        }
+
+        [Test]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check is user unsubscribed")]
+        public void UnsubscribeUserTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
+            , double expectedDistance, string expectedPlace, int expectedId)
+        {
+            // set up test objects
+
+            User expectedUser = new User()
+            {
+                Email = expectedEmail,
+                About = expectedAbout,
+                FirstName = expectedName,
+                SecondName = expectedSurname
+            };
+
+            List<User> expextedSubscribers = new List<User>();
+            expextedSubscribers.Add(expectedUser);
+
+            Route expectedRoute = new Route()
+            {
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+                Subscribers = expextedSubscribers
+
+            };
+
+            routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
+            userRepository.Setup(r => r.Find(It.IsAny<string>())).Returns(expectedUser);
+           // routeRepository.Setup(r => r.UnsubscribeUser(It.IsAny<Route>(), It.IsAny<User>()))
+            // check the method
+
+            routeService.UnsubscribeUser(expectedRoute.Id, expectedUser.Id);
+
+            bool actualResult = routeService.CheckIsUserSubscribedToRoute(expectedRoute.Id, expectedUser.Id);
+            bool expectedResult = false;
+
+            Assert.AreEqual(expectedResult, actualResult, "wrong subscription logic");
+
+
+        }
 
     }
 }

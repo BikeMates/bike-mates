@@ -103,7 +103,7 @@ namespace BikeMates.Service.Controllers
             var auth = new AuthModel();
             var user = userService.GetUserByEmail(userModel.Email);
 
-            auth.Token = loginResponse.AccessToken;
+            auth.Token = loginResponse.access_token;
             auth.Role = user.Role;
             auth.FirstName = user.FirstName;
             auth.SecondName = user.SecondName;
