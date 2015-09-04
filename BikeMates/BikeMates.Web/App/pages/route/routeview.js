@@ -1,13 +1,14 @@
-﻿define(["knockout", "text!./routeview.html", "require", "googlemap"], function (ko, routeviewTemplate, require,  googlemap) {
+﻿define(["knockout", "text!./routeview.html", "require", "googlemap"], function (ko, routeviewTemplate, require, googlemap) {
     var tokenKey = "tokenInfo";
-   
+
     var map, service, renderer;
     var data = {};
     var start, end;
-
+    var userRole = "anonimous";
     var initialLocation, browserSupportFlag;
     var ALLOW_EDIT;
     var kiev;
+    var isSubscribed;
     function RoutevViewModel() {
 
         var self = this;
@@ -22,6 +23,8 @@
         //self.End = ko.observable();
         self.ByTitle = ko.observable("");
         self.subscribed = ko.observable(false);
+        self.sub_show = ko.observable(true);
+        self.unsub_show = ko.observable(true);
         self.Author = ko.observable();
         self.view = ko.observable(false);
 
@@ -201,7 +204,17 @@
                 type: "PUT",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
-                    self.isSubscribed();
+
+                    if (self.subscribed()) {
+                        self.sub_show(false);
+                        self.unsub_show(true);
+                        self.subscribed(false);
+                    }
+                    else {
+                        self.sub_show(true);
+                        self.unsub_show(false);
+                        self.subscribed(true);
+                    }
                 },
                 error: function (data) {
                 }
@@ -215,37 +228,20 @@
                 type: "DELETE",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
-                    self.isSubscribed();
-                },
-                error: function (data) {
-                }
-            });
-        }
-        self.isSubscribed = function ()
-        {
-            var apiurl = "http://localhost:51952/api/subscribe/" + 91;
-            $.ajax({
-                url: apiurl,
-                contentType: "application/json",
-                type: "GET",
-                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-                success: function (data) {
-                    self.subscribed(data);
-                    if (self.subscribed())
-                    {
-                        $("#sub_btn").hide();
-                        $("#unsub_btn").show();
+                    if (self.subscribed()) {
+                        self.sub_show(false);
+                        self.unsub_show(true);
+                        self.subscribed(false);
                     }
-                    else
-                    {
-                        $("#sub_btn").show();
-                        $("#unsub_btn").hide();
+                    else {
+                        self.sub_show(true);
+                        self.unsub_show(false);
+                        self.subscribed(true);
                     }
                 },
                 error: function (data) {
                 }
             });
-
         }
 
         Share = {
@@ -280,9 +276,10 @@
             }
         };
         $.ajax({
-            url: "http://localhost:51952/api/route/find"+'/'+2,
+            url: "http://localhost:51952/api/route/findlogged" + '/' + 2,
             contentType: "application/json",
             type: "GET",
+            headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
             success: function (data) {
                 //self.Start(data.Start)
                 //self.End(data.End)
@@ -292,14 +289,29 @@
                 self.MeetingPlace(data.meetingPlace);
                 self.Author(data.Author);
                 self.description(data.description);
+                self.subscribed(data.isSubscribed);
+
+                userRole = sessionStorage.getItem("role");
+                if (userRole == 'User') {
+
+                    if (self.subscribed()) {
+                        self.sub_show(false);
+                        self.unsub_show(true);
+                    }
+                    else {
+                        self.sub_show(true);
+                        self.unsub_show(false);
+                    }
+                }
+                else {
+                    self.sub_show(false);
+                    self.unsub_show(false);
+                }
 
             },
             error: function (data) {
             }
         });
-
-
-
         return self;
     }
     return { viewModel: RoutevViewModel, template: routeviewTemplate };

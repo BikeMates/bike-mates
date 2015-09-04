@@ -9,7 +9,7 @@ using BikeMates.Service.Models;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Route")]
-    public class RouteController : ApiController
+    public class RouteController : BaseController
     {   
         private readonly IRouteService routeService;
 
@@ -27,6 +27,16 @@ namespace BikeMates.Service.Controllers
             RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.Find(id)); //TODO: Rename dto
             return dto;
         }
+
+        [HttpGet]
+        [Route("FindLogged/{id}")]
+        public RouteViewModel FindLogged(int id)
+        {
+            RouteViewModel routeViewModel = RouteViewModel.MapToViewModel(routeService.Find(id)); //TODO: Rename dto
+            routeViewModel.IsSubscribed = routeService.CheckIsUserSubscribedToRoute(id, this.UserId);
+            return routeViewModel;
+        }
+
 
         [HttpPost]
         [Route("Update")]
