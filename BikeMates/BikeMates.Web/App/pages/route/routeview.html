@@ -2,44 +2,47 @@
     <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
     <tr><td><label type="text" id="title" data-bind="text: title" /></td></tr>
 </table>
-    <input id="MapData" data-bind="textInput: MapData" name="MapData" type="hidden" value="" />
+<!--<div class="container">-->
+    <div id="map"></div>
+    <!--<input id="MapData" data-bind="textInput: MapData" name="MapData" type="hidden" value="" />-->
 
-    <div class="form-inline pull-right">
-        <input type="button" data-bind="click: getRoute(999)" class="btn btn-default" id="LoadMapButton" value="Load" />
-    </div>
+    <!--<div class="form-inline pull-right">
+        <span>For test purposes</span>
+        <input type="button" data-bind="click: Load(2)" class="btn btn-default" id="LoadMapButton" value="Load" />
+        <input type="submit" class="btn btn-default" id="SaveRouteButton" value="Save" />
+    </div>-->
+    <!--</div>-->
+    <!--<div align="left">
+        <p class="result-silter-itm">
+            Particapants:
 
+        </p>
+    </div>-->
 
-<!--<div align="left">
-    <p class="result-silter-itm">
-        Particapants:
+    <table align="center" class="pagination">
+        <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+        <tr><td><label>Author: </label></td><td><label type="text" id="start" data-bind="text: Author" /></td></tr>
+        <tr><td><label>Start: </label></td><td><label type="text" id="start" data-bind="text: start" /></td></tr>
+        <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" /></td></tr>
+        <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
+        <tr><td><label>Description: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: description" /></td></tr>
+    </table>
 
+    <p>
+        Post<br>
+        <textarea name="comment" cols="40" rows="3"></textarea>
     </p>
-</div>-->
-
-<table align="center" class="pagination">
-    <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
-    <tr><td><label>Author: </label></td><td><label type="text" id="start" data-bind="text: Author" /></td></tr>
-    <tr><td><label>Start: </label></td><td><label type="text" id="start" data-bind="text: start" /></td></tr>
-    <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" /></td></tr>
-    <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
-    <tr><td><label>Description: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: description" /></td></tr>
-</table>
-
-<p>
-    Post<br>
-    <textarea name="comment" cols="40" rows="3"></textarea>
-</p>
-<p>
-    <input type="submit" value="Post">
-</p>
-<p>
-    <input type="image" src="../../../Content/Images/google-plus.png" alt="Share" width="48" height="48" onclick="Share.google('URL','TITLE','IMG_PATH','DESC')" />
-    <input type="image" src="../../../Content/Images/VK.com-logo.svg.png" alt="Share" width="48" height="48" onclick="Share.vkontakte('URL','TITLE','IMG_PATH','DESC')" /> 
-    <input type="image" src="../../../Content/Images/FB.png" alt="Share" width="48" height="48" onclick="Share.facebook('URL','TITLE','IMG_PATH','DESC')"/>
-</p>
-<br />
-<button type="button" class="btn btn-success" id="sub_btn" data-bind="click: subscribe" resource="">Subscribe</button>
-<button type="button" class="btn btn-danger" id="unsub_btn" data-bind="click: unsubscribe" resource="">Unsubscribe</button>
+    <p>
+        <input type="submit" value="Post">
+    </p>
+    <p>
+        <input type="image" src="../../../Content/Images/google-plus.png" alt="Share" width="48" height="48" onclick="Share.google('URL','TITLE','IMG_PATH','DESC')" />
+        <input type="image" src="../../../Content/Images/VK.com-logo.svg.png" alt="Share" width="48" height="48" onclick="Share.vkontakte('URL','TITLE','IMG_PATH','DESC')" />
+        <input type="image" src="../../../Content/Images/FB.png" alt="Share" width="48" height="48" onclick="Share.facebook('URL','TITLE','IMG_PATH','DESC')" />
+    </p>
+    <br />
+    <button type="button" class="btn btn-success" id="sub_btn" data-bind="click: subscribe" resource="">Subscribe</button>
+    <button type="button" class="btn btn-danger" id="unsub_btn" data-bind="click: unsubscribe" resource="">Unsubscribe</button>
 
 
 
