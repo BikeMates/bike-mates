@@ -7,7 +7,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-
 namespace BikeMates.Test
 {
     [TestFixture]
@@ -20,7 +19,6 @@ namespace BikeMates.Test
         private IUserService userService;
         private IRouteService routeService;
         
-
         [TestFixtureSetUp]
         public void InitialSetup()
         {
@@ -33,8 +31,8 @@ namespace BikeMates.Test
         }
 
         [Test]
-        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "User info is properly added")]
-        public void AddRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check is user info properly added")]
+        public void SavedInformationTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
             , double expectedDistance, string expectedPlace, int expectedId)
         {
             
@@ -74,7 +72,7 @@ namespace BikeMates.Test
         }
 
         [Test]
-        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "User is subscribed")]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check is user subscribed")]
         public void CheckIsUserSubscribedToRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
             , double expectedDistance, string expectedPlace, int expectedId)
      
@@ -118,8 +116,8 @@ namespace BikeMates.Test
         }
 
         [Test]
-        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check is user unsubscribed")]
-        public void UnsubscribeUserTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check can route be added")]
+        public void AddRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
             , double expectedDistance, string expectedPlace, int expectedId)
         {
             // set up test objects
@@ -149,18 +147,164 @@ namespace BikeMates.Test
 
             routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
             userRepository.Setup(r => r.Find(It.IsAny<string>())).Returns(expectedUser);
-           // routeRepository.Setup(r => r.UnsubscribeUser(It.IsAny<Route>(), It.IsAny<User>()))
+            routeRepository.Setup(r => r.Add(It.IsAny<Route>() ));
             // check the method
-
-            routeService.UnsubscribeUser(expectedRoute.Id, expectedUser.Id);
-
-            bool actualResult = routeService.CheckIsUserSubscribedToRoute(expectedRoute.Id, expectedUser.Id);
-            bool expectedResult = false;
-
-            Assert.AreEqual(expectedResult, actualResult, "wrong subscription logic");
-
-
+            routeService.Add(expectedRoute);
+            routeRepository.Verify(r => r.Add(It.IsAny<Route>()), Times.AtLeastOnce());
         }
 
+        [Test]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check can user be subscribed")]
+        public void SubscribeTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
+            , double expectedDistance, string expectedPlace, int expectedId)
+        {
+            // set up test objects
+
+            User expectedUser = new User()
+            {
+                Email = expectedEmail,
+                About = expectedAbout,
+                FirstName = expectedName,
+                SecondName = expectedSurname
+            };
+
+            List<User> expextedSubscribers = new List<User>();
+            expextedSubscribers.Add(expectedUser);
+
+            Route expectedRoute = new Route()
+            {
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+                Subscribers = expextedSubscribers
+
+            };
+
+            routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
+            userRepository.Setup(r => r.Find(It.IsAny<string>())).Returns(expectedUser);
+            
+            // routeRepository.Setup(r => r.UnsubscribeUser(It.IsAny<Route>(), It.IsAny<User>()))
+            // check the method
+
+            routeService.SubscribeUser(expectedRoute.Id, expectedUser.Id);
+            routeRepository.Verify(r => r.SubscribeUser(It.IsAny<Route>(), It.IsAny<User>()), Times.AtLeastOnce());
+          
+        }
+
+        [Test]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check can user be unsubscribed")]
+        public void UnsubscribeTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
+            , double expectedDistance, string expectedPlace, int expectedId)
+        {
+            // set up test objects
+
+            User expectedUser = new User()
+            {
+                Email = expectedEmail,
+                About = expectedAbout,
+                FirstName = expectedName,
+                SecondName = expectedSurname
+            };
+
+            List<User> expextedSubscribers = new List<User>();
+            expextedSubscribers.Add(expectedUser);
+
+            Route expectedRoute = new Route()
+            {
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+                Subscribers = expextedSubscribers
+
+            };
+
+            routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
+            userRepository.Setup(r => r.Find(It.IsAny<string>())).Returns(expectedUser);
+            routeRepository.Setup(r => r.SubscribeUser(It.IsAny<Route>(), It.IsAny<User>()));
+
+            // check the method
+            routeService.UnsubscribeUser(expectedRoute.Id, expectedUser.Id);
+            routeRepository.Verify(r => r.UnsubscribeUser(It.IsAny<Route>() , It.IsAny<User>()), Times.AtLeastOnce());
+          
+        }
+
+        [Test]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check can route be updated")]
+        public void UpdateRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription,  string expectedAbout
+            , double expectedDistance, string expectedPlace, int expectedId)
+        {
+            // set up test objects
+
+            User expectedUser = new User()
+            {
+                Email = expectedEmail,
+                About = expectedAbout,
+                FirstName = expectedName,
+                SecondName = expectedSurname
+            };
+
+            List<User> expextedSubscribers = new List<User>();
+            expextedSubscribers.Add(expectedUser);
+
+            Route expectedRoute = new Route()
+            {
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+                Subscribers = expextedSubscribers
+
+            };
+
+            routeRepository.Setup(r => r.Update(It.IsAny<Route>()));
+            // check the method
+            routeService.Update(expectedRoute);
+            routeRepository.Verify(r => r.Update(It.IsAny<Route>()), Times.AtLeastOnce());
+        }
+    
+    
+        [Test]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check can route be deleted")]
+        public void DeleteRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription,  string expectedAbout
+            , double expectedDistance, string expectedPlace, int expectedId)
+        {
+            // set up test objects
+
+            User expectedUser = new User()
+            {
+                Email = expectedEmail,
+                About = expectedAbout,
+                FirstName = expectedName,
+                SecondName = expectedSurname
+            };
+
+            List<User> expextedSubscribers = new List<User>();
+            expextedSubscribers.Add(expectedUser);
+
+            Route expectedRoute = new Route()
+            {
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+                Subscribers = expextedSubscribers
+
+            };
+
+            routeRepository.Setup(r => r.Delete(It.IsAny<int>()));
+            // check the method
+            routeService.Delete(expectedRoute.Id);
+            routeRepository.Verify(r => r.Delete(It.IsAny<int>()), Times.AtLeastOnce());
+        }
     }
 }
