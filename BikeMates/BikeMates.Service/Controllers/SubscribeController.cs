@@ -10,7 +10,7 @@ namespace BikeMates.Service.Controllers
 {
     public class SubscribeController : BaseController
     {
-        private readonly IUserService userService;
+        private readonly IUserService userService; //TODO: Remove if it is not used
         private readonly IRouteService routeService;
 
         public SubscribeController(IUserService userService, IRouteService routeService)

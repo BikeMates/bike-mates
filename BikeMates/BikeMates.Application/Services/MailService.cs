@@ -1,5 +1,4 @@
-﻿using BikeMates.Contracts.MailSender;
-using System;
+﻿using BikeMates.Contracts.Services;
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
@@ -14,7 +13,7 @@ namespace BikeMates.Application.Services
 
         public MailService()
         {
-            MailAccount = ConfigurationManager.AppSettings["MailAccount"];
+            MailAccount = ConfigurationManager.AppSettings["MailAccount"]; //TODO: Inject this in constructor. Move read from config to Ninject module
             MailPassword = ConfigurationManager.AppSettings["MailPassword"];
         }
 

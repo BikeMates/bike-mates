@@ -1,5 +1,5 @@
 ﻿using System;
-namespace BikeMates.Contracts.MailSender
+namespace BikeMates.Contracts.Services
 {
     public interface IMailService
     {

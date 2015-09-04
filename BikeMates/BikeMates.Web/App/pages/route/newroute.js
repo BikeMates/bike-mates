@@ -102,23 +102,31 @@
         self.getRoute= function(id) {
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:51952/api/route/getmapdata/' + id,
+                url: 'http://localhost:51952/api/route/find/' + id,
                 response: JSON,
                 success: function (response) {
-                    loadRoute(response);
+                    var mapData = JSON.parse(response.mapData);
+
+                    loadRoute(mapData);
+                    $('#Start').val(response.start);
+                    $('#Distance').val(response.distance);
+                    $('#Title').val(response.title);
+                    $('#Description').val(response.description);
+                    $('#MeetingPlace').val(response.meetingPlace);
+                    $('#MapData').val(response.mapData);
                 }
             });
         }
         self.loadRoute = function(route) {
             var waypoints = [];
-            for (var i = 0; i < route.waypoints.length; i++) {
+            for (var i = 0; i < route.Waypoints.length; i++) {
                 waypoints[i] = {
-                    location: route.waypoints[i].latitude.toString() + ',' + route.waypoints[i].longitude.toString(),
+                    location: route.Waypoints[i].Latitude.toString() + ',' + route.Waypoints[i].Longitude.toString(),
                     stopover: false
                 };
             }
-            var origin = new google.maps.LatLng(route.start.latitude, route.start.longitude);
-            var destination = new google.maps.LatLng(route.end.latitude, route.end.longitude);
+            var origin = new google.maps.LatLng(route.Start.Latitude, route.Start.Longitude);
+            var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
         self.displayRoute = function(origin, destination, service, display) {
@@ -196,9 +204,11 @@
         self.Description = ko.observable("");
         self.MeetingPlace = ko.observable("");
         self.MapData = ko.observable("");
-        self.totalDistance = ko.observable("");
         self.save = function() {
             saveRoute();
+        }
+        self.Load = function(id) {
+            getRoute(id);
         }
     }
     return { viewModel: AddRouteViewModel(), template: RouteTemplate };

@@ -1,5 +1,4 @@
 ﻿using BikeMates.Application.Services;
-using BikeMates.Contracts.MailSender;
 using BikeMates.Contracts.Managers;
 using BikeMates.Contracts.Repositories;
 using BikeMates.Contracts.Services;

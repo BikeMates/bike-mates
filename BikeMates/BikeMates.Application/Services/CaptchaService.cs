@@ -10,29 +10,26 @@ using System.Threading.Tasks;
 
 namespace BikeMates.Application.Services
 {
-    public class CaptchaService : ICaptchaService
+    public class CaptchaService: ICaptchaService
     {
         private readonly string googleRecaptchaApi;
- 
+
         public CaptchaService()
         {
-            googleRecaptchaApi = ConfigurationManager.AppSettings["GoogleRecaptchaApi"];
+            googleRecaptchaApi = ConfigurationManager.AppSettings["GoogleRecaptchaApi"]; //TODO: Inject this in constructor. Move read from config to Ninject module
         }
 
-        public bool checkCaptcha(string response)
+         public bool checkCaptcha(string response) 
         {
-            var googleCaptchaResponse = new { Success = false };
-
+             var captchaResponse = new { Success = false};
             const string secret = "6LdnvQsTAAAAAGM8ZQ8kr46eAalzSBzH_BpnYoN3";
-
             var webClient = new WebClient();
             var reply =
                 webClient.DownloadString(
                     string.Format("{0}secret={1}&response={2}",googleRecaptchaApi, secret, response));
-            
-            var captchaModel = JsonConvert.DeserializeAnonymousType(reply, googleCaptchaResponse);
-
+            var captchaModel = JsonConvert.DeserializeAnonymousType(reply, captchaResponse);
             return captchaModel.Success;
         }
+        
     }
 }

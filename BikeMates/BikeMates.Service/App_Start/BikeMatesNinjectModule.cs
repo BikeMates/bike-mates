@@ -9,7 +9,6 @@ using BikeMates.DataAccess.Repository;
 using BikeMates.Service.Providers;
 using Ninject.Modules;
 using Ninject.Web.Common;
-using BikeMates.Contracts.MailSender;
 
 namespace BikeMates.Service
 {

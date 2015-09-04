@@ -3,10 +3,10 @@
     <li><a href="#admin"><strong>Baned users</strong></a></li>
     <li class="active"><strong>Baned routes</strong></li>
 </ul>
-<br />
-<input type="button" value="Unban" class="btn btn-default" data-bind="click: unban" />
-
-<div class="list-group" data-bind="foreach: routes">
+<div style="margin-bottom:20px">
+    <input type="button" value="Unban" class="btn btn-default" data-bind="click: unban" />
+</div>
+<div class="list-group" data-bind="foreach: routes.currentPageData">
     <div class="list-group-item">
         <table>
             <tr>
@@ -24,3 +24,19 @@
         </table>
     </div>
 </div>
+
+<table align="center">
+    <tbody>
+        <tr>
+            <td>
+                <div style="clear: both"></div>
+                <ul class="pager">
+                    <li> <a href="#bannedroutes" data-bind="click: routes.moveFirst">First</a></li>
+                    <li> <a href="#bannedroutes" data-bind="click: routes.movePrevious">Previous</a></li>
+                    <li> <a href="#bannedroutes" data-bind="click: routes.moveNext">Next</a></li>
+                    <li> <a href="#bannedroutes" data-bind="click: routes.moveLast">Last</a></li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>

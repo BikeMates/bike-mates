@@ -5,7 +5,6 @@ using BikeMates.Contracts.Repositories;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
-using BikeMates.Contracts.MailSender;
 
 namespace BikeMates.Application.Services
 {
