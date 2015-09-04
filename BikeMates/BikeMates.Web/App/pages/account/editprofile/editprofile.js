@@ -53,6 +53,7 @@
                     var image_url = "http://localhost:51952/api/profilepicture/";
                     var userId = self.Id();
                     self.Imagesrc(image_url + userId + '?' + Math.random());
+                    window.location = "http://localhost:51949/#profile";
                 },
                 error: function (data) {
                 }
@@ -70,7 +71,6 @@
                 contentType: "application/json",
                 type: "POST",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-                dataType: 'json',
                 data: ko.toJSON(self),
                 success: function (data) {
                     window.location = "http://localhost:51949/#profile";

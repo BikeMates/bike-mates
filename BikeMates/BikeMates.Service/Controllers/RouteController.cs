@@ -29,6 +29,16 @@ namespace BikeMates.Service.Controllers
             return dto;
         }
 
+        [HttpGet]
+        [Route("FindLogged/{id}")]
+        public RouteViewModel FindLogged(int id)
+        {
+            RouteViewModel routeViewModel = RouteViewModel.MapToViewModel(routeService.Find(id)); //TODO: Rename dto
+            routeViewModel.IsSubscribed = routeService.CheckIsUserSubscribedToRoute(id, this.UserId);
+            return routeViewModel;
+        }
+
+
         [HttpPost]
         [Route("Update")]
         public void Update(RouteViewModel route)

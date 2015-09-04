@@ -41,6 +41,7 @@ namespace BikeMates.Service.Models
 
         public virtual string Subscribers { get; set; }
         public virtual string Author { get; set; }
+        public bool IsSubscribed { get; set; }
 
         public bool IsBanned { get; set; }
 
