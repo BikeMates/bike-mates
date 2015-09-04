@@ -70,7 +70,6 @@
                 contentType: "application/json",
                 type: "POST",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-                dataType: 'json',
                 data: ko.toJSON(self),
                 success: function (data) {
                     window.location = "http://localhost:51949/#profile";

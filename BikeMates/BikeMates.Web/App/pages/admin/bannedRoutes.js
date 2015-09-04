@@ -110,6 +110,9 @@
             }
             });
         }
+
+
+
         self.loadRoutes();
         return self;
     }
@@ -119,6 +122,9 @@
         self.id = id;
         self.title = title;
         self.description = description;
+        self.routeLink = ko.computed(function () {
+            return "http://localhost:51949/#routeview?" + self.id;
+        }, this);
     }
     return { viewModel: BannedRoutesViewModel, template: bannedRoutesTemplate };
 });

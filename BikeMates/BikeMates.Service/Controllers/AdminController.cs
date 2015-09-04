@@ -9,7 +9,7 @@ using BikeMates.Service.Models;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
     {
         private IUserService userService;
@@ -23,6 +23,7 @@ namespace BikeMates.Service.Controllers
 
         [HttpGet]
         [Route("GetBannedUsers")]
+
         public IHttpActionResult GetBannedUsers()
         {
             List<User> users = userService.GetAll().Where(x => x.IsBanned).ToList();
@@ -60,9 +61,9 @@ namespace BikeMates.Service.Controllers
 
         [HttpPost]
         [Route("UnbanRoutes")]
-        public IHttpActionResult UnbanRoutes(List<int> routeIds) //TODO: Remove or add content 
+        public IHttpActionResult UnbanRoutes(List<int> routeIds) 
         {
-
+            routeService.UnbanRoutes(routeIds);
             return Ok();
         }
     }

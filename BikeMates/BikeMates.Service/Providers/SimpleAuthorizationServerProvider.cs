@@ -34,9 +34,9 @@ namespace BikeMates.Service.Providers
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("sub", context.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.Role, user.Role));
             identity.AddClaim(new Claim("id", user.Id));
-            identity.AddClaim(new Claim("role", user.Role));
 
             context.Validated(identity);
 

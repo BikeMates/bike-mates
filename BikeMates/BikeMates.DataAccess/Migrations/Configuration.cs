@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using BikeMates.DataAccess.Managers;
 using BikeMates.DataAccess.Repository;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using BikeMates.DataAccess.Managers;
 
 namespace BikeMates.DataAccess.Migrations
 {
@@ -21,10 +21,36 @@ namespace BikeMates.DataAccess.Migrations
 
         protected override void Seed(BikeMatesDbContext context)
         {
+
+            //var userManager = new UserManager<User>(new UserStore<User>(context));
+
+            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            //// ??????? ??? ????
+            //var role1 = new IdentityRole { Name = "Admin" };
+
+            //// ????????? ???? ? ??
+            //roleManager.Create(role1);
+
+            //// ??????? ?????????????
+            //var admin = new User {FirstName = "Admin", SecondName="Admin", Email = "admin@mail.ua", Role="Admin", UserName = "admin@mail.ua" };
+            //string password = "Qwerty1#";
+            //var result = userManager.Create(admin, password);
+
+            //// ???? ???????? ???????????? ?????? ???????
+            //if (result.Succeeded)
+            //{
+            //    // ????????? ??? ???????????? ????
+            //    userManager.AddToRole(admin.Id, role1.Name);
+            //}
+
+            //base.Seed(context);
             SeedBikeMates(context);
         }
         private void SeedBikeMates(BikeMatesDbContext context)
         {
+
+
             User user = new User();
             CreateRole("Admin", context);
             CreateRole("User", context);

@@ -6,6 +6,8 @@ using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Ninject;
 using Owin;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BikeMates.Service
 {
@@ -37,6 +39,7 @@ namespace BikeMates.Service
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
         }
+
 
         private static StandardKernel CreateKernel()
         {

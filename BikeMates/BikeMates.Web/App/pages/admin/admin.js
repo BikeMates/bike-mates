@@ -124,10 +124,14 @@
         self.secondName = secondName;
         self.imageUrl = "http://localhost:51952/api/profilepicture/";
         self.imagePath = self.imageUrl + id + '?' + Math.random();
-    
-    self.fullName = ko.computed(function () {
-        return self.firstName + " " + self.secondName;
-    }, this);
-}
+
+        self.fullName = ko.computed(function () {
+            return self.firstName + " " + self.secondName
+        }, this);
+
+        self.userLink = ko.computed(function () {
+            return "http://localhost:51949/#profile?" + self.id;
+        }, this);
+    }
     return { viewModel: AdminViewModel, template: adminTemplate };
 });
