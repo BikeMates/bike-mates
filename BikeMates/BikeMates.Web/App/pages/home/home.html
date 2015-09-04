@@ -1,4 +1,4 @@
-﻿<div class="jumbotron filter_menu">
+﻿
     <div class="navbar-collapse collapse">
         
         <!-- Used for Authorized user -->
@@ -8,24 +8,26 @@
             <option value="My Routes">My Routes</option>
             <option value="Subscription">Subscription</option>
         </select>-->
-        <ul class="nav navbar-nav">
-            <li>
-                <input type="submit" value="By Date" id="ByDate" data-bind="click:setOrderAndSearch.bind($data,'Date')" />
-            </li>
-            <li>
-                <input type="submit" value="By Title" id="ByTitle" data-bind="click:setOrderAndSearch.bind($data,'Title')" />
-            </li>
-            <li>
-                <input type="submit" value="By Participants" id="ByParticipants" data-bind="click:setOrderAndSearch.bind($data,'Subscribers')" />
-            </li>
-        </ul>
+        
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <input type="submit" value="By Date" id="ByDate" data-bind="click:setOrderAndSearch.bind($data,'Date')" />
+                </li>
+                <li>
+                    <input type="submit" value="By Title" id="ByTitle" data-bind="click:setOrderAndSearch.bind($data,'Title')" />
+                </li>
+                <li>
+                    <input type="submit" value="By Participants" id="ByParticipants" data-bind="click:setOrderAndSearch.bind($data,'Subscribers')" />
+                </li>
+            </ul>
+                
+            <ul class="nav navbar-nav navbar-header" id="anonimus">
 
-        <ul class="nav navbar-nav navbar-right" id="anonimus">
-            <li><a href="#newroute" id="addroute">Add new route</a></li>
-        </ul>
-
+                <li><a href="#newroute" id="addroute">Add new route</a></li>
+            </ul>
+       
     </div>
-</div>
+
 
 
 <table>
@@ -75,6 +77,9 @@
                     <div style="clear: both"></div>
                     <a href="#" data-bind="click: allRoutes.moveFirst">First</a>
                     <a href="#" data-bind="click: allRoutes.movePrevious">Previous</a>
+                    <a href="#" data-bind="click: allRoutes.moveOne"><label data-bind="text: allRoutes.currentPage1" /></a>
+                    <a href="#" data-bind="click: allRoutes.moveTwo"><label data-bind="text: allRoutes.currentPage2" /></a>
+                    <a href="#" data-bind="click: allRoutes.moveThree"><label data-bind="text: allRoutes.currentPage3" /></a>
                     <a href="#" data-bind="click: allRoutes.moveNext">Next</a>
                     <a href="#" data-bind="click: allRoutes.moveLast">Last</a>
                 </td>
