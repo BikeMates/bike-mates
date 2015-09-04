@@ -1,4 +1,6 @@
-﻿define(["knockout", "jquery", "text!./newroute.html", "require", "googlemap"], function (ko, $, RouteTemplate, require, googlemap) {
+﻿define(["knockout", "jquery", "jquery-ui", "text!./newroute.html", "require", "googlemap"], function (ko, $, $$, RouteTemplate, require, googlemap) {
+
+    var tokenKey = "tokenInfo";
 
     var map, service, renderer;
     var data = {};
@@ -8,6 +10,36 @@
     var ALLOW_EDIT;
     var kiev;
 
+    ko.bindingHandlers.datepicker = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var options = allBindingsAccessor().datepickerOptions || {},
+                $el = $(element);
+
+            //initialize datepicker with some optional options
+            $el.datepicker(options);
+
+            //handle the field changing
+            ko.utils.registerEventHandler(element, "change", function () {
+                var observable = valueAccessor();
+                observable($el.datepicker("getDate"));
+            });
+
+            //handle disposal (if KO removes by the template binding)
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                $el.datepicker("destroy");
+            });
+
+        },
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor()),
+                $el = $(element),
+                current = $el.datepicker("getDate");
+
+            if (value - current !== 0) {
+                $el.datepicker("setDate", value);
+            }
+        }
+    };
 
     function AddRouteViewModel(params) {
         var self = this;
@@ -93,6 +125,7 @@
 
             $.ajax({
                 type: 'PUT',
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 url: 'http://localhost:51952/api/route/put',
                 data: $('#routeForm').serialize(),
                 success: function (response) { }
@@ -193,6 +226,10 @@
                 });
             }
             renderer.setMap(map);
+
+            renderer.addListener('directions_changed', function () {
+                computeTotalDistance(renderer.getDirections());
+            });
 
             start = null;
             end = null;

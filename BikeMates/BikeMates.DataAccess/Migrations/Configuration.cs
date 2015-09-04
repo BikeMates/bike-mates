@@ -21,30 +21,6 @@ namespace BikeMates.DataAccess.Migrations
 
         protected override void Seed(BikeMatesDbContext context)
         {
-
-            //var userManager = new UserManager<User>(new UserStore<User>(context));
-
-            //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-
-            //// ??????? ??? ????
-            //var role1 = new IdentityRole { Name = "Admin" };
-
-            //// ????????? ???? ? ??
-            //roleManager.Create(role1);
-
-            //// ??????? ?????????????
-            //var admin = new User {FirstName = "Admin", SecondName="Admin", Email = "admin@mail.ua", Role="Admin", UserName = "admin@mail.ua" };
-            //string password = "Qwerty1#";
-            //var result = userManager.Create(admin, password);
-
-            //// ???? ???????? ???????????? ?????? ???????
-            //if (result.Succeeded)
-            //{
-            //    // ????????? ??? ???????????? ????
-            //    userManager.AddToRole(admin.Id, role1.Name);
-            //}
-
-            //base.Seed(context);
             SeedBikeMates(context);
         }
         private void SeedBikeMates(BikeMatesDbContext context)
@@ -186,7 +162,7 @@ namespace BikeMates.DataAccess.Migrations
                     " Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus." +
                     " Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. ",
                 Title = "Test-route-" + index,
-                IsBanned = false,
+                IsBanned = index%2==0,
                 MeetingPlace =
                     "Near the Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
                 MapData = mapdata,
@@ -214,6 +190,7 @@ namespace BikeMates.DataAccess.Migrations
                 PhoneNumberConfirmed = false,
                 TwoFactorEnabled = false,
                 LockoutEnabled = false,
+                IsBanned = index%2==0,
                 AccessFailedCount = 0
             };
 

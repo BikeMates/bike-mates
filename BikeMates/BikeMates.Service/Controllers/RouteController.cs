@@ -9,14 +9,15 @@ using BikeMates.Service.Models;
 namespace BikeMates.Service.Controllers
 {
     [RoutePrefix("api/Route")]
-    public class RouteController : ApiController
+    public class RouteController : BaseController
     {   
         private readonly IRouteService routeService;
+        private readonly IUserService userService;
 
-        public RouteController(IRouteService routeService)
+        public RouteController(IRouteService routeService, IUserService userService)
         {
             this.routeService = routeService;
-           
+            this.userService = userService;
         }
 
         [HttpGet]
@@ -28,12 +29,23 @@ namespace BikeMates.Service.Controllers
             return dto;
         }
 
+        [HttpGet]
+        [Route("FindLogged/{id}")]
+        public RouteViewModel FindLogged(int id)
+        {
+            RouteViewModel routeViewModel = RouteViewModel.MapToViewModel(routeService.Find(id)); //TODO: Rename dto
+            routeViewModel.IsSubscribed = routeService.CheckIsUserSubscribedToRoute(id, this.UserId);
+            return routeViewModel;
+        }
+
+
         [HttpPost]
         [Route("Update")]
-        public RouteViewModel Update(RouteViewModel route)
+        public void Update(RouteViewModel route)
         {
-            routeService.Update(route.MapToDomain());
-            return route; //TODO: Why we need to return route if it is not changed?
+            Route domainRoute = route.MapToDomain();
+            domainRoute.Author = userService.GetUser(this.UserId);
+            routeService.Update(domainRoute);
         }
 
         [HttpGet]
@@ -45,11 +57,12 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpPut]
-        [AllowAnonymous]
         [Route("Put")]
         public void Put(RouteViewModel route)
         {
-            routeService.Add(route.MapToDomain());
+            Route domainRoute = route.MapToDomain();
+            domainRoute.Author = userService.GetUser(this.UserId);
+            routeService.Add(domainRoute);
         }
 
         [HttpDelete]

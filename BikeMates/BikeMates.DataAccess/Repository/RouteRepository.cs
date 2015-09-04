@@ -28,6 +28,7 @@ namespace BikeMates.DataAccess.Repository
             if (searchParameters.SortOrder == RouteSortOptions.Date)
             {
                 routes = routes.OrderBy(x => x.Start);
+
             }
 
             if (searchParameters.SortOrder == RouteSortOptions.Title)

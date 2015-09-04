@@ -13,9 +13,15 @@ namespace BikeMates.Service.Models
         public string Location { get; set; }
 
         [Required]
+        [Display(Name = "DateTo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public string DateTo { get; set; }
 
         [Required]
+        [Display(Name = "DateFrom")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public string DateFrom { get; set; }
 
         [Required]
