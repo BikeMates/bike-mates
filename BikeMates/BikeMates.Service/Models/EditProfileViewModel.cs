@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BikeMates.Service.Models
 {
-    public class editProfileViewModel
+    public class editProfileViewModel //TODO: Rename. Use capital letter
     {
         public string Id { get; set; }
 

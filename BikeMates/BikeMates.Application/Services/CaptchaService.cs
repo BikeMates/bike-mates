@@ -16,7 +16,7 @@ namespace BikeMates.Application.Services
 
         public CaptchaService()
         {
-            googleRecaptchaApi = ConfigurationManager.AppSettings["GoogleRecaptchaApi"];
+            googleRecaptchaApi = ConfigurationManager.AppSettings["GoogleRecaptchaApi"]; //TODO: Inject this in constructor. Move read from config to Ninject module
         }
 
          public bool checkCaptcha(string response) 

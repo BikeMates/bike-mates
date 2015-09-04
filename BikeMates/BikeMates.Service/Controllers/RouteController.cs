@@ -24,7 +24,7 @@ namespace BikeMates.Service.Controllers
         [Route("Find/{id}")]
         public RouteViewModel Find(int id)
         {
-            RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.Find(id));
+            RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.Find(id)); //TODO: Rename dto
             return dto;
         }
 
@@ -33,7 +33,7 @@ namespace BikeMates.Service.Controllers
         public RouteViewModel Update(RouteViewModel route)
         {
             routeService.Update(route.MapToDomain());
-            return route;
+            return route; //TODO: Why we need to return route if it is not changed?
         }
 
         [HttpGet]
