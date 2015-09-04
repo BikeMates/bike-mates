@@ -24,7 +24,7 @@ namespace BikeMates.DataAccess.Managers
 
         public IdentityResult AddToRole(string userId, string role)
         {
-            return userManager.AddToRole(userId, "user");
+            return userManager.AddToRole(userId, role);
         }
 
         public IdentityResult ChangePassword(string userId, string oldPassword, string newPassword)

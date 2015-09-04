@@ -67,7 +67,6 @@
         self.id = ko.observable("");
         self.firstName = ko.observable("");
         self.secondName = ko.observable("");
-        self.imagePath = ko.observable("");
 
         self.users = ko.observableArray([]).extend({ paging: 6 });
 
@@ -123,10 +122,12 @@
         self.id = id;
         self.firstName = firsName;
         self.secondName = secondName;
-        self.fullName = ko.computed(function () {
-            return self.firstName + " " + self.secondName;
-        }, this);
-        self.imagePath = picture;
-    }
+        self.imageUrl = "http://localhost:51952/api/profilepicture/";
+        self.imagePath = self.imageUrl + id + '?' + Math.random();
+    
+    self.fullName = ko.computed(function () {
+        return self.firstName + " " + self.secondName;
+    }, this);
+}
     return { viewModel: AdminViewModel, template: adminTemplate };
 });
