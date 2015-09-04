@@ -43,9 +43,21 @@
 
             return target().slice(startIndex, endIndex);
         });
-
+        
+        target.currentPage1 = target.currentPage();
+        target.currentPage2 = target.currentPage()+1;
+        target.currentPage3 = target.currentPage()+2;
         target.moveFirst = function () {
             target.currentPage(1);
+        };
+        target.moveOne = function () {
+            target.currentPage(target.currentPage());
+        };
+        target.moveTwo = function () {
+            target.currentPage(target.currentPage()+1);
+        };
+        target.moveThree = function () {
+            target.currentPage(target.currentPage() + 2);
         };
         target.movePrevious = function () {
             target.currentPage(target.currentPage() - 1);
