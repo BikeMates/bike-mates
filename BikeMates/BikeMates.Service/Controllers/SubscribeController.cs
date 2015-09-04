@@ -10,12 +10,10 @@ namespace BikeMates.Service.Controllers
 {
     public class SubscribeController : BaseController
     {
-        private readonly IUserService userService; //TODO: Remove if it is not used
         private readonly IRouteService routeService;
 
-        public SubscribeController(IUserService userService, IRouteService routeService)
+        public SubscribeController( IRouteService routeService)
         {
-            this.userService = userService;
             this.routeService = routeService;
         }
 
@@ -35,7 +33,7 @@ namespace BikeMates.Service.Controllers
         public HttpResponseMessage Subscribe(int id)
         {
             int routeId = id;
-            this.routeService.SubscribeUser(routeId, this.userId);
+            this.routeService.SubscribeUser(routeId, this.UserId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -44,7 +42,7 @@ namespace BikeMates.Service.Controllers
         public HttpResponseMessage Unsubscribe(int id)
         {
             int routeId = id;
-            this.routeService.UnsubscribeUser(routeId, this.userId);
+            this.routeService.UnsubscribeUser(routeId, this.UserId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
