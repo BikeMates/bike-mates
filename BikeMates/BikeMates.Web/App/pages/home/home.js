@@ -102,6 +102,7 @@
         }
       
         self.searchRoutes = function () {
+            self.allRoutes.removeAll();
             $.ajax({
                 url: "http://localhost:51952/api/route/getroutes",
                 contentType: "application/json",
@@ -110,6 +111,7 @@
                 data: ko.toJSON(self),
                 success: function (data) {
                     $.each(data, function (key, val) {
+                        
                   self.allRoutes.push(new route(val.author,val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
                     });
                 }

@@ -1,4 +1,4 @@
-﻿define(["knockout", "text!./routeview.html", "require", "googlemap"], function (ko, routeviewTemplate, require,  googlemap) {
+﻿define(["knockout", "jquery", "text!./routeview.html", "require", "googlemap"], function (ko, $, routeviewTemplate, require, googlemap) {
     var tokenKey = "tokenInfo";
    
     var map, service, renderer;
@@ -25,8 +25,10 @@
         self.Author = ko.observable();
         self.view = ko.observable(false);
 
+        var self = this;
+
         self.initialize = function (allowEdit) {
-            ALLOW_EDIT = allowEdit;
+            ALLOW_EDIT = false;
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
@@ -115,23 +117,31 @@
         self.getRoute = function (id) {
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:51952/api/route/getmapdata/' + id,
+                url: 'http://localhost:51952/api/route/find/' + id,
                 response: JSON,
                 success: function (response) {
-                    loadRoute(response);
+                    var mapData = JSON.parse(response.mapData);
+
+                    loadRoute(mapData);
+                    $('#Start').val(response.start);
+                    $('#Distance').val(response.distance);
+                    $('#Title').val(response.title);
+                    $('#Description').val(response.description);
+                    $('#MeetingPlace').val(response.meetingPlace);
+                    $('#MapData').val(response.mapData);
                 }
             });
         }
         self.loadRoute = function (route) {
             var waypoints = [];
-            for (var i = 0; i < route.waypoints.length; i++) {
+            for (var i = 0; i < route.Waypoints.length; i++) {
                 waypoints[i] = {
-                    location: route.waypoints[i].latitude.toString() + ',' + route.waypoints[i].longitude.toString(),
+                    location: route.Waypoints[i].Latitude.toString() + ',' + route.Waypoints[i].Longitude.toString(),
                     stopover: false
                 };
             }
-            var origin = new google.maps.LatLng(route.start.latitude, route.start.longitude);
-            var destination = new google.maps.LatLng(route.end.latitude, route.end.longitude);
+            var origin = new google.maps.LatLng(route.Start.Latitude, route.Start.Longitude);
+            var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
         self.displayRoute = function (origin, destination, service, display) {
@@ -181,13 +191,40 @@
                 displayRoute(start.position, end.position, service, renderer);
             }
         }
+        self.clearMap = function () {
+            if (renderer != null) {
+                renderer.setMap(null);
+                renderer = null;
+            }
 
+            if (ALLOW_EDIT || ALLOW_EDIT == null) {
+                renderer = new google.maps.DirectionsRenderer({
+                    draggable: true
+                });
+            } else {
+                renderer = new google.maps.DirectionsRenderer({
+                    draggable: false,
+                    suppressMarkers: true
+                });
+            }
+            renderer.setMap(map);
+
+            start = null;
+            end = null;
+            data = {};
+        }
         self.Start = ko.observable(new Date()),
         self.Distance = ko.observable("");
         self.Title = ko.observable("");
         self.Description = ko.observable("");
         self.MeetingPlace = ko.observable("");
         self.MapData = ko.observable("");
+        self.save = function () {
+            alert("Route added to DB\n" +
+                "Remove alert and make redirect to all user routes\n" +
+                "after that page is ready");
+            saveRoute();
+        }
         self.Load = function (id) {
             getRoute(id);
         }
