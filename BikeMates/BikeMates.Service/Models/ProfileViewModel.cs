@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BikeMates.Service.Models
 {
-    public class profileViewModel//TODO: Rename. Use capital letter
+    public class ProfileViewModel
     {
       
         [Required]

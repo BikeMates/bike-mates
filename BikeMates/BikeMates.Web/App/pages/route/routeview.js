@@ -25,7 +25,7 @@
         self.Author = ko.observable();
         self.view = ko.observable(false);
 
-        self.initialize = function (view) {
+        self.initialize = function (allowEdit) {
             ALLOW_EDIT = allowEdit;
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
@@ -163,6 +163,34 @@
             $('#Distance').val(total);
             return;
         }
+        self.placeMarker = function (location) {
+            if (start == null) {
+                start = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+                return;
+            }
+            if (start != null && end == null) {
+                end = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+                start.setMap(null);
+                end.setMap(null);
+                displayRoute(start.position, end.position, service, renderer);
+            }
+        }
+
+        self.Start = ko.observable(new Date()),
+        self.Distance = ko.observable("");
+        self.Title = ko.observable("");
+        self.Description = ko.observable("");
+        self.MeetingPlace = ko.observable("");
+        self.MapData = ko.observable("");
+        self.Load = function (id) {
+            getRoute(id);
+        }
 
 
         self.subscribe = function () {
@@ -252,7 +280,7 @@
             }
         };
         $.ajax({
-            url: "http://localhost:51952/api/route/get"+'/'+2,
+            url: "http://localhost:51952/api/route/find"+'/'+2,
             contentType: "application/json",
             type: "GET",
             success: function (data) {

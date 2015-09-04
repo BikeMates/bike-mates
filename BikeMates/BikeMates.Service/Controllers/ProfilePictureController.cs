@@ -40,7 +40,7 @@ namespace BikeMates.Service.Controllers
             var provider = new MultipartFormDataStreamProvider(root);
             // Read the form data.
             await Request.Content.ReadAsMultipartAsync(provider);
-            imageService.SaveImage(this.userId, provider);
+            imageService.SaveImage(this.UserId, provider);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

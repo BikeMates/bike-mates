@@ -10,7 +10,7 @@ namespace BikeMates.Service.Controllers
     [Authorize]
     public class BaseController : ApiController
     {
-        protected string userId //TODO: Rename to UserId
+        protected string UserId
         { 
             get
             {
