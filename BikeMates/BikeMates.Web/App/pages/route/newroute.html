@@ -8,13 +8,13 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="Start">Start date</label>
                         <div class="col-md-8">
-                            <input class="form-control" required data-bind="textInput: Start" id="datepicker" name="Start" type="date" value="" />
+                            <input class="form-control .datepicker" required data-bind="datepicker: Start, datepickerOptions: { minDate: new Date() }" name="Start"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-5 control-label" for="Distance">Total Distance:</label>
                         <div class="col-md-5">
-                            <input class="form-control" required data-bind="textInput: Distance" id="Distance" name="Distance" type="text" value="0" /> <span>km</span>
+                            <input class="form-control" required data-bind="textInput: Distance" id="Distance" name="Distance" type="text" value="0"/> <span>km</span>
                         </div>
                     </div>
                 </div>
@@ -25,18 +25,18 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="Description">Description</label>
-                    <div class="col-md-10">
-                        <textarea class="form-control" required data-bind="text: Description" cols="20" id="Description" name="Description" rows="2"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="col-md-2 control-label" for="MeetingPlace">Meeting place</label>
                     <div class="col-md-10">
                         <textarea class="form-control" required data-bind="textInput: MeetingPlace" cols="20" id="MeetingPlace" name="MeetingPlace" rows="2"></textarea>
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="Description">Description</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" required data-bind="text: Description" cols="20" id="Description" name="Description" rows="2"></textarea>
+                    </div>
+                </div>
                 <input id="MapData" data-bind="textInput: MapData" name="MapData" type="hidden" value=""/>
 
                 <div class="form-inline pull-right">
@@ -48,4 +48,5 @@
             </div>
         </form>
     </div>
+    <link rel="stylesheet" href="/Content/jquery-ui.css">
 </div>
