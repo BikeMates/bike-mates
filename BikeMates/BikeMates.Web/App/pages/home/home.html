@@ -38,17 +38,17 @@
     <tr>
         <td><h4>Date</h4></td>
         <td>
-            <input type="text" size="9" class="filter-inpt" id="DateFrom" name="Date" data-bind="value:DateFrom" />
+            <input size="9" class="filter-inpt .datepicker" required data-bind="datepicker: DateFrom, datepickerOptions: { minDate: new Date() }" name="DateFrom" />
             <label>-</label>
-            <input type="text" size="9" class="filter-inpt" id="DateTo" name="Date" data-bind="value:DateTo" />
+            <input size="9" class="filter-inpt .datepicker" required data-bind="datepicker: DateTo, datepickerOptions: { minDate: new Date() }" name="DateTo" />
         </td>
     </tr>
     <tr>
         <td><h4>Distance</h4></td>
         <td>
-            <input type="text" size="9" class="filter-inpt" id="MinDistance" name="Distance" data-bind="value: MinDistance" />
+            <input  size="9" class="filter-inpt" id="MinDistance" name="Distance" data-bind="value: MinDistance" />
             <label>-</label>
-            <input type="text" size="9" class="filter-inpt" id="MaxDistance" name="Distance" data-bind="value: MaxDistance" />
+            <input  size="9" class="filter-inpt" id="MaxDistance" name="Distance" data-bind="value: MaxDistance" />
         </td>
     </tr>
 </table>
@@ -88,4 +88,4 @@
         </tbody>
     </table>
 </div>
-
+<link rel="stylesheet" href="/Content/jquery-ui.css">

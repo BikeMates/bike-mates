@@ -1,5 +1,35 @@
-﻿define(["knockout", "text!./home.html", "require"], function (ko, homeTemplate, require) {
+﻿define(["knockout", "jquery", "jquery-ui", "text!./home.html", "require"], function (ko, $, $$, homeTemplate, require) {
 
+    ko.bindingHandlers.datepicker = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var options = allBindingsAccessor().datepickerOptions || {},
+                $el = $(element);
+
+            //initialize datepicker with some optional options
+            $el.datepicker(options);
+
+            //handle the field changing
+            ko.utils.registerEventHandler(element, "change", function () {
+                var observable = valueAccessor();
+                observable($el.datepicker("getDate"));
+            });
+
+            //handle disposal (if KO removes by the template binding)
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                $el.datepicker("destroy");
+            });
+
+        },
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor()),
+                $el = $(element),
+                current = $el.datepicker("getDate");
+
+            if (value - current !== 0) {
+                $el.datepicker("setDate", value);
+            }
+        }
+    };
     ko.extenders.paging = function (target, pageSize) {
         var _pageSize = ko.observable(pageSize || 100),
             _currentPage = ko.observable(1); 
@@ -86,12 +116,12 @@
         self.distance = ko.observable("");
         self.Participants = ko.observable();
         self.Location = ko.observable("");
-        self.DateFrom = ko.observable("");
-        self.DateTo = ko.observable("");
+        self.DateFrom = ko.observable(new Date());
+        self.DateTo = ko.observable(new Date());
         self.MinDistance = ko.observable("");
         self.MaxDistance = ko.observable("");
         self.description = ko.observable("");
-        self.allRoutes = ko.observableArray([]).extend({ paging: 3 });
+        self.allRoutes = ko.observableArray([]).extend({ paging: 5 });
         self.OrderByFieldName = ko.observable("");
 
         self.setOrderAndSearch = function (orderBy) {
