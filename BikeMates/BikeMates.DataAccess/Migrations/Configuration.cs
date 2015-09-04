@@ -160,7 +160,7 @@ namespace BikeMates.DataAccess.Migrations
                     " Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus." +
                     " Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. ",
                 Title = "Test-route-" + index,
-                IsBanned = false,
+                IsBanned = index%2==0,
                 MeetingPlace =
                     "Near the Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
                 MapData = mapdata,
@@ -188,6 +188,7 @@ namespace BikeMates.DataAccess.Migrations
                 PhoneNumberConfirmed = false,
                 TwoFactorEnabled = false,
                 LockoutEnabled = false,
+                IsBanned = index%2==0,
                 AccessFailedCount = 0
             };
 
