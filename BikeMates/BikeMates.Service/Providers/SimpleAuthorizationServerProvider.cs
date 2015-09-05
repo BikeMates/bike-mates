@@ -33,6 +33,12 @@ namespace BikeMates.Service.Providers
                 return;
             }
 
+            if (user.IsBanned)
+            {
+                context.SetError("invalid_grant", "This account has been banned.");
+                return;
+            }
+
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim(ClaimTypes.Role, user.Role));

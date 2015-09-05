@@ -3,7 +3,7 @@
 
         <div class="col-md-3 text-center">
             <img id="avatar" data-bind="attr:{src: Imagesrc }" height="150" width="150" /><br/>
-            <input type="button" class="btn btn-default" style="margin-top:10px" value="Ban" />
+            <input type="button" data-bind="click: ban, visible: IsAdmin" class="btn btn-default" style="margin-top:10px" value="Ban" />
         </div>
 
         <div class="col-md-4 ">

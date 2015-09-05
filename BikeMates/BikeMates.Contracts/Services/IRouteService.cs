@@ -16,5 +16,6 @@ namespace BikeMates.Contracts.Services
         IEnumerable<Route> GetAllUserSubscribedRoutes(string userId);
         bool CheckIsUserSubscribedToRoute(int routeId, string userId);
         void UnbanRoutes(List<int> routeIds);
+        void BanRoute(int routeId);
     }
 }

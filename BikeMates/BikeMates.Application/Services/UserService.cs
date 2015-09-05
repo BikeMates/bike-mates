@@ -101,5 +101,15 @@ namespace BikeMates.Application.Services
                 }
             }
         }
+
+
+
+
+        public void BanUser(string userId)
+        {
+            var user = GetUser(userId);
+            user.IsBanned = true;
+            Update(user);
+        }
     }
 }

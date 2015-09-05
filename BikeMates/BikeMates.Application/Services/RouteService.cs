@@ -85,5 +85,13 @@ namespace BikeMates.Application.Services
                 Update(route);
             }
         }
+
+
+        public void BanRoute(int routeId)
+        {
+            var route = Find(routeId);
+            route.IsBanned = true;
+            Update(route);
+        }
     }
 }

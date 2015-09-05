@@ -6,7 +6,7 @@
     <title>@ViewBag.Title -BikeMates</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-   
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -26,7 +26,7 @@
                 </form>
 
                 <div data-bind="authBinding" id="userpanel">
-                    <div  id="anonim">
+                    <div id="anonim">
                         <ul class="nav navbar-nav navbar-right" id="anonimus">
                             <li><a href="#register" id="registerLink">Sing up</a></li>
                             <li><a href="#login" id="loginLink">Sing in</a></li>
@@ -35,7 +35,7 @@
                     <div hidden="hidden" id="user">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a href="#profile" id="registerLink"><strong id="user-name">Name Surname</strong></a>
+                                <a href="#profile?my" id="registerlink"><strong id="user-name">Name Surname</strong></a>
                             </li>
                             <li>
                                 <a href="#" id="registerLink"><strong class="logout">Sign out</strong></a>
@@ -51,7 +51,7 @@
                                 <a href="#profile?my" id="registerLink"><strong id="user-name">Name Surname</strong></a>
                             </li>
                             <li>
-                                <a href="#" id="registerLink"><strong class="logout" >Sign out</strong></a>
+                                <a href="#" id="registerLink"><strong class="logout">Sign out</strong></a>
                             </li>
                         </ul>
                     </div>
@@ -67,8 +67,8 @@
     <script data-main="App/boot/startup" src="Scripts/require/require.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/App_Scripts/LayoutScript.js"></script>
-    <div class="container body-content">
-        @RenderBody()
+    <div class="container body-content" hidden="hidden">
+    @RenderBody()
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

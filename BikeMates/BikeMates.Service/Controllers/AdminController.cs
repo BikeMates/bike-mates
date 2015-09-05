@@ -45,6 +45,14 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
+        [Route("BanUser")]
+        public IHttpActionResult BanUser(string userId)
+        {
+            userService.BanUser(userId);
+            return Ok();
+        }
+
+        [HttpGet]
         [Route("GetBannedRoutes")]
         public IHttpActionResult GetBannedRoutes()
         {
@@ -64,6 +72,14 @@ namespace BikeMates.Service.Controllers
         public IHttpActionResult UnbanRoutes(List<int> routeIds) 
         {
             routeService.UnbanRoutes(routeIds);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("BanRoute")]
+        public IHttpActionResult BanRoute(int routeId)
+        {
+            routeService.BanRoute(routeId);
             return Ok();
         }
     }
