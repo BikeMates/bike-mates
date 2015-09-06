@@ -57,7 +57,8 @@ namespace BikeMates.Service.Controllers
 
             IdentityResult result = userService.ChangePassword(editProfileViewModel.OldPassword, editProfileViewModel.NewPassword, editProfileViewModel.NewPasswordConfirmation, this.UserId);
             IHttpActionResult errorResult = GetErrorResult(result);
-
+            IdentityResult ir = userService.CheckUserInfo(user);
+          
             if (errorResult != null)
             {
                 HttpResponseMessage ia = await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
