@@ -27,7 +27,7 @@
                 data: { userId: Id },
                 success: function (data)
                 {
-                    location.href = "#admin";
+                    location.href = "#";
                 }
             });
         }

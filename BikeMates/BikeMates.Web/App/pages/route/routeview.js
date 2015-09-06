@@ -1,5 +1,6 @@
 ﻿define(["knockout", "jquery", "text!./routeview.html", "require", "googlemap"], function (ko, $, routeviewTemplate, require, googlemap) {
     var tokenKey = "tokenInfo";
+    var Id = location.href.split('?')[1];
 
     var map, service, renderer;
     var data = {};
@@ -277,6 +278,23 @@
                     }
                 },
                 error: function (data) {
+                }
+            });
+        }
+
+
+        self.IsAdmin = ko.computed(function () {
+            return sessionStorage.getItem("role") == "Admin";
+        });
+        self.ban = function () {
+            $.ajax({
+                url: "http://localhost:51952/api/admin/banroute",
+                contentType: "application/json",
+                type: "GET",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                data: { routeId: Id },
+                success: function (data) {
+                    location.href = "#";
                 }
             });
         }
