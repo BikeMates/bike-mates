@@ -74,7 +74,7 @@ namespace BikeMates.Application.Services
                 return this.userRepository.ChangePassword(oldPassword, newPassword, id);
             }
 
-            return IdentityResult.Success;
+            return IdentityResult.Failed("Password change operation failed - please check your input");
         }
 
         public IdentityResult ResetPassword(string id, string code, string password)
@@ -93,7 +93,22 @@ namespace BikeMates.Application.Services
             userRepository.UnbanUsers(userIds);
         }
 
+        public IdentityResult CheckUserInfo(User entity)
+        {
+            if (String.IsNullOrWhiteSpace(entity.FirstName) && String.IsNullOrWhiteSpace(entity.SecondName))
+            {
+                return IdentityResult.Failed("First name field cant be empty", "Second name field cant be empty"); 
+            }
 
+            if (String.IsNullOrWhiteSpace(entity.FirstName))
+            { return IdentityResult.Failed("First name field cant be empty"); }
+
+            if (String.IsNullOrWhiteSpace(entity.SecondName))
+            {return IdentityResult.Failed("Second name field cant be empty"); }
+
+            return IdentityResult.Success;
+        
+        }
 
 
         public void BanUser(string userId)

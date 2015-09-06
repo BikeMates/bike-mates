@@ -76,6 +76,28 @@
                     window.location = "http://localhost:51949/#profile";
                 },
                 error: function (data) {
+
+                    var errors = [];
+
+                    //TODO: Create a common component for error handling
+                    $("#error_message_name").hide();
+                    $(".validation-summary-errors").show();
+
+                    var response = JSON.parse(data.responseText);
+                    for (key in response.modelState) {
+                        for (var i = 0; i < response.modelState[key].length; i++) {
+                            errors.push(response.modelState[key][i]);
+                        }
+                    }
+
+                    $("#error_details").text(" " + errors.join(" "));
+
+                    if (errors.length > 0) {
+                        $("#error_message_name").show();
+                        $(".validation-summary-errors").hide();
+                    }
+
+
                 }
             });
 
