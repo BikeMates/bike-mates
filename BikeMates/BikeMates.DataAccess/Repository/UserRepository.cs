@@ -2,6 +2,7 @@
 using BikeMates.Contracts.Repositories;
 using BikeMates.Domain.Entities;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace BikeMates.DataAccess.Repository
 {
@@ -49,6 +50,28 @@ namespace BikeMates.DataAccess.Repository
         public IdentityResult ResetPassword(string id, string code, string password)
         {
             return userManager.ResetPassword(id, code, password);
+        }
+
+
+        public void BanUser(string userId)
+        {
+            var user = Find(userId);
+            user.IsBanned = true;
+            Update(user);
+        }
+
+        public void UnbanUsers(List<string> userIds)
+        {
+            User user;
+            foreach (var id in userIds)
+            {
+                if (id != null)
+                {
+                    user = Find(id);
+                    user.IsBanned = false;
+                    Update(user);
+                }
+            }
         }
     }
 }

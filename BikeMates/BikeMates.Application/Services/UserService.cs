@@ -90,16 +90,7 @@ namespace BikeMates.Application.Services
 
         public void UnbanUsers(List<string> userIds)
         {
-            User user;
-            foreach (var id in userIds)
-            {
-                if (id != null)
-                {
-                    user = GetUser(id);
-                    user.IsBanned = false;
-                    Update(user);
-                }
-            }
+            userRepository.UnbanUsers(userIds);
         }
 
 
@@ -107,9 +98,7 @@ namespace BikeMates.Application.Services
 
         public void BanUser(string userId)
         {
-            var user = GetUser(userId);
-            user.IsBanned = true;
-            Update(user);
+            userRepository.BanUser(userId);
         }
     }
 }
