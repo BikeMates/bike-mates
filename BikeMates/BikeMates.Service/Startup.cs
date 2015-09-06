@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using BikeMates.Service.Controllers;
 using BikeMates.Service.Providers;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
@@ -21,7 +23,8 @@ namespace BikeMates.Service
             WebApiConfig.Register(config);
             app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
-            config.DependencyResolver = new NinjectResolver(kernel);            
+            config.DependencyResolver = new NinjectResolver(kernel);
+            config.Services.Replace(typeof(IExceptionHandler), new OopsExceptionHandler());
         }
 
         public void ConfigureOAuth(IAppBuilder app, StandardKernel kernel)

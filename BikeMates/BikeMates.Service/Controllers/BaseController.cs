@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Http.ExceptionHandling;
+using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
@@ -46,5 +50,7 @@ namespace BikeMates.Service.Controllers
 
             return null;
         }
+
+
     }
 }

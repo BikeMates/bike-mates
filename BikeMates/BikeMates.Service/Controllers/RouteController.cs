@@ -73,6 +73,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("GetRoutes")]
         public IEnumerable<RouteViewModel> GetRoutes(RouteSearchParametersViewModel search)
         {
