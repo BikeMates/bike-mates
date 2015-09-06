@@ -228,6 +228,8 @@
     <Content Include="App\pages\admin\admin.js" />
     <Content Include="App\pages\admin\bannedRoutes.html" />
     <Content Include="App\pages\admin\bannedRoutes.js" />
+    <Content Include="App\pages\error\error.html" />
+    <Content Include="App\pages\error\error.js" />
     <Content Include="App\pages\route\newroute.html" />
     <Content Include="App\pages\route\newroute.js" />
     <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />
@@ -238,6 +240,11 @@
     <Content Include="App\pages\account\resetpassword\resetPassword.js" />
     <Content Include="App\pages\route\routeview.html" />
     <Content Include="App\pages\route\routeview.js" />
+    <Content Include="Content\Images\error\400.jpg" />
+    <Content Include="Content\Images\error\401.png" />
+    <Content Include="Content\Images\error\403.png" />
+    <Content Include="Content\Images\error\404.png" />
+    <Content Include="Content\Images\error\500.jpg" />
     <Content Include="Content\Images\FB.png" />
     <Content Include="Content\Images\VK.com-logo.svg.png" />
     <Content Include="Scripts\App_Scripts\AuthModelScript.js" />
