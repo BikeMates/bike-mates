@@ -18,6 +18,11 @@
             }
         });
 
+        target.editing = ko.observable(false);
+
+        // Behaviors
+        target.edit = function () { target.editing(true) }
+
         target.currentPage = ko.computed({
             read: _currentPage,
             write: function (newValue) {
@@ -36,6 +41,29 @@
         target.pageCount = ko.computed(function () {
             return Math.ceil(target().length / target.pageSize()) || 1;
         });
+
+        target.move = function () {
+            target.pagingValue(2);
+            console.log(_currentPage());
+            //target.currentPage(target.pagingValue());
+        }
+
+        target.pagingValue = ko.computed({
+            read: function(){ return "Page " + _currentPage() + " of " + target.pageCount()},
+            write: function (newValue) {
+                if (newValue > target.pageCount()) {
+                    _currentPage(target.pageCount());
+                }
+                else if (newValue <= 0) {
+                    _currentPage(1);
+                }
+                else {
+                    _currentPage(newValue);
+                }
+            }
+        });
+
+
 
         target.currentPageData = ko.computed(function () {
             var pageSize = _pageSize(),
