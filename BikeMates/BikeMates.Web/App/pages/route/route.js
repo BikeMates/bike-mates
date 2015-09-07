@@ -8,7 +8,7 @@
     var Id = location.href.split('?')[1];
 
     var initialLocation, browserSupportFlag;
-    var ALLOW_EDIT;
+    var allowEdit =false;
     var kiev;
     var Ide = location.href.split('?')[1];
 
@@ -29,8 +29,7 @@
         self.SecondName = ko.observable("");
         self.IsBanned = ko.observable(true);
 
-        self.initialize = function(allowEdit) {
-            ALLOW_EDIT = false;
+        function initialize () {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
@@ -61,7 +60,7 @@
             } else {
                 renderer = new google.maps.DirectionsRenderer({
                     draggable: false,
-                    suppressMarkers: true
+                    suppressMarkers: false
                 });
             }
             renderer.setMap(map);
@@ -77,7 +76,7 @@
             map.setCenter(initialLocation);
         }
 
-        self.getRoute= function(id) {
+        function getRoute() {
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:51952/api/route/find/' + Id,
@@ -85,7 +84,7 @@
                 success: function (response) {
                     var mapData = JSON.parse(response.mapData);
                     console.log("getRoute");
-                    loadRoute(mapData);
+                    self.loadRoute(mapData);
                     self.IsBanned(response.isBanned);
                     $('#MapData').val(response.mapData);
                 }
