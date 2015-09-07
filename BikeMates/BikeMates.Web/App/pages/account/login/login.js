@@ -20,7 +20,15 @@
                         email: self.username,
                         Password: self.password
                     },
+                beforeSend: function(){
+                    sessionStorage.clear();
+                    $('#userpanel').find('#anonim').show();
+                    $('#userpanel').find('#user').hide();
+                    $('#userpanel').find('#admin').hide();
+                },
                 success: function (data) {
+
+                    
                     $("#error_message").hide();
 
                     //TODO: Create method for this

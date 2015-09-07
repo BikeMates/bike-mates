@@ -37,6 +37,10 @@
             return Math.ceil(target().length / target.pageSize()) || 1;
         });
 
+        target.pagingValue = ko.computed(
+            function () { return "Page " + _currentPage() + " of " + target.pageCount() }
+        );
+
         target.currentPageData = ko.computed(function () {
             var pageSize = _pageSize(),
                 pageIndex = _currentPage(),
@@ -67,7 +71,7 @@
         self.id = ko.observable("");
         self.name = ko.observable("");
         self.routes = ko.observableArray([]).extend({ paging: 5 });
-       
+
         self.unban = function () {
 
             var selected = new Array();
@@ -104,10 +108,10 @@
                     });
                 },
                 statusCode: {
-                401: function (response) {
-                    window.location.href = "#login";
+                    401: function (response) {
+                        window.location.href = "#login";
+                    }
                 }
-            }
             });
         }
 
