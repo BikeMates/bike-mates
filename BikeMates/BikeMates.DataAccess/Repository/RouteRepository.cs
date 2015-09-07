@@ -61,7 +61,8 @@ namespace BikeMates.DataAccess.Repository
 
         public void UnsubscribeUser(Route route, User user)
         {
-            route.Subscribers.Remove(user); 
+            route.Subscribers.Remove(user);
+            this.Update(route);
         }
 
         public IEnumerable<Route> GetAllSubscribedRoutesByUser(User user)
