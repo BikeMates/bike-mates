@@ -29,7 +29,7 @@
         self.SecondName = ko.observable("");
         self.IsBanned = ko.observable(true);
 
-        self.initialize = function (allowEdit) {
+        self.initialize = function () {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,

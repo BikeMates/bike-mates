@@ -131,36 +131,6 @@
             });
             return false;
         }
-        function getRoute(id) {
-            $.ajax({
-                type: 'GET',
-                url: 'http://localhost:51952/api/route/find/' + id,
-                response: JSON,
-                success: function (response) {
-                    var mapData = JSON.parse(response.mapData);
-
-                    loadRoute(mapData);
-                    $('#Start').val(response.start);
-                    $('#Distance').val(response.distance);
-                    $('#Title').val(response.title);
-                    $('#Description').val(response.description);
-                    $('#MeetingPlace').val(response.meetingPlace);
-                    $('#MapData').val(response.mapData);
-                }
-            });
-        }
-        function loadRoute(route) {
-            var waypoints = [];
-            for (var i = 0; i < route.Waypoints.length; i++) {
-                waypoints[i] = {
-                    location: route.Waypoints[i].Latitude.toString() + ',' + route.Waypoints[i].Longitude.toString(),
-                    stopover: false
-                };
-            }
-            var origin = new google.maps.LatLng(route.Start.Latitude, route.Start.Longitude);
-            var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
-            displayRoute(origin, destination, service, renderer, waypoints);
-        }
         function displayRoute(origin, destination, service, display) {
             displayRoute(origin, destination, service, display, []);
         }
@@ -214,14 +184,14 @@
                 renderer = null;
             }
 
-            if (ALLOW_EDIT || ALLOW_EDIT == null) {
+            if (allowEdit || allowEdit == null) {
                 renderer = new google.maps.DirectionsRenderer({
                     draggable: true
                 });
             } else {
                 renderer = new google.maps.DirectionsRenderer({
                     draggable: false,
-                    suppressMarkers: true
+                    suppressMarkers: false
                 });
             }
             renderer.setMap(map);
@@ -245,9 +215,6 @@
                 "Remove alert and make redirect to all user routes\n" +
                 "after that page is ready");
             saveRoute();
-        }
-        self.Load = function(id) {
-            getRoute(id);
         }
         self.Clear = function () {
             clearMap();
