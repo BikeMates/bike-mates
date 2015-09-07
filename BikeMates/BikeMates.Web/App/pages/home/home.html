@@ -58,8 +58,8 @@
     <table class="result-silter-itm" align="center">
         <tbody data-bind="foreach: allRoutes.currentPageData">
             <tr>
-                <td class="result-silter-itm" data-bind="value: id">
-                    <a href="#" data-bind="text:title, click: goToRoute(id)"></a>             
+                <td class="result-silter-itm">
+                    <a href="#"<!--data-bind="click:  goToRoute($data,id)"-->><label data-bind="text: title" /> </a>             
                     Start:<label data-bind="text: start"></label>
                     Distance:<label data-bind="text: distance"></label>
                     <br />
