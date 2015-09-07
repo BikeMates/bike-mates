@@ -81,8 +81,8 @@
         self.Participants = ko.observable();
         self.description = ko.observable("");
         self.subscribed = ko.observable(false);
-        self.sub_show = ko.observable(true);
-        self.unsub_show = ko.observable(true);
+        self.sub_show = ko.observable(false);
+        self.unsub_show = ko.observable(false);
         self.Author = ko.observable();
         self.FirstName = ko.observable("");
         self.SecondName = ko.observable("");
@@ -267,10 +267,27 @@
                 }
             });
         }
-        self.Load = function(id) {
+
+        function refreshSubscribeButtonsVisibility() {
+            if (self.subscribed()) {
+                self.sub_show(false);
+                self.unsub_show(true);
+            }
+            else {
+                self.sub_show(true);
+                self.unsub_show(false);
+            }
+        }
+
+        self.Load = function (id) {
             getRoute(id);
         }
         self.subscribe = function () {
+            if (self.subscribed())
+            {
+                return;
+            }
+
             var apiurl = "http://localhost:51952/api/subscribe/" + Id;
             $.ajax({
                 url: apiurl,
@@ -278,17 +295,8 @@
                 type: "PUT",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
-
-                    if (self.subscribed()) {
-                        self.sub_show(false);
-                        self.unsub_show(true);
-                        self.subscribed(false);
-                    }
-                    else {
-                        self.sub_show(true);
-                        self.unsub_show(false);
-                        self.subscribed(true);
-                    }
+                    self.subscribed(true);
+                    refreshSubscribeButtonsVisibility();
                 },
                 error: function (data) {
                 }
@@ -302,16 +310,8 @@
                 type: "DELETE",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {
-                    if (self.subscribed()) {
-                        self.sub_show(false);
-                        self.unsub_show(true);
-                        self.subscribed(false);
-                    }
-                    else {
-                        self.sub_show(true);
-                        self.unsub_show(false);
-                        self.subscribed(true);
-                    }
+                    self.subscribed(false);
+                    refreshSubscribeButtonsVisibility();
                 },
                 error: function (data) {
                 }
@@ -375,8 +375,8 @@
                 self.description(data.description);
                 self.subscribed(data.isSubscribed);
 
-                userRole = sessionStorage.getItem("role");
-                if (userRole == 'User') {
+                userStatus = sessionStorage.getItem("authorized")
+                if (userStatus == 'true') {
 
                     if (self.subscribed()) {
                         self.sub_show(false);
