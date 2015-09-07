@@ -32,10 +32,13 @@
             <td>
                 <div style="clear: both"></div>
                 <ul class="pager">
-                    <li> <a href="#admin" data-bind="click: users.moveFirst">First</a></li>
-                    <li> <a href="#admin" data-bind="click: users.movePrevious">Previous</a></li>
-                    <li> <a href="#admin" data-bind="click: users.moveNext">Next</a></li>
-                    <li> <a href="#admin" data-bind="click: users.moveLast">Last</a></li>
+                    <li> <a href="#admin" data-bind="click: users.moveFirst">&laquo;</a></li>
+                    <li> <a href="#admin" data-bind="click: users.movePrevious">&lsaquo;</a></li>
+                    <input type="text" data-bind="value: users.pagingValue, click: users.move, attr: { 'max': users.pageCount }" min="1">
+                    <!--<b data-bind="visible: !editing(), text: user.pagingValue, click: edit">&nbsp;</b>
+                    <input data-bind="visible: editing, value: user.pagingValue, hasFocus: editing" />-->
+                    <li> <a href="#admin" data-bind="click: users.moveNext">&rsaquo;</a></li>
+                    <li> <a href="#admin" data-bind="click: users.moveLast">&raquo;</a></li>
                 </ul>
             </td>
         </tr>
