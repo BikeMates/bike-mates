@@ -27,7 +27,7 @@
         self.Author = ko.observableArray([]);
         self.FirstName = ko.observable("");
         self.SecondName = ko.observable("");
-        
+        self.IsBanned = ko.observable(true);
 
         self.initialize = function(allowEdit) {
             ALLOW_EDIT = false;
@@ -80,17 +80,18 @@
         self.getRoute= function(id) {
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:51952/api/route/find/' + id,
+                url: 'http://localhost:51952/api/route/find/' + Id,
                 response: JSON,
                 success: function (response) {
                     var mapData = JSON.parse(response.mapData);
-
+                    console.log("getRoute");
                     loadRoute(mapData);
+                    self.IsBanned(response.isBanned);
                     $('#MapData').val(response.mapData);
                 }
             });
         }
-        self.loadRoute = function(route) {
+        self.loadRoute = function (route) {
             var waypoints = [];
             for (var i = 0; i < route.Waypoints.length; i++) {
                 waypoints[i] = {
@@ -102,7 +103,7 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
-        self.displayRoute = function(origin, destination, service, display) {
+        self.displayRoute = function (origin, destination, service, display) {
             displayRoute(origin, destination, service, display, []);
         }
         self.displayRoute = function (origin, destination, service, display, waypoints) {
@@ -191,10 +192,11 @@
         }
 
 
-        self.IsBanned = ko.observable(true);
+        
         self.IsAdmin = ko.computed(function () {
             return (sessionStorage.getItem("role") == "Admin") && (!self.IsBanned());
         });
+        console.log("isA"+self.IsAdmin()+"isB"+self.IsBanned());
         self.ban = function () {
             $.ajax({
                 url: "http://localhost:51952/api/admin/banroute",
