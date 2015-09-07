@@ -330,7 +330,7 @@
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 data: { routeId: Id },
                 success: function (data) {
-                    location.href = "#";
+                    location.href = "#bannedroutes";
                 }
             });
         }

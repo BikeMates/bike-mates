@@ -33,7 +33,7 @@
 <table>
     <tr>
         <td><h4>Meeteing place </h4></td>
-        <td><input type="text" size="25" class="filter-inpt" id="Location" name="Location" data-bind="value:Location" /> </td>
+        <td><input type="text" size="25" class="filter-inpt " id="Location" name="Location" data-bind="value:Location" /> </td>
     </tr>
     <tr>
         <td><h4>Date</h4></td>
@@ -46,20 +46,20 @@
     <tr>
         <td><h4>Distance</h4></td>
         <td>
-            <input  size="9" class="filter-inpt" id="MinDistance" name="Distance" data-bind="value: MinDistance" />
+            <input type="number" style="width:95px" size="4" class="filter-inpt" id="MinDistance" name="Distance" data-bind="value: MinDistance" />
             <label>-</label>
-            <input  size="9" class="filter-inpt" id="MaxDistance" name="Distance" data-bind="value: MaxDistance" />
+            <input type="number" style="width:95px" size="4" class="filter-inpt" id="MaxDistance" name="Distance" data-bind="value: MaxDistance" />
         </td>
     </tr>
 </table>
-<button type="button" class="btn btn-default filter-btn" data-bind="click: searchRoutes" id="Search">SEARCH</button>
+<button type="button" class="btn btn-default filter-btn" style="width:333px" data-bind="click: searchRoutes" id="Search">SEARCH</button>
 
 <div class="row result-filter-row">
     <table class="result-silter-itm" align="center">
         <tbody data-bind="foreach: allRoutes.currentPageData">
             <tr>
-                <td class="result-silter-itm">
-                    <a href="" data-bind="attr:{href:  goToRoute(id)}"><label data-bind="text: title" /> </a>             
+                <td class="result-silter-itm" style="width:820px">
+                    <a href="" data-bind="attr:{href:  goToRoute(id)}"><label data-bind="text: title" /> </a>
                     Start:<label data-bind="text: start"></label>
                     Distance:<label data-bind="text: distance"></label>
                     <br />
