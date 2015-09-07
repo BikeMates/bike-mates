@@ -308,7 +308,7 @@
             }
         });
 
-        return Load(self.id);
+        return Load(Ide);
     }
     function Author(FirstName,SecondName ) {
         var self = this;
