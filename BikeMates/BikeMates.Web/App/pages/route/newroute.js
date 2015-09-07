@@ -7,7 +7,7 @@
     var start, end;
 
     var initialLocation, browserSupportFlag;
-    var ALLOW_EDIT;
+    var allowEdit = true;
     var kiev;
 
     ko.bindingHandlers.datepicker = {
@@ -45,7 +45,6 @@
         var self = this;
 
         self.initialize = function(allowEdit) {
-            ALLOW_EDIT = allowEdit;
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
@@ -76,7 +75,7 @@
             } else {
                 renderer = new google.maps.DirectionsRenderer({
                     draggable: false,
-                    suppressMarkers: true
+                    suppressMarkers: false
                 });
             }
             renderer.setMap(map);
@@ -89,7 +88,7 @@
                 placeMarker(event.latLng);
             });
         }
-        self.handleNoGeolocation = function (errorFlag) {
+        function handleNoGeolocation(errorFlag) {
             if (errorFlag == true) {
                 alert("Geolocation service failed.");
                 initialLocation = kiev;
@@ -99,7 +98,7 @@
             }
             map.setCenter(initialLocation);
         }
-        self.saveRoute = function () {
+        function saveRoute() {
             var waypoints = [], wp = [];
             var routeLeg = renderer.directions.routes[0].legs[0];
             data.start = {
@@ -132,7 +131,7 @@
             });
             return false;
         }
-        self.getRoute= function(id) {
+        function getRoute(id) {
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:51952/api/route/find/' + id,
@@ -150,7 +149,7 @@
                 }
             });
         }
-        self.loadRoute = function(route) {
+        function loadRoute(route) {
             var waypoints = [];
             for (var i = 0; i < route.Waypoints.length; i++) {
                 waypoints[i] = {
@@ -162,10 +161,10 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
-        self.displayRoute = function(origin, destination, service, display) {
+        function displayRoute(origin, destination, service, display) {
             displayRoute(origin, destination, service, display, []);
         }
-        self.displayRoute = function (origin, destination, service, display, waypoints) {
+        function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
                 origin: origin,
                 destination: destination,
@@ -181,7 +180,7 @@
                 }
             });
         }
-        self.computeTotalDistance = function (result) {
+        function computeTotalDistance(result) {
             var total = 0;
             var myroute = result.routes[0];
             for (var i = 0; i < myroute.legs.length; i++) {
@@ -191,7 +190,7 @@
             $('#Distance').val(total);
             return;
         }
-        self.placeMarker = function (location) {
+        function placeMarker(location) {
             if (start == null) {
                 start = new google.maps.Marker({
                     position: location,
@@ -209,7 +208,7 @@
                 displayRoute(start.position, end.position, service, renderer);
             }
         }
-        self.clearMap = function() {
+        function clearMap() {
             if (renderer != null) {
                 renderer.setMap(null);
                 renderer = null;
@@ -241,7 +240,7 @@
         self.Description = ko.observable("");
         self.MeetingPlace = ko.observable("");
         self.MapData = ko.observable("");
-        self.save = function () {
+        self.Save = function () {
             alert("Route added to DB\n" +
                 "Remove alert and make redirect to all user routes\n" +
                 "after that page is ready");
@@ -249,6 +248,9 @@
         }
         self.Load = function(id) {
             getRoute(id);
+        }
+        self.Clear = function () {
+            clearMap();
         }
     }
     return { viewModel: AddRouteViewModel(), template: RouteTemplate };
