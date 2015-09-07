@@ -1,4 +1,4 @@
-﻿define(["knockout", "jquery", "jquery-ui", "text!./route.html", "require", "googlemap"], function (ko, $, $$, RouteTemplate, require, googlemap) {
+﻿define(["knockout", "jquery", "jquery-ui", "text!./route.html", "require", "googlemap", "errorhandler"], function (ko, $, $$, RouteTemplate, require, googlemap, errorHandler) {
 
     var tokenKey = "tokenInfo";
 
@@ -207,14 +207,30 @@
                 type: 'GET',
                 url: 'http://localhost:51952/api/route/find/' + Id,
                 response: JSON,
-                success: function (response) {
+                success: function(response) {
                     var mapData = JSON.parse(response.mapData);
                     console.log("getRoute");
                     loadRoute(mapData);
-                    var author = JSON(response.author);
-                    $('#Author').val(author.FirstName);
+
                     self.IsBanned(response.isBanned);
                     $('#MapData').val(response.mapData);
+                },
+                statusCode: {
+                 500: function(response) {
+                    window.location.href = "http://localhost:51949/#error?=500";
+                 },
+                 404: function(response) {
+                     window.location.href = "http://localhost:51949/#error?=500";
+                 },
+                 403: function(response) {
+                     window.location.href = "http://localhost:51949/#error?=403";
+                 },
+                 401: function(response) {
+                     window.location.href = "http://localhost:51949/#error?=401";
+                 },
+                 400: function(response) {
+                     window.location.href = "http://localhost:51949/#error?=400";
+                    }
                 }
             });
         }

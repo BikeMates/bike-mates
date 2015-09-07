@@ -1,60 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BikeMates.Contracts;
 using BikeMates.Contracts.Repositories;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using BikeMates.Domain.Entities;
 
 namespace BikeMates.DataAccess.Repository
 {
-    public class RouteRepository : IRouteRepository //TODO: Create a base Repository class and move common logic into it
+    public class RouteRepository : Repository<Route, int>, IRouteRepository
     {
-        private readonly BikeMatesDbContext context;
-
         public RouteRepository(BikeMatesDbContext context)
-        {
-            this.context = context;
-        }
-        public void Add(Route entity)
+            : base(context)
+        {   }
+
+        public IEnumerable<Route> Search(RouteSearchParameters searchParameters)
         {
 
-            this.context.Set<Route>().Add(entity); //TODO: Create property Routes for context.Set<Route>()
-            this.context.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            var entity = Get(id);
-            this.context.Set<Route>().Remove(entity);
-            this.context.SaveChanges();
-        }
-
-        public IEnumerable<Route> GetAll()
-        {
-            return this.context.Routes;
-        }
-
-        public Route Get(int id)
-        {
-            return this.context.Set<Route>().Find(id);
-        }
-
-        public void Update(Route entity)
-        {
-            this.context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-        }
+            //IQueryable<Route> routes = this.Context.Routes.Where(route =>
+            //    (string.IsNullOrEmpty(searchParameters.Title) || route.Title.Contains(searchParameters.Title)) &&
+            //    (string.IsNullOrEmpty(searchParameters.Author) || route.Author.FirstName.Contains(searchParameters.Author)) &&
+            //    (string.IsNullOrEmpty(searchParameters.Author)) || route.Author.SecondName.Contains(searchParameters.Author) &&
+            //    (string.IsNullOrEmpty(searchParameters.MeetingPlace) || route.MeetingPlace.Contains(searchParameters.MeetingPlace)) &&
+            //    (string.IsNullOrEmpty(searchParameters.Description) || route.Description.Contains(searchParameters.Description)) &&
+            //    (!searchParameters.MinDistance.HasValue || route.Distance >= searchParameters.MinDistance) &&
+            //    (!searchParameters.MaxDistance.HasValue || route.Distance <= searchParameters.MaxDistance) &&
+            //    (!searchParameters.DateFrom.HasValue || route.Start >= searchParameters.DateFrom) &&
+            //    (!searchParameters.DateTo.HasValue || route.Start <= searchParameters.DateTo)
+            //    );
 <<<<<<< HEAD
-        public IEnumerable<Route> GetAllRoutes()
-        {
             
-            return context.Routes.ToList();
-        }
+            IQueryable<Route> routes = this.Context.Routes.Where(route => !route.IsBanned
+                && (string.IsNullOrEmpty(searchParameters.MeetingPlace) || route.MeetingPlace.Contains(searchParameters.MeetingPlace) || route.Description.Contains(searchParameters.MeetingPlace))
+                &&
 =======
->>>>>>> origin/EF-troubleshooting
+
+            IQueryable<Route> routes = this.Context.Routes.Where( route =>(route.IsBanned!=true)&& (string.IsNullOrEmpty(searchParameters.MeetingPlace) || route.MeetingPlace.Contains(searchParameters.MeetingPlace)) &&
+                (string.IsNullOrEmpty(searchParameters.Description) || route.Description.Contains(searchParameters.Description)) &&
+>>>>>>> 649a13c6f1426a22b3e0f853ddcae66a158a5038
+                (!searchParameters.MinDistance.HasValue || route.Distance >= searchParameters.MinDistance) &&
+                (!searchParameters.MaxDistance.HasValue || route.Distance <= searchParameters.MaxDistance) &&
+                (!searchParameters.DateFrom.HasValue || route.Start >= searchParameters.DateFrom) &&
+                (!searchParameters.DateTo.HasValue || route.Start <= searchParameters.DateTo)
+                );
+ 
+            if (searchParameters.SortOrder == RouteSortOptions.Date)
+            {
+                routes = routes.OrderBy(x => x.Start);
+
+            }
+
+            if (searchParameters.SortOrder == RouteSortOptions.Title)
+            {
+                routes = routes.OrderBy(x => x.Title);
+            }
+
+            if (searchParameters.SortOrder == RouteSortOptions.Subscribers)
+            {
+                routes = routes.OrderBy(x => x.Subscribers.Count);
+            }
+
+            //routes.Skip(searchParameters.PageNumber * searchParameters.PageSize).Take(searchParameters.PageSize);
+
+            //TODO: Add paging here. Take only needed routes
+            return routes.Skip(searchParameters.PageNumber * searchParameters.PageSize).Take(searchParameters.PageSize); 
+        }
+
+        public void SubscribeUser(Route route, User user)
+        {
+            route.Subscribers.Add(user);
+            this.Update(route);
+        }
+
+        public void UnsubscribeUser(Route route, User user)
+        {
+            route.Subscribers.Remove(user);
+            this.Update(route);
+        }
+
+        public IEnumerable<Route> GetAllSubscribedRoutesByUser(User user)
+        {
+            IQueryable<Route> routes = this.Context.Routes.Where(route => route.Subscribers.Contains(user));
+            return routes;
+        }
+
+       
     }
 }

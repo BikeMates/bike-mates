@@ -249,6 +249,7 @@
     <Content Include="Content\Images\VK.com-logo.svg.png" />
     <Content Include="Scripts\App_Scripts\AuthModelScript.js" />
     <Content Include="Scripts\App_Scripts\AuthScript.js" />
+    <Content Include="Scripts\App_Scripts\ErrorHandler.js" />
     <Content Include="Scripts\App_Scripts\ForgotPasswordScript.js" />
     <Content Include="Scripts\App_Scripts\LayoutScript.js" />
     <Content Include="Scripts\App_Scripts\ResetPasswordScript.js" />

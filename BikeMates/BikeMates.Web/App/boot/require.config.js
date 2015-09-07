@@ -15,7 +15,8 @@
         "jquery-ui": "/Scripts/jquery-ui",
         "googlemap": "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize",
         "auth": "/Scripts/App_Scripts/AuthScript",
-        "authmodel": "/Scripts/App_Scripts/AuthModelScript"
+        "authmodel": "/Scripts/App_Scripts/AuthModelScript",
+        "errorhandler": "/Scripts/App_Scripts/ErrorHandler"
     },
     shim: {
         'knockout': { deps: [ 'jquery'] },
