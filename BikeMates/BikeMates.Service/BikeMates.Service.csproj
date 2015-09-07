@@ -234,6 +234,7 @@
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\SubscriberViewModel.cs" />
     <Compile Include="Models\ValidationResponseViewModel.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\RouteSearchParametersViewModel.cs" />

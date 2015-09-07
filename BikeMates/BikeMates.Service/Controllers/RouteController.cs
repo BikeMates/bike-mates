@@ -26,15 +26,15 @@ namespace BikeMates.Service.Controllers
         [Route("Find/{id}")]
         public RouteViewModel Find(int id)
         {
-            RouteViewModel dto = RouteViewModel.MapToViewModel(routeService.Find(id)); //TODO: Rename dto
-            return dto;
+            RouteViewModel routeViewModel = RouteViewModel.MapToViewModel(routeService.Find(id));
+            return routeViewModel;
         }
 
         [HttpGet]
         [Route("FindLogged/{id}")]
         public RouteViewModel FindLogged(int id)
         {
-            RouteViewModel routeViewModel = RouteViewModel.MapToViewModel(routeService.Find(id)); //TODO: Rename dto
+            RouteViewModel routeViewModel = RouteViewModel.MapToViewModel(routeService.Find(id));
             routeViewModel.IsSubscribed = routeService.CheckIsUserSubscribedToRoute(id, this.UserId);
             return routeViewModel;
         }

@@ -23,7 +23,7 @@
         self.subscribed = ko.observable(false);
         self.sub_show = ko.observable(true);
         self.unsub_show = ko.observable(true);
-        self.Author = ko.observableArray([]);
+        self.Author = ko.observable("");
         self.FirstName = ko.observable("");
         self.SecondName = ko.observable("");
         self.IsBanned = ko.observable(true);
@@ -82,57 +82,6 @@
             }
             map.setCenter(initialLocation);
         }
-        function saveRoute() {
-            var waypoints = [], wp = [];
-            var routeLeg = renderer.directions.routes[0].legs[0];
-            data.start = {
-                'latitude': routeLeg.start_location.lat(),
-                'longitude': routeLeg.start_location.lng()
-            }
-            data.end = {
-                'latitude': routeLeg.end_location.lat(),
-                'longitude': routeLeg.end_location.lng()
-            }
-            wp = routeLeg.via_waypoints;
-
-            for (var i = 0; i < wp.length; i++) {
-                waypoints[i] = {
-                    'latitude': wp[i].lat(),
-                    'longitude': wp[i].lng()
-                };
-            }
-            data.waypoints = waypoints;
-
-            var stringifiedData = JSON.stringify(data);
-            $('#MapData').val(stringifiedData);
-
-            $.ajax({
-                type: 'PUT',
-                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-                url: 'http://localhost:51952/api/route/put',
-                data: $('#routeForm').serialize(),
-                success: function (response) { }
-            });
-            return false;
-        }
-        function getRoute(id) {
-            $.ajax({
-                type: 'GET',
-                url: 'http://localhost:51952/api/route/find/' + id,
-                response: JSON,
-                success: function (response) {
-                    var mapData = JSON.parse(response.mapData);
-
-                    loadRoute(mapData);
-                    $('#Start').val(response.start);
-                    $('#Distance').val(response.distance);
-                    $('#Title').val(response.title);
-                    $('#Description').val(response.description);
-                    $('#MeetingPlace').val(response.meetingPlace);
-                    $('#MapData').val(response.mapData);
-                }
-            });
-        }
         function loadRoute(route) {
             var waypoints = [];
             for (var i = 0; i < route.Waypoints.length; i++) {
@@ -144,9 +93,6 @@
             var origin = new google.maps.LatLng(route.Start.Latitude, route.Start.Longitude);
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
-        }
-        function displayRoute(origin, destination, service, display) {
-            displayRoute(origin, destination, service, display, []);
         }
         function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
@@ -202,6 +148,10 @@
                     console.log("getRoute");
                     loadRoute(mapData);
                     self.IsBanned(response.isBanned);
+
+                    var author = JSON.parse(response);
+                    console.log(author);
+                    $('#Author').val(author);
                     $('#MapData').val(response.mapData);
                 }
             });
