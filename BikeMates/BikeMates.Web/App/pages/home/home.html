@@ -56,7 +56,7 @@
     <table class="result-silter-itm" align="center">
         <tbody data-bind="foreach: allRoutes.currentPageData">
             <tr>
-                <td class="result-silter-itm">
+                <td class="result-silter-itm" style="width:600px;">
                     <a href="" data-bind="attr:{href:  goToRoute(id)}"><label data-bind="text: title" /> </a>             
                     Start:<label data-bind="text: start"></label>
                     Distance:<label data-bind="text: distance"></label>
@@ -74,11 +74,6 @@
             <tr>
                 <td>
                     <div style="clear: both"></div>
-
-                    <a href="#" data-bind="click: allRoutes.moveFirst">First</a>
-                    <a href="#" data-bind="click: allRoutes.movePrevious">Previous</a>
-                    <a href="#" data-bind="click: allRoutes.moveNext">Next</a>
-                    <a href="#" data-bind="click: allRoutes.moveLast">Last</a>
 
                     <ul class="pager" style="margin-left:350px">
                         <li> <a href="#" data-bind="click: allRoutes.moveFirst">&laquo;</a></li>

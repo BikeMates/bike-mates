@@ -153,7 +153,7 @@
             $.ajax({
                 url: "http://localhost:51952/api/route/getroutes/",
                 contentType: "application/json",
-                type: "GET",
+                type: "POST",
                 dataType: 'json',
                 data: ko.toJSON(self),
            
