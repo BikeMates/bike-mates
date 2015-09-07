@@ -1,6 +1,6 @@
 ﻿
 <ul class="breadcrumb">
-    <li><a href="#admin"><strong>Baned users</strong></a></li>
+    <li><a href="#admin"><strong>Baned routes</strong></a></li>
     <li class="active"><strong>Baned routes</strong></li>
 </ul>
 <div style="margin-bottom:20px">
@@ -31,10 +31,13 @@
             <td>
                 <div style="clear: both"></div>
                 <ul class="pager">
-                    <li> <a href="#bannedroutes" data-bind="click: routes.moveFirst">First</a></li>
-                    <li> <a href="#bannedroutes" data-bind="click: routes.movePrevious">Previous</a></li>
-                    <li> <a href="#bannedroutes" data-bind="click: routes.moveNext">Next</a></li>
-                    <li> <a href="#bannedroutes" data-bind="click: routes.moveLast">Last</a></li>
+                    <li> <a href="#admin" data-bind="click: routes.moveFirst">&laquo;</a></li>
+                    <li> <a href="#admin" data-bind="click: routes.movePrevious">&lsaquo;</a></li>
+
+                    <span data-bind="text: routes.pagingValue" />
+
+                    <li> <a href="#admin" data-bind="click: routes.moveNext">&rsaquo;</a></li>
+                    <li> <a href="#admin" data-bind="click: routes.moveLast">&raquo;</a></li>
                 </ul>
             </td>
         </tr>

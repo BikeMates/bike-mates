@@ -411,16 +411,16 @@
                 }
             });
         }
-        self.Author = function () {
-            $.ajax({
-                url: "http://localhost:51952/api/route/find"+'/'+Id,
-                contentType: "application/json",
-                type: "GET",
-                success: function (data) {
-                    //self.Author(new User(data.author.id, data.author.FirstName, data.author.SecondName));
-                }
-            });
-        }
+        //self.Author = function () {
+        //    $.ajax({
+        //        url: "http://localhost:51952/api/route/find"+'/'+Id,
+        //        contentType: "application/json",
+        //        type: "GET",
+        //        success: function (data) {
+        //            //self.Author(new User(data.author.id, data.author.FirstName, data.author.SecondName));
+        //        }
+        //    });
+        //}
         $.ajax({
             url: "http://localhost:51952/api/route/find" + '/' + Id,
             contentType: "application/json",

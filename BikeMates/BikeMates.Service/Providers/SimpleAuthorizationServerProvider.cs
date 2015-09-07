@@ -1,4 +1,8 @@
-﻿using BikeMates.Contracts.Services;
+﻿using BikeMates.Application.Services;
+using BikeMates.Contracts.Services;
+using BikeMates.DataAccess;
+using BikeMates.DataAccess.Managers;
+using BikeMates.DataAccess.Repository;
 using BikeMates.Domain.Entities;
 using Microsoft.Owin.Security.OAuth;
 using System.Security.Claims;
@@ -10,9 +14,10 @@ namespace BikeMates.Service.Providers
     {
         private readonly IUserService userService;
 
-        public SimpleAuthorizationServerProvider(IUserService userService)
+        public SimpleAuthorizationServerProvider()
         {
-            this.userService = userService;
+            var context = new BikeMatesDbContext();
+            this.userService = new UserService(new UserRepository(context,new UserManager(context)), new MailService());
         }
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)

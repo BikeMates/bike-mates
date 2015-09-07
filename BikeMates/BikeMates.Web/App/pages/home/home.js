@@ -65,6 +65,10 @@
             return Math.ceil(target().length / target.pageSize()) || 1;
         });
 
+        target.pagingValue = ko.computed(
+            function () { return "Page " + _currentPage() + " of " + target.pageCount() }
+        );
+
         target.currentPageData = ko.computed(function () {
             var pageSize = _pageSize(),
                 pageIndex = _currentPage(),

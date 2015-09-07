@@ -18,6 +18,11 @@
             }
         });
 
+        target.editing = ko.observable(false);
+
+        // Behaviors
+        target.edit = function () { target.editing(true) }
+
         target.currentPage = ko.computed({
             read: _currentPage,
             write: function (newValue) {
@@ -36,6 +41,14 @@
         target.pageCount = ko.computed(function () {
             return Math.ceil(target().length / target.pageSize()) || 1;
         });
+
+
+
+        target.pagingValue = ko.computed(
+            function(){ return "Page " + _currentPage() + " of " + target.pageCount()}
+        );
+
+
 
         target.currentPageData = ko.computed(function () {
             var pageSize = _pageSize(),

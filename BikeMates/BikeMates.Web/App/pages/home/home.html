@@ -76,13 +76,15 @@
             <tr>
                 <td>
                     <div style="clear: both"></div>
-                    <a href="#" data-bind="click: allRoutes.moveFirst">First</a>
-                    <a href="#" data-bind="click: allRoutes.movePrevious">Previous</a>
-                    <a href="#" data-bind="click: allRoutes.moveOne"><label data-bind="text: allRoutes.currentPage1" /></a>
-                    <a href="#" data-bind="click: allRoutes.moveTwo"><label data-bind="text: allRoutes.currentPage2" /></a>
-                    <a href="#" data-bind="click: allRoutes.moveThree"><label data-bind="text: allRoutes.currentPage3" /></a>
-                    <a href="#" data-bind="click: allRoutes.moveNext">Next</a>
-                    <a href="#" data-bind="click: allRoutes.moveLast">Last</a>
+                    <ul class="pager" style="margin-left:350px">
+                        <li> <a href="#" data-bind="click: allRoutes.moveFirst">&laquo;</a></li>
+                        <li> <a href="#" data-bind="click: allRoutes.movePrevious">&lsaquo;</a></li>
+
+                        <span data-bind="text: allRoutes.pagingValue" />
+
+                        <li> <a href="#" data-bind="click: allRoutes.moveNext">&rsaquo;</a></li>
+                        <li> <a href="#" data-bind="click: allRoutes.moveLast">&raquo;</a></li>
+                    </ul>
                 </td>
             </tr>
         </tbody>
