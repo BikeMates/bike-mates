@@ -14,10 +14,10 @@ namespace BikeMates.Service.Providers
     {
         private readonly IUserService userService;
 
-        public SimpleAuthorizationServerProvider()
+        public SimpleAuthorizationServerProvider(IUserService userService)
         {
-            var context = new BikeMatesDbContext();
-            this.userService = new UserService(new UserRepository(context,new UserManager(context)), new MailService());
+           
+            this.userService = userService;
         }
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)

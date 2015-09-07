@@ -1,30 +1,29 @@
 ﻿
-    <div class="navbar-collapse collapse">
-        
-        <!-- Used for Authorized user -->
-<select id="sort_order" data-bind="visible: IsAuthorize">
-            <option value="All Routes">All Routes</option>
-            <option value="My Routes">My Routes</option>
-            <option value="Subscription">Subscription</option>
-        </select>
-        
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <input type="submit" value="By Date" id="ByDate" data-bind="click:setOrderAndSearch.bind($data,'Date')" />
-                </li>
-                <li>
-                    <input type="submit" value="By Title" id="ByTitle" data-bind="click:setOrderAndSearch.bind($data,'Title')" />
-                </li>
-                <li>
-                    <input type="submit" value="By Participants" id="ByParticipants" data-bind="click:setOrderAndSearch.bind($data,'Subscribers')" />
-                </li>
-            </ul>
-                
-        <ul class="nav navbar-nav navbar-header" data-bind="visible: isAddRouteVisible" id="addNewRoute">
-            <li><a href="#newroute" id="addroute">Add new route</a></li>
-        </ul>
-       
-    </div>
+<div class="navbar-collapse collapse">
+
+    <!-- Used for Authorized user -->
+    <select id="sort_order" data-bind="visible: isAddRouteVisible">
+        <option value="All Routes">All Routes</option>
+        <option value="My Routes">My Routes</option>
+        <option value="Subscription">Subscription</option>
+    </select>
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <input type="submit" value="By Date" id="ByDate" data-bind="click:setOrderAndSearch.bind($data,'Date')" />
+        </li>
+        <li>
+            <input type="submit" value="By Title" id="ByTitle" data-bind="click:setOrderAndSearch.bind($data,'Title')" />
+        </li>
+        <li>
+            <input type="submit" value="By Participants" id="ByParticipants" data-bind="click:setOrderAndSearch.bind($data,'Subscribers')" />
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-header" data-bind="visible: isAddRouteVisible" id="addNewRoute">
+        <li><a href="#newroute" id="addroute">Add new route</a></li>
+    </ul>
+
+</div>
 
 
 
@@ -51,13 +50,13 @@
         </td>
     </tr>
 </table>
-<button type="button" class="btn btn-default filter-btn" style="width:333px" data-bind="click: searchRoutes" id="Search">SEARCH</button>
+<button type="button" class="btn btn-default filter-btn" style="width:320px" data-bind="click: searchRoutes" id="Search">SEARCH</button>
 
 <div class="row result-filter-row">
     <table class="result-silter-itm" align="center">
         <tbody data-bind="foreach: allRoutes.currentPageData">
             <tr>
-<td class="result-silter-itm" style="width:820px">
+                <td class="result-silter-itm" style="width:820px">
                     <a href="" data-bind="attr:{href:  goToRoute(id)}"><label data-bind="text: title" /> </a>
                     Start:<label data-bind="text: start"></label>
                     Distance:<label data-bind="text: distance"></label>
@@ -68,27 +67,17 @@
                 </td>
             </tr>
         </tbody>
-        </table>
-   
-    <table align="center">
-        <tbody>
-            <tr>
-                <td>
-                    <div style="clear: both"></div>
-
-                    <ul class="pager" style="margin-left:350px">
-                        <li> <a href="#" data-bind="click: allRoutes.moveFirst">&laquo;</a></li>
-                        <li> <a href="#" data-bind="click: allRoutes.movePrevious">&lsaquo;</a></li>
-
-                        <span data-bind="text: allRoutes.pagingValue" />
-
-                        <li> <a href="#" data-bind="click: allRoutes.moveNext">&rsaquo;</a></li>
-                        <li> <a href="#" data-bind="click: allRoutes.moveLast">&raquo;</a></li>
-                    </ul>
-
-                </td>
-            </tr>
-        </tbody>
     </table>
+</div>
+<div >
+    <ul class="pager" style="margin-left:330px">
+        <li> <a href="#" data-bind="click: allRoutes.moveFirst">&laquo;</a></li>
+        <li> <a href="#" data-bind="click: allRoutes.movePrevious">&lsaquo;</a></li>
+
+        <span data-bind="text: allRoutes.pagingValue" />
+
+        <li> <a href="#" data-bind="click: allRoutes.moveNext">&rsaquo;</a></li>
+        <li> <a href="#" data-bind="click: allRoutes.moveLast">&raquo;</a></li>
+    </ul>
 </div>
 <link rel="stylesheet" href="/Content/jquery-ui.css">
