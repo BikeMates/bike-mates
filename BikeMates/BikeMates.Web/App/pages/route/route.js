@@ -10,37 +10,6 @@
     var ALLOW_EDIT;
     var kiev;
 
-    ko.bindingHandlers.datepicker = {
-        init: function (element, valueAccessor, allBindingsAccessor) {
-            var options = allBindingsAccessor().datepickerOptions || {},
-                $el = $(element);
-
-            //initialize datepicker with some optional options
-            $el.datepicker(options);
-
-            //handle the field changing
-            ko.utils.registerEventHandler(element, "change", function () {
-                var observable = valueAccessor();
-                observable($el.datepicker("getDate"));
-            });
-
-            //handle disposal (if KO removes by the template binding)
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                $el.datepicker("destroy");
-            });
-
-        },
-        update: function (element, valueAccessor) {
-            var value = ko.utils.unwrapObservable(valueAccessor()),
-                $el = $(element),
-                current = $el.datepicker("getDate");
-
-            if (value - current !== 0) {
-                $el.datepicker("setDate", value);
-            }
-        }
-    };
-
     function RouteViewModel(params) {
         var self = this;
         self.id = ko.observable();
@@ -53,7 +22,9 @@
         self.subscribed = ko.observable(false);
         self.sub_show = ko.observable(true);
         self.unsub_show = ko.observable(true);
-        self.Author = ko.observable();
+        self.Author = ko.observableArray([]);
+        self.FirstName = ko.observable("");
+        self.SecondName = ko.observable("");
      
 
         self.initialize = function(allowEdit) {
@@ -225,7 +196,7 @@
             $.ajax({
                 url: "http://localhost:51952/api/admin/banroute",
                 contentType: "application/json",
-                type: "GET",
+                type: "PUT",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 data: { routeId: Id },
                 success: function (data) {
@@ -266,7 +237,7 @@
             }
         };
         $.ajax({
-            url: "http://localhost:51952/api/route/findlogged" + '/' + 2,
+            url: "http://localhost:51952/api/route/findlogged" + '/' + self.id,
             contentType: "application/json",
             type: "GET",
             headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
@@ -302,8 +273,29 @@
             error: function (data) {
             }
         });
+        self.author = function () {
+            $.ajax({
+                url: "http://localhost:51952/api/route/find" + '/' + self.id,
+                contentType: "application/json",
+                type: "GET",
+                dataType: 'json',
+                data: ko.toJSON(self),
+                success: function (data) {
+                    $.each(data, function (key, val) {
+
+                        self.Author.push(new Author(val.FirstName,val.SecondName));
+                    });
+                }
+            });
+        }
+
+        $.getJSON("http://localhost:51952/api/route/returnid", function (data) {
+            self.id(data.id);
+            console.log("pashe");
+        })
+
         $.ajax({
-            url: "http://localhost:51952/api/route/find" + '/' + 2,
+            url: "http://localhost:51952/api/route/find" + '/' + self.id,
             contentType: "application/json",
             type: "GET",
             success: function (data) {
@@ -315,7 +307,13 @@
                 self.Author(data.Author);
             }
         });
-        return Load(2);
+
+        return Load(self.id);
+    }
+    function Author(FirstName,SecondName ) {
+        var self = this;
+        self.FirstName = FirstName;
+        self.SecondName = SecondName;
     }
     return { viewModel: RouteViewModel(), template: RouteTemplate };
 });

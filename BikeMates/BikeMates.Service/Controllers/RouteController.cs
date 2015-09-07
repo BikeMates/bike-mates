@@ -13,6 +13,7 @@ namespace BikeMates.Service.Controllers
     {   
         private readonly IRouteService routeService;
         private readonly IUserService userService;
+        private int ID;
 
         public RouteController(IRouteService routeService, IUserService userService)
         {
@@ -55,6 +56,24 @@ namespace BikeMates.Service.Controllers
         {
             return routeService.Find(id).MapData;
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("GetId/{id}")]
+        public int GetId(int id)
+        {
+            ID = id;
+            return id;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("ReturnId")]
+        public int ReturnId()
+        {
+            return ID;
+        }
+
 
         [HttpPut]
         [Route("Put")]
