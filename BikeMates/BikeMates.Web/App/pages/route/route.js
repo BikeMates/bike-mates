@@ -5,6 +5,7 @@
     var map, service, renderer;
     var data = {};
     var start, end;
+    var Id = location.href.split('?')[1];
 
     var initialLocation, browserSupportFlag;
     var ALLOW_EDIT;
@@ -25,7 +26,7 @@
         self.Author = ko.observableArray([]);
         self.FirstName = ko.observable("");
         self.SecondName = ko.observable("");
-     
+        
 
         self.initialize = function(allowEdit) {
             ALLOW_EDIT = false;
@@ -189,14 +190,15 @@
         }
 
 
+        self.IsBanned = ko.observable(true);
         self.IsAdmin = ko.computed(function () {
-            return sessionStorage.getItem("role") == "Admin";
+            return (sessionStorage.getItem("role") == "Admin") && (!self.IsBanned());
         });
         self.ban = function () {
             $.ajax({
                 url: "http://localhost:51952/api/admin/banroute",
                 contentType: "application/json",
-                type: "PUT",
+                type: "GET",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 data: { routeId: Id },
                 success: function (data) {

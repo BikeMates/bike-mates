@@ -73,7 +73,6 @@
                     self.Imagesrc(image_url + userId + '?' + Math.random());
                     self.AllowEdit(false);
                     self.IsBanned(data.isBanned);
-                    alert("isB" + self.IsBanned() + "isA" + self.IsAdmin());
                 },
                 error: function (data) {
                 }
