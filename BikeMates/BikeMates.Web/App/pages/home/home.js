@@ -171,6 +171,7 @@
     self.IsAuthorize = ko.computed(function () {
         return (sessionStorage.getItem("role") == "User" || sessionStorage.getItem("role") == "Admin");
     });
+
     self.goToRoute = function (id) {
        return "http://localhost:51949/#route?"+id;
     };

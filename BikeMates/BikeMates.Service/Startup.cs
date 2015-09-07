@@ -10,6 +10,10 @@ using Ninject;
 using Owin;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using BikeMates.DataAccess.Repository;
+using BikeMates.DataAccess;
+using BikeMates.DataAccess.Managers;
+using BikeMates.Application.Services;
 
 namespace BikeMates.Service
 {
@@ -18,7 +22,7 @@ namespace BikeMates.Service
         public void Configuration(IAppBuilder app)
         {
             var kernel = CreateKernel();
-            ConfigureOAuth(app, kernel);
+            ConfigureOAuth(app);
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
             app.UseCors(CorsOptions.AllowAll);
@@ -27,14 +31,17 @@ namespace BikeMates.Service
             config.Services.Replace(typeof(IExceptionHandler), new OopsExceptionHandler());
         }
 
-        public void ConfigureOAuth(IAppBuilder app, StandardKernel kernel)
+        public void ConfigureOAuth(IAppBuilder app)
         {
+            var context = new BikeMatesDbContext();
+            var userService = new UserService(new UserRepository(context, new UserManager(context)), new MailService());
+
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = kernel.Get<SimpleAuthorizationServerProvider>()
+                Provider = new SimpleAuthorizationServerProvider(userService)
             };
 
             // Token Generation
