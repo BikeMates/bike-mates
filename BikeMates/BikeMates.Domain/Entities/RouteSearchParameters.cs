@@ -16,5 +16,7 @@ namespace BikeMates.Domain.Entities
         [DataType(DataType.Date)]
         public DateTime? DateTo { get; set; }
         public RouteSortOptions SortOrder { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
     }
 }

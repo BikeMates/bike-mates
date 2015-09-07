@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using BikeMates.Contracts.Data;
 using Newtonsoft.Json;
 
 namespace BikeMates.Service.Models
@@ -93,7 +94,12 @@ namespace BikeMates.Service.Models
                     SecondName = item.SecondName
                 });
             }
-
+            var author = new SubscriberViewModel
+                {
+                    Id = route.Author.Id,
+                    FirstName = route.Author.FirstName,
+                    SecondName = route.Author.SecondName
+                };
             RouteViewModel _route = new RouteViewModel
             {
                 Id = route.Id,
@@ -103,17 +109,26 @@ namespace BikeMates.Service.Models
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
                 Distance = route.Distance.ToString(),
-                Author = JsonConvert.SerializeObject(new SubscriberViewModel
-                {
-                    Id = route.Author.Id,
-                    FirstName = route.Author.FirstName,
-                    SecondName = route.Author.SecondName
-                }),
+                Author = JsonConvert.SerializeObject(author),
                 Subscribers = JsonConvert.SerializeObject(subscribers),
                 IsBanned = route.IsBanned
             };
             return _route;
         }
 
+        public static RouteViewModel MapToSearchViewModel(RouteData route)
+        {
+            RouteViewModel _route = new RouteViewModel
+            {
+                Id = route.Id,
+                Title = route.Title,
+                Description = route.Description,
+                MeetingPlace = route.MeetingPlace,
+                Start = route.Start,
+                Distance = route.Distance.ToString(),
+                IsBanned = route.IsBanned
+            };
+            return _route;
+        }
     }
 }

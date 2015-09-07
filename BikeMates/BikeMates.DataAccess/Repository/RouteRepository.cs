@@ -25,9 +25,10 @@ namespace BikeMates.DataAccess.Repository
             //    (!searchParameters.DateFrom.HasValue || route.Start >= searchParameters.DateFrom) &&
             //    (!searchParameters.DateTo.HasValue || route.Start <= searchParameters.DateTo)
             //    );
-
-            IQueryable<Route> routes = this.Context.Routes.Where(route => (string.IsNullOrEmpty(searchParameters.MeetingPlace) || route.MeetingPlace.Contains(searchParameters.MeetingPlace)) &&
-                (string.IsNullOrEmpty(searchParameters.Description) || route.Description.Contains(searchParameters.Description)) &&
+            
+            IQueryable<Route> routes = this.Context.Routes.Where(route => !route.IsBanned
+                && (string.IsNullOrEmpty(searchParameters.MeetingPlace) || route.MeetingPlace.Contains(searchParameters.MeetingPlace) || route.Description.Contains(searchParameters.MeetingPlace))
+                &&
                 (!searchParameters.MinDistance.HasValue || route.Distance >= searchParameters.MinDistance) &&
                 (!searchParameters.MaxDistance.HasValue || route.Distance <= searchParameters.MaxDistance) &&
                 (!searchParameters.DateFrom.HasValue || route.Start >= searchParameters.DateFrom) &&
@@ -49,8 +50,11 @@ namespace BikeMates.DataAccess.Repository
             {
                 routes = routes.OrderBy(x => x.Subscribers.Count);
             }
+
+            //routes.Skip(searchParameters.PageNumber * searchParameters.PageSize).Take(searchParameters.PageSize);
+
             //TODO: Add paging here. Take only needed routes
-            return routes;
+            return routes.Skip(searchParameters.PageNumber * searchParameters.PageSize).Take(searchParameters.PageSize); 
         }
 
         public void SubscribeUser(Route route, User user)

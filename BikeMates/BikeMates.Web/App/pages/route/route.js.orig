@@ -83,7 +83,11 @@
         self.subscribed = ko.observable(false);
         self.sub_show = ko.observable(true);
         self.unsub_show = ko.observable(true);
+<<<<<<< HEAD
+        self.Author = ko.observable("");
+=======
         self.Author = ko.observable();
+>>>>>>> 9bb13f45ecf87bc52160c82bea00d5acb9ebe905
         self.FirstName = ko.observable("");
         self.SecondName = ko.observable("");
         self.IsBanned = ko.observable(true);
@@ -155,15 +159,12 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
-        function displayRoute(origin, destination, service, display) {
-            displayRoute(origin, destination, service, display, []);
-        }
         function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
                 origin: origin,
                 destination: destination,
                 waypoints: waypoints,
-                travelMode: google.maps.TravelMode.WALKING,
+                travelMode: google.maps.TravelMode.DRIVING,
                 avoidTolls: true
             };
             service.route(route, function (response, status) {
@@ -211,9 +212,11 @@
                     var mapData = JSON.parse(response.mapData);
                     console.log("getRoute");
                     loadRoute(mapData);
-                    var author = JSON(response.author);
-                    $('#Author').val(author.FirstName);
                     self.IsBanned(response.isBanned);
+
+                    var author = JSON.parse(response);
+                    console.log(author);
+                    $('#Author').val(author);
                     $('#MapData').val(response.mapData);
                 }
             });

@@ -6,7 +6,7 @@
             <div class="center">
                 <div class="form-inline">
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="Start">Start date</label>
+                        <label class="col-md-4 control-label" for="Start">Start date<p class="required">*</p></label>
                         <div class="col-md-8">
                             <input class="form-control .datepicker" required data-bind="datepicker: Start, datepickerOptions: { minDate: new Date() }" name="Start"/>
                         </div>
@@ -14,27 +14,27 @@
                     <div class="form-group">
                         <label class="col-md-5 control-label" for="Distance">Total Distance:</label>
                         <div class="col-md-5">
-                            <input class="form-control" required data-bind="textInput: Distance" id="Distance" name="Distance" type="text" value="0"/> <span>km</span>
+                            <input readonly="readonly" class="form-control" required data-bind="textInput: Distance" id="Distance" name="Distance" type="text" value="0" /> <span>km</span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="Title">Title</label>
+                    <label class="col-md-2 control-label" for="Title">Title<p class="required">*</p></label>
                     <div class="col-md-10">
                         <input class="form-control" required data-bind="textInput: Title" id="Title" name="Title" type="text" value=""/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="MeetingPlace">Meeting place</label>
+                    <label class="col-md-2 control-label" for="MeetingPlace">Meeting place<p class="required inline">*</p></label>
                     <div class="col-md-10">
-                        <textarea class="form-control" required data-bind="textInput: MeetingPlace" cols="20" id="MeetingPlace" name="MeetingPlace" rows="2"></textarea>
+                       <textarea class="form-control" required data-bind="textInput: MeetingPlace" cols="20" id="MeetingPlace" name="MeetingPlace" rows="2"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="Description">Description</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" required data-bind="text: Description" cols="20" id="Description" name="Description" rows="2"></textarea>
+                        <textarea class="form-control" data-bind="text: Description" cols="20" id="Description" name="Description" rows="2"></textarea>
                     </div>
                 </div>
                 <input id="MapData" data-bind="textInput: MapData" name="MapData" type="hidden" value=""/>

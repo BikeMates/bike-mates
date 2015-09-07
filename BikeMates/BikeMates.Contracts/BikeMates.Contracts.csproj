@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\RouteData.cs" />
     <Compile Include="Services\IMailService.cs" />
     <Compile Include="Managers\IUserManager.cs" />
     <Compile Include="Repositories\IRouteRepository.cs" />

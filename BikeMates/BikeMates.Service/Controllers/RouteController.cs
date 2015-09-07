@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using BikeMates.Contracts.Data;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using BikeMates.Service.Models;
@@ -40,7 +41,7 @@ namespace BikeMates.Service.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPut]
         [Route("Update")]
         public void Update(RouteViewModel route)
         {
@@ -66,8 +67,8 @@ namespace BikeMates.Service.Controllers
         }
 
 
-        [HttpPut]
-        [Route("Put")]
+        [HttpPost]
+        [Route("Add")]
         public void Put(RouteViewModel route)
         {
             Route domainRoute = route.MapToDomain();
@@ -121,9 +122,11 @@ namespace BikeMates.Service.Controllers
                 searchParameters.SortOrder = orderByField;
             }
 
-            IEnumerable<Route> routes = routeService.Search(searchParameters).ToArray();
+            searchParameters.PageNumber = 0;
+            searchParameters.PageSize = 5000;
+            IEnumerable<RouteData> routes = routeService.Search(searchParameters).ToArray();
 
-            var routesModels = routes.Select(RouteViewModel.MapToViewModel).ToList();
+            var routesModels = routes.Select(RouteViewModel.MapToSearchViewModel).ToList();
             return routesModels;
         }
 

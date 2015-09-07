@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BikeMates.Contracts.Data;
 using BikeMates.Domain.Entities;
 
 namespace BikeMates.Contracts.Services
@@ -10,7 +11,7 @@ namespace BikeMates.Contracts.Services
         void Update(Route route);
         void Delete(int routeId);
         IEnumerable<Route> GetAll();
-        IEnumerable<Route> Search(RouteSearchParameters searchParameters);
+        IEnumerable<RouteData> Search(RouteSearchParameters searchParameters);
         void SubscribeUser(int routeId, string userId);
         void UnsubscribeUser(int routeId, string userId);
         IEnumerable<Route> GetAllUserSubscribedRoutes(string userId);

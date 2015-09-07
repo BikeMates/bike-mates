@@ -123,9 +123,9 @@
             $('#MapData').val(stringifiedData);
 
             $.ajax({
-                type: 'PUT',
+                type: 'PPOST',
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-                url: 'http://localhost:51952/api/route/put',
+                url: 'http://localhost:51952/api/route/add',
                 data: $('#routeForm').serialize(),
                 success: function (response) { }
             });
@@ -139,7 +139,7 @@
                 origin: origin,
                 destination: destination,
                 waypoints: waypoints,
-                travelMode: google.maps.TravelMode.DRIVING,
+                travelMode: google.maps.TravelMode.WALKING,
                 avoidTolls: true
             };
             service.route(route, function (response, status) {

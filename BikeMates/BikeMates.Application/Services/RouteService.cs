@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using BikeMates.Contracts.Data;
 using BikeMates.Contracts.Repositories;
 using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
@@ -10,7 +12,7 @@ namespace BikeMates.Application.Services
         private readonly IRouteRepository routeRepository;
         private readonly IUserRepository userRepository;
 
-        public RouteService(IRouteRepository routeRepository , IUserRepository userRepository)
+        public RouteService(IRouteRepository routeRepository, IUserRepository userRepository)
         {
             this.routeRepository = routeRepository;
             this.userRepository = userRepository;
@@ -41,16 +43,16 @@ namespace BikeMates.Application.Services
             return this.routeRepository.GetAll();
         }
 
-        public IEnumerable<Route> Search(RouteSearchParameters searchParameters)
+        public IEnumerable<RouteData> Search(RouteSearchParameters searchParameters)
         {
-            return this.routeRepository.Search(searchParameters);
+            return this.routeRepository.Search(searchParameters).ToList().Select(MapRoute);
         }
 
-        public void SubscribeUser(int routeId, string userId)		
+        public void SubscribeUser(int routeId, string userId)
         {
             User user = userRepository.Find(userId);
             Route route = routeRepository.Find(routeId);
-            
+
             this.routeRepository.SubscribeUser(route, user);
         }
 
@@ -92,6 +94,21 @@ namespace BikeMates.Application.Services
             var route = Find(routeId);
             route.IsBanned = true;
             Update(route);
+        }
+
+        private RouteData MapRoute(Route route)
+        {
+            return new RouteData
+            {
+                Id = route.Id,
+                Title = route.Title,
+                Description = route.Description,
+                MeetingPlace = route.MeetingPlace,
+                Start = route.Start,
+                Distance = route.Distance,
+                IsBanned = route.IsBanned,
+                AuthorName = route.Author != null ? string.Format("{0} {1}", route.Author.FirstName, route.Author.SecondName) : string.Empty
+            };
         }
     }
 }

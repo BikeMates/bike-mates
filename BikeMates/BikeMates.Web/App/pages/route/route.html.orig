@@ -20,8 +20,20 @@
                     <a href="#" data-bind="click: Subscribes.moveNext">Next</a>
                     <a href="#" data-bind="click: Subscribes.moveLast">Last</a>
                 </td>
+<<<<<<< HEAD
+        </tr>
+    </table>
+    <table align="center" class="pagination">
+        <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+        <tr><td><label>Author: </label></td><td><label type="text" id="Author" data-bind="text: Author" /></td></tr>
+        <tr><td><label>Start: </label></td><td><label type="text" id="start" data-bind="text: start" /></td></tr>
+        <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" />km</td></tr>
+        <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
+        <tr><td><label>Description: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: description" /></td></tr>
+=======
             </tr>
         </tbody>
+>>>>>>> 9bb13f45ecf87bc52160c82bea00d5acb9ebe905
     </table>
 </div>-->
         <table align="left">
@@ -35,7 +47,7 @@
         </table>
         <table align="center" class="pagination">
             <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
-            <tr><td><label>Author: </label></td><td><label type="text" id="Author" data-bind="text: Author" /></td></tr>
+            <tr><td><label>Author: </label></td><td><label type="text" id="start" data-bind="text: Author" /></td></tr>
             <tr><td><label>Start: </label></td><td><label type="text" id="start" data-bind="text: start" /></td></tr>
             <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" />km</td></tr>
             <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
