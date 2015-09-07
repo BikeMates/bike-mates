@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data access", "Data access"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3227DD5C-4A51-4268-B74A-BA3C2A3AFBD4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BikeMates.Test", "BikeMates.Test", "{50799F29-2860-479B-9248-9C4BDD57C4D5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{50799F29-2860-479B-9248-9C4BDD57C4D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Test", "BikeMates.Test\Application.Test.csproj", "{6F947589-A1DE-482D-9389-9BECA981F7AC}"
 EndProject

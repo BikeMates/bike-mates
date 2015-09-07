@@ -9,15 +9,23 @@
         self.SecondName = ko.observable("");
         self.About = ko.observable("");
         self.Picture = ko.observable("");
-        self.OldPass = ko.observable("");
-        self.NewPass = ko.observable("");
-        self.NewPass2 = ko.observable("");
+        self.OldPassword = ko.observable("");
+        self.NewPassword = ko.observable("");
+        self.NewPasswordConfirmation = ko.observable("");
         self.Id = ko.observable("");
         self.Imagesrc = ko.observable("");
+
+        self.passwordErrors = ko.observableArray();
+        self.informationStatus = ko.observableArray();
+        self.nameErrors = ko.observableArray();
 
         self.fullName = ko.computed(function () {
             return self.FirstName() + " " + self.SecondName();
         }, this);
+
+        self.goToProfile = function () {
+            window.location = "http://localhost:51949/#profile";
+        }
 
         self.loadpicture = function () {
             var data = new FormData(jQuery('#image_form')[0]);
@@ -50,6 +58,7 @@
                     self.About(data.about);
                     self.Picture(data.picture);
                     self.Id(data.id);
+
                     var image_url = "http://localhost:51952/api/profilepicture/";
                     var userId = self.Id();
                     self.Imagesrc(image_url + userId + '?' + Math.random());
@@ -68,36 +77,19 @@
 
             $.ajax({
                 url: "http://localhost:51952/api/profile",
-                contentType: "application/json",
+                contentType: 'application/JSON',
                 type: "POST",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 data: ko.toJSON(self),
                 success: function (data) {
-                    window.location = "http://localhost:51949/#profile";
+                    console.log(data);
+                    self.passwordErrors(data.passwordErrors);
+                    self.informationStatus(data.informationStatus);
+                    self.nameErrors(data.nameErrors);
+                   
+                    //  window.location = "http://localhost:51949/#profile";
                 },
                 error: function (data) {
-
-                    var errors = [];
-
-                    //TODO: Create a common component for error handling
-                    $("#error_message_name").hide();
-                    $(".validation-summary-errors").show();
-
-                    var response = JSON.parse(data.responseText);
-                    for (key in response.modelState) {
-                        for (var i = 0; i < response.modelState[key].length; i++) {
-                            errors.push(response.modelState[key][i]);
-                        }
-                    }
-
-                    $("#error_details").text(" " + errors.join(" "));
-
-                    if (errors.length > 0) {
-                        $("#error_message_name").show();
-                        $(".validation-summary-errors").hide();
-                    }
-
-
                 }
             });
 
@@ -121,10 +113,7 @@
             error: function (data) {
             }
         });
-
         return self;
     }
-
     return { viewModel: ProfileViewModel, template: editprofileTemplate };
-
 });

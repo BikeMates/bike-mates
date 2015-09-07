@@ -306,5 +306,85 @@ namespace BikeMates.Test
             routeService.Delete(expectedRoute.Id);
             routeRepository.Verify(r => r.Delete(It.IsAny<int>()), Times.AtLeastOnce());
         }
+
+        [Test]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check can route be unbanned")]
+        public void UnbanRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
+            , double expectedDistance, string expectedPlace, int expectedId)
+        {
+            // set up test objects
+
+            User expectedUser = new User()
+            {
+                Email = expectedEmail,
+                About = expectedAbout,
+                FirstName = expectedName,
+                SecondName = expectedSurname
+            };
+
+            List<User> expextedSubscribers = new List<User>();
+            expextedSubscribers.Add(expectedUser);
+
+            Route expectedRoute = new Route()
+            {
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+                Subscribers = expextedSubscribers,
+                IsBanned = true,
+            };
+
+            List<int> routestounban = new List<int>();
+            routestounban.Add(1);
+
+
+            routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
+            routeRepository.Setup(r => r.Update(It.IsAny<Route>()));
+            // check the method
+            routeService.UnbanRoutes( routestounban );
+            routeRepository.Verify(r => r.Update(It.IsAny<Route>()), Times.AtLeastOnce());
+        }
+
+        [Test]
+        [TestCase("test@test.com", "Dima", "Plahta", "Like cycling", "Route description", 2.44, "Shevchenka blv", 1, TestName = "Check can route be banned")]
+        public void BanRouteTest(string expectedEmail, string expectedName, string expectedSurname, string expectedDescription, string expectedAbout
+            , double expectedDistance, string expectedPlace, int expectedId)
+        {
+            // set up test objects
+
+            User expectedUser = new User()
+            {
+                Email = expectedEmail,
+                About = expectedAbout,
+                FirstName = expectedName,
+                SecondName = expectedSurname
+            };
+
+            List<User> expextedSubscribers = new List<User>();
+            expextedSubscribers.Add(expectedUser);
+
+            Route expectedRoute = new Route()
+            {
+                Id = expectedId,
+                Author = expectedUser,
+                Description = expectedDescription,
+                Start = new DateTime(2015, 12, 22),
+                Distance = expectedDistance,
+                MeetingPlace = expectedPlace,
+                Subscribers = expextedSubscribers,
+                IsBanned = false,
+            };
+
+            int routeToBan = 1;
+
+            routeRepository.Setup(r => r.Find(It.IsAny<int>())).Returns(expectedRoute);
+            routeRepository.Setup(r => r.Update(It.IsAny<Route>()));
+            // check the method
+            routeService.BanRoute(routeToBan);
+            routeRepository.Verify(r => r.Update(It.IsAny<Route>()), Times.AtLeastOnce());
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace BikeMates.Contracts.Services
     public interface IUserService
     { 
         IdentityResult Register(User user, string password);
-        IdentityResult ChangePassword(string oldPassword, string newPassword, string newPasswordConfirmation, string userId); 
+        IEnumerable<string> ChangePassword(string oldPassword, string newPassword, string newPasswordConfirmation, string userId); 
         User Login(string email, string password);
         void ForgotPassword(string userId, string host);
         IdentityResult ResetPassword(string userId, string code, string password);
@@ -17,7 +17,10 @@ namespace BikeMates.Contracts.Services
         void Update(User user);
         IEnumerable<User> GetAll();
         void UnbanUsers(List<string> userIds);
-        IdentityResult CheckUserInfo(User entity);        
+        IEnumerable<string> CheckUserInfo(string firstName, string secondName , string about , string userId);
+        IEnumerable<string> CheckUserName(string firstName, string secondName);
         void BanUser(string userId);
+        IEnumerable<string> CheckUserPassword(string oldPassword, string newPassword, string newPasswordConfirmation);
+        
     }
 }

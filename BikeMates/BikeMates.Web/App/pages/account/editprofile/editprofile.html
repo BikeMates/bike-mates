@@ -9,7 +9,17 @@
 
             <h2></h2>
             <form enctype="multipart/form-data" action="#" data-bind="submit: loadpicture" method="post" id="image_form">
-                <input name="somefile" type="file" accept="image/*" multiple />
+
+                <div style="position:relative;">
+                    <a class='btn btn-default' href='javascript:;'>
+                        Choose picture
+                        <input type="file" accept="image/*" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40" onchange='$("#upload-file-info").html($(this).val());'>
+                    </a>
+                    <h2></h2>
+                    <span class='label label-info' id="upload-file-info"></span>
+                    <h2></h2>
+                </div>
+
                 <input type="submit" class="btn btn-default " value="Load new picture" />
             </form>
 
@@ -18,57 +28,73 @@
             <h1>
                 <strong data-bind="text: fullName">FullName</strong>
             </h1>
-            <div class="alert alert-dismissible alert-danger" hidden="hidden" id="error_message_name">
-                <strong id="error_details_name"></strong>
-            </div>
+            <ul data-bind="foreach: informationStatus" id="information_list">
+                <li>
+                    <span data-bind="text: $data"> </span>
+                </li>
+            </ul>
+            <ul data-bind="foreach: nameErrors" id="nameErrors_list">
+                <li>
+                    <span data-bind="text: $data"> </span>
+                </li>
+            </ul>
 
-            <div class="form-group">
-                <label for="usrname">First name:</label>
-                <input type="text" class="form-control" id="usrname" value="Nazar" data-bind="textInput: FirstName" placeholder="Required" required>
-            </div>
+            <form action="#" data-bind="submit: savedata" autocomplete="off" class="form-horizontal" method="post">
 
-            <div class="form-group">
-                <label for="usrscname">Last name:</label>
-                <input type="text" class="form-control" id="usrscname" value="Popkov" data-bind="textInput: SecondName" placeholder="Required" required>
-            </div>
+                <div class="form-group">
+                    <label for="usrname">First name:</label>
+                    <input type="text" class="form-control" id="usrname" value="Nazar" data-bind="textInput: FirstName" placeholder="Required" required>
+                </div>
 
-            <hr />
+                <div class="form-group">
+                    <label for="usrscname">Last name:</label>
+                    <input type="text" class="form-control" id="usrscname" value="Popkov" data-bind="textInput: SecondName" placeholder="Required" required>
+                </div>
 
-            <div class="alert alert-dismissible alert-danger" hidden="hidden" id="error_message_password">
-                <strong id="error_details_password"></strong>
-            </div>
-
-            <p> Change password </p>
-            <div class="form-group">
-                <label for="opwd">Old password:</label>
-                <input type="password" class="form-control" id="opwd" data-bind="value: OldPass">
-            </div>
-
-
-            <div class="form-group">
-                <label for="pwd">New password:</label>
-                <input type="password" class="form-control" id="npwd1" data-bind="value: NewPass">
-            </div>
-
-
-            <div class="form-group">
-                <label for="pwd">Repeat new password:</label>
-                <input type="password" class="form-control" id="npwd2" data-bind="value: NewPass2">
-            </div>
-
-            <hr />
-
-            <div class="form-group">
-                <label for="comment">About myself:</label>
-                <textarea class="form-control" rows="5" id="comment" data-bind="textInput: About">
-                    Basically cycling is a part of my soul .Like to to it with my friends and just like everyone else - it really makes me happy
-                </textarea>
-            </div>
-            <div class="form-group">
                 <hr />
-                 <button type="button" class="btn btn-default" id="save_btn" data-bind="click: savedata">Save changes</button>
-                <button type="button" class="btn btn-default" id="profile_btn" data-bind="click: cancelchanges" resource="">Cancel changes</button>
-            </div>
+                <p> Change password </p>
+                <ul data-bind="foreach: passwordErrors" id="errors_list">
+                    <li>
+                        <span data-bind="text: $data"> </span>
+                    </li>
+                </ul>
+                <div class="form-group" style="display:none">
+                    <label for="opwd">Old password:</label>
+                    <input type="password" class="form-control" id="phantompassword" autocomplete="off" style="display:none" data-bind="value: OldPassword">
+                </div>
+
+                <div class="form-group">
+                    <label for="opwd">Old password:</label>
+                    <input type="password" class="form-control" id="opwd" autocomplete="off" data-bind="value: OldPassword">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="pwd">New password:</label>
+                    <input type="password" class="form-control" id="npwd1" autocomplete="off" data-bind="value: NewPassword">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="pwd">Repeat new password:</label>
+                    <input type="password" class="form-control" id="npwd2" autocomplete="off" data-bind="value: NewPasswordConfirmation">
+                </div>
+
+                <hr />
+
+                <div class="form-group">
+                    <label for="comment">About myself:</label>
+                    <textarea class="form-control" rows="5" id="comment" data-bind="textInput: About">
+                        Basically cycling is a part of my soul .Like to to it with my friends and just like everyone else - it really makes me happy
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <hr />
+                    <input type="submit" id="submitButton" class="btn btn-success" value="Save changes" />
+                    <button type="button" class="btn btn-default" id="profile_btn" data-bind="click: cancelchanges" resource="">Cancel changes</button>
+                </div>
+
+            </form>
         </div>
     </div>
 </div>
