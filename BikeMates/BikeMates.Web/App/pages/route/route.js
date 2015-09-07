@@ -8,7 +8,7 @@
     var Id = location.href.split('?')[1];
 
     var initialLocation, browserSupportFlag;
-    var allowEdit =false;
+    var allowEdit = false;
     var kiev;
     var Ide = location.href.split('?')[1];
 
@@ -29,7 +29,7 @@
         self.SecondName = ko.observable("");
         self.IsBanned = ko.observable(true);
 
-        function initialize () {
+        self.initialize = function (allowEdit) {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
@@ -64,8 +64,16 @@
                 });
             }
             renderer.setMap(map);
+
+            renderer.addListener('directions_changed', function () {
+                computeTotalDistance(renderer.getDirections());
+            });
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                placeMarker(event.latLng);
+            });
         }
-        self.handleNoGeolocation = function (errorFlag) {
+        function handleNoGeolocation(errorFlag) {
             if (errorFlag == true) {
                 alert("Geolocation service failed.");
                 initialLocation = kiev;
@@ -75,22 +83,58 @@
             }
             map.setCenter(initialLocation);
         }
+        function saveRoute() {
+            var waypoints = [], wp = [];
+            var routeLeg = renderer.directions.routes[0].legs[0];
+            data.start = {
+                'latitude': routeLeg.start_location.lat(),
+                'longitude': routeLeg.start_location.lng()
+            }
+            data.end = {
+                'latitude': routeLeg.end_location.lat(),
+                'longitude': routeLeg.end_location.lng()
+            }
+            wp = routeLeg.via_waypoints;
 
-        function getRoute() {
+            for (var i = 0; i < wp.length; i++) {
+                waypoints[i] = {
+                    'latitude': wp[i].lat(),
+                    'longitude': wp[i].lng()
+                };
+            }
+            data.waypoints = waypoints;
+
+            var stringifiedData = JSON.stringify(data);
+            $('#MapData').val(stringifiedData);
+
+            $.ajax({
+                type: 'PUT',
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                url: 'http://localhost:51952/api/route/put',
+                data: $('#routeForm').serialize(),
+                success: function (response) { }
+            });
+            return false;
+        }
+        function getRoute(id) {
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:51952/api/route/find/' + Id,
+                url: 'http://localhost:51952/api/route/find/' + id,
                 response: JSON,
                 success: function (response) {
                     var mapData = JSON.parse(response.mapData);
-                    console.log("getRoute");
-                    self.loadRoute(mapData);
-                    self.IsBanned(response.isBanned);
+
+                    loadRoute(mapData);
+                    $('#Start').val(response.start);
+                    $('#Distance').val(response.distance);
+                    $('#Title').val(response.title);
+                    $('#Description').val(response.description);
+                    $('#MeetingPlace').val(response.meetingPlace);
                     $('#MapData').val(response.mapData);
                 }
             });
         }
-        self.loadRoute = function (route) {
+        function loadRoute(route) {
             var waypoints = [];
             for (var i = 0; i < route.Waypoints.length; i++) {
                 waypoints[i] = {
@@ -102,10 +146,10 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
-        self.displayRoute = function (origin, destination, service, display) {
+        function displayRoute(origin, destination, service, display) {
             displayRoute(origin, destination, service, display, []);
         }
-        self.displayRoute = function (origin, destination, service, display, waypoints) {
+        function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
                 origin: origin,
                 destination: destination,
@@ -121,7 +165,17 @@
                 }
             });
         }
-        self.placeMarker = function (location) {
+        function computeTotalDistance(result) {
+            var total = 0;
+            var myroute = result.routes[0];
+            for (var i = 0; i < myroute.legs.length; i++) {
+                total += myroute.legs[i].distance.value;
+            }
+            total = total / 1000;
+            $('#Distance').val(total);
+            return;
+        }
+        function placeMarker(location) {
             if (start == null) {
                 start = new google.maps.Marker({
                     position: location,
@@ -138,6 +192,20 @@
                 end.setMap(null);
                 displayRoute(start.position, end.position, service, renderer);
             }
+        }
+        function getRoute() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:51952/api/route/find/' + Id,
+                response: JSON,
+                success: function (response) {
+                    var mapData = JSON.parse(response.mapData);
+                    console.log("getRoute");
+                    loadRoute(mapData);
+                    self.IsBanned(response.isBanned);
+                    $('#MapData').val(response.mapData);
+                }
+            });
         }
         self.Load = function(id) {
             getRoute(id);
@@ -189,9 +257,7 @@
                 }
             });
         }
-
-
-        
+    
         self.IsAdmin = ko.computed(function () {
             return (sessionStorage.getItem("role") == "Admin") && (!self.IsBanned());
         });
