@@ -21,10 +21,9 @@
                 </li>
             </ul>
                 
-            <ul class="nav navbar-nav navbar-header" id="anonimus">
-
-                <li><a href="#newroute" id="addroute">Add new route</a></li>
-            </ul>
+        <ul class="nav navbar-nav navbar-header" data-bind="visible: isAddRouteVisible" id="addNewRoute">
+            <li><a href="#newroute" id="addroute">Add new route</a></li>
+        </ul>
        
     </div>
 

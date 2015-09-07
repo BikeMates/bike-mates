@@ -129,12 +129,25 @@
         self.description = ko.observable("");
         self.allRoutes = ko.observableArray([]).extend({ paging: 5 });
         self.OrderByFieldName = ko.observable("");
+        self.isAddRouteVisible = ko.observable(false);
 
         self.setOrderAndSearch = function (orderBy) {
             if (orderBy) {
                 self.OrderByFieldName(orderBy);
             }
             self.searchRoutes();
+        }
+
+        self.setAddRouteButtonVisibility = function ()
+        {                
+            userStatus = sessionStorage.getItem("authorized")
+            if (userStatus == 'true') {
+                self.isAddRouteVisible(true);
+            }
+            else {
+                self.isAddRouteVisible(false);
+            }
+
         }
       
         self.searchRoutes = function () {
@@ -153,6 +166,7 @@
                 }
             });
         }
+        self.setAddRouteButtonVisibility();
         self.searchRoutes();
         return self;
     }
