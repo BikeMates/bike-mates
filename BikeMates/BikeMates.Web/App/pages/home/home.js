@@ -162,7 +162,7 @@
             error: function (data) {
             }
         });
-        window.location = "http://localhost:51949/#route?"+id;
+        //window.location = "http://localhost:51949/#route?"+id;
     };
     function route(author, description, distance, id, isBanned, mapData, meetingPlace, start, subscribers, title) {
         var self = this;

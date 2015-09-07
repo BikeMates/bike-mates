@@ -125,9 +125,10 @@ namespace BikeMates.Service.Controllers
             }
 
             RouteSortOptions orderByField = RouteSortOptions.Date;
-
-            Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField);
-            searchParameters.SortOrder = orderByField;
+            if (Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField))
+            {
+                searchParameters.SortOrder = orderByField;
+            }
 
             IEnumerable<Route> routes = routeService.Search(searchParameters).ToArray();
 
