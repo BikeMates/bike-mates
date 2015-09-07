@@ -74,21 +74,10 @@
             return target().slice(startIndex, endIndex);
         });
         
-        target.currentPage1 = target.currentPage();
-        target.currentPage2 = target.currentPage()+1;
-        target.currentPage3 = target.currentPage()+2;
         target.moveFirst = function () {
             target.currentPage(1);
         };
-        target.moveOne = function () {
-            target.currentPage(target.currentPage());
-        };
-        target.moveTwo = function () {
-            target.currentPage(target.currentPage()+1);
-        };
-        target.moveThree = function () {
-            target.currentPage(target.currentPage() + 2);
-        };
+
         target.movePrevious = function () {
             target.currentPage(target.currentPage() - 1);
         };
@@ -135,16 +124,25 @@
       
         self.searchRoutes = function () {
             self.allRoutes.removeAll();
+
+            var jsonParams = ko.toJSON(self);
+            var urlParams = Object.keys(jsonParams).map(function (k) {
+                return k + '=' + encodeURIComponent(jsonParams[k])
+                //return encodeURIComponent(k) + '=' + encodeURIComponent(jsonParams[k])
+            }).join('&')
+
+            console.log(ko.toJSON(self));
+
             $.ajax({
-                url: "http://localhost:51952/api/route/getroutes",
+                url: "http://localhost:51952/api/route/getroutes/",
                 contentType: "application/json",
-                type: "POST",
+                type: "GET",
                 dataType: 'json',
                 data: ko.toJSON(self),
+           
                 success: function (data) {
                     $.each(data, function (key, val) {
-                        
-                  self.allRoutes.push(new route(val.author,val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
+                        self.allRoutes.push(new route(val.author,val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
                     });
                 }
             });
@@ -152,11 +150,9 @@
         self.searchRoutes();
         return self;
     }
-    self.goRoute = function (id) {
-        if (id) {
-            window.location = "http://localhost:51949/#route?" + id;
-        }
-    }
+    self.IsAuthorize = ko.computed(function () {
+        return (sessionStorage.getItem("role") == "User" || sessionStorage.getItem("role") == "Admin");
+    });
     self.goToRoute = function (id) {
        return "http://localhost:51949/#route?"+id;
     };

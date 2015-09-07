@@ -2,12 +2,11 @@
     <div class="navbar-collapse collapse">
         
         <!-- Used for Authorized user -->
-        <!--<select id="sort_order" onchange="CallActionList($(this).val()); return false;">
-            <option>select</option>
+        <select id="sort_order" data-bind="visible: IsAuthorize">
             <option value="All Routes">All Routes</option>
             <option value="My Routes">My Routes</option>
             <option value="Subscription">Subscription</option>
-        </select>-->
+        </select>
         
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -32,7 +31,7 @@
 
 <table>
     <tr>
-        <td><h4>Meeteing place </h4></td>
+        <td><h4>Meeting place </h4></td>
         <td><input type="text" size="25" class="filter-inpt" id="Location" name="Location" data-bind="value:Location" /> </td>
     </tr>
     <tr>
@@ -78,9 +77,6 @@
                     <div style="clear: both"></div>
                     <a href="#" data-bind="click: allRoutes.moveFirst">First</a>
                     <a href="#" data-bind="click: allRoutes.movePrevious">Previous</a>
-                    <a href="#" data-bind="click: allRoutes.moveOne"><label data-bind="text: allRoutes.currentPage1" /></a>
-                    <a href="#" data-bind="click: allRoutes.moveTwo"><label data-bind="text: allRoutes.currentPage2" /></a>
-                    <a href="#" data-bind="click: allRoutes.moveThree"><label data-bind="text: allRoutes.currentPage3" /></a>
                     <a href="#" data-bind="click: allRoutes.moveNext">Next</a>
                     <a href="#" data-bind="click: allRoutes.moveLast">Last</a>
                 </td>
