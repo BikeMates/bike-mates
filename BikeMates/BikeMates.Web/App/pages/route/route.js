@@ -1,17 +1,47 @@
-﻿define(["knockout", "jquery", "text!./routeview.html", "require", "googlemap"], function (ko, $, routeviewTemplate, require, googlemap) {
+﻿define(["knockout", "jquery", "jquery-ui", "text!./route.html", "require", "googlemap"], function (ko, $, $$, RouteTemplate, require, googlemap) {
+
     var tokenKey = "tokenInfo";
-    var Id = location.href.split('?')[1];
 
     var map, service, renderer;
     var data = {};
     var start, end;
-    var userRole = "anonimous";
+
     var initialLocation, browserSupportFlag;
     var ALLOW_EDIT;
     var kiev;
-    var isSubscribed;
-    function RoutevViewModel() {
 
+    ko.bindingHandlers.datepicker = {
+        init: function (element, valueAccessor, allBindingsAccessor) {
+            var options = allBindingsAccessor().datepickerOptions || {},
+                $el = $(element);
+
+            //initialize datepicker with some optional options
+            $el.datepicker(options);
+
+            //handle the field changing
+            ko.utils.registerEventHandler(element, "change", function () {
+                var observable = valueAccessor();
+                observable($el.datepicker("getDate"));
+            });
+
+            //handle disposal (if KO removes by the template binding)
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                $el.datepicker("destroy");
+            });
+
+        },
+        update: function (element, valueAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor()),
+                $el = $(element),
+                current = $el.datepicker("getDate");
+
+            if (value - current !== 0) {
+                $el.datepicker("setDate", value);
+            }
+        }
+    };
+
+    function RouteViewModel(params) {
         var self = this;
         self.id = ko.observable();
         self.title = ko.observable("");
@@ -20,18 +50,13 @@
         self.MeetingPlace = ko.observable("");
         self.Participants = ko.observable();
         self.description = ko.observable("");
-        //self.Start = ko.observable();
-        //self.End = ko.observable();
-        self.ByTitle = ko.observable("");
         self.subscribed = ko.observable(false);
         self.sub_show = ko.observable(true);
         self.unsub_show = ko.observable(true);
         self.Author = ko.observable();
-        self.view = ko.observable(false);
+     
 
-        var self = this;
-
-        self.initialize = function (allowEdit) {
+        self.initialize = function(allowEdit) {
             ALLOW_EDIT = false;
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
@@ -67,14 +92,6 @@
                 });
             }
             renderer.setMap(map);
-
-            renderer.addListener('directions_changed', function () {
-                computeTotalDistance(renderer.getDirections());
-            });
-
-            google.maps.event.addListener(map, 'click', function (event) {
-                placeMarker(event.latLng);
-            });
         }
         self.handleNoGeolocation = function (errorFlag) {
             if (errorFlag == true) {
@@ -86,39 +103,8 @@
             }
             map.setCenter(initialLocation);
         }
-        self.saveRoute = function () {
-            var waypoints = [], wp = [];
-            var routeLeg = renderer.directions.routes[0].legs[0];
-            data.start = {
-                'latitude': routeLeg.start_location.lat(),
-                'longitude': routeLeg.start_location.lng()
-            }
-            data.end = {
-                'latitude': routeLeg.end_location.lat(),
-                'longitude': routeLeg.end_location.lng()
-            }
-            wp = routeLeg.via_waypoints;
 
-            for (var i = 0; i < wp.length; i++) {
-                waypoints[i] = {
-                    'latitude': wp[i].lat(),
-                    'longitude': wp[i].lng()
-                };
-            }
-            data.waypoints = waypoints;
-
-            var stringifiedData = JSON.stringify(data);
-            $('#MapData').val(stringifiedData);
-
-            $.ajax({
-                type: 'PUT',
-                url: 'http://localhost:51952/api/route/put',
-                data: $('#routeForm').serialize(),
-                success: function (response) { }
-            });
-            return false;
-        }
-        self.getRoute = function (id) {
+        self.getRoute= function(id) {
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:51952/api/route/find/' + id,
@@ -127,16 +113,11 @@
                     var mapData = JSON.parse(response.mapData);
 
                     loadRoute(mapData);
-                    $('#Start').val(response.start);
-                    $('#Distance').val(response.distance);
-                    $('#Title').val(response.title);
-                    $('#Description').val(response.description);
-                    $('#MeetingPlace').val(response.meetingPlace);
                     $('#MapData').val(response.mapData);
                 }
             });
         }
-        self.loadRoute = function (route) {
+        self.loadRoute = function(route) {
             var waypoints = [];
             for (var i = 0; i < route.Waypoints.length; i++) {
                 waypoints[i] = {
@@ -148,7 +129,7 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
-        self.displayRoute = function (origin, destination, service, display) {
+        self.displayRoute = function(origin, destination, service, display) {
             displayRoute(origin, destination, service, display, []);
         }
         self.displayRoute = function (origin, destination, service, display, waypoints) {
@@ -166,16 +147,6 @@
                     alert('Could not display directions due to: ' + status);
                 }
             });
-        }
-        self.computeTotalDistance = function (result) {
-            var total = 0;
-            var myroute = result.routes[0];
-            for (var i = 0; i < myroute.legs.length; i++) {
-                total += myroute.legs[i].distance.value;
-            }
-            total = total / 1000;
-            $('#Distance').val(total);
-            return;
         }
         self.placeMarker = function (location) {
             if (start == null) {
@@ -195,45 +166,9 @@
                 displayRoute(start.position, end.position, service, renderer);
             }
         }
-        self.clearMap = function () {
-            if (renderer != null) {
-                renderer.setMap(null);
-                renderer = null;
-            }
-
-            if (ALLOW_EDIT || ALLOW_EDIT == null) {
-                renderer = new google.maps.DirectionsRenderer({
-                    draggable: true
-                });
-            } else {
-                renderer = new google.maps.DirectionsRenderer({
-                    draggable: false,
-                    suppressMarkers: true
-                });
-            }
-            renderer.setMap(map);
-
-            start = null;
-            end = null;
-            data = {};
-        }
-        self.Start = ko.observable(new Date()),
-        self.Distance = ko.observable("");
-        self.Title = ko.observable("");
-        self.Description = ko.observable("");
-        self.MeetingPlace = ko.observable("");
-        self.MapData = ko.observable("");
-        self.save = function () {
-            alert("Route added to DB\n" +
-                "Remove alert and make redirect to all user routes\n" +
-                "after that page is ready");
-            saveRoute();
-        }
-        self.Load = function (id) {
+        self.Load = function(id) {
             getRoute(id);
         }
-
-
         self.subscribe = function () {
             var apiurl = "http://localhost:51952/api/subscribe/" + 91;
             $.ajax({
@@ -367,8 +302,20 @@
             error: function (data) {
             }
         });
-        return self;
+        $.ajax({
+            url: "http://localhost:51952/api/route/find" + '/' + 2,
+            contentType: "application/json",
+            type: "GET",
+            success: function (data) {
+                self.title(data.title);
+                self.description(data.description);
+                self.start(data.start);
+                self.distance(data.distance);
+                self.MeetingPlace(data.meetingPlace);
+                self.Author(data.Author);
+            }
+        });
+        return Load(2);
     }
-    return { viewModel: RoutevViewModel, template: routeviewTemplate };
+    return { viewModel: RouteViewModel(), template: RouteTemplate };
 });
-

@@ -230,6 +230,8 @@
     <Content Include="App\pages\admin\bannedRoutes.js" />
     <Content Include="App\pages\error\error.html" />
     <Content Include="App\pages\error\error.js" />
+    <Content Include="App\pages\route\route.html" />
+    <Content Include="App\pages\route\route.js" />
     <Content Include="App\pages\route\newroute.html" />
     <Content Include="App\pages\route\newroute.js" />
     <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />
