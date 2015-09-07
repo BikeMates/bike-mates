@@ -39,8 +39,8 @@ namespace BikeMates.Service.Models
 
         public string Distance { get; set; }
 
-        public virtual string Subscribers { get; set; }
-        public virtual string Author { get; set; }
+        public string Subscribers { get; set; }
+        public string Author { get; set; }
         public bool IsSubscribed { get; set; }
 
         public bool IsBanned { get; set; }
@@ -82,6 +82,18 @@ namespace BikeMates.Service.Models
         }
         public static RouteViewModel MapToViewModel(Route route)
         {
+            //yes, it's dirty code. it's temporary
+            var subscribers = new List<SubscriberViewModel>();
+            foreach (var item in route.Subscribers)
+            {
+                subscribers.Add(new SubscriberViewModel
+                {
+                    Id = item.Id,
+                    FirstName = item.FirstName,
+                    SecondName = item.SecondName
+                });
+            }
+
             RouteViewModel _route = new RouteViewModel
             {
                 Id = route.Id,
@@ -91,8 +103,13 @@ namespace BikeMates.Service.Models
                 MeetingPlace = route.MeetingPlace,
                 Start = route.Start,
                 Distance = route.Distance.ToString(),
-                //Author = JsonConvert.SerializeObject(route.Author),
-                //Subscribers = JsonConvert.SerializeObject(route.Subscribers),
+                Author = JsonConvert.SerializeObject(new SubscriberViewModel
+                {
+                    Id = route.Author.Id,
+                    FirstName = route.Author.FirstName,
+                    SecondName = route.Author.SecondName
+                }),
+                Subscribers = JsonConvert.SerializeObject(subscribers),
                 IsBanned = route.IsBanned
             };
             return _route;
