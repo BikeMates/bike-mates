@@ -10,7 +10,6 @@
     var initialLocation, browserSupportFlag;
     var allowEdit = false;
     var kiev;
-    var Ide = location.href.split('?')[1];
 
     function RouteViewModel(params) {
         var self = this;
@@ -211,7 +210,7 @@
             getRoute(id);
         }
         self.subscribe = function () {
-            var apiurl = "http://localhost:51952/api/subscribe/" + 91;
+            var apiurl = "http://localhost:51952/api/subscribe/" + Id;
             $.ajax({
                 url: apiurl,
                 contentType: "application/json",
@@ -235,7 +234,7 @@
             });
         }
         self.unsubscribe = function () {
-            var apiurl = "http://localhost:51952/api/subscribe/" + 91;
+            var apiurl = "http://localhost:51952/api/subscribe/" + Id;
             $.ajax({
                 url: apiurl,
                 contentType: "application/json",
@@ -307,7 +306,7 @@
             }
         };
         $.ajax({
-            url: "http://localhost:51952/api/route/findlogged" + '/' + Ide,
+            url: "http://localhost:51952/api/route/findlogged" + '/' + Id,
             contentType: "application/json",
             type: "GET",
             headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
@@ -345,7 +344,7 @@
         });
         self.author = function () {
             $.ajax({
-                url: "http://localhost:51952/api/route/find" + '/' + Ide,
+                url: "http://localhost:51952/api/route/find" + '/' + Id,
                 contentType: "application/json",
                 type: "GET",
                 dataType: 'json',
@@ -360,7 +359,7 @@
         }
 
         $.ajax({
-            url: "http://localhost:51952/api/route/find" + '/' + Ide,
+            url: "http://localhost:51952/api/route/find" + '/' + Id,
             contentType: "application/json",
             type: "GET",
             success: function (data) {
@@ -373,7 +372,7 @@
             }
         });
 
-        return Load(Ide);
+        return Load(Id);
     }
     function Author(FirstName,SecondName ) {
         var self = this;

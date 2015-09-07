@@ -116,6 +116,8 @@
         self.distance = ko.observable("");
         self.Participants = ko.observable();
         self.Location = ko.observable("");
+        self.DateFrom = ko.observable();
+        self.DateTo = ko.observable();
         self.DateFrom = ko.observable("");
         self.DateTo = ko.observable("");
         self.MinDistance = ko.observable("");
