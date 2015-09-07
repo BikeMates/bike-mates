@@ -66,15 +66,23 @@ namespace BikeMates.Application.Services
             return message;
         }
 
-        public IdentityResult ChangePassword(string oldPassword, string newPassword, string newPassConfirmation, string id)
+        public IEnumerable<string> ChangePassword(string oldPassword, string newPassword, string newPasswordConfirmation, string id)
         {
-            if (!String.IsNullOrEmpty(oldPassword) && !String.IsNullOrEmpty(newPassword) && !String.IsNullOrEmpty(newPassConfirmation)
-                && newPassword == newPassConfirmation)
-            {
-                return this.userRepository.ChangePassword(oldPassword, newPassword, id);
-            }
+            List<string> passwordErrors = new List<string>();
+            passwordErrors.AddRange(this.CheckUserPassword(oldPassword, newPassword, newPasswordConfirmation));
 
-            return IdentityResult.Failed("Password change operation failed - please check your input");
+            if (!String.IsNullOrWhiteSpace(oldPassword) && !String.IsNullOrWhiteSpace(newPassword) && !String.IsNullOrWhiteSpace(newPasswordConfirmation)
+                && newPassword == newPasswordConfirmation)
+            {
+                IdentityResult passwordResult = this.userRepository.ChangePassword(oldPassword, newPassword, id);
+                if (!passwordResult.Succeeded)
+                    {
+                        List<string> identityResultErrors = new List<string>(passwordResult.Errors);
+                        passwordErrors.AddRange(identityResultErrors);
+                    }
+            }
+            return passwordErrors;
+           
         }
 
         public IdentityResult ResetPassword(string id, string code, string password)
@@ -93,21 +101,75 @@ namespace BikeMates.Application.Services
             userRepository.UnbanUsers(userIds);
         }
 
-        public IdentityResult CheckUserInfo(User entity)
-        {
-            if (String.IsNullOrWhiteSpace(entity.FirstName) && String.IsNullOrWhiteSpace(entity.SecondName))
-            {
-                return IdentityResult.Failed("First name field cant be empty", "Second name field cant be empty"); 
-            }
-
+        public IEnumerable<string> CheckUserName(User entity)
+        { 
+            List<string> nameErrors = new List<string>();
+          
             if (String.IsNullOrWhiteSpace(entity.FirstName))
-            { return IdentityResult.Failed("First name field cant be empty"); }
+            { nameErrors.Add("First name field cant be empty"); }
 
             if (String.IsNullOrWhiteSpace(entity.SecondName))
-            {return IdentityResult.Failed("Second name field cant be empty"); }
+            {nameErrors.Add("Second name field cant be empty"); }
 
-            return IdentityResult.Success;
-        
+            return nameErrors;
+        }
+
+        public IEnumerable<string> CheckUserInfo(string firstName, string secondName, string about, string userId)
+        {
+            List<string> informationStatus = new List<string>();
+            User user = this.GetUser(userId);
+
+            if ( user.FirstName != firstName  )
+                {
+                    informationStatus.Add("First name changed");
+                }
+            if (user.SecondName != secondName)
+                {
+                    informationStatus.Add("Second name changed");
+                }
+            if (user.About != about)
+                {
+                    informationStatus.Add("About changed");
+                }
+
+            return informationStatus;
+        }
+
+        public IEnumerable<string> CheckUserName(string firstName, string secondName)
+        {
+            List<string> nameErrors = new List<string>();
+
+            if ( String.IsNullOrWhiteSpace(firstName))
+                {
+                    nameErrors.Add("First name cannot be empty");
+                }
+            if (String.IsNullOrWhiteSpace(secondName))
+                {
+                    nameErrors.Add("Second name cannot be empty");
+                }
+
+            return nameErrors;
+        }
+
+        public IEnumerable<string> CheckUserPassword(string oldPassword, string newPassword, string newPasswordConfirmation)
+        {
+            List<string> passwordErrors = new List<string>();
+            if (!String.IsNullOrWhiteSpace(oldPassword) && !String.IsNullOrWhiteSpace(newPassword) && !String.IsNullOrWhiteSpace(newPasswordConfirmation))
+            {
+                if ( newPassword  != newPasswordConfirmation)
+                    {
+                      passwordErrors.Add("New password and password confirmation does not match");
+                    }
+                if ( newPassword.Length < 6 )
+                    {
+                        passwordErrors.Add("New password is less than 6 symbols");
+                    }
+                if ( newPasswordConfirmation.Length < 6 )
+                    {
+                        passwordErrors.Add("New password confirmation is less than 6 symbols");
+                    }
+            }
+            return passwordErrors;
         }
 
 
