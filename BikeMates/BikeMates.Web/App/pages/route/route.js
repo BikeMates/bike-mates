@@ -11,6 +11,66 @@
     var allowEdit = false;
     var kiev;
 
+    ko.extenders.paging = function (target, pageSize) {
+        var _pageSize = ko.observable(pageSize || 100),
+            _currentPage = ko.observable(1);
+
+        target.pageSize = ko.computed({
+            read: _pageSize,
+            write: function (newValue) {
+                if (newValue > 0) {
+                    _pageSize(newValue);
+                }
+                else {
+                    _pageSize(200);
+                }
+            }
+        });
+
+        target.currentPage = ko.computed({
+            read: _currentPage,
+            write: function (newValue) {
+                if (newValue > target.pageCount()) {
+                    _currentPage(target.pageCount());
+                }
+                else if (newValue <= 0) {
+                    _currentPage(1);
+                }
+                else {
+                    _currentPage(newValue);
+                }
+            }
+        });
+
+        target.pageCount = ko.computed(function () {
+            return Math.ceil(target().length / target.pageSize()) || 1;
+        });
+
+        target.currentPageData = ko.computed(function () {
+            var pageSize = _pageSize(),
+                pageIndex = _currentPage(),
+                startIndex = pageSize * (pageIndex - 1),
+                endIndex = pageSize * pageIndex;
+
+            return target().slice(startIndex, endIndex);
+        });
+
+        target.moveFirst = function () {
+            target.currentPage(1);
+        };       
+        target.movePrevious = function () {
+            target.currentPage(target.currentPage() - 1);
+        };
+        target.moveNext = function () {
+            target.currentPage(target.currentPage() + 1);
+        };
+        target.moveLast = function () {
+            target.currentPage(target.pageCount());
+        };
+
+        return target;
+    };
+
     function RouteViewModel(params) {
         var self = this;
         self.id = ko.observable();
@@ -23,10 +83,11 @@
         self.subscribed = ko.observable(false);
         self.sub_show = ko.observable(true);
         self.unsub_show = ko.observable(true);
-        self.Author = ko.observable("");
+        self.Author = ko.observable();
         self.FirstName = ko.observable("");
         self.SecondName = ko.observable("");
         self.IsBanned = ko.observable(true);
+        self.Subscribes = ko.observableArray([]).extend({ paging: 5 });
 
         self.initialize = function () {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
@@ -82,6 +143,57 @@
             }
             map.setCenter(initialLocation);
         }
+        function saveRoute() {
+            var waypoints = [], wp = [];
+            var routeLeg = renderer.directions.routes[0].legs[0];
+            data.start = {
+                'latitude': routeLeg.start_location.lat(),
+                'longitude': routeLeg.start_location.lng()
+            }
+            data.end = {
+                'latitude': routeLeg.end_location.lat(),
+                'longitude': routeLeg.end_location.lng()
+            }
+            wp = routeLeg.via_waypoints;
+
+            for (var i = 0; i < wp.length; i++) {
+                waypoints[i] = {
+                    'latitude': wp[i].lat(),
+                    'longitude': wp[i].lng()
+                };
+            }
+            data.waypoints = waypoints;
+
+            var stringifiedData = JSON.stringify(data);
+            $('#MapData').val(stringifiedData);
+
+            $.ajax({
+                type: 'PUT',
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                url: 'http://localhost:51952/api/route/put',
+                data: $('#routeForm').serialize(),
+                success: function (response) { }
+            });
+            return false;
+        }
+        function getRoute(id) {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:51952/api/route/find/' + id,
+                response: JSON,
+                success: function (response) {
+                    var mapData = JSON.parse(response.mapData);
+
+                    loadRoute(mapData);
+                    $('#Start').val(response.start);
+                    $('#Distance').val(response.distance);
+                    $('#Title').val(response.title);
+                    $('#Description').val(response.description);
+                    $('#MeetingPlace').val(response.meetingPlace);
+                    $('#MapData').val(response.mapData);
+                }
+            });
+        }
         function loadRoute(route) {
             var waypoints = [];
             for (var i = 0; i < route.Waypoints.length; i++) {
@@ -93,6 +205,9 @@
             var origin = new google.maps.LatLng(route.Start.Latitude, route.Start.Longitude);
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
+        }
+        function displayRoute(origin, destination, service, display) {
+            displayRoute(origin, destination, service, display, []);
         }
         function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
@@ -148,10 +263,6 @@
                     console.log("getRoute");
                     loadRoute(mapData);
                     self.IsBanned(response.isBanned);
-
-                    var author = JSON.parse(response);
-                    console.log(author);
-                    $('#Author').val(author);
                     $('#MapData').val(response.mapData);
                 }
             });
@@ -261,13 +372,6 @@
             type: "GET",
             headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
             success: function (data) {
-                //self.Start(data.Start)
-                //self.End(data.End)
-                self.title(data.title);
-                self.start(data.start);
-                self.distance(data.distance);
-                self.MeetingPlace(data.meetingPlace);
-                self.Author(data.Author);
                 self.description(data.description);
                 self.subscribed(data.isSubscribed);
 
@@ -292,9 +396,9 @@
             error: function (data) {
             }
         });
-        self.author = function () {
+        self.Subscribes = function () {
             $.ajax({
-                url: "http://localhost:51952/api/route/find" + '/' + Id,
+                url: "http://localhost:51952/api/route/find"+'/'+Id,
                 contentType: "application/json",
                 type: "GET",
                 dataType: 'json',
@@ -302,12 +406,21 @@
                 success: function (data) {
                     $.each(data, function (key, val) {
 
-                        self.Author.push(new Author(val.FirstName,val.SecondName));
+                        self.Subscribes.push(new User(val.id, val.FirstName, val.SecondName));
                     });
                 }
             });
         }
-
+        self.Author = function () {
+            $.ajax({
+                url: "http://localhost:51952/api/route/find"+'/'+Id,
+                contentType: "application/json",
+                type: "GET",
+                success: function (data) {
+                    //self.Author(new User(data.author.id, data.author.FirstName, data.author.SecondName));
+                }
+            });
+        }
         $.ajax({
             url: "http://localhost:51952/api/route/find" + '/' + Id,
             contentType: "application/json",
@@ -318,16 +431,19 @@
                 self.start(data.start);
                 self.distance(data.distance);
                 self.MeetingPlace(data.meetingPlace);
-                self.Author(data.Author);
             }
         });
+        self.goToUser = function (id) {
+            return "http://localhost:51949/#profile?" + id;
+        };
 
         return Load(Id);
     }
-    function Author(FirstName,SecondName ) {
+    function User(id,FirstName,SecondName ) {
         var self = this;
         self.FirstName = FirstName;
         self.SecondName = SecondName;
+        self.id = id;
     }
     return { viewModel: RouteViewModel(), template: RouteTemplate };
 });
