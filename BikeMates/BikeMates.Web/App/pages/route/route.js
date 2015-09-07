@@ -10,6 +10,7 @@
     var initialLocation, browserSupportFlag;
     var ALLOW_EDIT;
     var kiev;
+    var Ide = location.href.split('?')[1];
 
     function RouteViewModel(params) {
         var self = this;
@@ -239,7 +240,7 @@
             }
         };
         $.ajax({
-            url: "http://localhost:51952/api/route/findlogged" + '/' + self.id,
+            url: "http://localhost:51952/api/route/findlogged" + '/' + Ide,
             contentType: "application/json",
             type: "GET",
             headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
@@ -277,7 +278,7 @@
         });
         self.author = function () {
             $.ajax({
-                url: "http://localhost:51952/api/route/find" + '/' + self.id,
+                url: "http://localhost:51952/api/route/find" + '/' + Ide,
                 contentType: "application/json",
                 type: "GET",
                 dataType: 'json',
@@ -291,13 +292,8 @@
             });
         }
 
-        $.getJSON("http://localhost:51952/api/route/returnid", function (data) {
-            self.id(data.id);
-            console.log("pashe");
-        })
-
         $.ajax({
-            url: "http://localhost:51952/api/route/find" + '/' + self.id,
+            url: "http://localhost:51952/api/route/find" + '/' + Ide,
             contentType: "application/json",
             type: "GET",
             success: function (data) {

@@ -59,15 +59,6 @@ namespace BikeMates.Service.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("GetId/{id}")]
-        public int GetId(int id)
-        {
-            ID = id;
-            return id;
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
         [Route("ReturnId")]
         public int ReturnId()
         {
