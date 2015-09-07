@@ -151,8 +151,18 @@
         return self;
     }
 
-    goToRoute = function (r) {
-            console.log("item module id " + r.id());
+    self.goToRoute = function (id) {
+        $.ajax({
+            url: "http://localhost:51952/api/route/getid"+'/'+id,
+            contentType: "application/json",
+            type: "GET",
+            success: function (data) {
+                console.log("success");
+            },
+            error: function (data) {
+            }
+        });
+        //window.location = "http://localhost:51949/#route?"+id;
     };
     function route(author, description, distance, id, isBanned, mapData, meetingPlace, start, subscribers, title) {
         var self = this;

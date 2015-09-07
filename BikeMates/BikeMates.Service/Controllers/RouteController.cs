@@ -13,6 +13,7 @@ namespace BikeMates.Service.Controllers
     {   
         private readonly IRouteService routeService;
         private readonly IUserService userService;
+        private int ID;
 
         public RouteController(IRouteService routeService, IUserService userService)
         {
@@ -55,6 +56,15 @@ namespace BikeMates.Service.Controllers
         {
             return routeService.Find(id).MapData;
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("ReturnId")]
+        public int ReturnId()
+        {
+            return ID;
+        }
+
 
         [HttpPut]
         [Route("Put")]
@@ -106,9 +116,10 @@ namespace BikeMates.Service.Controllers
             }
 
             RouteSortOptions orderByField = RouteSortOptions.Date;
-
-            Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField);
-            searchParameters.SortOrder = orderByField;
+            if (Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField))
+            {
+                searchParameters.SortOrder = orderByField;
+            }
 
             IEnumerable<Route> routes = routeService.Search(searchParameters).ToArray();
 

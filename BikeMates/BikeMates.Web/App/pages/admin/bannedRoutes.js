@@ -123,7 +123,7 @@
         self.title = title;
         self.description = description;
         self.routeLink = ko.computed(function () {
-            return "http://localhost:51949/#routeview?" + self.id;
+            return "http://localhost:51949/#route?" + self.id;
         }, this);
     }
     return { viewModel: BannedRoutesViewModel, template: bannedRoutesTemplate };

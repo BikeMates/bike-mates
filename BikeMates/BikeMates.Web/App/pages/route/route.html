@@ -1,0 +1,36 @@
+﻿<div >
+    <table align="left">
+        <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+        <tr><td><label type="text" id="title" data-bind="text: title" /></td></tr>
+        <tr>
+            <td>
+            <div style="height:500px; width:800px;" id="map"></div>
+                </td>
+        </tr>
+    </table>
+    <table align="center" class="pagination">
+        <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+        <tr><td><label>Author: </label></td><td><label type="text" id="start" data-bind="text: Author" /></td></tr>
+        <tr><td><label>Start: </label></td><td><label type="text" id="start" data-bind="text: start" /></td></tr>
+        <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" />km</td></tr>
+        <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
+        <tr><td><label>Description: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: description" /></td></tr>
+    </table>
+    <p>
+        <input type="image" src="../../../Content/Images/google-plus.png" alt="Share" width="48" height="48" onclick="Share.google('URL','TITLE','IMG_PATH','DESC')" />
+        <input type="image" src="../../../Content/Images/VK.com-logo.svg.png" alt="Share" width="45" height="45" onclick="Share.vkontakte('URL','TITLE','IMG_PATH','DESC')" />
+        <input type="image" src="../../../Content/Images/FB.png" alt="Share" width="52" height="52" onclick="Share.facebook('URL','TITLE','IMG_PATH','DESC')" />
+    </p>
+    <br />
+
+    <div class="form-group">
+        <div id="sub_div" data-bind="visible : sub_show">
+            <button type="button" class="btn btn-success" id="sub_btn" data-bind="click: subscribe " resource="">Subscribe</button>
+        </div>
+        <div id="unsub_div" data-bind="visible : unsub_show">
+            <button type="button" class="btn btn-danger" id="unsub_btn" data-bind="click: unsubscribe" resource="">Unsubscribe</button>
+        </div>
+        <button type="button" class="btn btn-danger" data-bind="click: ban, visible: IsAdmin" resource="">Ban</button>
+    </div>
+    <link rel="stylesheet" href="/Content/jquery-ui.css">
+</div>

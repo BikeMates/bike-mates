@@ -230,6 +230,8 @@
     <Content Include="App\pages\admin\bannedRoutes.js" />
     <Content Include="App\pages\error\error.html" />
     <Content Include="App\pages\error\error.js" />
+    <Content Include="App\pages\route\route.html" />
+    <Content Include="App\pages\route\route.js" />
     <Content Include="App\pages\route\newroute.html" />
     <Content Include="App\pages\route\newroute.js" />
     <Content Include="App\pages\account\confirmForgotPassword\confirmForgotPassword.html" />
@@ -238,8 +240,6 @@
     <Content Include="App\pages\account\forgotpassword\forgotPassword.js" />
     <Content Include="App\pages\account\resetpassword\resetPassword.html" />
     <Content Include="App\pages\account\resetpassword\resetPassword.js" />
-    <Content Include="App\pages\route\routeview.html" />
-    <Content Include="App\pages\route\routeview.js" />
     <Content Include="Content\Images\error\400.jpg" />
     <Content Include="Content\Images\error\401.png" />
     <Content Include="Content\Images\error\403.png" />
