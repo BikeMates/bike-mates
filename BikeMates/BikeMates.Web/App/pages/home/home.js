@@ -116,8 +116,13 @@
         self.distance = ko.observable("");
         self.Participants = ko.observable();
         self.Location = ko.observable("");
+<<<<<<< HEAD
         self.DateFrom = ko.observable();
         self.DateTo = ko.observable();
+=======
+        self.DateFrom = ko.observable("");
+        self.DateTo = ko.observable("");
+>>>>>>> b5595a288e70d5d011c52feb21bc90254760f32c
         self.MinDistance = ko.observable("");
         self.MaxDistance = ko.observable("");
         self.description = ko.observable("");
@@ -156,7 +161,6 @@
         }
     }
     self.goToRoute = function (id) {
-       
        window.location = "http://localhost:51949/#route?"+id;
     };
     function route(author, description, distance, id, isBanned, mapData, meetingPlace, start, subscribers, title) {
