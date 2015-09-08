@@ -1,5 +1,4 @@
-﻿define(["knockout", "jquery", "jquery-ui", "text!./editroute.html", "require", "googlemap"], function (ko, $, $$, RouteTemplate, require, googlemap) {
-
+﻿define(["knockout", "jquery", "jquery-ui", "text!./editroute.html", "googlemap"], function (ko, $, $$, RouteTemplate, googlemap) {
     var tokenKey = "tokenInfo";
 
     var map, service, renderer;
@@ -43,6 +42,11 @@
 
     function EditRouteViewModel(params) {
         var self = this;
+        setTimeout(function () {
+            initialize();
+            self.Load(Id);
+            console.log('google maps initialized');
+        }, 50);
         var Id = location.href.split('?')[1];
 
         if (sessionStorage.getItem('authorized') != 'true') {
@@ -56,7 +60,7 @@
         self.MeetingPlace = ko.observable("");
         self.MapData = ko.observable("");
 
-        self.initialize = function(allowEdit) {
+        function initialize () {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
@@ -275,7 +279,7 @@
                 }
             });
         }
-        self.Load(Id);
+
     }
     return { viewModel: EditRouteViewModel(), template: RouteTemplate };
 });

@@ -73,6 +73,12 @@
     };
 
     function RouteViewModel(params) {
+        setTimeout(function () {
+            initialize();
+
+            Load(Id);
+            console.log('google maps initialized');
+        }, 50);
         var self = this;
         self.id = ko.observable();
         self.title = ko.observable("");
@@ -89,8 +95,7 @@
         self.SecondName = ko.observable("");
         self.IsBanned = ko.observable(true);
         self.Subscribes = ko.observableArray([]).extend({ paging: 5 });
-
-        self.initialize = function () {
+        function initialize () {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
@@ -126,13 +131,6 @@
             }
             renderer.setMap(map);
 
-            renderer.addListener('directions_changed', function () {
-                computeTotalDistance(renderer.getDirections());
-            });
-
-            google.maps.event.addListener(map, 'click', function (event) {
-                placeMarker(event.latLng);
-            });
         }
         function handleNoGeolocation(errorFlag) {
             if (errorFlag == true) {
@@ -156,9 +154,6 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
-        function displayRoute(origin, destination, service, display) {
-            displayRoute(origin, destination, service, display, []);
-        }
         function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
                 origin: origin,
@@ -174,34 +169,6 @@
                     alert('Could not display directions due to: ' + status);
                 }
             });
-        }
-        function computeTotalDistance(result) {
-            var total = 0;
-            var myroute = result.routes[0];
-            for (var i = 0; i < myroute.legs.length; i++) {
-                total += myroute.legs[i].distance.value;
-            }
-            total = total / 1000;
-            $('#Distance').val(total);
-            return;
-        }
-        function placeMarker(location) {
-            if (start == null) {
-                start = new google.maps.Marker({
-                    position: location,
-                    map: map
-                });
-                return;
-            }
-            if (start != null && end == null) {
-                end = new google.maps.Marker({
-                    position: location,
-                    map: map
-                });
-                start.setMap(null);
-                end.setMap(null);
-                displayRoute(start.position, end.position, service, renderer);
-            }
         }
         function getRoute() {
             $.ajax({
@@ -380,7 +347,6 @@
             return "http://localhost:51949/#profile?" + id;
         };
 
-        return Load(Id);
     }
     function User(id,FirstName,SecondName ) {
         var self = this;
