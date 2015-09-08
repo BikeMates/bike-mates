@@ -10,8 +10,6 @@
     var initialLocation, browserSupportFlag;
     var allowEdit = false;
     var kievCoordinates = { lat: 50.464484293992086, lng: 30.522704422473907 };
-
-
     ko.extenders.paging = function (target, pageSize) {
         var _pageSize = ko.observable(pageSize || 100),
             _currentPage = ko.observable(1);
@@ -178,6 +176,7 @@
                     console.log("getRoute");
                     loadRoute(mapData);
                     var author = JSON.parse(response.author);
+                    $("#AuthorLink").attr("href", "http://localhost:51949/#profile?" + author.Id)
                     self.Author(author.FirstName + author.SecondName);
                     self.title(response.title);
                     self.description(response.description);
@@ -340,6 +339,7 @@
         self.goToUser = function (id) {
             return "http://localhost:51949/#profile?" + id;
         };
+
 
     }
     function User(id,FirstName,SecondName ) {
