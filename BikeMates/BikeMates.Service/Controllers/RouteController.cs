@@ -108,7 +108,6 @@ namespace BikeMates.Service.Controllers
             searchParameters.AuthorId = this.UserId;
             
             var orderByField = RouteSortOptions.AllRoutes;
-
             if (Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField))
             {
                 searchParameters.SortOrder = orderByField;
