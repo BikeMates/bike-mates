@@ -1,16 +1,16 @@
 ﻿
 <div class="row">
     <div id="userFunctions">
-        <div class="col-md-2">
-            <select id="route_sections" class="form-control" data-bind="visible: isRouteSectionsVisible">
+        <div class="col-md-1">
+            <select id="route_sections" class="form-control" data-bind="visible: isRouteSectionsVisible" style="width:150px">
                 <option value="All Routes">All Routes</option>
                 <option value="My Routes">My Routes</option>
                 <option value="Subscription">Subscription</option>
             </select>
         </div>
 
-        <div class="col-md-2" data-bind="visible: isAddRouteVisible">
-            <a href="#newroute" class="btn btn-primary active" id="addroute">Add new route</a>
+        <div  data-bind="visible: isAddRouteVisible" >
+            <a href="#newroute" class="btn btn-primary" id="addroute" style="margin-left:82px">Add new route</a>
         </div>
     </div>
     <div class="text-right">
@@ -26,7 +26,7 @@
 
 <table>
     <tr>
-        <td><h4>Meeting place </h4></td>
+        <td><h4>By text </h4></td>
         <td><input type="text" size="25" class="filter-inpt " id="Location" name="Location" data-bind="value:Location" /> </td>
     </tr>
     <tr>
@@ -47,7 +47,7 @@
         </td>
     </tr>
 </table>
-<button type="button" class="btn btn-default filter-btn" style="width:320px" data-bind="click: searchRoutes" id="Search">SEARCH</button>
+<button type="button" class="btn btn-primary" style="width:280px" data-bind="click: searchRoutes" id="Search">SEARCH</button>
 
 <div class="row result-filter-row">
     <table class="result-silter-itm" align="center">

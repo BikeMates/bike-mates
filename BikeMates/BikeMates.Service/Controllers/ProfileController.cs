@@ -3,6 +3,7 @@ using BikeMates.Contracts.Services;
 using BikeMates.Domain.Entities;
 using BikeMates.Service.Models;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -55,35 +56,17 @@ namespace BikeMates.Service.Controllers
             if (nameErrors.Count == 0)
             {
                 information = (List<string>)userService.CheckUserInfo(editProfileViewModel.FirstName, editProfileViewModel.SecondName, editProfileViewModel.About, this.UserId);
+                if (passwordErrors.Count == 0 && !String.IsNullOrWhiteSpace(editProfileViewModel.NewPassword) && !String.IsNullOrWhiteSpace(editProfileViewModel.OldPassword) && !String.IsNullOrWhiteSpace(editProfileViewModel.NewPasswordConfirmation))
+                    {
+                        information.Add("Password changed");
+                    }
 
                 user.FirstName = editProfileViewModel.FirstName;
                 user.About = editProfileViewModel.About;
                 user.SecondName = editProfileViewModel.SecondName;
                 userService.Update(user);
-
             }
-            
-            if (passwordErrors.Count != 0)
-                {
-                    IdentityResult irs = new IdentityResult(passwordErrors);
-                    IHttpActionResult errorResult = GetErrorResult(irs);
-                    HttpResponseMessage ia = await this.GetErrorResult(irs).ExecuteAsync(new CancellationToken());
-
-
-                }
-                    //   IHttpActionResult errorResult = GetErrorResult(result);
-          //  IdentityResult ir = userService.CheckUserInfo(user);
-
-          //  IdentityResult dd = new IdentityResult();
-          
-            //if (errorResult != null)
-            //{
-          //      HttpResponseMessage ia = await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
-              //  return await this.GetErrorResult(result).ExecuteAsync(new CancellationToken());
-            //}
-
             return new ValidationResponseViewModel(passwordErrors, information , nameErrors);
-            //return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
