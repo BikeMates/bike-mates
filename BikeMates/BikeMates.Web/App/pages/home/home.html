@@ -1,23 +1,14 @@
-﻿
-<div class="row">
+﻿<div class="row">
     <div id="userFunctions">
-<<<<<<< HEAD
-        <div class="col-md-2">
-            <select id="route_sections" class="form-control" data-bind="visible: isRouteSectionsVisible">
-                <option value="All Routes" data-bind="click:setOrderAndSearch.bind($data,'AllRoutes')">All Routes</option>
-                <option value="My Routes" data-bind="click:setOrderAndSearch.bind($data,'MyRoutes')">My Routes</option>
-                <option value="Subscription" data-bind="click:setOrderAndSearch.bind($data,'Subscription')">Subscription</option>
-=======
         <div class="col-md-1">
             <select id="route_sections" class="form-control" data-bind="visible: isRouteSectionsVisible" style="width:150px">
-                <option value="All Routes">All Routes</option>
-                <option value="My Routes">My Routes</option>
-                <option value="Subscription">Subscription</option>
->>>>>>> 4d83eccaf3d9766645dbef94f7c00127fae792a4
+                <option value="All Routes" data-bind="click: setOrderAndRout.bind($data,'AllRoutes')">All Routes</option>
+                <option value="My Routes" data-bind="click: setOrderAndRout.bind($data,'MyRoutes')">My Routes</option>
+                <option value="Subscription" data-bind="click: setOrderAndRout.bind($data,'Subscription')">Subscription</option>
             </select>
         </div>
 
-        <div  data-bind="visible: isAddRouteVisible" >
+        <div data-bind="visible: isAddRouteVisible">
             <a href="#newroute" class="btn btn-primary" id="addroute" style="margin-left:82px">Add new route</a>
         </div>
     </div>

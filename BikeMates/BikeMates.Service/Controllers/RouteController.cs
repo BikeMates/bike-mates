@@ -134,8 +134,8 @@ namespace BikeMates.Service.Controllers
 
             var orderByField = RouteSortOptions.Date;
             
-          //  User user = userService.GetUser(this.UserId);
-          //  searchParameters.AuthorId = user.Id;
+           // User user = userService.GetUser(this.UserId);
+            //searchParameters.AuthorId = user.Id;
 
             if (Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField))
             {
