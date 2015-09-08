@@ -76,7 +76,7 @@
         var self = this;
         self.id = ko.observable();
         self.title = ko.observable("");
-        self.start = ko.observable("");
+        self.start = ko.observable(new Date());
         self.distance = ko.observable("");
         self.MeetingPlace = ko.observable("");
         self.Participants = ko.observable();
@@ -212,7 +212,11 @@
                     var mapData = JSON.parse(response.mapData);
                     console.log("getRoute");
                     loadRoute(mapData);
-
+                    self.title(response.title);
+                    self.description(response.description);
+                    self.start(response.start);
+                    self.distance(response.distance);
+                    self.MeetingPlace(response.meetingPlace);
                     self.IsBanned(response.isBanned);
                     $('#MapData').val(response.mapData);
                 }
@@ -372,18 +376,6 @@
         //        }
         //    });
         //}
-        $.ajax({
-            url: "http://localhost:51952/api/route/find" + '/' + Id,
-            contentType: "application/json",
-            type: "GET",
-            success: function (data) {
-                self.title(data.title);
-                self.description(data.description);
-                self.start(data.start);
-                self.distance(data.distance);
-                self.MeetingPlace(data.meetingPlace);
-            }
-        });
         self.goToUser = function (id) {
             return "http://localhost:51949/#profile?" + id;
         };
