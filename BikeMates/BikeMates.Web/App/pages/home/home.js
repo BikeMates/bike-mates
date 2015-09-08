@@ -177,7 +177,7 @@
         self.isBanned = isBanned;
         self.mapData = mapData;
         self.meetingPlace = meetingPlace;
-        self.start = start;
+        self.start = start.split('T')[0];
         self.subscribers = subscribers;
         self.title = title;
     }

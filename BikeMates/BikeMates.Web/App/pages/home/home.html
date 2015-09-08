@@ -53,13 +53,13 @@
         <tbody data-bind="foreach: allRoutes.currentPageData">
             <tr>
                 <td class="result-silter-itm" style="width:820px">
-                    <a href="" data-bind="attr:{href:  goToRoute(id)}"><label data-bind="text: title" /> </a>
-                    Start:<label data-bind="text: start"></label>
-                    Distance:<label data-bind="text: distance"></label>
+                    <a href="" data-bind="attr:{href:  goToRoute(id)}"><label data-bind="text: title" /></a><br/>
+                    <strong>Start:</strong><span data-bind="text: start"></span>
+                    <strong>Distance:</strong><span data-bind="text: distance"></span>
                     <br />
-                    MeetingPlace:<label data-bind="text: meetingPlace"></label>
+                    <strong>MeetingPlace:</strong><span data-bind="text: meetingPlace"></span>
                     <br />
-                    Description:<label data-bind="text: description"></label>
+                    <strong>Description:</strong><span data-bind="text: description"></span>
                 </td>
             </tr>
         </tbody>
