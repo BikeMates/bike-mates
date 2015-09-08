@@ -3,7 +3,7 @@
     <li><a href="#bannedroutes"><strong>Baned routes</strong></a></li>
 </ul>
 <div style="margin-bottom:20px">
-<input type="button" value="Unban" class="btn btn-default" data-bind="click: unban" />
+    <input type="button" value="Unban" class="btn btn-success" data-bind="click: unban, visible: NotEmpty" />
 </div>
 <div class="list-group" class="banned" data-bind="foreach: users.currentPageData">
     <div class="list-group-item">
@@ -31,15 +31,15 @@
         <tr>
             <td>
                 <div style="clear: both"></div>
-                <ul class="pager">
-                    <li> <a href="#admin" data-bind="click: users.moveFirst">&laquo;</a></li>
-                    <li> <a href="#admin" data-bind="click: users.movePrevious">&lsaquo;</a></li>
+                    <ul class="pager" data-bind="visible: NotEmpty">
+                        <li> <a href="#admin" data-bind="click: users.moveFirst">&laquo;</a></li>
+                        <li> <a href="#admin" data-bind="click: users.movePrevious">&lsaquo;</a></li>
 
-                    <span data-bind="text: users.pagingValue" />
+                        <span data-bind="text: users.pagingValue" />
 
-                    <li> <a href="#admin" data-bind="click: users.moveNext">&rsaquo;</a></li>
-                    <li> <a href="#admin" data-bind="click: users.moveLast">&raquo;</a></li>
-                </ul>
+                        <li> <a href="#admin" data-bind="click: users.moveNext">&rsaquo;</a></li>
+                        <li> <a href="#admin" data-bind="click: users.moveLast">&raquo;</a></li>
+                    </ul>
             </td>
         </tr>
     </tbody>

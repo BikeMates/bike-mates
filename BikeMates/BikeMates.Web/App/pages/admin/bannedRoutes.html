@@ -4,7 +4,7 @@
     <li class="active"><strong>Baned routes</strong></li>
 </ul>
 <div style="margin-bottom:20px">
-    <input type="button" value="Unban" class="btn btn-default" data-bind="click: unban" />
+    <input type="button" value="Unban" class="btn btn-success" data-bind="click: unban, visible: NotEmpty" />
 </div>
 <div class="list-group" data-bind="foreach: routes.currentPageData">
     <div class="list-group-item">
@@ -30,7 +30,7 @@
         <tr>
             <td>
                 <div style="clear: both"></div>
-                <ul class="pager">
+                <ul class="pager" data-bind="visible: NotEmpty">
                     <li> <a href="#admin" data-bind="click: routes.moveFirst">&laquo;</a></li>
                     <li> <a href="#admin" data-bind="click: routes.movePrevious">&lsaquo;</a></li>
 
