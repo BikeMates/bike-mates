@@ -1,4 +1,4 @@
-﻿define(["knockout", "jquery", "jquery-ui", "text!./route.html", "require", "googlemap", "errorhandler"], function (ko, $, $$, RouteTemplate, require, googlemap, errorHandler) {
+﻿define(["knockout", "jquery", "jquery-ui", "text!./route.html", "require", "googlemap"], function (ko, $, $$, RouteTemplate, require, googlemap) {
 
     var tokenKey = "tokenInfo";
 
@@ -11,25 +11,6 @@
     var allowEdit = false;
     var kiev;
 
-    $.ajaxSetup({
-        error: function (jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 500) {
-                window.location.href = "http://localhost:51949/#error?=500";
-            }
-            if (jqXHR.status === 404) {
-                window.location.href = "http://localhost:51949/#error?=404";
-            }
-            if (jqXHR.status === 403) {
-                window.location.href = "http://localhost:51949/#error?=403";
-            }
-            if (jqXHR.status === 401) {
-                window.location.href = "http://localhost:51949/#error?=401";
-            }
-            if (jqXHR.status === 400) {
-                window.location.href = "http://localhost:51949/#error?=400";
-            }
-        }
-    });
 
     ko.extenders.paging = function (target, pageSize) {
         var _pageSize = ko.observable(pageSize || 100),
@@ -223,7 +204,6 @@
             }
         }
         function getRoute() {
-            var setup = errorHandler;
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:51952/api/route/find/' + Id,
