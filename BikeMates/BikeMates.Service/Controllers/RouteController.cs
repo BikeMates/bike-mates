@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Http;
 using BikeMates.Contracts.Data;
 using BikeMates.Contracts.Services;
@@ -43,11 +47,23 @@ namespace BikeMates.Service.Controllers
 
         [HttpPut]
         [Route("Update")]
-        public void Update(RouteViewModel route)
+        public async Task<HttpResponseMessage> Update(RouteViewModel route)
         {
-            Route domainRoute = route.MapToDomain();
-            domainRoute.Author = userService.GetUser(this.UserId);
+            Route domainRoute = routeService.Find(route.Id);
+            if (domainRoute.Author != userService.GetUser(this.UserId))
+            {
+                return await StatusCode(HttpStatusCode.Forbidden).ExecuteAsync(new CancellationToken());
+            } 
+            Route temporaryObject = RouteViewModel.MapToDomain(route);
+            domainRoute.Description = route.Description;
+            domainRoute.MeetingPlace = route.MeetingPlace;
+            domainRoute.Title = route.Title;
+            domainRoute.Start = temporaryObject.Start;
+            domainRoute.Distance = temporaryObject.Distance;
+            domainRoute.MapData = temporaryObject.MapData;
+
             routeService.Update(domainRoute);
+            return await StatusCode(HttpStatusCode.OK).ExecuteAsync(new CancellationToken());
         }
 
         [HttpGet]
@@ -77,7 +93,7 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route("Delete/{id}")]
         public void Delete(int id)
         {
             routeService.Delete(id);

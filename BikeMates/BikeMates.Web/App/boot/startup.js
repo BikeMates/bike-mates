@@ -9,6 +9,7 @@
     ko.components.register('confirmresetpassword', { require: 'App/pages/account/confirmResetPassword/confirmResetPassword' });
     ko.components.register('newroute', { require: 'App/pages/route/newroute' });
     ko.components.register('route', { require: 'App/pages/route/route' });
+    ko.components.register('editroute', { require: 'App/pages/route/editroute' });
     ko.components.register('profile', { require: 'App/pages/account/profile/profile' });
     ko.components.register('editprofile', { require: 'App/pages/account/editprofile/editprofile' });
     ko.components.register('admin', { require: 'App/pages/admin/admin' });

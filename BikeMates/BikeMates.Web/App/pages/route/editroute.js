@@ -1,4 +1,4 @@
-﻿define(["knockout", "jquery", "jquery-ui", "text!./newroute.html", "require", "googlemap"], function (ko, $, $$, RouteTemplate, require, googlemap) {
+﻿define(["knockout", "jquery", "jquery-ui", "text!./editroute.html", "require", "googlemap"], function (ko, $, $$, RouteTemplate, require, googlemap) {
 
     var tokenKey = "tokenInfo";
 
@@ -41,12 +41,20 @@
         }
     };
 
-    function AddRouteViewModel(params) {
+    function EditRouteViewModel(params) {
         var self = this;
+        var Id = location.href.split('?')[1];
 
         if (sessionStorage.getItem('authorized') != 'true') {
             window.location.href = "http://localhost:51949/#error?=401";
         }
+        self.Id = ko.observable(Id);
+        self.Start = ko.observable(new Date()),
+        self.Distance = ko.observable("");
+        self.Title = ko.observable("");
+        self.Description = ko.observable("");
+        self.MeetingPlace = ko.observable("");
+        self.MapData = ko.observable("");
 
         self.initialize = function(allowEdit) {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
@@ -127,13 +135,27 @@
             $('#MapData').val(stringifiedData);
 
             $.ajax({
-                type: 'POST',
+                type: 'PUT',
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-                url: 'http://localhost:51952/api/route/add',
+                url: 'http://localhost:51952/api/route/update/',
                 data: $('#routeForm').serialize(),
-                success: function (response) { }
+                success: function(response) {
+                    window.location.href = "http://localhost:51949/#route?"+Id;
+                }
             });
             return false;
+        }
+        function loadRoute(route) {
+            var waypoints = [];
+            for (var i = 0; i < route.Waypoints.length; i++) {
+                waypoints[i] = {
+                    location: route.Waypoints[i].Latitude.toString() + ',' + route.Waypoints[i].Longitude.toString(),
+                    stopover: false
+                };
+            }
+            var origin = new google.maps.LatLng(route.Start.Latitude, route.Start.Longitude);
+            var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
+            displayRoute(origin, destination, service, renderer, waypoints);
         }
         function displayRoute(origin, destination, service, display) {
             displayRoute(origin, destination, service, display, []);
@@ -209,12 +231,25 @@
             end = null;
             data = {};
         }
-        self.Start = ko.observable(new Date()),
-        self.Distance = ko.observable("");
-        self.Title = ko.observable("");
-        self.Description = ko.observable("");
-        self.MeetingPlace = ko.observable("");
-        self.MapData = ko.observable("");
+        function getRoute() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:51952/api/route/find/' + Id,
+                response: JSON,
+                success: function (response) {
+                    var mapData = JSON.parse(response.mapData);
+                    console.log("getRoute");
+                    self.Title(response.title);
+                    self.Description(response.description);
+                    self.Start(response.start);
+                    self.Distance(response.distance);
+                    self.MeetingPlace(response.meetingPlace);
+                    $('#MapData').val(response.mapData);
+                    loadRoute(mapData);
+                }
+            });
+        }
+
         self.Save = function () {
             alert("Route added to DB\n" +
                 "Remove alert and make redirect to all user routes\n" +
@@ -226,6 +261,21 @@
             $('#Distance').val(0);
             $('#km').hide();
         }
+        self.Load = function(Id) {
+            getRoute(Id);
+        }
+        self.Delete = function () {
+            $.ajax({
+                type: 'DELETE',
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                url: 'http://localhost:51952/api/route/delete/' + Id,
+                response: JSON,
+                success: function (response) {
+                    window.location.href = "#";
+                }
+            });
+        }
+        self.Load(Id);
     }
-    return { viewModel: AddRouteViewModel(), template: RouteTemplate };
+    return { viewModel: EditRouteViewModel(), template: RouteTemplate };
 });
