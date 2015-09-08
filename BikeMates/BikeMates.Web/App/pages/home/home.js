@@ -30,6 +30,7 @@
             }
         }
     };
+
     ko.extenders.paging = function (target, pageSize) {
         var _pageSize = ko.observable(pageSize || 100),
             _currentPage = ko.observable(1); 
@@ -95,7 +96,7 @@
         return target;
     };
 
-    var HomeViewModel= function () {
+    var HomeViewModel = function() {
 
         var self = this;
         self.author = ko.observable();
@@ -119,55 +120,46 @@
         self.allRoutes = ko.observableArray([]).extend({ paging: 5 });
         self.OrderByFieldName = ko.observable("");
         self.isAddRouteVisible = ko.observable(false);
+        self.isRouteSectionsVisible = ko.observable(false);
 
-        self.setOrderAndSearch = function (orderBy) {
+        self.setOrderAndSearch = function(orderBy) {
             if (orderBy) {
                 self.OrderByFieldName(orderBy);
             }
             self.searchRoutes();
-        }
+        };
 
-        self.setAddRouteButtonVisibility = function ()
-        {                
-            userStatus = sessionStorage.getItem("authorized")
+        self.setControlsVisibility = function(userStatus) {
             if (userStatus == 'true') {
                 self.isAddRouteVisible(true);
-            }
-            else {
+                self.isRouteSectionsVisible(true);
+            } else {
                 self.isAddRouteVisible(false);
+                self.isRouteSectionsVisible(false);
             }
+        };
 
-        }
-      
-        self.searchRoutes = function () {
+        self.searchRoutes = function() {
             self.allRoutes.removeAll();
-
-            var jsonParams = ko.toJSON(self);
-            var urlParams = Object.keys(jsonParams).map(function (k) {
-                return k + '=' + encodeURIComponent(jsonParams[k])
-                //return encodeURIComponent(k) + '=' + encodeURIComponent(jsonParams[k])
-            }).join('&')
-
-            console.log(ko.toJSON(self));
-
+            var urlParams = $.param(JSON.parse(ko.toJSON(self)));
+            console.log(['search parameters = ', urlParams]);
             $.ajax({
-                url: "http://localhost:51952/api/route/getroutes/",
+                url: "http://localhost:51952/api/route/getroutes/?" + urlParams,
                 contentType: "application/json",
-                type: "POST",
-                dataType: 'json',
-                data: ko.toJSON(self),
-           
-                success: function (data) {
-                    $.each(data, function (key, val) {
-                        self.allRoutes.push(new route(val.author,val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
+                type: "GET",
+                success: function(data) {
+                    $.each(data, function(key, val) {
+                        self.allRoutes.push(new route(val.author, val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
                     });
                 }
             });
-        }
-        self.setAddRouteButtonVisibility();
+        };
+
+        self.setControlsVisibility(sessionStorage.getItem("authorized"));
         self.searchRoutes();
         return self;
-    }
+    };
+
     self.IsAuthorize = ko.computed(function () {
         return (sessionStorage.getItem("role") == "User" || sessionStorage.getItem("role") == "Admin");
     });
@@ -175,6 +167,7 @@
     self.goToRoute = function (id) {
        return "http://localhost:51949/#route?"+id;
     };
+
     function route(author, description, distance, id, isBanned, mapData, meetingPlace, start, subscribers, title) {
         var self = this;
         self.author = author;

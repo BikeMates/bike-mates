@@ -1,30 +1,26 @@
 ﻿
-<div class="navbar-collapse collapse">
+<div class="row">
+    <div class="col-md-2">
+        <select id="route_sections" class="form-control" data-bind="visible: isRouteSectionsVisible">
+            <option value="All Routes">All Routes</option>
+            <option value="My Routes">My Routes</option>
+            <option value="Subscription">Subscription</option>
+        </select>
+    </div>
+    
+    <div class="col-md-2" data-bind="visible: isAddRouteVisible">
+        <a href="#newroute" class="btn btn-primary active" id="addroute">Add new route</a>
+    </div>
 
-    <!-- Used for Authorized user -->
-    <select id="sort_order" data-bind="visible: isAddRouteVisible">
-        <option value="All Routes">All Routes</option>
-        <option value="My Routes">My Routes</option>
-        <option value="Subscription">Subscription</option>
-    </select>
-
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <input type="submit" value="By Date" id="ByDate" data-bind="click:setOrderAndSearch.bind($data,'Date')" />
-        </li>
-        <li>
-            <input type="submit" value="By Title" id="ByTitle" data-bind="click:setOrderAndSearch.bind($data,'Title')" />
-        </li>
-        <li>
-            <input type="submit" value="By Participants" id="ByParticipants" data-bind="click:setOrderAndSearch.bind($data,'Subscribers')" />
-        </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-header" data-bind="visible: isAddRouteVisible" id="addNewRoute">
-        <li><a href="#newroute" id="addroute">Add new route</a></li>
-    </ul>
-
+    <div class="text-right">
+        <div id="sort_order" class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" data-bind="css:{ active: OrderByFieldName() == 'Date' }, click:setOrderAndSearch.bind($data,'Date')" id="ByDate">By Date</button>
+            <button type="button" class="btn btn-default" data-bind="css:{ active: OrderByFieldName() == 'Title' }, click:setOrderAndSearch.bind($data,'Title')" id="ByTitle">By Title</button>
+            <button type="button" class="btn btn-default" data-bind="css:{ active: OrderByFieldName() == 'Subscribers' }, click:setOrderAndSearch.bind($data,'Subscribers')" id="ByParticipants">By Participants</button>
+        </div>
+    </div>    
+    
 </div>
-
 
 
 <table>

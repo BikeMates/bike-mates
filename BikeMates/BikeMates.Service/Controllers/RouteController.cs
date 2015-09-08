@@ -83,12 +83,12 @@ namespace BikeMates.Service.Controllers
             routeService.Delete(id);
         }
 
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         [Route("GetRoutes")]
-        public IEnumerable<RouteViewModel> GetRoutes(RouteSearchParametersViewModel search)
+        public IEnumerable<RouteViewModel> GetRoutes([FromUri]RouteSearchParametersViewModel search)
         {
-            RouteSearchParameters searchParameters = new RouteSearchParameters();
+            var searchParameters = new RouteSearchParameters();
             searchParameters.MeetingPlace = search.Location;
 
             //TODO: Refactor the code below. Do not parse values replace types in RouteSearchParametersViewModel class
@@ -116,7 +116,7 @@ namespace BikeMates.Service.Controllers
                 searchParameters.MaxDistance = maxDistance;
             }
 
-            RouteSortOptions orderByField = RouteSortOptions.Date;
+            var orderByField = RouteSortOptions.Date;
             if (Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField))
             {
                 searchParameters.SortOrder = orderByField;
