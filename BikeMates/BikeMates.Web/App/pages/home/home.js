@@ -151,6 +151,7 @@
                 type: "GET",
                 success: function (data) {
                     if (data.length != 0) {
+                        self.NotEmpty(true);
                         $.each(data, function (key, val) {
                             self.allRoutes.push(new route(val.author, val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
                         });
