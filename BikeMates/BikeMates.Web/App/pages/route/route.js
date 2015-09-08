@@ -10,8 +10,6 @@
     var initialLocation, browserSupportFlag;
     var allowEdit = false;
     var kievCoordinates = { lat: 50.464484293992086, lng: 30.522704422473907 };
-
-
     ko.extenders.paging = function (target, pageSize) {
         var _pageSize = ko.observable(pageSize || 100),
             _currentPage = ko.observable(1);
@@ -177,6 +175,9 @@
                     var mapData = JSON.parse(response.mapData);
                     console.log("getRoute");
                     loadRoute(mapData);
+                    var author = JSON.parse(response.author);
+                    $("#AuthorLink").attr("href", "http://localhost:51949/#profile?" + author.Id)
+                    self.Author(author.FirstName + author.SecondName);
                     self.title(response.title);
                     self.description(response.description);
                     self.start(response.start);
@@ -286,17 +287,16 @@
                 window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
             }
         };
-        $.ajax({
-            url: "http://localhost:51952/api/route/findlogged" + '/' + Id,
-            contentType: "application/json",
-            type: "GET",
-            headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-            success: function (data) {
-                self.description(data.description);
-                self.subscribed(data.isSubscribed);
-
-                userStatus = sessionStorage.getItem("authorized")
-                if (userStatus == 'true') {
+        var userStatus = sessionStorage.getItem("authorized");
+        if (userStatus == 'true') {
+            $.ajax({
+                url: "http://localhost:51952/api/route/findlogged" + '/' + Id,
+                contentType: "application/json",
+                type: "GET",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                success: function (data) {
+                    self.description(data.description);
+                    self.subscribed(data.isSubscribed);
 
                     if (self.subscribed()) {
                         self.sub_show(false);
@@ -306,16 +306,11 @@
                         self.sub_show(true);
                         self.unsub_show(false);
                     }
+                },
+                error: function (data) {
                 }
-                else {
-                    self.sub_show(false);
-                    self.unsub_show(false);
-                }
-
-            },
-            error: function (data) {
-            }
-        });
+            });
+        }
         self.Subscribes = function () {
             $.ajax({
                 url: "http://localhost:51952/api/route/find"+'/'+Id,
@@ -344,6 +339,7 @@
         self.goToUser = function (id) {
             return "http://localhost:51949/#profile?" + id;
         };
+
 
     }
     function User(id,FirstName,SecondName ) {
