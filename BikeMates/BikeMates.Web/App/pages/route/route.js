@@ -328,37 +328,30 @@
             }
         };
 
-        $.ajax({
-            url: "http://localhost:51952/api/route/findlogged" + '/' + Id,
-            contentType: "application/json",
-            type: "GET",
-            headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-            success: function (data) {
-                self.description(data.description);
-                self.subscribed(data.isSubscribed);
-
-                userStatus = sessionStorage.getItem("authorized")
-                if (userStatus == 'true') {
-
-                    if (self.subscribed()) {
-                        self.sub_show(false);
-                        self.unsub_show(true);
-                    }
-                    else {
-                        self.sub_show(true);
-                        self.unsub_show(false);
-                    }
+        var userStatus = sessionStorage.getItem("authorized");
+        if (userStatus == 'true') {
+            $.ajax({
+                url: "http://localhost:51952/api/route/findlogged" + '/' + Id,
+                contentType: "application/json",
+                type: "GET",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                success: function (data) {
+                    self.description(data.description);
+                    self.subscribed(data.isSubscribed);
+                   
+                        if (self.subscribed()) {
+                            self.sub_show(false);
+                            self.unsub_show(true);
+                        }
+                        else {
+                            self.sub_show(true);
+                            self.unsub_show(false);
+                        }
+                },
+                error: function (data) {
                 }
-                else {
-                    self.sub_show(false);
-                    self.unsub_show(false);
-                }
-
-            },
-            error: function (data) {
-            }
-        });
-
+            });
+        }
         self.Subscribes = function () {
             $.ajax({
                 url: "http://localhost:51952/api/route/find"+'/'+Id,
