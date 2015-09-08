@@ -3,9 +3,9 @@
     <div id="userFunctions">
         <div class="col-md-2">
             <select id="route_sections" class="form-control" data-bind="visible: isRouteSectionsVisible">
-                <option value="All Routes">All Routes</option>
-                <option value="My Routes">My Routes</option>
-                <option value="Subscription">Subscription</option>
+                <option value="All Routes" data-bind="click:setOrderAndSearch.bind($data,'AllRoutes')">All Routes</option>
+                <option value="My Routes" data-bind="click:setOrderAndSearch.bind($data,'MyRoutes')">My Routes</option>
+                <option value="Subscription" data-bind="click:setOrderAndSearch.bind($data,'Subscription')">Subscription</option>
             </select>
         </div>
 
