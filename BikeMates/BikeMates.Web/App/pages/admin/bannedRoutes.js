@@ -106,6 +106,7 @@
 
                 success: function (data) {
                     if (data.length != 0) {
+                        self.NotEmpty(true);
                         $.each(data, function (key, val) {
                             self.routes.push(new route(val.id, val.title, val.description));
                         });

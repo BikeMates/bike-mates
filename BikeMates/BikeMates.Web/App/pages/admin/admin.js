@@ -118,6 +118,7 @@
 
                 success: function (data) {
                     if (data.length != 0) {
+                        self.NotEmpty(true);
                         $.each(data, function (key, val) {
                             console.log(val.picture);
                             self.users.push(new user(val.id, val.firstName, val.secondName, val.Picture));
