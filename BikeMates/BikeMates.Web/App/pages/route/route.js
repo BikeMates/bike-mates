@@ -3,14 +3,12 @@
     var tokenKey = "tokenInfo";
 
     var map, service, renderer;
-    var data = {};
     var start, end;
     var Id = location.href.split('?')[1];
 
     var initialLocation, browserSupportFlag;
     var allowEdit = false;
-    var kiev;
-
+    var kievCoordinates = { lat: 50.464484293992086, lng: 30.522704422473907 };
 
     ko.extenders.paging = function (target, pageSize) {
         var _pageSize = ko.observable(pageSize || 100),
@@ -91,7 +89,6 @@
         self.Subscribes = ko.observableArray([]).extend({ paging: 5 });
 
         self.initialize = function () {
-            kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -134,16 +131,18 @@
                 placeMarker(event.latLng);
             });
         }
+
         function handleNoGeolocation(errorFlag) {
             if (errorFlag == true) {
                 alert("Geolocation service failed.");
-                initialLocation = kiev;
+                initialLocation = kievCoordinates;
             } else {
                 alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-                initialLocation = kiev;
+                initialLocation = kievCoordinates;
             }
             map.setCenter(initialLocation);
         }
+
         function loadRoute(route) {
             var waypoints = [];
             for (var i = 0; i < route.Waypoints.length; i++) {
@@ -156,9 +155,11 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
+
         function displayRoute(origin, destination, service, display) {
             displayRoute(origin, destination, service, display, []);
         }
+
         function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
                 origin: origin,
@@ -175,6 +176,7 @@
                 }
             });
         }
+
         function computeTotalDistance(result) {
             var total = 0;
             var myroute = result.routes[0];
@@ -185,6 +187,7 @@
             $('#Distance').val(total);
             return;
         }
+
         function placeMarker(location) {
             if (start == null) {
                 start = new google.maps.Marker({
@@ -203,6 +206,7 @@
                 displayRoute(start.position, end.position, service, renderer);
             }
         }
+
         function getRoute() {
             $.ajax({
                 type: 'GET',
@@ -237,6 +241,7 @@
         self.Load = function (id) {
             getRoute(id);
         }
+
         self.subscribe = function () {
             if (self.subscribed())
             {
@@ -257,6 +262,7 @@
                 }
             });
         }
+
         self.unsubscribe = function () {
             var apiurl = "http://localhost:51952/api/subscribe/" + Id;
             $.ajax({
@@ -321,6 +327,7 @@
                 window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
             }
         };
+
         $.ajax({
             url: "http://localhost:51952/api/route/findlogged" + '/' + Id,
             contentType: "application/json",
@@ -351,6 +358,7 @@
             error: function (data) {
             }
         });
+
         self.Subscribes = function () {
             $.ajax({
                 url: "http://localhost:51952/api/route/find"+'/'+Id,
@@ -376,17 +384,20 @@
         //        }
         //    });
         //}
+
         self.goToUser = function (id) {
             return "http://localhost:51949/#profile?" + id;
         };
 
         return Load(Id);
     }
+
     function User(id,FirstName,SecondName ) {
         var self = this;
         self.FirstName = FirstName;
         self.SecondName = SecondName;
         self.id = id;
     }
+
     return { viewModel: RouteViewModel(), template: RouteTemplate };
 });
