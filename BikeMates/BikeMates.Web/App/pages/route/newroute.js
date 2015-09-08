@@ -123,7 +123,7 @@
             $('#MapData').val(stringifiedData);
 
             $.ajax({
-                type: 'PPOST',
+                type: 'POST',
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 url: 'http://localhost:51952/api/route/add',
                 data: $('#routeForm').serialize(),
