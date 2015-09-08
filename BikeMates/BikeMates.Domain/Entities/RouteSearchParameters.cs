@@ -7,6 +7,7 @@ namespace BikeMates.Domain.Entities
     {
         public string Title { get; set; }
         public string Author { get; set; }
+        public string AuthorId { get; set; }
         public string MeetingPlace { get; set; }
         public string Description { get; set; }
         public double? MinDistance { get; set; }

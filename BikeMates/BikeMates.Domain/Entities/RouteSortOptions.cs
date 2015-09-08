@@ -8,6 +8,6 @@ namespace BikeMates.Domain.Entities
 {
     public enum RouteSortOptions
     {
-        Date, Title, Subscribers
+        Date, Title, Subscribers,AllRoutes,MyRoutes
     }
 }

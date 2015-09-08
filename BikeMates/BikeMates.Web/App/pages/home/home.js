@@ -1,5 +1,6 @@
 ﻿define(["knockout", "jquery", "jquery-ui", "text!./home.html", "require"], function (ko, $, $$, homeTemplate, require) {
 
+    var tokenKey = "tokenInfo";
     ko.bindingHandlers.datepicker = {
         init: function (element, valueAccessor, allBindingsAccessor) {
             var options = allBindingsAccessor().datepickerOptions || {},
@@ -130,6 +131,12 @@
             }
             self.searchRoutes();
         };
+        self.setOrderAndRout = function (orderBy) {
+            if (orderBy) {
+                self.OrderByFieldName(orderBy);
+            }
+            self.searchRoutes();
+        };
 
         self.setControlsVisibility = function(userStatus) {
             if (userStatus == 'true') {
@@ -141,6 +148,16 @@
             }
         };
 
+        self.orderRoutself = function () {           
+            $.ajax({
+                url: "http://localhost:51952/api/route/getroutes/",
+                contentType: "application/json",
+                type: "GET",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                success: function (data) {
+                }
+            });
+        };
         self.searchRoutes = function() {
             self.allRoutes.removeAll();
             var urlParams = $.param(JSON.parse(ko.toJSON(self)));
@@ -148,9 +165,10 @@
             $.ajax({
                 url: "http://localhost:51952/api/route/getroutes/?" + urlParams,
                 contentType: "application/json",
-                type: "GET",
-                success: function (data) {
+                type: "GET",               
+                success: function (data) {                   
                     if (data.length != 0) {
+                        self.NotEmpty(true);
                         $.each(data, function (key, val) {
                             self.allRoutes.push(new route(val.author, val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
                         });

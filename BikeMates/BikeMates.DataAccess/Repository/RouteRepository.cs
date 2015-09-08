@@ -51,6 +51,11 @@ namespace BikeMates.DataAccess.Repository
                 routes = routes.OrderBy(x => x.Subscribers.Count);
             }
 
+            if (searchParameters.SortOrder == RouteSortOptions.MyRoutes)
+            {
+                routes = routes.Where(route => route.Author.Id.Equals(searchParameters.AuthorId));
+            }
+
             //routes.Skip(searchParameters.PageNumber * searchParameters.PageSize).Take(searchParameters.PageSize);
 
             //TODO: Add paging here. Take only needed routes
