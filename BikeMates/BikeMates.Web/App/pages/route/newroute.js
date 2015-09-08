@@ -44,6 +44,10 @@
     function AddRouteViewModel(params) {
         var self = this;
 
+        if (sessionStorage.getItem('authorized') != 'true') {
+            window.location.href = "http://localhost:51949/#error?=401";
+        }
+
         self.initialize = function(allowEdit) {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
