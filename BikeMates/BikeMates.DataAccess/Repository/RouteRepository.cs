@@ -13,19 +13,6 @@ namespace BikeMates.DataAccess.Repository
 
         public IEnumerable<Route> Search(RouteSearchParameters searchParameters)
         {
-
-            //IQueryable<Route> routes = this.Context.Routes.Where(route =>
-            //    (string.IsNullOrEmpty(searchParameters.Title) || route.Title.Contains(searchParameters.Title)) &&
-            //    (string.IsNullOrEmpty(searchParameters.Author) || route.Author.FirstName.Contains(searchParameters.Author)) &&
-            //    (string.IsNullOrEmpty(searchParameters.Author)) || route.Author.SecondName.Contains(searchParameters.Author) &&
-            //    (string.IsNullOrEmpty(searchParameters.MeetingPlace) || route.MeetingPlace.Contains(searchParameters.MeetingPlace)) &&
-            //    (string.IsNullOrEmpty(searchParameters.Description) || route.Description.Contains(searchParameters.Description)) &&
-            //    (!searchParameters.MinDistance.HasValue || route.Distance >= searchParameters.MinDistance) &&
-            //    (!searchParameters.MaxDistance.HasValue || route.Distance <= searchParameters.MaxDistance) &&
-            //    (!searchParameters.DateFrom.HasValue || route.Start >= searchParameters.DateFrom) &&
-            //    (!searchParameters.DateTo.HasValue || route.Start <= searchParameters.DateTo)
-            //    );
-            
             IQueryable<Route> routes = this.Context.Routes.Where(route => !route.IsBanned
                 && (string.IsNullOrEmpty(searchParameters.MeetingPlace) || route.MeetingPlace.Contains(searchParameters.MeetingPlace) || route.Description.Contains(searchParameters.MeetingPlace))
                 &&
@@ -59,10 +46,19 @@ namespace BikeMates.DataAccess.Repository
             {
                 routes = routes.Where(route => route.Author.Id.Equals(searchParameters.AuthorId));
             }
-            if (searchParameters.SortOrder == RouteSortOptions.AllRoutes)
-            {
-            }
 
+            if (searchParameters.AuthorId != null)
+            {
+                if (searchParameters.SearchType.Equals("MyRoutes"))
+                {
+                    routes = routes.Where(r => r.Author.Id == searchParameters.AuthorId);
+                }
+
+                if (searchParameters.SearchType.Equals("Subscription"))
+                {
+                    routes = routes.Where(r => r.Subscribers.Any(u => u.Id == searchParameters.AuthorId));
+                }
+            }
 
             //routes.Skip(searchParameters.PageNumber * searchParameters.PageSize).Take(searchParameters.PageSize);
 

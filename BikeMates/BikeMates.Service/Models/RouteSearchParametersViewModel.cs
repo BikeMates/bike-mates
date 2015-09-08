@@ -20,5 +20,9 @@ namespace BikeMates.Service.Models
         public string MinDistance { get; set; }
         public string MaxDistance { get; set; }
         public string OrderByFieldName { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public string SearchType { get; set; }
+        public string AuthorId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
@@ -19,7 +20,7 @@ namespace BikeMates.Service.Controllers
             get
             {
                 ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
-                return principal.Claims.Single(c => c.Type == "id").Value;
+                return principal != null && principal.Claims.Any()? principal.Claims.Single(c => c.Type == "id").Value : String.Empty;
             }
         }
 

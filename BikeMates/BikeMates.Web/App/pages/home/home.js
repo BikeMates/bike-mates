@@ -122,12 +122,25 @@
         self.OrderByFieldName = ko.observable("");
         self.isAddRouteVisible = ko.observable(false);
         self.isRouteSectionsVisible = ko.observable(false);
-
+        self.PageNumber = self.allRoutes().currentPage;
+        self.PageSize = 10;
+        self.SearchType  = ko.observable("");
         self.NotEmpty = ko.observable(true);
+        self.AuthorId = ko.computed(
+            function(){
+                return sessionStorage.getItem("Id");
+            });
 
         self.setOrderAndSearch = function(orderBy) {
             if (orderBy) {
                 self.OrderByFieldName(orderBy);
+            }
+            self.searchRoutes();
+        };
+
+        self.setSearchType = function (searchBy) {
+            if (searchBy) {
+                self.SearchType(searchBy);
             }
             self.searchRoutes();
         };
@@ -154,7 +167,7 @@
             var urlParams = $.param(JSON.parse(ko.toJSON(self)));
             console.log(['search parameters = ', urlParams]);
             $.ajax({
-                url: "http://localhost:51952/api/route/RetUserId/?" + urlParams,
+                url: "http://localhost:51952/api/route/GetUserId/?" + urlParams,
                 contentType: "application/json",
                 type: "GET",
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
@@ -179,6 +192,7 @@
                 url: "http://localhost:51952/api/route/getroutes/?" + urlParams,
                 contentType: "application/json",
                 type: "GET",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 success: function (data) {                   
                     if (data.length != 0) {
                         self.NotEmpty(true);

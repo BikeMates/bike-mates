@@ -102,7 +102,7 @@ namespace BikeMates.Service.Controllers
         [HttpGet]
         [Authorize]
         [Route("RetUserId")]
-        public IEnumerable<RouteViewModel> RetUserId([FromUri]RouteSearchParametersViewModel search)
+        public IEnumerable<RouteViewModel> GetUserId([FromUri]RouteSearchParametersViewModel search)
         {
             var searchParameters = new RouteSearchParameters();
             searchParameters.AuthorId = this.UserId;
@@ -162,8 +162,9 @@ namespace BikeMates.Service.Controllers
                 searchParameters.SortOrder = orderByField;
             }
 
-
-            searchParameters.PageNumber = 0;
+            searchParameters.SearchType = search.SearchType ?? String.Empty;
+            searchParameters.AuthorId = UserId;
+            searchParameters.PageNumber = search.PageNumber;
             searchParameters.PageSize = 5000;
             IEnumerable<RouteData> routes = routeService.Search(searchParameters).ToArray();
 
