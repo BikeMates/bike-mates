@@ -55,6 +55,14 @@ namespace BikeMates.DataAccess.Repository
             {
                 routes = routes.Where(route => route.Author.Id.Equals(searchParameters.AuthorId));
             }
+            if (searchParameters.SortOrder == RouteSortOptions.Subscribers)
+            {
+                routes = routes.Where(route => route.Author.Id.Equals(searchParameters.AuthorId));
+            }
+            if (searchParameters.SortOrder == RouteSortOptions.AllRoutes)
+            {
+            }
+
 
             //routes.Skip(searchParameters.PageNumber * searchParameters.PageSize).Take(searchParameters.PageSize);
 

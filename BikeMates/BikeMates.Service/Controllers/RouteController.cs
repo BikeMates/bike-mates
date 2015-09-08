@@ -100,6 +100,29 @@ namespace BikeMates.Service.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        [Route("RetUserId")]
+        public IEnumerable<RouteViewModel> RetUserId([FromUri]RouteSearchParametersViewModel search)
+        {
+            var searchParameters = new RouteSearchParameters();
+            searchParameters.AuthorId = this.UserId;
+            
+            var orderByField = RouteSortOptions.AllRoutes;
+            if (Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField))
+            {
+                searchParameters.SortOrder = orderByField;
+            }
+
+
+            searchParameters.PageNumber = 0;
+            searchParameters.PageSize = 5000;
+            IEnumerable<RouteData> routes = routeService.Search(searchParameters).ToArray();
+
+            var routesModels = routes.Select(RouteViewModel.MapToSearchViewModel).ToList();
+            return routesModels;
+        }
+
+        [HttpGet]
         [AllowAnonymous]
         [Route("GetRoutes")]
         public IEnumerable<RouteViewModel> GetRoutes([FromUri]RouteSearchParametersViewModel search)
@@ -131,16 +154,14 @@ namespace BikeMates.Service.Controllers
             {
                 searchParameters.MaxDistance = maxDistance;
             }
-
+           
             var orderByField = RouteSortOptions.Date;
-            
-           // User user = userService.GetUser(this.UserId);
-            //searchParameters.AuthorId = user.Id;
 
             if (Enum.TryParse<RouteSortOptions>(search.OrderByFieldName, true, out orderByField))
             {
                 searchParameters.SortOrder = orderByField;
             }
+
 
             searchParameters.PageNumber = 0;
             searchParameters.PageSize = 5000;

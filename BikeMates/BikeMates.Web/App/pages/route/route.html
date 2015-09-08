@@ -48,21 +48,12 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Route information</h3>
+
         </div>
         <div class="panel-body">
-
-            <!--<table align="center" class="pagination">
-                <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
-                <tr><td><label>Author: </label></td><td><label type="text" id="Author" data-bind="text: Author" /></td></tr>
-                <tr><td><label>Start: </label></td><td><label type="date" id="start" data-bind="text: start" /></td></tr>
-                <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" />km</td></tr>
-                <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
-                <tr><td><label>Description: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: description" /></td></tr>
-            </table>-->
-
             <div class="form-group">
                 <label>Author : </label>
-                <a id="AuthorLink" href=""><label data-bind="text: Author" /></a><br />
+                <a id="AuthorLink" href=""><label data-bind="text: Author" /></a>
             </div>
             <div class="form-group">
                 <label>Start : </label>
@@ -70,7 +61,7 @@
             </div>
             <div class="form-group">
                 <label>Distance : </label>
-                <label id="distance" type="number" data-bind="text : distance" />km
+                <label id="distance" type="number" data-bind="text : distance" /><strong>km</strong>
             </div>
             <div class="form-group">
                 <label>Meeting place : </label>
@@ -79,6 +70,14 @@
             <div class="form-group">
                 <label>Description : </label>
                 <label id="Description" data-bind="text : description" />
+            </div>
+
+            <div id="wrapper" style="text-align: right">
+                <div class="form-group">
+                    <button type="button" class="btn btn-danger" data-bind="click: ban, visible: IsAdmin" resource="">Ban</button>
+                    <button type="button" class="btn btn-success" id="sub_btn" data-bind="click: subscribe , visible : sub_show" resource="">Subscribe</button>
+                    <button type="button" class="btn btn-danger" id="unsub_btn" data-bind="click: unsubscribe, visible : unsub_show" resource="">Unsubscribe</button>
+                </div>
             </div>
         </div>
     </div>
@@ -94,24 +93,10 @@
                     <input type="image" src="../../../Content/Images/FB.png" alt="Share" width="52" height="52" onclick="Share.facebook('URL','TITLE','IMG_PATH','DESC')" />
                 </p>
             </div>
-            <br />
-            </>
-        </div>
+           </div>
     </div>
-    <div id="wrapper" style="text-align: center">
-        <div class="form-group center">
-            <div id="sub_div" data-bind="visible : sub_show">
-                <button type="button" class="btn btn-success" id="sub_btn" data-bind="click: subscribe " resource="">Subscribe</button>
-            </div>
-            <div id="unsub_div" data-bind="visible : unsub_show">
-                <button type="button" class="btn btn-danger" id="unsub_btn" data-bind="click: unsubscribe" resource="">Unsubscribe</button>
-            </div>
-            <hr />
-            <button type="button" class="btn btn-danger" data-bind="click: ban, visible: IsAdmin" resource="">Ban</button>
 
-        </div>
-
-    </div>
+    <hr />
 
     <link rel="stylesheet" href="/Content/jquery-ui.css">
 
