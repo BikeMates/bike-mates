@@ -7,6 +7,7 @@
             $('#userpanel').find('#anonim').show();
             $('#userpanel').find('#user').hide();
             $('#userpanel').find('#admin').hide();
+            $('#page1').hide();
         }
         return self;
     }

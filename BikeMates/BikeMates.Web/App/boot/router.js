@@ -41,6 +41,7 @@ define(["jquery", "knockout", "crossroads", "hasher"], function ($, ko, crossroa
             { url: 'confirmresetpassword', params: { page: 'confirmresetpassword' } },
             { url: 'newroute', params: { page: 'newroute' } },
             { url: 'route?{id}', params: { page: 'route' } },
+            { url: 'editroute?{id}', params: { page: 'editroute' } },
             { url: 'profile?{id}', params: { page: 'profile' } },
             { url: 'editprofile', params: { page: 'editprofile' } },
             { url: 'admin', params: { page: 'admin' } },
