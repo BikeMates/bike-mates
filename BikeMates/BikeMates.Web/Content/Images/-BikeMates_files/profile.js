@@ -4,9 +4,6 @@
 
     function ProfileViewModel(params) {
 
-        if (sessionStorage.getItem('authorized') != 'true') {
-            window.location.href = "http://localhost:51949/#error?=401";
-        }
         var self = this;
         var Id = location.href.split('?')[1];
 

@@ -5,8 +5,7 @@
     var map, service, renderer;
     var data = {};
     var start, end;
-    var origin;
-    var destination;
+    var Id = location.href.split('?')[1];
 
     var initialLocation, browserSupportFlag;
     var allowEdit = false;
@@ -72,9 +71,6 @@
     };
 
     function RouteViewModel(params) {
-        var Id = location.href.split('?')[1];
-        console.log("params" + params);
-        console.log("url parse id:" + Id);
         setTimeout(function () {
             initialize();
             getRoute();
@@ -150,10 +146,8 @@
                     stopover: false
                 };
             }
-            origin = new google.maps.LatLng(route.Start.Latitude, route.Start.Longitude);
-            destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
-
-            console.log(route);
+            var origin = new google.maps.LatLng(route.Start.Latitude, route.Start.Longitude);
+            var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
         function displayRoute(origin, destination, service, display, waypoints) {
@@ -173,7 +167,6 @@
             });
         }
         function getRoute() {
-            console.log("getRoute" + Id);
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:51952/api/route/find/' + Id,

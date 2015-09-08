@@ -134,12 +134,11 @@
                 headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
                 url: 'http://localhost:51952/api/route/add',
                 data: $('#routeForm').serialize(),
-                success: function (response) { }
+                success: function(response) {
+                    window.location.href = "#";
+                }
             });
             return false;
-        }
-        function displayRoute(origin, destination, service, display) {
-            displayRoute(origin, destination, service, display, []);
         }
         function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
@@ -219,9 +218,6 @@
         self.MeetingPlace = ko.observable("");
         self.MapData = ko.observable("");
         self.Save = function () {
-            alert("Route added to DB\n" +
-                "Remove alert and make redirect to all user routes\n" +
-                "after that page is ready");
             saveRoute();
         }
         self.Clear = function () {

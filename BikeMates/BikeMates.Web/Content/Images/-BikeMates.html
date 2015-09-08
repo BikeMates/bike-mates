@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)http://localhost:51949/#viewprofile?b41f704c-7aaa-4b60-8bfa-ebdb4b91c632 -->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">.gm-style .gm-style-mtc label,.gm-style .gm-style-mtc div{font-weight:400}</style><style type="text/css">.gm-style .gm-style-cc span,.gm-style .gm-style-cc a,.gm-style .gm-style-mtc div{font-size:10px}</style><style type="text/css">@media print {  .gm-style .gmnoprint, .gmnoprint {    display:none  }}@media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}</style><style type="text/css">.gm-style{font-family:Roboto,Arial,sans-serif;font-size:11px;font-weight:400;text-decoration:none}.gm-style img{max-width:none}</style><link type="text/css" rel="stylesheet" href="./-BikeMates_files/css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> -BikeMates</title>
+    <link href="./-BikeMates_files/bootstrap.css" rel="stylesheet">
+<link href="./-BikeMates_files/site.css" rel="stylesheet">
+
+    <script src="./-BikeMates_files/modernizr-2.6.2.js"></script>
+
+
+<script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="App/boot/startup" src="./-BikeMates_files/startup.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="knockout" src="./-BikeMates_files/knockout-3.3.0.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="App/boot/router" src="./-BikeMates_files/router.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="knockout-projections" src="./-BikeMates_files/knockout-projections.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="auth" src="./-BikeMates_files/AuthScript.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="crossroads" src="./-BikeMates_files/crossroads.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="hasher" src="./-BikeMates_files/hasher.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="signals" src="./-BikeMates_files/signals.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="App/pages/route/route" src="./-BikeMates_files/route.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery-ui" src="./-BikeMates_files/jquery-ui.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="text" src="./-BikeMates_files/text.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="googlemap" src="./-BikeMates_files/js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/common.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/map.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/util.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/geometry.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/directions.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/infowindow.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/marker.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/onion.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/controls.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/stats.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/poly.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="App/pages/account/profile/profile" src="./-BikeMates_files/profile.js"></script><script type="text/javascript" charset="UTF-8" src="./-BikeMates_files/QuotaService.RecordEvent"></script></head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2"></button>
+                <img src="./-BikeMates_files/logo.png" align="left" width="128" height="60">
+                <a href="http://localhost:51949/#" class=" navbar-brand">BikeMates</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                <div data-bind="authBinding" id="userpanel">
+                    <div id="anonim" style="display: block;">
+                        <ul class="nav navbar-nav navbar-right" id="anonimus">
+                            <li><a href="http://localhost:51949/#register" id="registerLink">Sing up</a></li>
+                            <li style="margin-left:2px"><a href="http://localhost:51949/#login" id="loginLink">Sing in</a></li>
+                        </ul>
+                    </div>
+                    <div hidden="hidden" id="user" style="display: none;">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="http://localhost:51949/#profile?my" id="registerLink"><strong id="user-name">Name Surname</strong></a>
+                            </li>
+                            <li style="margin-left:2px">
+                                <a href="http://localhost:51949/#" id="registerLink" class="logout"><strong>Sign out</strong></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div hidden="hidden" id="admin" style="display: none;">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li style="margin-right:2px">
+                                <a href="http://localhost:51949/#admin" id="registerLink"><strong>Admin panel</strong></a>
+                            </li>
+                            <li>
+                                <a href="http://localhost:51949/#profile?my" id="registerLink"><strong id="user-name">Name Surname</strong></a>
+                            </li>
+                            <li style="margin-left:2px">
+                                <a href="http://localhost:51949/#" id="registerLink" class="logout"><strong>Sign out</strong></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div id="page1" class="container" style="padding-top:50px" data-bind="component: { name: route().page, params: route }"><div id="profile_section">
+    <div class="row">
+
+        <div class="col-md-3 text-center">
+            <img id="avatar" data-bind="attr:{src: Imagesrc }" height="150" width="150" src=""><br>
+            <input type="button" data-bind="click: ban, visible: IsAdmin" class="btn btn-danger" style="margin-top: 10px; display: none;" value="Ban">
+        </div>
+
+        <div class="col-md-4 ">
+            <h1> <strong data-bind="text: fullName"> </strong></h1>
+            <div class="form-group">
+                <label for="usr">About myself :</label>
+            </div>
+
+            <p data-bind="text: About"></p>
+            <hr>
+            <h2></h2>
+            <button type="button" class="btn btn-default" id="properties_btn" data-bind="click: goToEdit, visible: AllowEdit" resource="" style="display: none;">Edit</button>
+        </div>
+
+    </div>
+</div>
+</div>
+    </div>
+    <script src="./-BikeMates_files/require.config.js"></script>
+    <script data-main="App/boot/startup" src="./-BikeMates_files/require.js"></script>
+    <script src="./-BikeMates_files/jquery-1.10.2.js"></script>
+    <script src="./-BikeMates_files/LayoutScript.js"></script>
+    <div class="container body-content" hidden="hidden">
+    
+
+    </div>
+    <script src="./-BikeMates_files/jquery-1.10.2.js"></script>
+
+    <script src="./-BikeMates_files/bootstrap.js"></script>
+<script src="./-BikeMates_files/respond.js"></script>
+
+    
+
+
+<script src="./-BikeMates_files/main.js"></script></body></html>

@@ -161,9 +161,6 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
-        function displayRoute(origin, destination, service, display) {
-            displayRoute(origin, destination, service, display, []);
-        }
         function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
                 origin: origin,
@@ -255,9 +252,6 @@
         }
 
         self.Save = function () {
-            alert("Route added to DB\n" +
-                "Remove alert and make redirect to all user routes\n" +
-                "after that page is ready");
             saveRoute();
         }
         self.Clear = function () {
@@ -279,7 +273,8 @@
                 }
             });
         }
+        return self;
 
     }
-    return { viewModel: EditRouteViewModel(), template: RouteTemplate };
+    return { viewModel: EditRouteViewModel, template: RouteTemplate };
 });

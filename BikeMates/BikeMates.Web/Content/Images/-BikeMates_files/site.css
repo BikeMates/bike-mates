@@ -1,0 +1,225 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.register-form{
+    background-color:#e8e8e8;
+    width:550px;
+}
+
+.register-form-position{
+    margin-top:80px;
+    margin-left:280px;
+}
+
+.register-form-content{
+    margin-left:20px;
+    width:950px;
+}
+
+.register-form-button {
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-left: 37.33333333333333%;
+}
+
+
+.login-form{
+    background-color: #e8e8e8;
+    width:450px;
+}
+
+.forgot-password-button {
+        margin-top: 20%;
+        margin-left: 61%;
+}
+
+
+.login-form-position{
+    margin-top:100px;
+    margin-left:320px;
+}
+
+.login-form-content {
+    width:450px;
+    margin-left:30px;
+}
+
+.login-form-button{
+      color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+   display: inline-block;
+  padding: 6px 12px;
+  margin-left: 57.33333333333333%;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+
+}
+
+.home-search-form{
+    margin-left:150px;
+    margin-top:12px;
+}
+
+.home-authorizatio-form{
+    position: absolute;
+    top:0px;
+    right:300px;
+}
+
+.navbar-brand{
+     color: #E2E2E2!important;
+     font-size: 20px;
+     text-transform: uppercase;
+     font-style: italic;
+     padding: 15px 30px;
+     line-height: 30px;
+}
+.navbar-brand:hover{
+    color:#fff;
+}
+#registerLink, #loginLink{
+    background:#127FDA;
+    color:#fff;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+#registerLink:hover, #loginLink:hover{
+    background:rgba(18, 127, 218, 0.91);
+}
+#registerLink{
+      border-radius: 3px 0 0 3px;
+}
+#loginLink{
+      border-radius: 0 3px 3px 0;
+}
+.nav.navbar-nav.navbar-right{
+    margin: 10px 0 0 0;
+}
+.logo{
+     margin: 3px 0 0 0;
+}
+.search-body{
+  width: 300px;
+  margin: 4px 30px 0 0;
+}
+.filter_menu {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.filter-btn{
+  float: left;
+  width: 290px;
+  color:#fff;
+  background-color: rgba(18, 127, 218, 0.56);
+}
+.filter-btn:hover{
+    background:#127FDA;
+    color:#fff;
+}
+.filter-inpt{
+    border-radius:3px;
+    border:1px solid rgba(34, 34, 34, 0.31);
+}
+.result-filter-row{
+      margin-top: -120px;
+}
+.result-silter-itm{
+  border: 1px solid rgb(203, 203, 203);
+  padding: 10px;
+  border-radius: 3px;
+  margin-left: 350px;
+}
+
+#routeForm {
+    padding-left: auto;
+    padding-right: auto;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.form-inline- .form-group {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.form-inline {
+    padding-bottom: 15px;
+    margin-left: 15px;
+}
+
+.center {
+    margin: 0 auto;
+    width: 700px;
+    padding-left: auto;
+    padding-right: auto;
+    white-space: nowrap;
+}
+#map {
+    margin: 0 auto;
+    width: 1200px;
+    height: 600px;  
+}
+#error-page-container {
+    text-align: center; 
+}
+#error-page-title {
+    display: inline-block
+}
+#error-page-image {
+    display: block;
+    max-width:600px;
+    max-height:600px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+}
+.required {
+    color: red;
+    width: 3px; 
+    float: right; 
+}
+#Distance {
+    cursor: not-allowed;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+#ui-datepicker-div { display: none; }
