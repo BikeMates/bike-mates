@@ -72,6 +72,8 @@
         self.name = ko.observable("");
         self.routes = ko.observableArray([]).extend({ paging: 5 });
 
+        self.NotEmpty = ko.observable(true);
+
         self.unban = function () {
 
             var selected = new Array();
@@ -103,9 +105,13 @@
                 contentType: 'application/x-www-form-urlencoded',
 
                 success: function (data) {
-                    $.each(data, function (key, val) {
-                        self.routes.push(new route(val.id, val.title, val.description));
-                    });
+                    if (data.length != 0) {
+                        $.each(data, function (key, val) {
+                            self.routes.push(new route(val.id, val.title, val.description));
+                        });
+                    } else {
+                        self.NotEmpty(false);
+                    }
                 },
                 statusCode: {
                     401: function (response) {

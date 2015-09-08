@@ -71,7 +71,8 @@
         target.moveLast = function () {
             target.currentPage(target.pageCount());
         };
-
+         
+        
         return target;
     };
 
@@ -80,6 +81,8 @@
         self.id = ko.observable("");
         self.firstName = ko.observable("");
         self.secondName = ko.observable("");
+
+        self.NotEmpty = ko.observable(true);
 
         self.users = ko.observableArray([]).extend({ paging: 6 });
 
@@ -114,10 +117,14 @@
                 contentType: 'application/x-www-form-urlencoded',
 
                 success: function (data) {
-                    $.each(data, function (key, val) {
-                        console.log(val.picture);
-                        self.users.push(new user(val.id, val.firstName, val.secondName, val.Picture));
-                    });
+                    if (data.length != 0) {
+                        $.each(data, function (key, val) {
+                            console.log(val.picture);
+                            self.users.push(new user(val.id, val.firstName, val.secondName, val.Picture));
+                        });
+                    } else {
+                        self.NotEmpty(false);
+                    }
                 },
                 statusCode: {
                     401: function (response) {

@@ -122,6 +122,8 @@
         self.isAddRouteVisible = ko.observable(false);
         self.isRouteSectionsVisible = ko.observable(false);
 
+        self.NotEmpty = ko.observable(true);
+
         self.setOrderAndSearch = function(orderBy) {
             if (orderBy) {
                 self.OrderByFieldName(orderBy);
@@ -147,10 +149,14 @@
                 url: "http://localhost:51952/api/route/getroutes/?" + urlParams,
                 contentType: "application/json",
                 type: "GET",
-                success: function(data) {
-                    $.each(data, function(key, val) {
-                        self.allRoutes.push(new route(val.author, val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
-                    });
+                success: function (data) {
+                    if (data.length != 0) {
+                        $.each(data, function (key, val) {
+                            self.allRoutes.push(new route(val.author, val.description, val.distance, val.id, val.isBanned, val.mapData, val.meetingPlace, val.start, val.subscribers, val.title));
+                        });
+                    } else {
+                        self.NotEmpty(false);
+                    }
                 }
             });
         };

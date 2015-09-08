@@ -31,15 +31,15 @@
         <tr>
             <td>
                 <div style="clear: both"></div>
-                <ul class="pager">
-                    <li> <a href="#admin" data-bind="click: users.moveFirst">&laquo;</a></li>
-                    <li> <a href="#admin" data-bind="click: users.movePrevious">&lsaquo;</a></li>
+                    <ul class="pager" data-bind="visible: NotEmpty">
+                        <li> <a href="#admin" data-bind="click: users.moveFirst">&laquo;</a></li>
+                        <li> <a href="#admin" data-bind="click: users.movePrevious">&lsaquo;</a></li>
 
-                    <span data-bind="text: users.pagingValue" />
+                        <span data-bind="text: users.pagingValue" />
 
-                    <li> <a href="#admin" data-bind="click: users.moveNext">&rsaquo;</a></li>
-                    <li> <a href="#admin" data-bind="click: users.moveLast">&raquo;</a></li>
-                </ul>
+                        <li> <a href="#admin" data-bind="click: users.moveNext">&rsaquo;</a></li>
+                        <li> <a href="#admin" data-bind="click: users.moveLast">&raquo;</a></li>
+                    </ul>
             </td>
         </tr>
     </tbody>
