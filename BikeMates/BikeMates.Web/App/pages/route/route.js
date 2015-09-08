@@ -9,7 +9,7 @@
 
     var initialLocation, browserSupportFlag;
     var allowEdit = false;
-    var kiev;
+    var kievCoordinates = { lat: 50.464484293992086, lng: 30.522704422473907 };
 
 
     ko.extenders.paging = function (target, pageSize) {
@@ -75,7 +75,6 @@
     function RouteViewModel(params) {
         setTimeout(function () {
             initialize();
-
             Load(Id);
             console.log('google maps initialized');
         }, 50);
@@ -96,7 +95,6 @@
         self.IsBanned = ko.observable(true);
         self.Subscribes = ko.observableArray([]).extend({ paging: 5 });
         function initialize () {
-            kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -135,10 +133,10 @@
         function handleNoGeolocation(errorFlag) {
             if (errorFlag == true) {
                 alert("Geolocation service failed.");
-                initialLocation = kiev;
+                initialLocation = kievCoordinates;
             } else {
                 alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-                initialLocation = kiev;
+                initialLocation = kievCoordinates;
             }
             map.setCenter(initialLocation);
         }
