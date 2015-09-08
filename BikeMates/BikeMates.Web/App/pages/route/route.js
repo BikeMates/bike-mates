@@ -3,12 +3,14 @@
     var tokenKey = "tokenInfo";
 
     var map, service, renderer;
+    var data = {};
     var start, end;
     var Id = location.href.split('?')[1];
 
     var initialLocation, browserSupportFlag;
     var allowEdit = false;
     var kievCoordinates = { lat: 50.464484293992086, lng: 30.522704422473907 };
+
 
     ko.extenders.paging = function (target, pageSize) {
         var _pageSize = ko.observable(pageSize || 100),
@@ -71,6 +73,11 @@
     };
 
     function RouteViewModel(params) {
+        setTimeout(function () {
+            initialize();
+            Load(Id);
+            console.log('google maps initialized');
+        }, 50);
         var self = this;
         self.id = ko.observable();
         self.title = ko.observable("");
@@ -87,8 +94,7 @@
         self.SecondName = ko.observable("");
         self.IsBanned = ko.observable(true);
         self.Subscribes = ko.observableArray([]).extend({ paging: 5 });
-
-        self.initialize = function () {
+        function initialize () {
             var mapOptions = {
                 zoom: 16,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -123,15 +129,7 @@
             }
             renderer.setMap(map);
 
-            renderer.addListener('directions_changed', function () {
-                computeTotalDistance(renderer.getDirections());
-            });
-
-            google.maps.event.addListener(map, 'click', function (event) {
-                placeMarker(event.latLng);
-            });
         }
-
         function handleNoGeolocation(errorFlag) {
             if (errorFlag == true) {
                 alert("Geolocation service failed.");
@@ -142,7 +140,6 @@
             }
             map.setCenter(initialLocation);
         }
-
         function loadRoute(route) {
             var waypoints = [];
             for (var i = 0; i < route.Waypoints.length; i++) {
@@ -155,11 +152,6 @@
             var destination = new google.maps.LatLng(route.End.Latitude, route.End.Longitude);
             displayRoute(origin, destination, service, renderer, waypoints);
         }
-
-        function displayRoute(origin, destination, service, display) {
-            displayRoute(origin, destination, service, display, []);
-        }
-
         function displayRoute(origin, destination, service, display, waypoints) {
             var route = {
                 origin: origin,
@@ -176,37 +168,6 @@
                 }
             });
         }
-
-        function computeTotalDistance(result) {
-            var total = 0;
-            var myroute = result.routes[0];
-            for (var i = 0; i < myroute.legs.length; i++) {
-                total += myroute.legs[i].distance.value;
-            }
-            total = total / 1000;
-            $('#Distance').val(total);
-            return;
-        }
-
-        function placeMarker(location) {
-            if (start == null) {
-                start = new google.maps.Marker({
-                    position: location,
-                    map: map
-                });
-                return;
-            }
-            if (start != null && end == null) {
-                end = new google.maps.Marker({
-                    position: location,
-                    map: map
-                });
-                start.setMap(null);
-                end.setMap(null);
-                displayRoute(start.position, end.position, service, renderer);
-            }
-        }
-
         function getRoute() {
             $.ajax({
                 type: 'GET',
@@ -241,7 +202,6 @@
         self.Load = function (id) {
             getRoute(id);
         }
-
         self.subscribe = function () {
             if (self.subscribed())
             {
@@ -262,7 +222,6 @@
                 }
             });
         }
-
         self.unsubscribe = function () {
             var apiurl = "http://localhost:51952/api/subscribe/" + Id;
             $.ajax({
@@ -327,18 +286,16 @@
                 window.open(url, '', 'toolbar=0,status=0,width=626,height=436');
             }
         };
-
-        $.ajax({
-            url: "http://localhost:51952/api/route/findlogged" + '/' + Id,
-            contentType: "application/json",
-            type: "GET",
-            headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
-            success: function (data) {
-                self.description(data.description);
-                self.subscribed(data.isSubscribed);
-
-                userStatus = sessionStorage.getItem("authorized")
-                if (userStatus == 'true') {
+        var userStatus = sessionStorage.getItem("authorized");
+        if (userStatus == 'true') {
+            $.ajax({
+                url: "http://localhost:51952/api/route/findlogged" + '/' + Id,
+                contentType: "application/json",
+                type: "GET",
+                headers: { "Authorization": "Bearer " + sessionStorage.getItem(tokenKey) },
+                success: function (data) {
+                    self.description(data.description);
+                    self.subscribed(data.isSubscribed);
 
                     if (self.subscribed()) {
                         self.sub_show(false);
@@ -348,17 +305,11 @@
                         self.sub_show(true);
                         self.unsub_show(false);
                     }
+                },
+                error: function (data) {
                 }
-                else {
-                    self.sub_show(false);
-                    self.unsub_show(false);
-                }
-
-            },
-            error: function (data) {
-            }
-        });
-
+            });
+        }
         self.Subscribes = function () {
             $.ajax({
                 url: "http://localhost:51952/api/route/find"+'/'+Id,
@@ -384,20 +335,16 @@
         //        }
         //    });
         //}
-
         self.goToUser = function (id) {
             return "http://localhost:51949/#profile?" + id;
         };
 
-        return Load(Id);
     }
-
     function User(id,FirstName,SecondName ) {
         var self = this;
         self.FirstName = FirstName;
         self.SecondName = SecondName;
         self.id = id;
     }
-
     return { viewModel: RouteViewModel(), template: RouteTemplate };
 });

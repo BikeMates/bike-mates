@@ -288,6 +288,7 @@
     <Content Include="Scripts\crossroads\signals.js" />
     <Content Include="Scripts\crossroads\signals.min.js" />
     <Content Include="Scripts\App_Scripts\GetUserIdWebApi.js" />
+    <Content Include="Scripts\require\async.js" />
     <Content Include="Scripts\require\text.js" />
     <Content Include="Scripts\App_Scripts\EditProfileScript.js" />
     <Content Include="Scripts\App_Scripts\LoginScript.js" />

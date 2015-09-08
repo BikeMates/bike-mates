@@ -3,6 +3,8 @@
     waitSeconds: 15,
     baseUrl: "/",
     paths: {
+        "async": 'Scripts/require/async',
+        "googlemap": "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize",
         "bootstrap": "Scripts/bootstrap",
         "crossroads": "Scripts/crossroads/crossroads",
         "jquery": "Scripts/jquery-1.10.2",
@@ -13,7 +15,6 @@
         "text": "Scripts/require/text",
         "captcha": "http://www.google.com/recaptcha/api",
         "jquery-ui": "/Scripts/jquery-ui",
-        "googlemap": "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize",
         "auth": "/Scripts/App_Scripts/AuthScript",
         "authmodel": "/Scripts/App_Scripts/AuthModelScript"
     },
