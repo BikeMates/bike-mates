@@ -24,9 +24,9 @@
                 error: function (data) {
                     var errors = []
                     var response = JSON.parse(data.responseText);
-                    errors.push(response.message);
+                    //errors.push(response.message);
                     for (key in response.modelState) {
-                        for (var i = 0; i < response.modelState[key].length; i++) {
+                        for (var i = 0; i < response.modelState[key].length; i = i+2) {
                             errors.push(response.modelState[key][i]);
                         }
                     }
