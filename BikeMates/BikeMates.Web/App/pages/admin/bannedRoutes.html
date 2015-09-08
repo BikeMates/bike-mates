@@ -4,7 +4,7 @@
     <li class="active"><strong>Baned routes</strong></li>
 </ul>
 <div style="margin-bottom:20px">
-    <input type="button" value="Unban" class="btn btn-default" data-bind="click: unban" />
+    <input type="button" value="Unban" class="btn btn-success" data-bind="click: unban, visible: NotEmpty" />
 </div>
 <div class="list-group" data-bind="foreach: routes.currentPageData">
     <div class="list-group-item">

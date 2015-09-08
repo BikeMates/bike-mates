@@ -3,7 +3,7 @@
     <li><a href="#bannedroutes"><strong>Baned routes</strong></a></li>
 </ul>
 <div style="margin-bottom:20px">
-<input type="button" value="Unban" class="btn btn-default" data-bind="click: unban" />
+    <input type="button" value="Unban" class="btn btn-success" data-bind="click: unban, visible: NotEmpty" />
 </div>
 <div class="list-group" class="banned" data-bind="foreach: users.currentPageData">
     <div class="list-group-item">
