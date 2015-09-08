@@ -18,8 +18,11 @@
         "authmodel": "/Scripts/App_Scripts/AuthModelScript"
     },
     shim: {
+        shim: {
         'knockout': { deps: [ 'jquery'] },
-        "bootstrap": { deps: ["jquery"] },
-        "jquery-ui": { deps: ["jquery"] }
+        'bootstrap': { deps: ['jquery'] },
+        'jquery-ui': { deps: ['jquery'] },
+        'googlemap': { exports: 'google'}
+        }
     }
 }

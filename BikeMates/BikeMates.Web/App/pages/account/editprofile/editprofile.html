@@ -30,12 +30,16 @@
             </h1>
             <ul data-bind="foreach: informationStatus" id="information_list">
                 <li>
-                    <span data-bind="text: $data"> </span>
+                    <div class="alert alert-success">
+                        <span data-bind="text: $data"> </span>
+                    </div>
                 </li>
             </ul>
             <ul data-bind="foreach: nameErrors" id="nameErrors_list">
                 <li>
-                    <span data-bind="text: $data"> </span>
+                    <div class="alert alert-danger">
+                        <span data-bind="text: $data"> </span>
+                    </div>
                 </li>
             </ul>
 
@@ -43,21 +47,26 @@
 
                 <div class="form-group">
                     <label for="usrname">First name:</label>
-                    <input type="text" class="form-control" id="usrname" value="Nazar" data-bind="textInput: FirstName" placeholder="Required" required>
+                    <input type="text" class="form-control" id="usrname" value="Nazar" data-bind="textInput: FirstName" placeholder="Required" required maxlength="15">
                 </div>
 
                 <div class="form-group">
                     <label for="usrscname">Last name:</label>
-                    <input type="text" class="form-control" id="usrscname" value="Popkov" data-bind="textInput: SecondName" placeholder="Required" required>
+                    <input type="text" class="form-control" id="usrscname" value="Popkov" data-bind="textInput: SecondName" placeholder="Required" required maxlength="15">
                 </div>
 
                 <hr />
                 <p> Change password </p>
                 <ul data-bind="foreach: passwordErrors" id="errors_list">
+
                     <li>
-                        <span data-bind="text: $data"> </span>
+                        <div class="alert alert-danger">
+                            <span data-bind="text: $data"> </span>
+                        </div>
                     </li>
+
                 </ul>
+
                 <div class="form-group" style="display:none">
                     <label for="opwd">Old password:</label>
                     <input type="password" class="form-control" id="phantompassword" autocomplete="off" style="display:none" data-bind="value: OldPassword">

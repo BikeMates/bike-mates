@@ -1,7 +1,7 @@
 ﻿<div >
     <div id="map"></div>
     <div class="container">
-        <form action="#" data-bind="submit: Save" class="form-horizontal" id="routeForm" method="post">
+        <form action="#" data-bind="submit: Save" class="form-horizontal" id="routeForm" method="put">
             <hr/>
             <div class="center">
                 <div class="form-inline">
@@ -38,10 +38,12 @@
                     </div>
                 </div>
                 <input id="MapData" data-bind="textInput: MapData" name="MapData" type="hidden" value=""/>
+                <input id="Id" data-bind="textInput: Id" name="Id" type="hidden" value="" />
 
                 <div class="form-inline pull-right">
+                    <input type="button" data-bind="click: Delete" class="btn btn-default" id="ClearMapButton" value="Delete route" />
                     <input type="button" data-bind="click: Clear" class="btn btn-default" id="ClearMapButton" value="Clear map"/>
-                    <input type="submit" class="btn btn-default" id="SaveRouteButton" value="Save"/>
+                    <input type="submit" class="btn btn-default" id="SaveRouteButton" value="Save changes"/>
                 </div>
             </div>
         </form>
