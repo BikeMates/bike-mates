@@ -47,8 +47,11 @@
         if (sessionStorage.getItem('authorized') != 'true') {
             window.location.href = "http://localhost:51949/#error?=401";
         }
-
-        self.initialize = function(allowEdit) {
+        setTimeout(function () {
+            initialize();
+            console.log('google maps initialized');
+        }, 50);
+        function initialize () {
             kiev = new google.maps.LatLng(50.464484293992086, 30.522704422473907);
             var mapOptions = {
                 zoom: 16,
