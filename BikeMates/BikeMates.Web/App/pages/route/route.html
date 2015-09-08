@@ -1,61 +1,118 @@
 ﻿<div>
     <!--<div class="row result-filter-row">
-        <table class="result-silter-itm" align="right">
-            <tbody data-bind="foreach: Subscribes.currentPageData">
+            <table class="result-silter-itm" align="right">
+                <tbody data-bind="foreach: Subscribes.currentPageData">
+                    <tr>
+                        <td class="result-silter-itm">
+                            <a href="" data-bind="attr:{href:  goToUser(id)}"><label data-bind="text: FirstName" /><label data-bind="text: SecondName" /></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <table align="right">
+            <tbody>
                 <tr>
-                    <td class="result-silter-itm">
-                        <a href="" data-bind="attr:{href:  goToUser(id)}"><label data-bind="text: FirstName" /><label data-bind="text: SecondName" /></a>
+                    <td>
+                        <div style="clear: both"></div>
+                        <a href="#" data-bind="click: Subscribes.moveFirst">First</a>
+                        <a href="#" data-bind="click: Subscribes.movePrevious">Previous</a>
+                        <a href="#" data-bind="click: Subscribes.moveNext">Next</a>
+                        <a href="#" data-bind="click: Subscribes.moveLast">Last</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <table align="right">
-        <tbody>
-            <tr>
-                <td>
-                    <div style="clear: both"></div>
-                    <a href="#" data-bind="click: Subscribes.moveFirst">First</a>
-                    <a href="#" data-bind="click: Subscribes.movePrevious">Previous</a>
-                    <a href="#" data-bind="click: Subscribes.moveNext">Next</a>
-                    <a href="#" data-bind="click: Subscribes.moveLast">Last</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>-->
-        <table align="left">
-            <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
-            <tr><td><label type="text" id="title" data-bind="text: title" /></td></tr>
-            <tr>
-                <td>
-                    <div style="height:500px; width:800px;" id="map"></div>
-                </td>
-            </tr>
-        </table>
-        <table align="center" class="pagination">
-            <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
-            <tr><td><label>Author: </label></td><td><a id="AuthorLink" href=""><label data-bind="text: Author" /></a><br /></td></tr>
-            <tr><td><label>Start: </label></td><td><label type="date" id="start" data-bind="text: start" /></td></tr>
-            <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" />km</td></tr>
-            <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
-            <tr><td><label>Description: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: description" /></td></tr>
-        </table>
-        <p>
-            <input type="image" src="../../../Content/Images/google-plus.png" alt="Share" width="48" height="48" onclick="Share.google('URL','TITLE','IMG_PATH','DESC')" />
-            <input type="image" src="../../../Content/Images/VK.com-logo.svg.png" alt="Share" width="45" height="45" onclick="Share.vkontakte('URL','TITLE','IMG_PATH','DESC')" />
-            <input type="image" src="../../../Content/Images/FB.png" alt="Share" width="52" height="52" onclick="Share.facebook('URL','TITLE','IMG_PATH','DESC')" />
-        </p>
-        <br />
+    </div>-->
 
-        <div class="form-group">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Route map</h3>
+        </div>
+        <div class="panel-body">
+
+
+            <table align="center">
+                <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+                <tr><td><label type="text" id="title" data-bind="text: title" /></td></tr>
+                <tr>
+                    <td>
+                        <div style="height:500px; width:1000px;" id="map"></div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Route information</h3>
+        </div>
+        <div class="panel-body">
+
+            <!--<table align="center" class="pagination">
+                <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+                <tr><td><label>Author: </label></td><td><label type="text" id="Author" data-bind="text: Author" /></td></tr>
+                <tr><td><label>Start: </label></td><td><label type="date" id="start" data-bind="text: start" /></td></tr>
+                <tr><td><label>Distance: </label></td><td><label type="number" id="distance" data-bind="text: distance" />km</td></tr>
+                <tr><td><label>Meeting Place: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: MeetingPlace" /></td></tr>
+                <tr><td><label>Description: </label></td><td><label type="text" id="MeetingPlace" data-bind="text: description" /></td></tr>
+            </table>-->
+
+            <div class="form-group">
+                <label>Author : </label>
+                <a id="AuthorLink" href=""><label data-bind="text: Author" /></a><br />
+            </div>
+            <div class="form-group">
+                <label>Start : </label>
+                <label id="start" type="date" data-bind="text : start" />
+            </div>
+            <div class="form-group">
+                <label>Distance : </label>
+                <label id="distance" type="number" data-bind="text : distance" />km
+            </div>
+            <div class="form-group">
+                <label>Meeting place : </label>
+                <label id="MeetingPlace" data-bind="text : MeetingPlace" />
+            </div>
+            <div class="form-group">
+                <label>Description : </label>
+                <label id="Description" data-bind="text : description" />
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Share route</h3>
+        </div>
+        <div class="panel-body">
+            <div id="wrapper" style="text-align: center">
+                <p>
+                    <input type="image" src="../../../Content/Images/google-plus.png" alt="Share" width="48" height="48" onclick="Share.google('URL','TITLE','IMG_PATH','DESC')" />
+                    <input type="image" src="../../../Content/Images/VK.com-logo.svg.png" alt="Share" width="45" height="45" onclick="Share.vkontakte('URL','TITLE','IMG_PATH','DESC')" />
+                    <input type="image" src="../../../Content/Images/FB.png" alt="Share" width="52" height="52" onclick="Share.facebook('URL','TITLE','IMG_PATH','DESC')" />
+                </p>
+            </div>
+            <br />
+            </>
+        </div>
+    </div>
+    <div id="wrapper" style="text-align: center">
+        <div class="form-group center">
             <div id="sub_div" data-bind="visible : sub_show">
                 <button type="button" class="btn btn-success" id="sub_btn" data-bind="click: subscribe " resource="">Subscribe</button>
             </div>
             <div id="unsub_div" data-bind="visible : unsub_show">
                 <button type="button" class="btn btn-danger" id="unsub_btn" data-bind="click: unsubscribe" resource="">Unsubscribe</button>
             </div>
+            <hr />
             <button type="button" class="btn btn-danger" data-bind="click: ban, visible: IsAdmin" resource="">Ban</button>
+
         </div>
-        <link rel="stylesheet" href="/Content/jquery-ui.css">
+
     </div>
+
+    <link rel="stylesheet" href="/Content/jquery-ui.css">
+
+</div>
