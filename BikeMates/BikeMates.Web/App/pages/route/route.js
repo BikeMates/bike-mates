@@ -177,6 +177,8 @@
                     var mapData = JSON.parse(response.mapData);
                     console.log("getRoute");
                     loadRoute(mapData);
+                    var author = JSON.parse(response.author);
+                    self.Author(author.FirstName + author.SecondName);
                     self.title(response.title);
                     self.description(response.description);
                     self.start(response.start);
